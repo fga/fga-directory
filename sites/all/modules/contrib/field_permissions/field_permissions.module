@@ -1,0 +1,208 @@
+<?php
+
+/**
+ * @file
+ * This is the main script for the Field Permissions module. It merely contains
+ * the implementation of hooks invoked by Drupal core and CCK.
+ * All common functions are externalized into several scripts that are included
+ * on demand to save memory consumption during normal site operation.
+ */
+
+/**
+ * Indicates that a field does not have any access control.
+ */
+define('FIELD_PERMISSIONS_PUBLIC', 0);
+
+/**
+ * Indicates that a field is private.
+ *
+ * Private fields are never displayed, and are only editable by the author (and
+ * by site administrators with the 'access private fields' permission).
+ */
+define('FIELD_PERMISSIONS_PRIVATE', 1);
+
+/**
+ * Indicates that a field has custom permissions.
+ */
+define('FIELD_PERMISSIONS_CUSTOM', 2);
+
+/**
+ * Implements hook_help().
+ */
+function field_permissions_help($path, $arg) {
+  switch ($path) {
+    // Main module help for the Field Permissions module.
+    case 'admin/help#field_permissions':
+      return '<p>' . t('Set field-level permissions to edit or view CCK fields in any node, edit field during node creation, and edit or view permissions for nodes owned by the current user.') . '</p>';
+
+    // Help for the Field Permissions overview page.
+    case 'admin/reports/fields/permissions':
+      return '<p>' . t('Report and troubleshoot field permissions.') . '</p>';
+  }
+}
+
+/**
+ * Implements hook_menu().
+ */
+function field_permissions_menu() {
+  $items['admin/reports/fields/list'] = array(
+    'title' => 'List',
+    'type' => MENU_DEFAULT_LOCAL_TASK,
+    'weight' => -10,
+  );
+  $items['admin/reports/fields/permissions'] = array(
+    'title' => 'Permissions',
+    'description' => 'Report and troubleshoot field permissions.',
+    'page callback' => 'field_permissions_overview',
+    'access arguments' => array('administer field permissions'),
+    'file' => 'field_permissions.admin.inc',
+    'type' => MENU_LOCAL_TASK,
+    'weight' => 0,
+  );
+  return $items;
+}
+
+/**
+ * Implementation of hook_permission().
+ */
+function field_permissions_permission() {
+  module_load_include('inc', 'field_permissions', 'field_permissions.admin');
+  return _field_permissions_permission();
+}
+
+/**
+ * Implements of hook_form_FORM_ID_alter().
+ */
+function field_permissions_form_field_ui_field_edit_form_alter(&$form, &$form_state, $form_id) {
+  // Injects the Field Permissions settings on the Edit field tab.
+  form_load_include($form_state, 'inc', 'field_permissions', 'field_permissions.admin');
+  return _field_permissions_field_settings_form_alter($form, $form_state, $form_id);
+}
+
+/**
+ * Implementation of hook_field_access().
+ *
+ * @param $op
+ *   The operation to be performed. Possible values:
+ *   - 'edit'
+ *   - 'view'
+ * @param $field
+ *   The field on which the operation is to be performed.
+ * @param $obj_type
+ *   The type of $object; e.g. 'node' or 'user'.
+ * @param $object
+ *   The object on which the operation is to be performed.
+ * @param $account
+ *   The account to check.
+ *
+ * @return
+ *   FALSE if the operation is not allowed.
+ *   Note when field_access() is invoked, access is granted unless one
+ *   implementation of hook_field_access() explicitly returns FALSE.
+ *
+ * @see field_access()
+ */
+function field_permissions_field_access($op, $field, $obj_type, $object, $account) {
+  // Ignore the request if permissions have not been enabled for this field.
+  if (!isset($field['field_permissions']['type']) || $field['field_permissions']['type'] == FIELD_PERMISSIONS_PUBLIC) {
+    return;
+  }
+  // If the field is private, then only the author (and administrators with the
+  // 'access private fields' permissions) can view and edit it.
+  elseif ($field['field_permissions']['type'] == FIELD_PERMISSIONS_PRIVATE) {
+    if (user_access('access private fields', $account)) {
+      return TRUE;
+    }
+    else {
+      if (!isset($object) && $op == 'view') {
+        // See comments in _field_permissions_field_view_access() about why we
+        // need to return TRUE in this situation for Views to work correctly
+        // (and why it should be safe to do so).
+        return TRUE;
+      }
+      else {
+        return _field_permissions_object_is_owned_by_account($object, $account);
+      }
+    }
+  }
+  // Otherwise, check access by permission.
+  elseif ($field['field_permissions']['type'] == FIELD_PERMISSIONS_CUSTOM) {
+    if ($op == 'view') {
+      return _field_permissions_field_view_access($field['field_name'], $obj_type, $object, $account);
+    }
+    elseif ($op == 'edit') {
+      return _field_permissions_field_edit_access($field['field_name'], $obj_type, $object, $account);
+    }
+  }
+}
+
+/**
+ * Implementation of hook_field_access('view').
+ */
+function _field_permissions_field_view_access($field_name, $obj_type, $object, $account) {
+  // Check if user has access to view this field in any object.
+  if (user_access('view ' . $field_name, $account)) {
+    return TRUE;
+  }
+
+  // If the user has permission to view objects that they own, return TRUE if
+  // they own this object or FALSE if they don't.
+  if (user_access('view own ' . $field_name, $account)) {
+
+    // When field_access('view') is invoked, it may or may not provide
+    // an object. It will, almost always, except when this function is
+    // invoked as a field access callback from Views, where it is used to
+    // evaluate if the field can be included in the query itself. In this
+    // case we should grant access. Views will invoke field_access('view')
+    // again, indirectly, when rendering the fields using field_view_field(),
+    // and at that point the object will be passed along, so we can do the
+    // proper check for object ownership then.
+    if (!isset($object)) {
+      return TRUE;
+    }
+
+    return _field_permissions_object_is_owned_by_account($object, $account);
+  }
+
+  return FALSE;
+}
+
+/**
+ * Implementation of hook_field_access('edit').
+ */
+function _field_permissions_field_edit_access($field_name, $obj_type, $object, $account) {
+  // Check if the object is already created.
+  // @TODO: There is an exception warning that is issued here, hence the @. We
+  // should remove the @ when the Drupal core bug is fixed. You can find the
+  // bug here: http://drupal.org/node/1301522
+  list($id, $vid, $bundle) = @entity_extract_ids($obj_type, $object);
+
+  // Check if user has access to edit this field on object creation.
+  if (!isset($id)) {
+    return user_access('create ' . $field_name, $account);
+  }
+
+  // Check if user has access to edit this field in any object.
+  if (user_access('edit ' . $field_name, $account)) {
+    return TRUE;
+  }
+
+  // If the user has permission to edit objects that they own, check if they
+  // own this object and return TRUE if they do.
+  if (user_access('edit own ' . $field_name, $account) && _field_permissions_object_is_owned_by_account($object, $account)) {
+    return TRUE;
+  }
+
+  return FALSE;
+}
+
+/**
+ * Returns TRUE if an object is owned by a user account, FALSE otherwise.
+ */
+function _field_permissions_object_is_owned_by_account($object, $account) {
+  // Try to get the uid of the object owner from the object itself. If it's not
+  // set (for example, if the object type does not store a uid or does not have
+  // a concept of "ownership"), we need to assume that the provided user
+  // account does not own it.
+  return isset($object->uid) && $object->uid == $account->uid;
+}
