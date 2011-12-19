@@ -20,6 +20,13 @@ class view extends views_db_object {
   var $base_table = 'node';
   var $base_field = 'nid';
 
+  /**
+   * The name of the view.
+   *
+   * @var string
+   */
+  var $name = "";
+
   // State variables
   var $built = FALSE;
   var $executed = FALSE;
@@ -602,6 +609,39 @@ class view extends views_db_object {
   }
 
   /**
+   * Prepare arguments and set default args to args.
+   */
+  function _pre_query_argument() {
+    // build arguments.
+    $position = -1;
+
+    // Iterate through each argument and process.
+    foreach ($this->argument as $id => $arg) {
+      $position++;
+      $argument = &$this->argument[$id];
+
+      if ($argument->broken()) {
+        continue;
+      }
+
+      $arg = isset($this->args[$position]) ? $this->args[$position] : NULL;
+      $argument->position = $position;
+
+      if (isset($arg) || $argument->has_default_argument()) {
+        if (!isset($arg)) {
+          $arg = $argument->get_default_argument();
+          // make sure default args get put back.
+          if (isset($arg)) {
+            $this->args[$position] = $arg;
+          }
+          // remember that this argument was computed, not passed on the URL.
+          $argument->is_default = TRUE;
+        }
+      }
+    }
+  }
+
+  /**
    * Build all the arguments.
    */
   function _build_arguments() {
@@ -637,17 +677,7 @@ class view extends views_db_object {
       $arg = isset($this->args[$position]) ? $this->args[$position] : NULL;
       $argument->position = $position;
 
-      if (isset($arg) || $argument->has_default_argument()) {
-        if (!isset($arg)) {
-          $arg = $argument->get_default_argument();
-          // make sure default args get put back.
-          if (isset($arg)) {
-            $this->args[$position] = $arg;
-          }
-          // remember that this argument was computed, not passed on the URL.
-          $argument->is_default = TRUE;
-        }
-
+      if (isset($arg)) {
         // Set the argument, which will also validate that the argument can be set.
         if (!$argument->set_argument($arg)) {
           $status = $argument->validate_fail($arg);
@@ -664,7 +694,7 @@ class view extends views_db_object {
 
         // Add this argument's substitution
         $substitutions['%' . ($position + 1)] = $arg_title;
-        $substitutions['!' . ($position + 1)] = strip_tags(html_entity_decode($arg));
+        $substitutions['!' . ($position + 1)] = strip_tags(decode_entities($arg));
 
         // Since we're really generating the breadcrumb for the item above us,
         // check the default action of this argument.
@@ -786,6 +816,9 @@ class view extends views_db_object {
 
     // Run through our handlers and ensure they have necessary information.
     $this->init_handlers();
+
+    // Setup the default arguments.
+    $this->_pre_query_argument();
 
     // Let the handlers interact with each other if they really want.
     $this->_pre_query();
@@ -1009,6 +1042,16 @@ class view extends views_db_object {
       // Initialize the style plugin.
       $this->init_style();
 
+      // Give field handlers the opportunity to perform additional queries
+      // using the entire resultset prior to rendering.
+      if ($this->style_plugin->uses_fields()) {
+        foreach ($this->field as $id => $handler) {
+          if (!empty($this->field[$id])) {
+            $this->field[$id]->pre_render($this->result);
+          }
+        }
+      }
+
       $this->style_plugin->pre_render($this->result);
 
       // Let modules modify the view just prior to rendering it.
@@ -1023,15 +1066,6 @@ class view extends views_db_object {
         $function($this);
       }
 
-      // Give field handlers the opportunity to perform additional queries
-      // using the entire resultset prior to rendering.
-      if ($this->style_plugin->uses_fields()) {
-        foreach ($this->field as $id => $handler) {
-          if (!empty($this->field[$id])) {
-            $this->field[$id]->pre_render($this->result);
-          }
-        }
-      }
       $this->display_handler->output = $this->display_handler->render();
       if ($cache) {
         $cache->cache_set('output');
