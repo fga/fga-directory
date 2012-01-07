@@ -1,0 +1,24 @@
+name = Location Feeds
+description = Provides location mappers for feed importers
+core = 7.x
+dependencies[] = feeds
+dependencies[] = location
+package = Feeds
+files[] = location_feeds.module
+files[] = tests/location_feeds.cck.test
+files[] = tests/location_feeds.dms.test
+files[] = tests/location_feeds.georss.test
+files[] = tests/location_feeds.node.test
+files[] = tests/location_feeds.test.inc
+files[] = tests/location_feeds.user.test
+files[] = tests/feeds/location_dms.csv
+files[] = tests/feeds/location_georss.csv
+files[] = tests/feeds/location_nodes.csv
+files[] = tests/feeds/location_users.csv
+
+; Information added by drupal.org packaging script on 2011-07-21
+version = "7.x-1.4"
+core = "7.x"
+project = "location_feeds"
+datestamp = "1311275821"
+
