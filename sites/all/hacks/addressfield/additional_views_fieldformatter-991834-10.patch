@@ -1,0 +1,62 @@
+diff --git a/addressfield.module b/addressfield.module
+index 06affd4..0687c7e 100644
+--- a/addressfield.module
++++ b/addressfield.module
+@@ -519,16 +519,24 @@ function addressfield_standard_widget_refresh($form, $form_state) {
+  * Implements hook_field_formatter_info().
+  */
+ function addressfield_field_formatter_info() {
+-  return array(
+-    'addressfield_default' => array(
+-      'label' => t('Default'),
+-      'field types' => array('addressfield'),
+-      'settings' => array(
+-        'use_widget_handlers' => 1,
+-        'format_handlers' => array('address'),
+-      ),
++  $data_property_info = addressfield_data_property_info();
++
++  $field_formatter = array();
++  $field_formatter['addressfield_default'] = array(
++    'label' => t('Default'),
++    'field types' => array('addressfield'),
++    'settings' => array(
++      'use_widget_handlers' => 1,
++      'format_handlers' => array('address'),
+     ),
+   );
++  foreach ($data_property_info as $delta => $item) {
++    $field_formatter[$delta] = array(
++      'label' => t($item['label']),
++      'field types' => array('addressfield')
++    );
++  }
++  return $field_formatter;
+ }
+ 
+ /**
+@@ -628,6 +636,24 @@ function addressfield_field_formatter_view($entity_type, $entity, $field, $insta
+         $element[$delta] = addressfield_generate($address, $handlers, $context);
+       }
+       break;
++      
++    case 'country':
++      foreach ($items as $delta => $item) {
++        // Add the country name to the address.
++        include_once DRUPAL_ROOT . '/includes/locale.inc';
++        $countries = country_get_list();
++        $element[$delta] = array(
++            '#markup' => $countries[$item['country']],
++        );
++      }
++      break;
++      
++    default:
++      foreach ($items as $delta => $item) {
++        $element[$delta] = array(
++            '#markup' => $item[$display['type']],
++        );
++      }
+   }
+ 
+   return $element;
