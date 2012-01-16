@@ -775,3 +775,33 @@ function _addressfield_country_options_list($field = NULL, $instance = NULL) {
 
   return $countries;
 }
+
+/**
+ * Find all fields that are addressfields.
+ */
+function addressfield_get_address_fields() {
+  $fields = field_info_fields();
+  
+  // Detect which fields are address fields.
+  $address_fields = array();
+  foreach ($fields as $field_name => $field) {
+    if ($fields[$field_name]['type'] == 'addressfield') {
+      $address_fields[] = $field_name;
+    }
+  }
+  return $address_fields;
+}
+
+/**
+ * Implements hook_module_implements_alter().
+ * Adjusts module weight.
+ */
+function addressfield_module_implements_alter(&$implementations, $hook) {
+  if ($hook == 'token_info_alter') {
+    // Move address field to the end.
+    unset($implementations['addressfield']);
+    $implementations['addressfield'] = FALSE;
+  }
+}
+
+

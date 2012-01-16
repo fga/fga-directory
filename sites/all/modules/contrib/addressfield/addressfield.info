@@ -6,6 +6,7 @@ package = Fields
 dependencies[] = ctools
 
 files[] = views/addressfield_views_handler_filter_country.inc
+files[] = addressfield.tokens.inc
 
 ; Information added by drupal.org packaging script on 2011-09-01
 version = "7.x-1.0-beta2"
