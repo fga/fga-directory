@@ -486,7 +486,7 @@ $conf['404_fast_html'] = '<html xmlns="http://www.w3.org/1999/xhtml"><head><titl
  *
  * Remove the leading hash signs to disable.
  */
-# $conf['allow_authorize_operations'] = FALSE;
+$conf['allow_authorize_operations'] = FALSE;
 
 /**
  * Smart start:
