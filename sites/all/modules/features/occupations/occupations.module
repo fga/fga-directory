@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Occupations feature.
+ */
+
+include_once('occupations.features.inc');
