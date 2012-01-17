@@ -27,6 +27,13 @@ class view extends views_db_object {
    */
   var $name = "";
 
+  /**
+   * The id of the view, which is used only for views in the database.
+   *
+   * @var number
+   */
+  var $vid;
+
   // State variables
   var $built = FALSE;
   var $executed = FALSE;
@@ -53,12 +60,17 @@ class view extends views_db_object {
   // Exposed widget input
   var $exposed_data = array();
   var $exposed_input = array();
+  // Exposed widget input directly from the $form_state['values'].
+  var $exposed_raw_input = array();
 
   // Used to store views that were previously running if we recurse.
   var $old_view = array();
 
-  // To avoid recursion in views embebed into areas
+  // To avoid recursion in views embedded into areas.
   var $parent_views = array();
+
+  // Is the current stored view runned as an attachment to another view.
+  var $is_attachment = NULL;
 
   // Stores the next steps of form items to handle.
   // It's an array of stack items, which contain the form id, the type of form,
@@ -86,6 +98,13 @@ class view extends views_db_object {
    * @var views_plugin_display
    */
   var $display_handler;
+
+  /**
+   * Stores all display handlers of this view.
+   *
+   * @var array[views_display]
+   */
+  var $display;
 
   /**
    * The current used style plugin.
@@ -609,39 +628,6 @@ class view extends views_db_object {
   }
 
   /**
-   * Prepare arguments and set default args to args.
-   */
-  function _pre_query_argument() {
-    // build arguments.
-    $position = -1;
-
-    // Iterate through each argument and process.
-    foreach ($this->argument as $id => $arg) {
-      $position++;
-      $argument = &$this->argument[$id];
-
-      if ($argument->broken()) {
-        continue;
-      }
-
-      $arg = isset($this->args[$position]) ? $this->args[$position] : NULL;
-      $argument->position = $position;
-
-      if (isset($arg) || $argument->has_default_argument()) {
-        if (!isset($arg)) {
-          $arg = $argument->get_default_argument();
-          // make sure default args get put back.
-          if (isset($arg)) {
-            $this->args[$position] = $arg;
-          }
-          // remember that this argument was computed, not passed on the URL.
-          $argument->is_default = TRUE;
-        }
-      }
-    }
-  }
-
-  /**
    * Build all the arguments.
    */
   function _build_arguments() {
@@ -677,7 +663,17 @@ class view extends views_db_object {
       $arg = isset($this->args[$position]) ? $this->args[$position] : NULL;
       $argument->position = $position;
 
-      if (isset($arg)) {
+      if (isset($arg) || $argument->has_default_argument()) {
+        if (!isset($arg)) {
+          $arg = $argument->get_default_argument();
+          // make sure default args get put back.
+          if (isset($arg)) {
+            $this->args[$position] = $arg;
+          }
+          // remember that this argument was computed, not passed on the URL.
+          $argument->is_default = TRUE;
+        }
+
         // Set the argument, which will also validate that the argument can be set.
         if (!$argument->set_argument($arg)) {
           $status = $argument->validate_fail($arg);
@@ -816,9 +812,6 @@ class view extends views_db_object {
 
     // Run through our handlers and ensure they have necessary information.
     $this->init_handlers();
-
-    // Setup the default arguments.
-    $this->_pre_query_argument();
 
     // Let the handlers interact with each other if they really want.
     $this->_pre_query();
@@ -1037,6 +1030,11 @@ class view extends views_db_object {
     else {
       if ($cache) {
         $cache->cache_start();
+      }
+
+      // Run pre_render for the pager as it might change the result.
+      if (!empty($this->query->pager)) {
+        $this->query->pager->pre_render($this->result);
       }
 
       // Initialize the style plugin.
@@ -1535,69 +1533,6 @@ class view extends views_db_object {
     }
 
     $this->additional_queries = $temp;
-  }
-
-  /**
-   * Load a view from the database based upon either vid or name.
-   *
-   * This is a static factory method that implements internal caching for
-   * view objects.
-   *
-   * @param $arg
-   *  The name of the view or its internal view id (vid)
-   * @param $reset
-   *  If TRUE, reset this entry in the load cache.
-   * @return view
-   *   A view object or NULL if it was not available.
-   */
-  static function &load($arg, $reset = FALSE) {
-    static $cache = array();
-
-    // We want a NULL value to return TRUE here, so we can't use isset() or empty().
-    if (!array_key_exists($arg, $cache) || $reset) {
-      $result = db_select('views_view', 'v')
-        ->fields('v')
-        ->condition(is_numeric($arg) ? 'vid' : 'name', $arg)
-        ->execute();
-      if ($result->rowCount() == 0) {
-        $cache[$arg] = NULL;
-      }
-      else {
-        $view = new view();
-        $view->load_row($result->fetchObject());
-        $view->type = t('Normal');
-        // Load all of our subtables.
-        foreach ($view->db_objects() as $key) {
-          $object_name = "views_$key";
-          $result = db_select($object_name, 'v')
-            ->fields('v')
-            ->condition('vid', $view->vid)
-            ->orderBy('position')
-            ->execute();
-          foreach ($result as $data) {
-            $object = new $object_name(FALSE);
-            $object->load_row($data);
-
-            // Because it can get complicated with this much indirection,
-            // make a shortcut reference.
-            $location = &$view->$key;
-
-            // If we have a basic id field, load the item onto the view based on
-            // this ID, otherwise push it on.
-            if (!empty($object->id)) {
-              $location[$object->id] = $object;
-            }
-            else {
-              $location[] = $object;
-            }
-          }
-        }
-        $view->loaded = TRUE;
-        $cache[$arg] = $view;
-      }
-    }
-
-    return $cache[$arg];
   }
 
   /**
