@@ -14,7 +14,7 @@
 Drupal.behaviors.permissions = {
   attach: function (context) {
     var self = this;
-    $('table#permissions').once('permissions', function () {
+    $('form#user-admin-permissions table#permissions').once('permissions', function () {
       // On a site with many roles and permissions, this behavior initially has
       // to perform thousands of DOM manipulations to inject checkboxes and hide
       // them. By detaching the table from the DOM, all operations can be
