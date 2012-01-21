@@ -5,9 +5,9 @@ core = 7.x
 dependencies[] = libraries
 dependencies[] = ctools
 
-; Information added by drupal.org packaging script on 2011-10-03
+; Information added by drupal.org packaging script on 2012-01-19
 version = "7.x-1.x-dev"
 core = "7.x"
 project = "geocoder"
-datestamp = "1317601370"
+datestamp = "1326932970"
 

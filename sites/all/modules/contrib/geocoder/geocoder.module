@@ -17,6 +17,28 @@ function geocoder() {
   return $geometry;
 }
 
+
+
+/**
+ * Implements hook_menu().
+ */
+function  geocoder_menu() {
+  // Admin settings for the site.
+  $items['admin/config/content/geocoder'] = array(
+    'title' => 'Geocoder settings',
+    'description' => 'Configuration for API keys.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('geocoder_admin_settings'),
+    'file' => 'geocoder.admin.inc',
+    'access arguments' => array('administer site configuration'),
+    'type' => MENU_NORMAL_ITEM, // optional
+  );
+  return $items;
+}
+
+
+
+
 /**
  * Return a list of all handlers that might geocoder something for you.
  */
