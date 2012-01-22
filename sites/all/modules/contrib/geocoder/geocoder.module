@@ -430,7 +430,6 @@ function geocoder_get_active_geofields() {
  * Implementes hook_entity_presave().
  */
 function geocoder_entity_presave($entity, $entity_type) {
-print 'here';
   $info = entity_get_info($entity_type);
   list(,, $bundle) = entity_extract_ids($entity_type, $entity);
 
