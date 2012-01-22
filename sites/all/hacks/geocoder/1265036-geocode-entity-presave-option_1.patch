@@ -1,0 +1,138 @@
+diff --git a/geocoder.module b/geocoder.module
+index bfd7137..1273547 100644
+--- a/geocoder.module
++++ b/geocoder.module
+@@ -109,6 +109,11 @@ function geocoder_field_widget_info() {
+     'geocoder' => array(
+       'label' => t('Geocode from another field'),
+       'field types' => array('geofield'),
++      'settings' => array(
++        'geocoder_presave' => 0,
++        'geocoder_field' => '',
++        'geocoder_hander' => '',
++      ),
+     ),
+   );
+ }
+@@ -164,6 +169,14 @@ function geocoder_field_widget_settings_form($this_field, $instance) {
+     }
+   }
+ 
++  $form['geocoder_presave'] = array(
++    '#type' => 'checkbox',
++    '#title' => t('Geocode on Save'),
++    '#default_value' => isset($settings['geocoder_presave']) ? $settings['geocoder_presave']: 0,
++    '#options' => array(0 => t('Geocode only on Form Submission'), 1 => t('Geocode only on Save')),
++    '#description' => t('Select if you want to geocode on any save operation, or only from form submissions.'),
++  );
++
+   $form['geocoder_field'] = array(
+     '#type' => 'select',
+     '#title' => t('Geocode from field'),
+@@ -186,6 +199,8 @@ function geocoder_field_widget_settings_form($this_field, $instance) {
+     '#required' => TRUE,
+   );
+ 
++
++
+   drupal_add_js(array('geocoder_widget_settings' => array('handlers' => $handlers_by_type, 'types' => $field_types)),'setting');
+   drupal_add_js(drupal_get_path('module','geocoder').'/geocoder.admin.js','file');
+ 
+@@ -204,8 +219,10 @@ function geocoder_field_widget_form(&$form, &$form_state, $field, $instance, $la
+ 
+   $element['wkt'] = array(
+    '#type' => 'hidden',
+-   '#element_validate' => array('geocoder_widget_validate'),
+   );
++  if (!$instance['widget']['settings']['geocoder_presave']) {
++    $element['wkt']['#element_validate'] = array('geocoder_widget_validate');
++  }
+   $element['geocoder_target'] = array(
+    '#type' => 'hidden',
+    '#value' => $instance['field_name'],
+@@ -282,10 +299,10 @@ function geocoder_widget_validate_walkthrough(&$field, $form_state, $parent = NU
+   if (is_array($field)) {
+     // Set the language based on the form state.
+     $lang = isset($form_state['values']['language']) ? $form_state['values']['language'] : LANGUAGE_NONE;
+-    
+-    // If default language is set but content isnt translatable it is still 'und' on the fields. 
++
++    // If default language is set but content isnt translatable it is still 'und' on the fields.
+     if (!isset($field[$lang])) $lang = LANGUAGE_NONE;
+-    
++
+     if ((!empty($field[$lang][0]['geocoder_source']) && !empty($field[$lang][0]['geocoder_target']) && !empty($field[$lang][0]['geocoder_handler']))) {
+       // We found a source/target/handler set, let's do this.
+ 
+@@ -354,3 +371,70 @@ function geocoder_widget_validate_walkthrough(&$field, $form_state, $parent = NU
+     }
+   }
+ }
++
++
++/**
++ * Implements hook_entity_info_alter().
++ */
++function geocoder_entity_info_alter(&$info) {
++
++  $fields = geocoder_get_active_geofields();
++
++  if ($fields) {
++    foreach($fields as $entity => $field_info) {
++      $info[$entity]['geocoderr'][$field_info['bundle']] = $field_info['field_name'];
++    }
++  }
++}
++
++
++function geocoder_get_active_geofields() {
++
++  static $info;
++
++  if (!isset($info)) {
++    $query = db_select('field_config', 'fc', array('fetch' => PDO::FETCH_ASSOC));
++    $query->join('field_config_instance', 'fci', 'fc.id = fci.field_id');
++    $query->fields('fci', array('field_name', 'entity_type', 'bundle'));
++    $query->condition('fc.type', 'geofield', '=');
++    $query->condition('fc.active', 1);
++    $info = $query->execute()->fetchAllAssoc('entity_type');
++  }
++
++  return $info;
++}
++
++/*
++ * Implementes hook_entity_presave().
++ */
++function geocoder_entity_presave($entity, $entity_type) {
++
++  $info = entity_get_info($entity_type);
++  list(,, $bundle) = entity_extract_ids($entity_type, $entity);
++
++  if (isset($info['geocoderr'][$bundle])) {
++    $target_field = $info['geocoderr'][$bundle];
++    $instance = field_info_instance($entity_type, $target_field, $bundle);
++    $settings = $instance['widget']['settings'];
++
++    if ($settings['geocoder_presave']) {
++      $source_field = key($settings['geocoder_field']);
++      $handler = geocoder_get_handler($settings['geocoder_handler']);
++      $field_values = field_get_items($entity_type, $entity, $source_field);
++      $field_info = field_info_field($source_field);
++
++      foreach($field_values as $delta => $field_value) {
++        try {
++          $geometry = call_user_func($handler['field_callback'], $field_info, $field_value);
++        }
++        catch(Exception $e) {
++          drupal_set_message($e->getMessage(),'error');
++          return;
++        }
++        if ($geometry) {
++          $entity->{$target_field}[LANGUAGE_NONE][$delta] = geofield_get_values_from_geometry($geometry);
++        }
++      }
++    }
++  }
++}
+\ No newline at end of file
