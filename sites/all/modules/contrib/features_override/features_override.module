@@ -1,0 +1,465 @@
+<?php
+// $Id: features_override.module,v 1.9 2011/02/16 00:28:48 nedjo Exp $
+
+/**
+ * @file
+ * Export features component overrides.
+ */
+
+/**
+ * Minimum CTools version needed.
+ */
+define('FEATURES_OVERRIDE_REQUIRED_CTOOLS_API', '1.7');
+
+/**
+ * Key to use when marking properties for recursion.
+ */
+define('FEATURES_OVERRIDE_RECURSION_MARKER', 'features_override_recursion_marker');
+
+/**
+ * Implementation of hook_init().
+ */
+function features_override_init() {
+  module_load_include('inc', 'features_override', 'features_override.alter');
+  foreach (module_list() as $module) {
+    // Safe to call as it tests for the file before loading.
+    module_load_include('inc', 'features_override', "modules/$module.features_override");
+  }
+}
+
+/**
+ * Implementation of hook_menu().
+ */
+function features_override_menu() {
+  $items = array();
+  $items['admin/structure/features/features-override/extend'] = array(
+    'type' => MENU_LOCAL_ACTION,
+    'title' => 'Extend',
+    'description' => 'Add support for additional feature components',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('features_override_extend'),
+    'access arguments' => array('administer site configuration'),
+    'file' => 'features_override.extend.inc',
+    'weight' => 10,
+  );
+  return $items;
+}
+
+/**
+ * Implementation of hook_menu_alter().
+ */
+function features_override_menu_alter(&$items) {
+  if (isset($items['admin/structure/features/features-override'])) {
+    $items['admin/structure/features/features-override']['type'] = MENU_LOCAL_TASK;
+    $items['admin/structure/features/features-override']['weight'] = 10;
+  }
+}
+
+/**
+ * Implementation of hook_ctools_plugin_api().
+ */
+function features_override_ctools_plugin_api($module, $api) {
+  if ($module == 'features_override' && $api == 'plugins') {
+    return array('version' => 1);
+  }
+}
+
+/**
+ * Implementation of hook_ctools_plugin_directory().
+ */
+function features_override_ctools_plugin_directory($module, $type) {
+  // Safety: go away if CTools is not at an appropriate version.
+  if (!module_invoke('ctools', 'api_version', FEATURES_OVERRIDE_REQUIRED_CTOOLS_API)) {
+    return;
+  }
+
+  if ($module == 'ctools' && $type =='export_ui') {
+    return 'plugins/' . $type;
+  }
+}
+
+/**
+ * Inserts or updates a features_override object into the database.
+ *
+ * @param $features_override
+ *   The features_override object to be inserted.
+ *
+ * @return
+ *   Failure to write a record will return FALSE. Otherwise SAVED_NEW or
+ *   SAVED_UPDATED is returned depending on the operation performed.
+ */
+function features_override_save($features_override) {
+  ctools_include('export');
+  return ctools_export_crud_save('features_override', $features_override);
+}
+
+/**
+ * Deletes an existing features_override.
+ *
+ * @param $features_override
+ *   The features_override object to be deleted.
+ */
+function features_override_delete($features_override) {
+  ctools_include('export');
+  ctools_export_crud_delete('features_override', $features_override);
+}
+
+/**
+ * Load all features overrides.
+ */
+function features_override_load_all($reset = FALSE) {
+  ctools_include('export');
+  if ($reset) {
+    ctools_export_load_object_reset('features_override');
+  }
+  return ctools_export_load_object('features_override', 'all');
+}
+
+/**
+ * Return the component types that can be overridden.
+ *
+ * Allow components to declare themselves 'overridable' but explicitly exclude
+ * component types unlikely to override cleanly.
+ *
+ * @return
+ *   Array of component types.
+ */
+function features_override_supported_components($hooks = FALSE, $reset = FALSE) {
+
+  if ($reset) {
+    cache_clear_all('features_override:components', 'cache');
+  }
+  else {
+    $components = cache_get('features_override:components');
+    if (isset($components) && is_array($components)) {
+      return $hooks ? $components : drupal_map_assoc(array_keys($components));
+    }
+  }
+  $components = array();
+  foreach (features_get_components() as $component => $info) {
+    // Don't offer an override for overriding!
+    if (isset($info['default_hook']) && module_hook('features_override', $info['default_hook'] . '_alter')) {
+      $components[$component] = $info['default_hook'];
+    }
+  }
+  // Allow modules to alter the compontents before caching.
+  drupal_alter('features_override_supported_components', $components);
+  cache_set('features_override:components', $components);
+
+  return $hooks ? $components : drupal_map_assoc(array_keys($components));
+}
+
+/**
+ * Clear features_override cache on admin/modules form.
+ */
+function features_override_form_system_modules_alter(&$form, $form_state) {
+  features_override_supported_components(FALSE, TRUE);
+}
+
+/**
+ * Get an array of current overrides.
+ */
+function features_override_get_overrides() {
+  // Clear & rebuild key caches.
+  features_rebuild();
+  features_get_info(NULL, NULL, TRUE);
+  $overrides = array();
+  $features = features_get_features();
+  foreach ($features as $name => $module) {
+    if ($features_overrides = features_override_detect_overrides($module)) {
+      $overrides = array_merge_recursive($overrides, $features_overrides);
+    }
+  }
+
+  return $overrides;
+}
+
+/**
+ * Detect differences between DB and code components of a feature.
+ */
+function features_override_detect_overrides($module) {
+  static $cache;
+  if (!isset($cache)) {
+    $cache = array();
+  }
+  if (!isset($cache[$module->name])) {
+    // Rebuild feature from .info file description and prepare an export from current DB state.
+    $export = features_populate($module->info['features'], $module->info['dependencies'], $module->name);
+    $export = features_export_prepare($export, $module->name);
+    $overrides = array();
+
+    // Collect differences at a per-component level
+    $states = features_get_component_states(array($module->name), FALSE);
+    foreach ($states[$module->name] as $component => $state) {
+      // Only accept supported components.
+      if (in_array($component, features_override_supported_components()) && $state != FEATURES_DEFAULT) {
+        $normal = features_get_normal($component, $module->name);
+        $default = features_get_default($component, $module->name);
+        // Can't use _features_sanitize as that resets some keys.
+        _features_override_sanitize($normal);
+        _features_override_sanitize($default);
+        $component_overrides = array();
+        if ($normal && is_array($normal) || is_object($normal)) {
+          foreach ($normal as $name => $properties) {
+            $component_overrides[$name] = array('additions' => array(), 'deletions' => array());
+            // TODO: handle the case of added components.
+            if (isset($default[$name])) {
+              _features_override_set_additions($default[$name], $properties, $component_overrides[$name]['additions']);
+              _features_override_leave_hive($default[$name]);
+              _features_override_set_deletions($default[$name], $properties, $component_overrides[$name]['deletions']);
+              _features_override_leave_hive($default[$name]);
+            }
+
+            if (empty($component_overrides[$name]['additions']) && empty($component_overrides[$name]['deletions'])) {
+              unset($component_overrides[$name]);
+            }
+          }
+          if (!empty($component_overrides)) {
+            $overrides[$component] = $component_overrides;
+          }
+        }
+      }
+    }
+    $cache[$module->name] = $overrides;
+  }
+  return $cache[$module->name];
+}
+
+/**
+ * "Sanitizes" an array recursively, performing:
+ * - Sort an array by its keys (assoc) or values (non-assoc).
+ */
+function _features_override_sanitize(&$array) {
+  if (is_array($array)) {
+    $is_assoc = (array_keys($array) !== range(0, count($array) - 1));
+    if ($is_assoc) {
+      ksort($array);
+    }
+    else {
+      sort($array);
+    }
+    foreach ($array as $k => $v) {
+      if (is_array($v)) {
+        _features_override_sanitize($array[$k]);
+      }
+    }
+  }
+}
+/**
+ * Override standard ctools export to add dependency data.
+ */
+function features_override_features_export($data, &$export, $module_name = "") {
+  $return = ctools_component_features_export('features_override', $data, $export, $module_name);
+  $map = features_get_component_map();
+  if (!isset($export['dependencies'])) {
+    $export['dependencies'] = array();
+  }
+
+  foreach($data as $component) {
+    // This function will only be called in the context of a features export so we can assume ctools export.inc
+    // has been loaded.
+    $component = ctools_export_crud_load('features_override', $component);
+    if (isset($map[$component->component_type]) && isset($map[$component->component_type][$component->component_id])) {
+      $export['dependencies'] = array_merge($export['dependencies'], drupal_map_assoc($map[$component->component_type][$component->component_id]));
+    }
+  }
+  return $return;
+}
+
+/**
+ * Override standard ctools export options to exclude a current feature's overrides.
+ */
+function features_override_features_export_options() {
+  $options = ctools_component_features_export_options('features_override');
+  if ($current_feature = menu_get_object('feature', 3)) {
+    $map = features_get_component_map();
+    foreach ($options as $option) {
+      $component = ctools_export_crud_load('features_override', $option);
+       if (isset($map[$component->component_type]) && isset($map[$component->component_type][$component->component_id] ) && in_array($current_feature->name, $map[$component->component_type][$component->component_id])) {
+        unset($options[$option]);
+      }
+    }
+  }
+  return $options;
+}
+
+/**
+ * Export a set of alters.
+ *
+ * Not currently used.
+ */
+function features_override_export($alters) {
+  $prefix = '  ';
+  foreach ($alters as $alter) {
+    if (isset($alter['value'])) {
+      $line = $prefix . ' $items';
+      foreach ($alter['keys'] as $key) {
+        if ($key['type'] == 'object') {
+          $line .= '->' . $key['key'];
+        }
+        else {
+          $line .= "['" . $key['key'] . "']";
+        }
+      }
+      $line .= ' = ' . features_var_export($alter['value'], $prefix, FALSE) . ";\n";
+      $code .= $line;
+    }
+    else {
+      $line = '  unset($items';
+      foreach ($alter['keys'] as $key) {
+        if ($key['type'] == 'object') {
+          $line .= '->' . $key['key'];
+        }
+        else {
+          $line .= "['" . $key['key'] . "']";
+        }
+      }
+      $line .= ");\n";
+      $code .= $line;
+    }
+  }
+  return $code;
+}
+
+
+/**
+ * Add a variable to the hive of arrays and objects which 
+ * are tracked for whether they have recursive entries
+ *
+ * @param &$bee
+ *   Array or object.
+ * @return
+ *   Array all the bees.
+ */
+function _features_override_hive(&$bee = NULL) {
+  static $bees = array();
+
+  // New bee ?
+  if (!is_null($bee)) {
+    // Stain it.
+    $recursion_marker = FEATURES_OVERRIDE_RECURSION_MARKER;
+    (is_object($bee))
+      ? @($bee->$recursion_marker++)
+      : @($bee[$recursion_marker]++);
+
+    $bees[0][] =& $bee;
+  }
+
+  // Return all bees.
+  return $bees[0];
+}
+
+/**
+ * Remove markers from previously marked elements.
+ */
+function _features_override_leave_hive() {
+  $hive = _features_override_hive();
+  foreach($hive as $i => $bee){
+    $recursion_marker = FEATURES_OVERRIDE_RECURSION_MARKER;
+    if (is_object($bee)) {
+      unset($hive[$i]->$recursion_marker);
+    }
+    else {
+      unset($hive[$i][$recursion_marker]);
+    }
+  }
+}
+
+/**
+ * Return a marker of recursion.
+ */
+function _features_override_recursion_marker(&$normal, $object) {
+  _features_override_hive($normal);
+  // Test for references in order to
+  // prevent endless recursion loops.
+  $recursion_marker = FEATURES_OVERRIDE_RECURSION_MARKER;
+  $r = ($object)
+	  ? @$normal->$recursion_marker
+	  : @$normal[$recursion_marker] ;
+  $r = (integer) $r;
+  return $r;
+}
+
+/**
+ * Helper function to set the additions and alters between default and normal components.
+ */
+function _features_override_set_additions($default, $normal, &$additions, $keys = array()) {
+  $object = is_object($normal);
+
+  // Recursion detected.
+  if (_features_override_recursion_marker($default, $object) > 1) {
+    return;
+  }
+
+  foreach ($normal as $key => $value) {
+    // Don't register extra fields as an override.
+    // The 'content_has_extra_fields' flag is added to indicate that there are added fields.
+    // However, these should simply be added to a feature as fields; they are not an override.
+    // Ignore the marker used to track detect recursion.
+    if (in_array($key, array('content_has_extra_fields', FEATURES_OVERRIDE_RECURSION_MARKER))) {
+      return;
+    }
+    if ($object) {
+      if (!isset($default->$key) || ($default->$key != $value && !(is_array($value) || is_object($value)))) {
+        $additions[] = array(
+          'keys' => array_merge($keys, array(array('type' => 'object', 'key' => $key))),
+          'value' => $value,
+        );
+      }
+      elseif (isset($default->$key) && $default->$key != $value) {
+        _features_override_set_additions($default->$key, $value, $additions, array_merge($keys, array(array('type' => 'object', 'key' => $key))));
+      }
+    }
+    else {
+      if (!isset($default[$key]) || ($default[$key] != $value && !(is_array($value) || is_object($value)))) {
+        $additions[] = array(
+          'keys' => array_merge($keys, array(array('type' => 'array', 'key' => $key))),
+          'value' => $value,
+        );
+      }
+      elseif (isset($default[$key]) && $default[$key] != $value) {
+        _features_override_set_additions($default[$key], $value, $additions, array_merge($keys, array(array('type' => 'array', 'key' => $key))));
+      }
+    }
+  }
+}
+
+/**
+ * Helper function to set the deletions between default and normal features.
+ */
+function _features_override_set_deletions($default, $normal, &$deletions, $keys = array()) {
+  $object = is_object($default);
+
+  // Recursion detected.
+  if (_features_override_recursion_marker($default, $object) > 1) {
+    return;
+  }
+
+  foreach ($default as $key => $value) {
+    // Ignore the marker used to track detect recursion.
+    if ($key == FEATURES_OVERRIDE_RECURSION_MARKER) {
+      continue;
+    }
+    if ($object) {
+      if (!isset($normal->$key)) {
+        $deletions[] = array(
+          'keys' => array_merge($keys, array(array('type' => 'object', 'key' => $key))),
+        );
+      }
+      elseif (is_object($value) || is_array($value)) {
+        _features_override_set_deletions($value, $normal->$key, $deletions, array_merge($keys, array(array('type' => 'object', 'key' => $key))));
+      }
+    }
+    else {
+      if (!isset($normal[$key])) {
+        $deletions[] = array(
+          'keys' => array_merge($keys, array(array('type' => 'array', 'key' => $key))),
+        );
+      }
+      elseif (is_object($value) || is_array($value)) {
+        _features_override_set_deletions($value, $normal[$key], $deletions, array_merge($keys, array(array('type' => 'array', 'key' => $key))));
+      }
+    }
+  }
+}
+

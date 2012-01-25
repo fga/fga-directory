@@ -1,0 +1,54 @@
+<?php
+
+/**
+ * @file
+ * Features Plumber module.
+ */
+
+// Wildcard Feature name.
+define('FEATURES_PLUMBER_WILDCARD', 'all');
+
+/**
+ * Include Features Plumber files.
+ */
+function features_plumber_include($id) {
+  static $included = array();
+
+  if (!isset($included[$id])) {
+    require_once "includes/features_plumber.$id.inc";
+    $included[$id] = TRUE;
+  }
+}
+
+/**
+ * Implements hook_features_export_alter().
+ */
+function features_plumber_features_export_alter(&$export, $module_name) {
+  if (!isset($module_name)) {
+    return;
+  }
+
+  features_plumber_include('export');
+  _features_plumber_features_export_alter($export, $module_name);
+}
+
+/**
+ * Check to see if a feature component is supported by this module.
+ */
+function features_plumber_component_is_supported($component) {
+  return in_array($component, features_plumber_supported_components());
+}
+
+/**
+ * Return an array of supported components by this module.
+ */
+function features_plumber_supported_components() {
+  return array(
+    'views',
+    'variable',
+    'box',
+    'context',
+    'field',
+    'dependencies',
+  );
+}

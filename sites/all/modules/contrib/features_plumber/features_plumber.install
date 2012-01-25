@@ -1,0 +1,74 @@
+<?php
+
+/**
+ * @file
+ * Features Plumber install hooks.
+ */
+
+/**
+ * Implements hook_schema().
+ */
+function features_plumber_schema() {
+  $tables = array();
+
+  $tables['features_plumber'] = array(
+    'description' => 'Features Plumber records.',
+    'export' => array(
+      'key' => 'name',
+      'key name' => 'Name',
+      'primary key' => 'record_id',
+      'identifier' => 'features_plumber_record', // Exports will be as $myobj
+      'default hook' => 'features_plumber_defaults',  // Function hook name.
+      'api' => array(
+        'owner' => 'features_plumber',
+        'api' => 'features_plumber_records',  // Base name for api include files.
+        'minimum_version' => 1,
+        'current_version' => 1,
+      ),
+    ),
+    'fields' => array(
+      'record_id' => array(
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'description' => 'The serial id of this record.',
+        'no export' => TRUE,
+      ),
+      'name' => array(
+        'type' => 'varchar',
+        'length' => '255',
+        'default' => '',
+        'not null' => TRUE,
+        'description' => 'The machine name for this record, derived from the feature name, component, and component value.',
+      ),
+      'feature' => array(
+        'type' => 'varchar',
+        'length' => '255',
+        'default' => '',
+        'not null' => TRUE,
+        'description' => 'The machine name of the feature.',
+      ),
+      'component' => array(
+        'type' => 'varchar',
+        'length' => '255',
+        'default' => '',
+        'not null' => TRUE,
+        'description' => 'The component, ie view, context, variable, etc.',
+      ),
+      'component_val' => array(
+        'type' => 'varchar',
+        'length' => '255',
+        'default' => '',
+        'not null' => TRUE,
+        'description' => 'The value of the component.',
+      ),
+    ),
+    'primary key' => array('record_id'),
+    'unique key' => array(
+      'name' => array('name'),
+      'fcv' => array('feature', 'component', 'component_val'),
+    ),
+  );
+
+  return $tables;
+}

@@ -1,0 +1,22 @@
+; $Id: features_override.info,v 1.4 2011/02/16 00:28:48 nedjo Exp $
+name = Features override
+description = "Create, export, and use overides to features components, allowing one feature to extend another."
+core = 7.x
+package = Features
+dependencies[] = ctools
+dependencies[] = features
+files[] = modules/captcha.features_override.inc
+files[] = modules/context.features_override.inc
+files[] = modules/features.features_override.inc
+files[] = modules/page_manager.features_override.inc
+files[] = modules/panels.features_override.inc
+files[] = modules/panels_mini.features_override.inc
+files[] = modules/strongarm.features_override.inc
+files[] = modules/views.features_override.inc
+
+; Information added by drupal.org packaging script on 2011-02-19
+version = "7.x-1.0-beta1"
+core = "7.x"
+project = "features_override"
+datestamp = "1298088288"
+
