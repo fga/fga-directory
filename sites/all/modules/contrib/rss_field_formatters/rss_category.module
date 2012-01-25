@@ -1,0 +1,50 @@
+<?php
+
+/**
+ * @file
+ * Provides an RSS category field formatter for taxonomy term reference fields.
+ */
+
+/**
+ * Implements hook_field_formatter_info().
+ */
+function rss_category_field_formatter_info() {
+  return array(
+    'rss_category' => array(
+      'label' => t('RSS category'),
+      'field types' => array('taxonomy_term_reference'),
+    ),
+  );
+}
+
+/**
+ * Implements hook_field_formatter_prepare_view().
+ */
+function rss_category_field_formatter_prepare_view($entity_type, $entities, $field, $instances, $langcode, &$items, $displays) {
+  taxonomy_field_formatter_prepare_view($entity_type, $entities, $field, $instances, $langcode, $items, $displays);
+}
+
+/**
+ * Implements hook_field_formatter_view().
+ */
+function rss_category_field_formatter_view($entity_type, $entity, $field, $instance, $langcode, $items, $display) {
+  $element = array();
+  switch ($display['type']) {
+    case 'rss_category':
+      foreach ($items as $item) {
+        $rss_element = array('key' => 'category');
+        if ($item['tid'] == 'autocreate') {
+          $rss_element['value'] = $item['name'];
+        }
+        else {
+          $rss_element['value'] = $item['taxonomy_term']->name;
+          $rss_element['attributes'] = array(
+            'domain' => url('taxonomy/term/' . $item['tid'], array('absolute' => TRUE)),
+          );
+        }
+        $entity->rss_elements[] = $rss_element;
+      }
+      break;
+  }
+  return $element;
+}

@@ -1,0 +1,12 @@
+name = RSS date
+description = Provides an RSS date field formatter for date fields.
+core = 7.x
+dependencies[] = date
+files[] = rss_date.module
+
+; Information added by drupal.org packaging script on 2011-06-10
+version = "7.x-1.2"
+core = "7.x"
+project = "rss_field_formatters"
+datestamp = "1307725919"
+

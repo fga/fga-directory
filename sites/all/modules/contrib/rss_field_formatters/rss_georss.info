@@ -1,0 +1,11 @@
+name = RSS GeoRSS
+description = Provides a GeoRSS field formatter for geofields.
+core = 7.x
+files[] = rss_georss.module
+
+; Information added by drupal.org packaging script on 2011-06-10
+version = "7.x-1.2"
+core = "7.x"
+project = "rss_field_formatters"
+datestamp = "1307725919"
+

@@ -1,0 +1,49 @@
+<?php
+
+/**
+ * @file
+ * Provides a GeoRSS field formatter for geofields.
+ */
+
+/**
+ * Implements hook_field_formatter_info().
+ */
+function rss_georss_field_formatter_info() {
+  return array(
+    'rss_georss_point' => array(
+      'label' => t('RSS GeoRSS:point'),
+      'field types' => array('geofield'),
+    ),
+    'rss_georss_featureName' => array(
+      'label' => t('RSS GeoRSS:featureName'),
+      'field types' => array('text'),
+    ),
+  );
+}
+
+/**
+ * Implements hook_field_formatter_view().
+ */
+function rss_georss_field_formatter_view($entity_type, $entity, $field, $instance, $langcode, $items, $display) {
+  $element = array();
+  $entity->rss_namespaces['xmlns:georss'] = 'http://www.georss.org/georss';
+  switch ($display['type']) {
+    case 'rss_georss_point':
+      foreach ($items as $item) {
+        $entity->rss_elements[] = array(
+          'key' => 'georss:point',
+          'value' => $item['lat'] . ' ' . $item['lon'],
+        );
+      }
+      break;
+    case 'rss_georss_featureName':
+      foreach ($items as $item) {
+        $entity->rss_elements[] = array(
+          'key' => 'georss:featureName',
+          'value' => $item['value'],
+        );
+      }
+      break;
+  }
+  return $element;
+}

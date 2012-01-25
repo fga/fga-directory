@@ -1,0 +1,76 @@
+<?php
+
+/**
+ * @file
+ * Provides an RSS date field formatter for date fields.
+ */
+
+/**
+ * Implements hook_field_formatter_info().
+ */
+function rss_date_field_formatter_info() {
+  return array(
+    'rss_date' => array(
+      'label' => t('RSS date'),
+      'field types' => array('date', 'datestamp', 'datetime'),
+      'settings' => array('rss_element' => 'dc:date')
+    ),
+  );
+}
+
+/**
+ * Implements hook_field_formatter_settings_form().
+ */
+function rss_date_field_formatter_settings_form($field, $instance, $view_mode, $form, &$form_state) {
+  $element['rss_element'] = array(
+    '#title' => t('RSS element'),
+    '#type' => 'select',
+    '#default_value' => $instance['display'][$view_mode]['settings']['rss_element'],
+    '#options' => drupal_map_assoc(array('dc:date', 'pubDate')),
+  );
+  return $element;
+}
+
+/**
+ * Implements hook_field_formatter_settings_summary().
+ */
+function rss_date_field_formatter_settings_summary($field, $instance, $view_mode) {
+  return t('RSS element: %rss_element', array('%rss_element' => $instance['display'][$view_mode]['settings']['rss_element']));
+}
+
+/**
+ * Implements hook_field_formatter_view().
+ */
+function rss_date_field_formatter_view($entity_type, $entity, $field, $instance, $langcode, $items, $display) {
+  static $timezones = array();
+  $element = array();
+  $item = reset($items);
+  if (!isset($timezones[$item['timezone_db']])) {
+    $timezones[$item['timezone_db']] = timezone_open($item['timezone_db']);
+  }
+  if ($item['date_type'] == 'datestamp') {
+    $item['value'] = '@' . $item['value'];
+  }
+  $date = new DateTime($item['value'], $timezones[$item['timezone_db']]);
+  if ($item['timezone'] != $item['timezone_db'] || $item['date_type'] == 'datestamp') {
+    if (!isset($timezones[$item['timezone']])) {
+      $timezones[$item['timezone']] = timezone_open($item['timezone']);
+    }
+    $date->setTimezone($timezones[$item['timezone']]);
+  }
+  if ($display['settings']['rss_element'] == 'pubDate') {
+    foreach ($entity->rss_elements as $key => $rss_element) {
+      if ($rss_element['key'] == 'pubDate') {
+        $entity->rss_elements[$key]['value'] = $date->format(DATE_RSS);
+        break;
+      }
+    }
+  }
+  else {
+    $entity->rss_elements[] = array(
+      'key' => 'dc:date',
+      'value' => $date->format(DATE_W3C),
+    );
+  }
+  return $element;
+}

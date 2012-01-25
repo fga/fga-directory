@@ -1,0 +1,80 @@
+<?php
+
+/**
+ * @file
+ * Provides an RSS creator field formatter for text and user reference fields.
+ */
+
+/**
+ * Implements hook_field_formatter_info().
+ */
+function rss_creator_field_formatter_info() {
+  return array(
+    'rss_creator' => array(
+      'label' => t('RSS creator'),
+      'field types' => array('text', 'user_reference'),
+    ),
+  );
+}
+
+/**
+ * Implements hook_field_formatter_prepare_view().
+ */
+function rss_creator_field_formatter_prepare_view($entity_type, $entities, $field, $instances, $langcode, &$items, $displays) {
+  // @todo: Replace with call to user_reference_field_formatter_prepare_view().
+  if ($field['type'] == 'user_reference') {
+    $uids = array();
+    foreach ($entities as $id => $entity) {
+      foreach ($items[$id] as $delta => $item) {
+        $uids[$item['uid']] = $item['uid'];
+      }
+    }
+    if ($uids) {
+      $users = user_load_multiple($uids);
+      foreach ($entities as $id => $entity) {
+        $rekey = FALSE;
+        foreach ($items[$id] as $delta => $item) {
+          if (isset($users[$item['uid']])) {
+            $items[$id][$delta]['user'] = $users[$item['uid']];
+          }
+          else {
+            unset($items[$id][$delta]);
+            $rekey = TRUE;
+          }
+        }
+        if ($rekey) {
+          $items[$id] = array_values($items[$id]);
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_field_formatter_view().
+ */
+function rss_creator_field_formatter_view($entity_type, $entity, $field, $instance, $langcode, $items, $display) {
+  $element = array();
+  if ($field['type'] == 'user_reference') {
+    foreach ($items as $delta => $item) {
+      $items[$delta]['value'] = $item['user']->name;
+    }
+  }
+  // First item replaces dc:creator element added by core node module.
+  if (isset($entity->rss_elements)) {
+    foreach ($entity->rss_elements as $key => $rss_element) {
+      if ($rss_element['key'] == 'dc:creator') {
+        $item = array_shift($items);
+        $entity->rss_elements[$key]['value'] = $item['value'];
+        break;
+      }
+    }
+  }
+  foreach ($items as $item) {
+    $entity->rss_elements[] = array(
+      'key' => 'dc:creator',
+      'value' => $item['value'],
+    );
+  }
+  return $element;
+}

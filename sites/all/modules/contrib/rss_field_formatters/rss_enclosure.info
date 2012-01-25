@@ -1,0 +1,12 @@
+name = RSS enclosure
+description = Provides an RSS enclosure field formatter for file, image and media fields.
+core = 7.x
+dependencies[] = file
+files[] = rss_enclosure.module
+
+; Information added by drupal.org packaging script on 2011-06-10
+version = "7.x-1.2"
+core = "7.x"
+project = "rss_field_formatters"
+datestamp = "1307725919"
+

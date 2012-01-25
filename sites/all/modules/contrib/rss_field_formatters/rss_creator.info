@@ -1,0 +1,11 @@
+name = RSS creator
+description = Provides an RSS creator field formatter for text and user reference fields.
+core = 7.x
+files[] = rss_creator.module
+
+; Information added by drupal.org packaging script on 2011-06-10
+version = "7.x-1.2"
+core = "7.x"
+project = "rss_field_formatters"
+datestamp = "1307725919"
+
