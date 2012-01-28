@@ -1,0 +1,81 @@
+<?php
+
+class TalkTests extends DrupalWebTestCase {
+  protected $talkType = '';
+  protected $talkTitle = '';
+
+  public static function getInfo() {
+    return array(
+      'name' => t('Basic talk tests'),
+      'description' => t('Some basic tests for the talk module, including going to the talk page and making sure the comment shows up.'),
+      'group' => t('Talk'),
+    );
+  }
+
+  function setUp() {
+    // Enable the talk module and its dependencies.
+    parent::setUp('comment', 'talk');
+
+    // Create a node type, and enable the talk module for that node type.
+    $node_type = $this->drupalCreateContentType();
+    $this->talkType = $node_type->type;
+
+    // This will automatically be reverted to whatever it was before the test took place after the test is over.
+    variable_set('comment_talk_'. $node_type->type, TRUE);
+
+    // We don't want to deal with comment previews.
+    variable_set('comment_preview_'. $node_type->type, DRUPAL_OPTIONAL);
+
+    // Set the talk title to something unique.
+    $this->talkTitle = $this->randomName();
+    variable_set('talk_page', $this->talkTitle);
+
+    $this->talkLink = $this->randomName();
+    variable_set('talk_link', $this->talkLink);
+
+    $this->talkTab = $this->randomName();
+    variable_set('talk_tab', $this->talkTab);
+
+    // Create and login a user with the appropriate permissions.
+    $permissions = array('access content', 'access comments', 'post comments', 'skip comment approval');
+    $user = $this->drupalCreateUser($permissions);
+    $this->drupalLogin($user);
+  }
+
+  /**
+   * Post a comment in our talk node type and make sure it shows up on the talk
+   * page.
+   */
+  function testTalkCommentAppears() {
+    // Create a node to test with.
+    $settings = array();
+    $settings['type'] = $this->talkType;
+    $node = $this->drupalCreateNode($settings);
+
+    // Navigate to the node page.
+    $this->drupalGet('node/'. $node->nid);
+
+    // Click the link provided by the talk module.
+    $this->clickLink(t('Add new comment'));
+
+    // Now, post a comment.
+    $edit = array();
+    $subject = $this->randomName();
+    $comment = $this->randomName(30);
+    $edit['subject'] = $subject;
+    $edit['comment_body[' . LANGUAGE_NONE . '][0][value]'] = $comment;
+    $this->drupalPost(NULL, $edit, t('Save'));
+
+    // Make the actual assertions here.
+    $this->assertText($subject, t('Make sure that the subject of the comment appears'));
+    $this->assertText($comment, t('Make sure the body of the comment appears'));
+    $this->assertText($this->talkTitle, t('Make sure the talk title appears @title', array('@title' => str_replace('[node_comment_count]', 1, $this->talkTitle))));
+
+    // Confirm that the link and tab are as they should be.
+    $this->drupalGet('node/'. $node->nid);
+    $this->assertText($this->talkLink, t('Make sure the talk link appears @title', array('@title' => str_replace('[unread_comment_count]', 0, $this->talkLink))));
+
+    $this->assertText($this->talkTab, t('Make sure the talk tab appears @title', array('@title' => str_replace('[unread_comment_count]', 0, $this->talkTab))));
+
+  }
+}

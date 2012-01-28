@@ -1,0 +1,12 @@
+name = Talk
+description = Display comments on a separate talk page.
+core = 7.x
+dependencies[] = comment
+files[] = talk.test
+
+; Information added by drupal.org packaging script on 2011-11-23
+version = "7.x-1.0-beta3"
+core = "7.x"
+project = "talk"
+datestamp = "1322023243"
+
