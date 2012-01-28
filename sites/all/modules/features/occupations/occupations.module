@@ -5,3 +5,12 @@
  */
 
 include_once('occupations.features.inc');
+
+/**
+ * Implements hook_rdf_namespaces().
+ */
+function occupations_rdf_namespaces() {
+  return array(
+    'schema'  => 'http://schema.org/',
+  );
+}
