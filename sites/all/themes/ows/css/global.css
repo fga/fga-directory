@@ -1,1 +1,48 @@
 /* This file will hold the main styles for your website. */
+
+body {
+ font-family: 'Didact Gothic', sans-serif;
+ font-size: 16px;
+ line-height: 24px;
+}
+
+h1 {
+ font-size: 2.5em;
+ margin-top: 1em;
+ margin-bottom: .5em;
+}
+
+h2 {
+ font-size: 1.5em;
+ margin-top: 1em;
+ margin-bottom: .5em;
+}
+
+h1, h2, h3, h4, h5, h6 {
+ color: #664;
+}
+
+nav.navigation {
+ background-color: black;
+ font-size: 1.125em;
+ letter-spacing: .005em;
+ margin-top: .5em;
+ text-transform: uppercase;
+}
+
+nav a:link,
+nav a:visited {
+ color: white;
+ display: inline-block;
+ padding: .5em 1em;
+ text-decoration: none;
+}
+
+nav a:hover {
+ background-color: #FC0;
+ color: black;
+}
+
+#main-menu li {
+ padding: 0;
+}
