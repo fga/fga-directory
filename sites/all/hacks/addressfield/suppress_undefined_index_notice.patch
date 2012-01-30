@@ -1,0 +1,19 @@
+diff --git a/sites/all/modules/contrib/addressfield/addressfield.module b/sites/all/modules/contrib/addressfield/addressfield.module
+index ce2a051..37938f9 100644
+--- a/sites/all/modules/contrib/addressfield/addressfield.module
++++ b/sites/all/modules/contrib/addressfield/addressfield.module
+@@ -642,9 +642,11 @@ function addressfield_field_formatter_view($entity_type, $entity, $field, $insta
+         // Add the country name to the address.
+         include_once DRUPAL_ROOT . '/includes/locale.inc';
+         $countries = country_get_list();
+-        $element[$delta] = array(
+-            '#markup' => $countries[$item['country']],
+-        );
++        if (isset($countries[$item['country']])) {
++          $element[$delta] = array(
++              '#markup' => $countries[$item['country']],
++          );
++        }
+       }
+       break;
+       
