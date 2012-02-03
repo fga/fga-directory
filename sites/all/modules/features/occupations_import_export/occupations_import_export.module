@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Occupations Import-Export feature.
+ */
+
+include_once('occupations_import_export.features.inc');
