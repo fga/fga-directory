@@ -564,7 +564,7 @@ function occupations_views_default_views() {
   $handler->display->display_options['menu']['name'] = 'main-menu';
   $handler->display->display_options['menu']['context'] = 0;
   $handler->display->display_options['tab_options']['type'] = 'normal';
-  $handler->display->display_options['tab_options']['title'] = 'Table';
+  $handler->display->display_options['tab_options']['title'] = 'Directory';
   $handler->display->display_options['tab_options']['weight'] = '0';
   $handler->display->display_options['tab_options']['name'] = 'main-menu';
 
@@ -950,7 +950,7 @@ function occupations_views_default_views() {
   $handler->display->display_options['fields']['edit_node']['hide_empty'] = 0;
   $handler->display->display_options['fields']['edit_node']['empty_zero'] = 0;
   $handler->display->display_options['fields']['edit_node']['hide_alter_empty'] = 1;
-  $handler->display->display_options['path'] = 'occupation/manage';
+  $handler->display->display_options['path'] = 'occupations/manage';
   $handler->display->display_options['menu']['type'] = 'tab';
   $handler->display->display_options['menu']['title'] = 'Manage Occupations';
   $handler->display->display_options['menu']['weight'] = '0';
@@ -1260,260 +1260,12 @@ function occupations_views_default_views() {
   $handler->display->display_options['fields']['field_occupation_twitter']['delta_first_last'] = 0;
   $handler->display->display_options['fields']['field_occupation_twitter']['multi_type'] = 'ul';
   $handler->display->display_options['fields']['field_occupation_twitter']['field_api_classes'] = 0;
-  $handler->display->display_options['path'] = 'occupation/cards';
+  $handler->display->display_options['path'] = 'occupations/cards';
   $handler->display->display_options['menu']['type'] = 'tab';
   $handler->display->display_options['menu']['title'] = 'Cards';
   $handler->display->display_options['menu']['weight'] = '3';
   $handler->display->display_options['menu']['name'] = 'main-menu';
   $handler->display->display_options['menu']['context'] = 0;
-
-  /* Display: Table */
-  $handler = $view->new_display('page', 'Table', 'page_3');
-  $handler->display->display_options['enabled'] = FALSE;
-  $handler->display->display_options['defaults']['fields'] = FALSE;
-  /* Field: Content: Occupation Image or Icon */
-  $handler->display->display_options['fields']['field_occupation_image']['id'] = 'field_occupation_image';
-  $handler->display->display_options['fields']['field_occupation_image']['table'] = 'field_data_field_occupation_image';
-  $handler->display->display_options['fields']['field_occupation_image']['field'] = 'field_occupation_image';
-  $handler->display->display_options['fields']['field_occupation_image']['label'] = '';
-  $handler->display->display_options['fields']['field_occupation_image']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['field_occupation_image']['alter']['alter_text'] = 0;
-  $handler->display->display_options['fields']['field_occupation_image']['alter']['make_link'] = 0;
-  $handler->display->display_options['fields']['field_occupation_image']['alter']['absolute'] = 0;
-  $handler->display->display_options['fields']['field_occupation_image']['alter']['external'] = 0;
-  $handler->display->display_options['fields']['field_occupation_image']['alter']['replace_spaces'] = 0;
-  $handler->display->display_options['fields']['field_occupation_image']['alter']['trim_whitespace'] = 0;
-  $handler->display->display_options['fields']['field_occupation_image']['alter']['nl2br'] = 0;
-  $handler->display->display_options['fields']['field_occupation_image']['alter']['word_boundary'] = 1;
-  $handler->display->display_options['fields']['field_occupation_image']['alter']['ellipsis'] = 1;
-  $handler->display->display_options['fields']['field_occupation_image']['alter']['strip_tags'] = 0;
-  $handler->display->display_options['fields']['field_occupation_image']['alter']['trim'] = 0;
-  $handler->display->display_options['fields']['field_occupation_image']['alter']['html'] = 0;
-  $handler->display->display_options['fields']['field_occupation_image']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['field_occupation_image']['element_default_classes'] = 1;
-  $handler->display->display_options['fields']['field_occupation_image']['hide_empty'] = 1;
-  $handler->display->display_options['fields']['field_occupation_image']['empty_zero'] = 1;
-  $handler->display->display_options['fields']['field_occupation_image']['hide_alter_empty'] = 1;
-  $handler->display->display_options['fields']['field_occupation_image']['click_sort_column'] = 'fid';
-  $handler->display->display_options['fields']['field_occupation_image']['settings'] = array(
-    'image_style' => 'occupation_thumb_sm',
-    'image_link' => 'content',
-  );
-  $handler->display->display_options['fields']['field_occupation_image']['field_api_classes'] = 0;
-  /* Field: Content: Rendered Node */
-  $handler->display->display_options['fields']['rendered_entity']['id'] = 'rendered_entity';
-  $handler->display->display_options['fields']['rendered_entity']['table'] = 'views_entity_node';
-  $handler->display->display_options['fields']['rendered_entity']['field'] = 'rendered_entity';
-  $handler->display->display_options['fields']['rendered_entity']['label'] = 'Name';
-  $handler->display->display_options['fields']['rendered_entity']['alter']['alter_text'] = 1;
-  $handler->display->display_options['fields']['rendered_entity']['alter']['text'] = '[field_occupation_image] [rendered_entity]';
-  $handler->display->display_options['fields']['rendered_entity']['alter']['make_link'] = 0;
-  $handler->display->display_options['fields']['rendered_entity']['alter']['absolute'] = 0;
-  $handler->display->display_options['fields']['rendered_entity']['alter']['external'] = 0;
-  $handler->display->display_options['fields']['rendered_entity']['alter']['replace_spaces'] = 0;
-  $handler->display->display_options['fields']['rendered_entity']['alter']['trim_whitespace'] = 0;
-  $handler->display->display_options['fields']['rendered_entity']['alter']['nl2br'] = 0;
-  $handler->display->display_options['fields']['rendered_entity']['alter']['word_boundary'] = 1;
-  $handler->display->display_options['fields']['rendered_entity']['alter']['ellipsis'] = 1;
-  $handler->display->display_options['fields']['rendered_entity']['alter']['strip_tags'] = 0;
-  $handler->display->display_options['fields']['rendered_entity']['alter']['trim'] = 0;
-  $handler->display->display_options['fields']['rendered_entity']['alter']['html'] = 0;
-  $handler->display->display_options['fields']['rendered_entity']['element_label_colon'] = 1;
-  $handler->display->display_options['fields']['rendered_entity']['element_default_classes'] = 1;
-  $handler->display->display_options['fields']['rendered_entity']['hide_empty'] = 0;
-  $handler->display->display_options['fields']['rendered_entity']['empty_zero'] = 0;
-  $handler->display->display_options['fields']['rendered_entity']['hide_alter_empty'] = 1;
-  $handler->display->display_options['fields']['rendered_entity']['link_to_entity'] = 1;
-  $handler->display->display_options['fields']['rendered_entity']['view_mode'] = 'full';
-  /* Field: Content: Location (Address) */
-  $handler->display->display_options['fields']['field_occupation_address']['id'] = 'field_occupation_address';
-  $handler->display->display_options['fields']['field_occupation_address']['table'] = 'field_data_field_occupation_address';
-  $handler->display->display_options['fields']['field_occupation_address']['field'] = 'field_occupation_address';
-  $handler->display->display_options['fields']['field_occupation_address']['label'] = 'City';
-  $handler->display->display_options['fields']['field_occupation_address']['alter']['alter_text'] = 0;
-  $handler->display->display_options['fields']['field_occupation_address']['alter']['make_link'] = 0;
-  $handler->display->display_options['fields']['field_occupation_address']['alter']['absolute'] = 0;
-  $handler->display->display_options['fields']['field_occupation_address']['alter']['external'] = 0;
-  $handler->display->display_options['fields']['field_occupation_address']['alter']['replace_spaces'] = 0;
-  $handler->display->display_options['fields']['field_occupation_address']['alter']['trim_whitespace'] = 0;
-  $handler->display->display_options['fields']['field_occupation_address']['alter']['nl2br'] = 0;
-  $handler->display->display_options['fields']['field_occupation_address']['alter']['word_boundary'] = 1;
-  $handler->display->display_options['fields']['field_occupation_address']['alter']['ellipsis'] = 1;
-  $handler->display->display_options['fields']['field_occupation_address']['alter']['strip_tags'] = 0;
-  $handler->display->display_options['fields']['field_occupation_address']['alter']['trim'] = 0;
-  $handler->display->display_options['fields']['field_occupation_address']['alter']['html'] = 0;
-  $handler->display->display_options['fields']['field_occupation_address']['element_label_colon'] = 1;
-  $handler->display->display_options['fields']['field_occupation_address']['element_default_classes'] = 1;
-  $handler->display->display_options['fields']['field_occupation_address']['hide_empty'] = 0;
-  $handler->display->display_options['fields']['field_occupation_address']['empty_zero'] = 0;
-  $handler->display->display_options['fields']['field_occupation_address']['hide_alter_empty'] = 1;
-  $handler->display->display_options['fields']['field_occupation_address']['click_sort_column'] = 'country';
-  $handler->display->display_options['fields']['field_occupation_address']['type'] = 'locality';
-  $handler->display->display_options['fields']['field_occupation_address']['settings'] = array(
-    'use_widget_handlers' => 1,
-    'format_handlers' => array(
-      'address' => 'address',
-    ),
-  );
-  $handler->display->display_options['fields']['field_occupation_address']['field_api_classes'] = 0;
-  /* Field: Content: Location (Address) */
-  $handler->display->display_options['fields']['field_occupation_address_2']['id'] = 'field_occupation_address_2';
-  $handler->display->display_options['fields']['field_occupation_address_2']['table'] = 'field_data_field_occupation_address';
-  $handler->display->display_options['fields']['field_occupation_address_2']['field'] = 'field_occupation_address';
-  $handler->display->display_options['fields']['field_occupation_address_2']['label'] = 'State/Province';
-  $handler->display->display_options['fields']['field_occupation_address_2']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['field_occupation_address_2']['alter']['alter_text'] = 0;
-  $handler->display->display_options['fields']['field_occupation_address_2']['alter']['make_link'] = 0;
-  $handler->display->display_options['fields']['field_occupation_address_2']['alter']['absolute'] = 0;
-  $handler->display->display_options['fields']['field_occupation_address_2']['alter']['external'] = 0;
-  $handler->display->display_options['fields']['field_occupation_address_2']['alter']['replace_spaces'] = 0;
-  $handler->display->display_options['fields']['field_occupation_address_2']['alter']['trim_whitespace'] = 0;
-  $handler->display->display_options['fields']['field_occupation_address_2']['alter']['nl2br'] = 0;
-  $handler->display->display_options['fields']['field_occupation_address_2']['alter']['word_boundary'] = 1;
-  $handler->display->display_options['fields']['field_occupation_address_2']['alter']['ellipsis'] = 1;
-  $handler->display->display_options['fields']['field_occupation_address_2']['alter']['strip_tags'] = 0;
-  $handler->display->display_options['fields']['field_occupation_address_2']['alter']['trim'] = 0;
-  $handler->display->display_options['fields']['field_occupation_address_2']['alter']['html'] = 0;
-  $handler->display->display_options['fields']['field_occupation_address_2']['element_label_colon'] = 1;
-  $handler->display->display_options['fields']['field_occupation_address_2']['element_default_classes'] = 1;
-  $handler->display->display_options['fields']['field_occupation_address_2']['hide_empty'] = 0;
-  $handler->display->display_options['fields']['field_occupation_address_2']['empty_zero'] = 0;
-  $handler->display->display_options['fields']['field_occupation_address_2']['hide_alter_empty'] = 1;
-  $handler->display->display_options['fields']['field_occupation_address_2']['click_sort_column'] = 'country';
-  $handler->display->display_options['fields']['field_occupation_address_2']['type'] = 'administrative_area';
-  $handler->display->display_options['fields']['field_occupation_address_2']['settings'] = array(
-    'use_widget_handlers' => 1,
-    'format_handlers' => array(
-      'address' => 'address',
-    ),
-  );
-  $handler->display->display_options['fields']['field_occupation_address_2']['field_api_classes'] = 0;
-  /* Field: Content: Location (Address) */
-  $handler->display->display_options['fields']['field_occupation_address_1']['id'] = 'field_occupation_address_1';
-  $handler->display->display_options['fields']['field_occupation_address_1']['table'] = 'field_data_field_occupation_address';
-  $handler->display->display_options['fields']['field_occupation_address_1']['field'] = 'field_occupation_address';
-  $handler->display->display_options['fields']['field_occupation_address_1']['label'] = 'Country';
-  $handler->display->display_options['fields']['field_occupation_address_1']['alter']['alter_text'] = 0;
-  $handler->display->display_options['fields']['field_occupation_address_1']['alter']['make_link'] = 0;
-  $handler->display->display_options['fields']['field_occupation_address_1']['alter']['absolute'] = 0;
-  $handler->display->display_options['fields']['field_occupation_address_1']['alter']['external'] = 0;
-  $handler->display->display_options['fields']['field_occupation_address_1']['alter']['replace_spaces'] = 0;
-  $handler->display->display_options['fields']['field_occupation_address_1']['alter']['trim_whitespace'] = 0;
-  $handler->display->display_options['fields']['field_occupation_address_1']['alter']['nl2br'] = 0;
-  $handler->display->display_options['fields']['field_occupation_address_1']['alter']['word_boundary'] = 1;
-  $handler->display->display_options['fields']['field_occupation_address_1']['alter']['ellipsis'] = 1;
-  $handler->display->display_options['fields']['field_occupation_address_1']['alter']['strip_tags'] = 0;
-  $handler->display->display_options['fields']['field_occupation_address_1']['alter']['trim'] = 0;
-  $handler->display->display_options['fields']['field_occupation_address_1']['alter']['html'] = 0;
-  $handler->display->display_options['fields']['field_occupation_address_1']['element_label_colon'] = 1;
-  $handler->display->display_options['fields']['field_occupation_address_1']['element_default_classes'] = 1;
-  $handler->display->display_options['fields']['field_occupation_address_1']['hide_empty'] = 0;
-  $handler->display->display_options['fields']['field_occupation_address_1']['empty_zero'] = 0;
-  $handler->display->display_options['fields']['field_occupation_address_1']['hide_alter_empty'] = 1;
-  $handler->display->display_options['fields']['field_occupation_address_1']['click_sort_column'] = 'country';
-  $handler->display->display_options['fields']['field_occupation_address_1']['type'] = 'country';
-  $handler->display->display_options['fields']['field_occupation_address_1']['settings'] = array(
-    'use_widget_handlers' => 1,
-    'format_handlers' => array(
-      'address' => 'address',
-    ),
-  );
-  $handler->display->display_options['fields']['field_occupation_address_1']['field_api_classes'] = 0;
-  /* Field: Content: Edit link */
-  $handler->display->display_options['fields']['edit_node']['id'] = 'edit_node';
-  $handler->display->display_options['fields']['edit_node']['table'] = 'views_entity_node';
-  $handler->display->display_options['fields']['edit_node']['field'] = 'edit_node';
-  $handler->display->display_options['fields']['edit_node']['label'] = 'Edit';
-  $handler->display->display_options['fields']['edit_node']['alter']['alter_text'] = 0;
-  $handler->display->display_options['fields']['edit_node']['alter']['make_link'] = 0;
-  $handler->display->display_options['fields']['edit_node']['alter']['absolute'] = 0;
-  $handler->display->display_options['fields']['edit_node']['alter']['replace_spaces'] = 0;
-  $handler->display->display_options['fields']['edit_node']['alter']['trim_whitespace'] = 0;
-  $handler->display->display_options['fields']['edit_node']['alter']['nl2br'] = 0;
-  $handler->display->display_options['fields']['edit_node']['alter']['word_boundary'] = 1;
-  $handler->display->display_options['fields']['edit_node']['alter']['ellipsis'] = 1;
-  $handler->display->display_options['fields']['edit_node']['alter']['strip_tags'] = 0;
-  $handler->display->display_options['fields']['edit_node']['alter']['trim'] = 0;
-  $handler->display->display_options['fields']['edit_node']['alter']['html'] = 0;
-  $handler->display->display_options['fields']['edit_node']['element_label_colon'] = 1;
-  $handler->display->display_options['fields']['edit_node']['element_default_classes'] = 1;
-  $handler->display->display_options['fields']['edit_node']['hide_empty'] = 0;
-  $handler->display->display_options['fields']['edit_node']['empty_zero'] = 0;
-  $handler->display->display_options['fields']['edit_node']['hide_alter_empty'] = 1;
-  $handler->display->display_options['defaults']['arguments'] = FALSE;
-  /* Contextual filter: Content: Location (Address) (field_occupation_address:country) */
-  $handler->display->display_options['arguments']['field_occupation_address_country']['id'] = 'field_occupation_address_country';
-  $handler->display->display_options['arguments']['field_occupation_address_country']['table'] = 'field_data_field_occupation_address';
-  $handler->display->display_options['arguments']['field_occupation_address_country']['field'] = 'field_occupation_address_country';
-  $handler->display->display_options['arguments']['field_occupation_address_country']['default_argument_type'] = 'fixed';
-  $handler->display->display_options['arguments']['field_occupation_address_country']['default_argument_skip_url'] = 0;
-  $handler->display->display_options['arguments']['field_occupation_address_country']['summary']['number_of_records'] = '0';
-  $handler->display->display_options['arguments']['field_occupation_address_country']['summary']['format'] = 'default_summary';
-  $handler->display->display_options['arguments']['field_occupation_address_country']['summary_options']['items_per_page'] = '25';
-  $handler->display->display_options['arguments']['field_occupation_address_country']['glossary'] = 0;
-  $handler->display->display_options['arguments']['field_occupation_address_country']['limit'] = '0';
-  $handler->display->display_options['arguments']['field_occupation_address_country']['transform_dash'] = 0;
-  $handler->display->display_options['arguments']['field_occupation_address_country']['break_phrase'] = 0;
-  /* Contextual filter: Content: Location (Address) (field_occupation_address:administrative_area) */
-  $handler->display->display_options['arguments']['field_occupation_address_administrative_area']['id'] = 'field_occupation_address_administrative_area';
-  $handler->display->display_options['arguments']['field_occupation_address_administrative_area']['table'] = 'field_data_field_occupation_address';
-  $handler->display->display_options['arguments']['field_occupation_address_administrative_area']['field'] = 'field_occupation_address_administrative_area';
-  $handler->display->display_options['arguments']['field_occupation_address_administrative_area']['default_argument_type'] = 'fixed';
-  $handler->display->display_options['arguments']['field_occupation_address_administrative_area']['default_argument_skip_url'] = 0;
-  $handler->display->display_options['arguments']['field_occupation_address_administrative_area']['summary']['number_of_records'] = '0';
-  $handler->display->display_options['arguments']['field_occupation_address_administrative_area']['summary']['format'] = 'default_summary';
-  $handler->display->display_options['arguments']['field_occupation_address_administrative_area']['summary_options']['items_per_page'] = '25';
-  $handler->display->display_options['arguments']['field_occupation_address_administrative_area']['glossary'] = 0;
-  $handler->display->display_options['arguments']['field_occupation_address_administrative_area']['limit'] = '0';
-  $handler->display->display_options['arguments']['field_occupation_address_administrative_area']['transform_dash'] = 0;
-  $handler->display->display_options['arguments']['field_occupation_address_administrative_area']['break_phrase'] = 0;
-  $handler->display->display_options['defaults']['filters'] = FALSE;
-  /* Filter criterion: Content: Published */
-  $handler->display->display_options['filters']['status']['id'] = 'status';
-  $handler->display->display_options['filters']['status']['table'] = 'node';
-  $handler->display->display_options['filters']['status']['field'] = 'status';
-  $handler->display->display_options['filters']['status']['value'] = 1;
-  $handler->display->display_options['filters']['status']['group'] = 0;
-  $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
-  /* Filter criterion: Content: Type */
-  $handler->display->display_options['filters']['type']['id'] = 'type';
-  $handler->display->display_options['filters']['type']['table'] = 'node';
-  $handler->display->display_options['filters']['type']['field'] = 'type';
-  $handler->display->display_options['filters']['type']['value'] = array(
-    'occupation' => 'occupation',
-  );
-  /* Filter criterion: Content: Title */
-  $handler->display->display_options['filters']['title']['id'] = 'title';
-  $handler->display->display_options['filters']['title']['table'] = 'node';
-  $handler->display->display_options['filters']['title']['field'] = 'title';
-  $handler->display->display_options['filters']['title']['operator'] = 'allwords';
-  $handler->display->display_options['filters']['title']['exposed'] = TRUE;
-  $handler->display->display_options['filters']['title']['expose']['operator_id'] = 'title_op';
-  $handler->display->display_options['filters']['title']['expose']['label'] = 'Name';
-  $handler->display->display_options['filters']['title']['expose']['operator'] = 'title_op';
-  $handler->display->display_options['filters']['title']['expose']['identifier'] = 'title';
-  $handler->display->display_options['filters']['title']['expose']['required'] = 0;
-  $handler->display->display_options['filters']['title']['expose']['multiple'] = FALSE;
-  /* Filter criterion: Content: Location (Address) (field_occupation_address:country) */
-  $handler->display->display_options['filters']['field_occupation_address_country']['id'] = 'field_occupation_address_country';
-  $handler->display->display_options['filters']['field_occupation_address_country']['table'] = 'field_data_field_occupation_address';
-  $handler->display->display_options['filters']['field_occupation_address_country']['field'] = 'field_occupation_address_country';
-  $handler->display->display_options['filters']['field_occupation_address_country']['exposed'] = TRUE;
-  $handler->display->display_options['filters']['field_occupation_address_country']['expose']['operator_id'] = 'field_occupation_address_country_op';
-  $handler->display->display_options['filters']['field_occupation_address_country']['expose']['label'] = 'Country';
-  $handler->display->display_options['filters']['field_occupation_address_country']['expose']['operator'] = 'field_occupation_address_country_op';
-  $handler->display->display_options['filters']['field_occupation_address_country']['expose']['identifier'] = 'field_occupation_address_country';
-  $handler->display->display_options['filters']['field_occupation_address_country']['expose']['reduce'] = 0;
-  $handler->display->display_options['path'] = 'occupation/view';
-  $handler->display->display_options['menu']['type'] = 'default tab';
-  $handler->display->display_options['menu']['title'] = 'Directory';
-  $handler->display->display_options['menu']['weight'] = '0';
-  $handler->display->display_options['menu']['name'] = 'main-menu';
-  $handler->display->display_options['menu']['context'] = 0;
-  $handler->display->display_options['tab_options']['type'] = 'tab';
-  $handler->display->display_options['tab_options']['title'] = 'Table';
-  $handler->display->display_options['tab_options']['weight'] = '0';
-  $handler->display->display_options['tab_options']['name'] = 'main-menu';
   $export['occupation_directory'] = $view;
 
   return $export;
