@@ -123,16 +123,6 @@ class SearchQuery extends SelectQueryExtender {
   protected $multiply = array();
 
   /**
-   * Whether or not search expressions were ignored.
-   *
-   * The maximum number of AND/OR combinations exceeded can be configured to
-   * avoid Denial-of-Service attacks. Expressions beyond the limit are ignored.
-   *
-   * @var boolean
-   */
-  protected $expressionsIgnored = FALSE;
-
-  /**
    * Sets up the search query expression.
    *
    * @param $query
@@ -193,17 +183,7 @@ class SearchQuery extends SelectQueryExtender {
     // Classify tokens.
     $or = FALSE;
     $warning = '';
-    $limit_combinations = variable_get('search_and_or_limit', 7);
-    // The first search expression does not count as AND.
-    $and_count = -1;
-    $or_count = 0;
     foreach ($keywords as $match) {
-      if ($or_count && $and_count + $or_count >= $limit_combinations) {
-        // Ignore all further search expressions to prevent Denial-of-Service
-        // attacks using a high number of AND/OR combinations.
-        $this->expressionsIgnored = TRUE;
-        break;
-      }
       $phrase = FALSE;
       // Strip off phrase quotes.
       if ($match[2]{0} == '"') {
@@ -232,7 +212,6 @@ class SearchQuery extends SelectQueryExtender {
         }
         $this->keys['positive'][] = $last;
         $or = TRUE;
-        $or_count++;
         continue;
       }
       // AND operator: implied, so just ignore it.
@@ -252,7 +231,6 @@ class SearchQuery extends SelectQueryExtender {
         }
         else {
           $this->keys['positive'] = array_merge($this->keys['positive'], $words);
-          $and_count++;
         }
       }
       $or = FALSE;
@@ -344,9 +322,6 @@ class SearchQuery extends SelectQueryExtender {
     if (count($this->words) == 0) {
       form_set_error('keys', format_plural(variable_get('minimum_word_size', 3), 'You must include at least one positive keyword with 1 character or more.', 'You must include at least one positive keyword with @count characters or more.'));
       return FALSE;
-    }
-    if ($this->expressionsIgnored) {
-      drupal_set_message(t('Your search used too many AND/OR expressions. Only the first @count terms were included in this search.', array('@count' => variable_get('search_and_or_limit', 7))), 'warning');
     }
     $this->executedFirstPass = TRUE;
 

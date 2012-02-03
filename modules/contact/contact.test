@@ -1,12 +1,10 @@
 <?php
-/**
- * @file
- * Tests for the Contact module.
- */
 
 /**
- * Tests the site-wide contact form.
+ * @file 
+ * Tests for contact.module.
  */
+
 class ContactSitewideTestCase extends DrupalWebTestCase {
   public static function getInfo() {
     return array(
@@ -21,7 +19,7 @@ class ContactSitewideTestCase extends DrupalWebTestCase {
   }
 
   /**
-   * Tests configuration options and the site-wide contact form.
+   * Test configuration options and site-wide contact form.
    */
   function testSiteWideContact() {
     // Create and login administrative user.
@@ -161,7 +159,7 @@ class ContactSitewideTestCase extends DrupalWebTestCase {
   }
 
   /**
-  * Tests auto-reply on the site-wide contact form.
+  * Test auto-reply on the site-wide contact form.
   */
   function testAutoReply() {
     // Create and login administrative user.
@@ -202,17 +200,12 @@ class ContactSitewideTestCase extends DrupalWebTestCase {
   }
 
   /**
-   * Adds a category.
+   * Add a category.
    *
-   * @param string $category
-   *   The category name.
-   * @param string $recipients
-   *   The list of recipient e-mail addresses.
-   * @param string $reply
-   *   The auto-reply text that is sent to a user upon completing the contact
-   *   form.
-   * @param boolean $selected
-   *   Boolean indicating whether the category should be selected by default.
+   * @param string $category Name of category.
+   * @param string $recipients List of recipient e-mail addresses.
+   * @param string $reply Auto-reply text.
+   * @param boolean $selected Defautly selected.
    */
   function addCategory($category, $recipients, $reply, $selected) {
     $edit = array();
@@ -224,17 +217,12 @@ class ContactSitewideTestCase extends DrupalWebTestCase {
   }
 
   /**
-   * Updates a category.
+   * Update a category.
    *
-   * @param string $category
-   *   The category name.
-   * @param string $recipients
-   *   The list of recipient e-mail addresses.
-   * @param string $reply
-   *   The auto-reply text that is sent to a user upon completing the contact
-   *   form.
-   * @param boolean $selected
-   *   Boolean indicating whether the category should be selected by default.
+   * @param string $category Name of category.
+   * @param string $recipients List of recipient e-mail addresses.
+   * @param string $reply Auto-reply text.
+   * @param boolean $selected Defautly selected.
    */
   function updateCategory($categories, $category, $recipients, $reply, $selected) {
     $category_id = $categories[array_rand($categories)];
@@ -248,18 +236,13 @@ class ContactSitewideTestCase extends DrupalWebTestCase {
   }
 
   /**
-   * Submits the contact form.
+   * Submit contact form.
    *
-   * @param string $name
-   *   The name of the sender.
-   * @param string $mail
-   *   The e-mail address of the sender.
-   * @param string $subject
-   *   The subject of the message.
-   * @param integer $cid
-   *   The category ID of the message.
-   * @param string $message
-   *   The message body.
+   * @param string $name Name.
+   * @param string $mail E-mail address.
+   * @param string $subject Subject.
+   * @param integer $cid Category id.
+   * @param string $message Message.
    */
   function submitContact($name, $mail, $subject, $cid, $message) {
     $edit = array();
@@ -272,7 +255,7 @@ class ContactSitewideTestCase extends DrupalWebTestCase {
   }
 
   /**
-   * Deletes all categories.
+   * Delete all categories.
    */
   function deleteCategories() {
     $categories = $this->getCategories();
@@ -284,10 +267,9 @@ class ContactSitewideTestCase extends DrupalWebTestCase {
   }
 
   /**
-   * Gets a list of all category IDs.
+   * Get list category ids.
    *
-   * @return array
-   *   A list of the category IDs.
+   * @return array Category ids.
    */
   function getCategories() {
     $categories = db_query('SELECT cid FROM {contact}')->fetchCol();
@@ -296,7 +278,7 @@ class ContactSitewideTestCase extends DrupalWebTestCase {
 }
 
 /**
- * Tests the personal contact form.
+ * Test the personal contact form.
  */
 class ContactPersonalTestCase extends DrupalWebTestCase {
   private $admin_user;
@@ -324,7 +306,7 @@ class ContactPersonalTestCase extends DrupalWebTestCase {
   }
 
   /**
-   * Tests access to the personal contact form.
+   * Test personal contact form access.
    */
   function testPersonalContactAccess() {
     // Test allowed access to user with contact form enabled.
@@ -387,7 +369,7 @@ class ContactPersonalTestCase extends DrupalWebTestCase {
   }
 
   /**
-   * Tests the personal contact form flood protection.
+   * Test the personal contact form flood protection.
    */
   function testPersonalContactFlood() {
     $flood_limit = 3;
@@ -417,7 +399,7 @@ class ContactPersonalTestCase extends DrupalWebTestCase {
   }
 
   /**
-   * Fills out a user's personal contact form and submits it.
+   * Fill out a user's personal contact form and submit.
    *
    * @param $account
    *   A user object of the user being contacted.

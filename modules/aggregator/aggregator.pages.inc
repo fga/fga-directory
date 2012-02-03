@@ -160,13 +160,11 @@ function aggregator_feed_items_load($type, $data = NULL) {
  * @param $items
  *   The items to be listed.
  * @param $op
- *   Which form should be added to the items. Only 'categorize' is now
- *   recognized.
+ *   Which form should be added to the items. Only 'categorize' is now recognized.
  * @param $feed_source
  *   The feed source URL.
- *
  * @return
- *   The rendered list of items for a feed.
+ *   The items HTML.
  */
 function _aggregator_page_list($items, $op, $feed_source = '') {
   if (user_access('administer news feeds') && ($op == 'categorize')) {
@@ -186,13 +184,14 @@ function _aggregator_page_list($items, $op, $feed_source = '') {
 }
 
 /**
- * Form constructor to build the page list form.
+ * Form builder; build the page list form.
  *
  * @param $items
  *   An array of the feed items.
  * @param $feed_source
  *   The feed source URL.
- *
+ * @return
+ *   The form structure.
  * @ingroup forms
  * @see aggregator_categorize_items_submit()
  */
@@ -237,7 +236,7 @@ function aggregator_categorize_items($items, $feed_source = '') {
 }
 
 /**
- * Form submission handler for aggregator_categorize_items().
+ * Process aggregator_categorize_items() form submissions.
  */
 function aggregator_categorize_items_submit($form, &$form_state) {
   if (!empty($form_state['values']['categories'])) {
@@ -294,7 +293,7 @@ function theme_aggregator_categorize_items($variables) {
 }
 
 /**
- * Processes variables for aggregator-wrapper.tpl.php.
+ * Process variables for aggregator-wrapper.tpl.php.
  *
  * @see aggregator-wrapper.tpl.php
  */
@@ -303,7 +302,7 @@ function template_preprocess_aggregator_wrapper(&$variables) {
 }
 
 /**
- * Processes variables for aggregator-item.tpl.php.
+ * Process variables for aggregator-item.tpl.php.
  *
  * @see aggregator-item.tpl.php
  */
@@ -500,7 +499,7 @@ function theme_aggregator_page_opml($variables) {
 }
 
 /**
- * Processes variables for aggregator-summary-items.tpl.php.
+ * Process variables for aggregator-summary-items.tpl.php.
  *
  * @see aggregator-summary-items.tpl.php
  */
@@ -511,7 +510,7 @@ function template_preprocess_aggregator_summary_items(&$variables) {
 }
 
 /**
- * Processes variables for aggregator-summary-item.tpl.php.
+ * Process variables for aggregator-summary-item.tpl.php.
  *
  * @see aggregator-summary-item.tpl.php
  */
@@ -531,7 +530,7 @@ function template_preprocess_aggregator_summary_item(&$variables) {
 }
 
 /**
- * Processes variables for aggregator-feed-source.tpl.php.
+ * Process variables for aggregator-feed-source.tpl.php.
  *
  * @see aggregator-feed-source.tpl.php
  */

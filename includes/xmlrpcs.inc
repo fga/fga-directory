@@ -382,3 +382,4 @@ function xmlrpc_server_method_help($method) {
   $xmlrpc_server = xmlrpc_server_get();
   return $xmlrpc_server->help[$method];
 }
+

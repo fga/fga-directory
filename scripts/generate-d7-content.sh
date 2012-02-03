@@ -269,14 +269,11 @@ if (module_exists('poll')) {
 }
 
 // Test that upgrade works even on a bundle whose parent module was disabled.
-// This is simulated by creating an existing content type and changing the
-// bundle to another type through direct database update queries.
-$node_type = 'broken';
 $uid = 6;
 $user = user_load($uid);
 $node = new stdClass();
 $node->uid = $uid;
-$node->type = 'article';
+$node->type = 'broken';
 $body_text = str_repeat("node body ($node_type) - 37", 100);
 $node->sticky = 0;
 $node->title = "node title 24";

@@ -1,7 +1,8 @@
 <?php
+
 /**
  * @file
- * Allows administrators to attach custom fields to fieldable types.
+ * Allows administrators to associate custom fields to fieldable types.
  */
 
 /**
@@ -212,11 +213,6 @@ function field_ui_menu() {
  *   The position of $bundle_name in $map.
  * @param $map
  *   The translated menu router path argument map.
- *
- * @return
- *   The field instance array.
- *
- * @ingroup field
  */
 function field_ui_menu_load($field_name, $entity_type, $bundle_name, $bundle_pos, $map) {
   // Extract the actual bundle name from the translated argument map.
@@ -265,8 +261,7 @@ function _field_ui_view_mode_menu_access($entity_type, $bundle, $view_mode, $acc
   // part of _menu_check_access().
   if ($visibility) {
     // Grab the variable 'access arguments' part.
-    $all_args = func_get_args();
-    $args = array_slice($all_args, 4);
+    $args = array_slice(func_get_args(), 4);
     $callback = empty($access_callback) ? 0 : trim($access_callback);
     if (is_numeric($callback)) {
       return (bool) $callback;
@@ -318,7 +313,7 @@ function field_ui_field_attach_create_bundle($entity_type, $bundle) {
 }
 
 /**
- * Determines the adminstration path for a bundle.
+ * Helper function to create the right administration path for a bundle.
  */
 function _field_ui_bundle_admin_path($entity_type, $bundle_name) {
   $bundles = field_info_bundles($entity_type);
@@ -329,7 +324,7 @@ function _field_ui_bundle_admin_path($entity_type, $bundle_name) {
 }
 
 /**
- * Identifies inactive fields within a bundle.
+ * Helper function to identify inactive fields within a bundle.
  */
 function field_ui_inactive_instances($entity_type, $bundle_name = NULL) {
   if (!empty($bundle_name)) {
@@ -356,12 +351,7 @@ function field_ui_inactive_instances($entity_type, $bundle_name = NULL) {
 }
 
 /**
- * Implements hook_form_FORM_ID_alter().
- *
- * Adds a button 'Save and add fields' to the 'Create content type' form.
- *
- * @see node_type_form()
- * @see field_ui_form_node_type_form_submit()
+ * Add a button Save and add fields to Create content type form.
  */
 function field_ui_form_node_type_form_alter(&$form, $form_state) {
   // We want to display the button only on add page.
@@ -376,9 +366,7 @@ function field_ui_form_node_type_form_alter(&$form, $form_state) {
 }
 
 /**
- * Form submission handler for the 'Save and add fields' button.
- *
- * @see field_ui_form_node_type_form_alter()
+ * Redirect to manage fields form.
  */
 function field_ui_form_node_type_form_submit($form, &$form_state) {
   if ($form_state['triggering_element']['#parents'][0] === 'save_continue') {

@@ -403,8 +403,7 @@ function image_field_widget_process($element, &$form_state, $form) {
     '#type' => 'textfield',
     '#default_value' => isset($item['alt']) ? $item['alt'] : '',
     '#description' => t('This text will be used by screen readers, search engines, or when the image cannot be loaded.'),
-    // @see http://www.gawds.org/show.php?contentid=28
-    '#maxlength' => 512,
+    '#maxlength' => variable_get('image_alt_length', 80), // See http://www.gawds.org/show.php?contentid=28.
     '#weight' => -2,
     '#access' => (bool) $item['fid'] && $settings['alt_field'],
   );
@@ -413,7 +412,7 @@ function image_field_widget_process($element, &$form_state, $form) {
     '#title' => t('Title'),
     '#default_value' => isset($item['title']) ? $item['title'] : '',
     '#description' => t('The title is used as a tool tip when the user hovers the mouse over the image.'),
-    '#maxlength' => 1024,
+    '#maxlength' => variable_get('image_title_length', 500),
     '#weight' => -1,
     '#access' => (bool) $item['fid'] && $settings['title_field'],
   );

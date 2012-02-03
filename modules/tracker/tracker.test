@@ -8,6 +8,7 @@
 class TrackerTest extends DrupalWebTestCase {
   protected $user;
   protected $other_user;
+  protected $new_node;
 
   public static function getInfo() {
     return array(

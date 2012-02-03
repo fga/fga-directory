@@ -1,8 +1,4 @@
-/**
- * @file
- * Attaches the behaviors for the Field UI module.
- */
- 
+
 (function($) {
 
 Drupal.behaviors.fieldUIFieldOverview = {
@@ -122,7 +118,7 @@ Drupal.fieldUIOverview = {
         data.tableDrag = tableDrag;
 
         // Create the row handler, make it accessible from the DOM row element.
-        var rowHandler = new rowHandlers[data.rowHandler](row, data);
+        var rowHandler = eval('new rowHandlers.' + data.rowHandler + '(row, data);');
         $(row).data('fieldUIRowHandler', rowHandler);
       }
     });

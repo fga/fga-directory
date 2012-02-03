@@ -1016,9 +1016,9 @@ abstract class DatabaseConnection extends PDO {
       throw new DatabaseTransactionNoActiveException();
     }
     // A previous rollback to an earlier savepoint may mean that the savepoint
-    // in question has already been accidentally committed.
-    if (!isset($this->transactionLayers[$savepoint_name])) {
-      throw new DatabaseTransactionNoActiveException();
+    // in question has already been rolled back.
+    if (!in_array($savepoint_name, $this->transactionLayers)) {
+      return;
     }
 
     // We need to find the point we're rolling back to, all other savepoints
@@ -1096,12 +1096,8 @@ abstract class DatabaseConnection extends PDO {
     if (!$this->supportsTransactions()) {
       return;
     }
-    // The transaction has already been committed earlier. There is nothing we
-    // need to do. If this transaction was part of an earlier out-of-order
-    // rollback, an exception would already have been thrown by
-    // Database::rollback().
     if (!isset($this->transactionLayers[$name])) {
-      return;
+      throw new DatabaseTransactionNoActiveException();
     }
 
     // Mark this layer as committable.
