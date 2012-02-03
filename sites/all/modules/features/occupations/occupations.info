@@ -1,7 +1,7 @@
 name = "Occupations"
 description = "A page of searchable Occupations (aka The Directory), sorted by geo-location."
 core = "7.x"
-package = "Features"
+package = "FGA"
 php = "5.2.4"
 version = "7.x-0.3"
 project = "occupations"
