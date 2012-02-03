@@ -63,6 +63,15 @@ function uuid_menu() {
 }
 
 /**
+ * Implements of hook_ctools_plugin_directory().
+ */
+function uuid_ctools_plugin_directory($module, $plugin) {
+  if ($module == 'ctools') {
+    return 'plugins/' . $plugin;
+  }
+}
+
+/**
  * Implements of hook_permission().
  */
 function uuid_permission() {
@@ -71,6 +80,22 @@ function uuid_permission() {
       'title' => t('Administer UUID'),
       'description' => t('Allows configuration of the UUID module and APIs.'),
     ),
+  );
+}
+
+/**
+ * Helper function that returns a schema field definition for UUID fields.
+ *
+ * @see uuid_schema_alter()
+ * @see uuid_install()
+ */
+function uuid_schema_field_definition() {
+  return array(
+    'type' => 'char',
+    'length' => 36,
+    'not null' => TRUE,
+    'default' => '',
+    'description' => 'The Universally Unique Identifier.',
   );
 }
 
@@ -132,4 +157,30 @@ function _uuid_sync_table($table, $id_field, $uuid_field) {
       ->condition($id_field, $record->{$id_field})
       ->execute();
   }
+}
+
+/**
+ * Implementation of hook_features_api().
+ *
+ * The Features support consists of exporting entities from a Deploy
+ * <em>fetch-only</em> plan. Deploy is only required to generate the feature
+ * it self.
+ *
+ * The reason why we depend on Deploy for the generation of the content is
+ * because Deploy has the kind of dependency detection framework we need, to
+ * identify all dependencies for all entities.
+ */
+function uuid_features_api() {
+  if (module_exists('deploy')) {
+    return array(
+      'uuid_entities' => array(
+        'name' => t('UUID entities'),
+        'default_hook' => 'uuid_default_entities',
+        'default_file' => FEATURES_DEFAULTS_INCLUDED,
+        'features_source' => TRUE,
+        'file' => drupal_get_path('module', 'uuid') .'/uuid.features.inc',
+      ),
+    );
+  }
+  return array();
 }

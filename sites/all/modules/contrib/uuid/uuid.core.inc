@@ -3,10 +3,15 @@
 /**
  * @file
  * Implementation of UUID hooks for all core modules.
+ *
+ * @todo
+ *   Replace all these hook implementations with a generic solution that uses
+ *   info from hook_entity_field_info() and hook_entity_property_info(). That
+ *   info should contain info about how UUIDs are mapped.
  */
 
 /**
- * @defgroup uuid_node Node module implementations
+ * @defgroup uuid_property Propery implementations
  * @{
  */
 
@@ -15,28 +20,8 @@
  */
 function node_entity_uuid_load(&$entities, $entity_type) {
   if ($entity_type == 'node') {
-    foreach ($entities as $entity) {
-      $ids = !empty($entity->revision_uid) ? array($entity->uid, $entity->revision_uid) : array($entity->uid);
-      $uuids = entity_get_uuid_by_id('user', $ids);
-
-      // 'uid' property.
-      if (isset($uuids[$entity->uid])) {
-        $entity->uid = $uuids[$entity->uid];
-      }
-
-      // 'revision_uid' property.
-      if (!empty($entity->revision_uid) && isset($uuids[$entity->revision_uid])) {
-        $entity->revision_uid = $uuids[$entity->revision_uid];
-      }
-
-      // 'tnid' property.
-      if (!empty($entity->tnid)) {
-        $uuids = entity_get_uuid_by_id('node', array($entity->tnid));
-        if (isset($uuids[$entity->tnid])) {
-          $entity->tnid = $uuids[$entity->tnid];
-        }
-      }
-    }
+    entity_property_id_to_uuid($entities, 'user', array('uid', 'revision_uid'));
+    entity_property_id_to_uuid($entities, 'node', 'tnid');
   }
 }
 
@@ -44,70 +29,25 @@ function node_entity_uuid_load(&$entities, $entity_type) {
  * Implements hook_entity_uuid_presave().
  */
 function node_entity_uuid_presave(&$entity, $entity_type) {
-  // Transform all UUID properties to local IDs, if they exist.
   if ($entity_type == 'node') {
-    $uuids = !empty($entity->revision_uid) ? array($entity->uid, $entity->revision_uid) : array($entity->uid);
-    $ids = entity_get_id_by_uuid('user', $uuids);
-
-    // 'uid' property.
-    if (isset($ids[$entity->uid])) {
-      $entity->uid = $ids[$entity->uid];
-    }
-
-    // 'revision_uid' property.
-    if (!empty($entity->revision_uid) && isset($ids[$entity->revision_uid])) {
-      $entity->revision_uid = $ids[$entity->revision_uid];
-    }
-
-    // 'tnid' property.
-    $ids = entity_get_id_by_uuid('node', array($entity->tnid));
-    if (isset($ids[$entity->tnid])) {
-      $entity->tnid = $ids[$entity->tnid];
-    }
+    entity_property_uuid_to_id($entity, 'user', array('uid', 'revision_uid'));
+    entity_property_uuid_to_id($entity, 'node', 'tnid');
   }
 }
-
-/**
- * @} End of "Node module implementations"
- */
-
-/**
- * @defgroup uuid_comment Comment module implementations
- * @{
- */
 
 /**
  * Implements hook_entity_uuid_load().
  */
 function comment_entity_uuid_load(&$entities, $entity_type) {
-  foreach ($entities as $entity) {
-    // Transform all local ID properties to UUIDs.
-    switch ($entity_type) {
-      case 'node':
-        // 'last_comment_uid' property.
-        if (isset($entity->last_comment_uid)) {
-          $uuids = entity_get_uuid_by_id('user', array($entity->last_comment_uid));
-          if (isset($uuids[$entity->last_comment_uid])) {
-            $entity->last_comment_uid = $uuids[$entity->last_comment_uid];
-          }
-        }
-        break;
+  switch ($entity_type) {
+    case 'node':
+      entity_property_id_to_uuid($entities, 'user', 'last_comment_uid');
+      break;
 
-      case 'comment':
-        // 'uid' property.
-        $uuids = entity_get_uuid_by_id('user', array($entity->uid, $entity->u_uid));
-        if (isset($uuids[$entity->uid])) {
-          $entity->uid = $uuids[$entity->uid];
-          $entity->u_uid = $uuids[$entity->u_uid];
-        }
-
-        // 'nid' property.
-        $uuids = entity_get_uuid_by_id('node', array($entity->nid));
-        if (isset($uuids[$entity->nid])) {
-          $entity->nid = $uuids[$entity->nid];
-        }
-        break;
-    }
+    case 'comment':
+      entity_property_id_to_uuid($entities, 'user', array('uid', 'u_uid'));
+      entity_property_id_to_uuid($entities, 'node', 'nid');
+      break;
   }
 }
 
@@ -115,55 +55,24 @@ function comment_entity_uuid_load(&$entities, $entity_type) {
  * Implements hook_entity_uuid_presave().
  */
 function comment_entity_uuid_presave(&$entity, $entity_type) {
-  // Transform all UUID properties to local IDs, if they exist.
   switch ($entity_type) {
     case 'node':
-      if (isset($entity->last_comment_uid)) {
-        $ids = entity_get_id_by_uuid('user', array($entity->last_comment_uid));
-        if (isset($ids[$entity->last_comment_uid])) {
-          $entity->last_comment_uid = $ids[$entity->last_comment_uid];
-        }
-      }
+      entity_property_uuid_to_id($entity, 'user', 'last_comment_uid');
       break;
 
     case 'comment':
-      // 'uid' property.
-      $ids = entity_get_id_by_uuid('user', array($entity->uid, $entity->u_uid));
-      if (isset($ids[$entity->uid])) {
-        $entity->uid = $ids[$entity->uid];
-        $entity->u_uid = isset($ids[$entity->u_uid]) ? $ids[$entity->u_uid] : $ids[$entity->uid];
-      }
-
-      // 'nid' property.
-      $ids = entity_get_id_by_uuid('node', array($entity->nid));
-      if (isset($ids[$entity->nid])) {
-        $entity->nid = $ids[$entity->nid];
-      }
+      entity_property_uuid_to_id($entity, 'user', array('uid', 'u_uid'));
+      entity_property_uuid_to_id($entity, 'node', 'nid');
       break;
   }
 }
-
-/**
- * @} End of "Comment module implementations"
- */
-
-/**
- * @defgroup uuid_file File module implementations
- * @{
- */
 
 /**
  * Implements hook_entity_uuid_load().
  */
 function file_entity_uuid_load(&$entities, $entity_type) {
   if ($entity_type == 'file') {
-    foreach ($entities as $entity) {
-      // 'uid' property.
-      $uuids = entity_get_uuid_by_id('user', array($entity->uid));
-      if (isset($uuids[$entity->uid])) {
-        $entity->uid = $uuids[$entity->uid];
-      }
-    }
+    entity_property_id_to_uuid($entities, 'user', 'uid');
   }
 }
 
@@ -172,27 +81,44 @@ function file_entity_uuid_load(&$entities, $entity_type) {
  */
 function file_entity_uuid_presave(&$entity, $entity_type) {
   if ($entity_type == 'file') {
-    // 'uid' property.
-    $ids = entity_get_id_by_uuid('user', array($entity->uid));
-    if (isset($ids[$entity->uid])) {
-      $entity->uid = $ids[$entity->uid];
+    entity_property_uuid_to_id($entity, 'user', 'uid');
+  }
+}
+
+/**
+ * Implements hook_entity_uuid_load().
+ */
+function taxonomy_entity_uuid_load(&$entities, $entity_type) {
+  if ($entity_type == 'taxonomy_term') {
+    foreach ($entities as &$entity) {
+      if (isset($entity->parent)) {
+        if (!is_array($entity->parent)) {
+          $entity->parent = array($entity->parent);
+        }
+        $uuids = entity_get_uuid_by_id('taxonomy_term', $entity->parent);
+        $entity->parent = array_values($uuids);
+      }
+      unset($entity->vid);
     }
   }
 }
 
 /**
- * @} End of "File module implementations"
+ * Implements hook_entity_uuid_presave().
  */
-
-/**
- * @defgroup uuid_field Field module implementations
- * @{
- *
- * @todo
- *   Take better advantage of the multi load functionality in
- *   entity_get_*id_by_*id() in all field implementations. We probably need to
- *   loop twice over $items, but we will save SQL queries.
- */
+function taxonomy_entity_uuid_presave(&$entity, $entity_type) {
+  if ($entity_type == 'taxonomy_term') {
+    if (isset($entity->parent)) {
+      if (!is_array($entity->parent)) {
+        $entity->parent = array($entity->parent);
+      }
+      $ids = entity_get_id_by_uuid('taxonomy_term', $entity->parent);
+      $entity->parent = array_values($ids);
+    }
+    $vocabulary = taxonomy_vocabulary_machine_name_load($entity->vocabulary_machine_name);
+    $entity->vid = $vocabulary->vid;
+  }
+}
 
 /**
  * Implements hook_entity_uuid_load().
@@ -204,12 +130,14 @@ function field_entity_uuid_load(&$entities, $entity_type) {
 
     foreach ($instances as $field_name => $instance) {
       $field = field_info_field($field_name);
-      foreach ($entity->{$field_name} as $langcode => &$items) {
-        // Invoke 'hook_field_uuid_load'. We can't use module_invoke() since
-        // that is not passing by reference.
-        $function = $field['module'] . '_field_uuid_load';
-        if (function_exists($function)) {
-          $function($entity_type, $entity, $field, $instance, $langcode, $items);
+      if (!empty($field) && isset($entity->{$field_name})) {
+        foreach ($entity->{$field_name} as $langcode => &$items) {
+          // Invoke 'hook_field_uuid_load'. We can't use module_invoke() since
+          // that is not passing by reference.
+          $function = $field['module'] . '_field_uuid_load';
+          if (function_exists($function)) {
+            $function($entity_type, $entity, $field, $instance, $langcode, $items);
+          }
         }
       }
     }
@@ -225,60 +153,62 @@ function field_entity_uuid_presave(&$entity, $entity_type) {
 
   foreach ($instances as $field_name => $instance) {
     $field = field_info_field($field_name);
-    foreach ($entity->{$field_name} as $langcode => &$items) {
-      // Invoke 'hook_field_uuid_load'. We can't use module_invoke() since
-      // that is not passing by reference.
-      $function = $field['module'] . '_field_uuid_presave';
-      if (function_exists($function)) {
-        $function($entity_type, $entity, $field, $instance, $langcode, $items);
+    if (!empty($field) && isset($entity->{$field_name})) {
+      foreach ($entity->{$field_name} as $langcode => &$items) {
+        // Invoke 'hook_field_uuid_load'. We can't use module_invoke() since
+        // that is not passing by reference.
+        $function = $field['module'] . '_field_uuid_presave';
+        if (function_exists($function)) {
+          $function($entity_type, $entity, $field, $instance, $langcode, $items);
+        }
       }
     }
   }
 }
 
 /**
+ * @} End of "Property implementations"
+ */
+
+/**
+ * @defgroup uuid_field Field implementations
+ * @{
+ */
+
+/**
  * Implements hook_field_uuid_load().
  */
 function taxonomy_field_uuid_load($entity_type, $entity, $field, $instance, $langcode, &$items) {
-  foreach ($items as &$item) {
-    $item['tid'] = reset(entity_get_uuid_by_id('taxonomy_term', array($item['tid'])));
-  }
+  entity_property_id_to_uuid($items, 'taxonomy_term', 'tid');
 }
 
 /**
  * Implements hook_field_uuid_presave().
  */
 function taxonomy_field_uuid_presave($entity_type, $entity, $field, $instance, $langcode, &$items) {
-  foreach ($items as &$item) {
-    $item['tid'] = reset(entity_get_id_by_uuid('taxonomy_term', array($item['tid'])));
-  }
+  entity_property_uuid_to_id($items, 'taxonomy_term', 'tid');
 }
 
 /**
  * Implements hook_field_uuid_load().
  */
 function file_field_uuid_load($entity_type, $entity, $field, $instance, $langcode, &$items) {
-  foreach ($items as &$item) {
-    $item['fid'] = reset(entity_get_uuid_by_id('file', array($item['fid'])));
-    $item['uid'] = reset(entity_get_uuid_by_id('user', array($item['uid'])));
-  }
+  entity_property_id_to_uuid($items, 'file', 'fid');
+  entity_property_id_to_uuid($items, 'user', 'uid');
 }
 
 /**
  * Implements hook_field_uuid_presave().
  */
 function file_field_uuid_presave($entity_type, $entity, $field, $instance, $langcode, &$items) {
-  foreach ($items as &$item) {
-    $item['fid'] = reset(entity_get_id_by_uuid('file', array($item['fid'])));
-    $item['uid'] = reset(entity_get_id_by_uuid('user', array($item['uid'])));
-  }
+  entity_property_uuid_to_id($items, 'file', 'fid');
+  entity_property_uuid_to_id($items, 'user', 'uid');
 }
 
 /**
  * Implements hook_field_uuid_load().
  */
 function image_field_uuid_load($entity_type, $entity, $field, $instance, $langcode, &$items) {
-  // Image fields works exactly the same way as file fields.
   file_field_uuid_load($entity_type, $entity, $field, $instance, $langcode, $items);
 }
 
@@ -286,59 +216,114 @@ function image_field_uuid_load($entity_type, $entity, $field, $instance, $langco
  * Implements hook_field_uuid_presave().
  */
 function image_field_uuid_presave($entity_type, $entity, $field, $instance, $langcode, &$items) {
-  // Image fields works exactly the same way as file fields.
   file_field_uuid_presave($entity_type, $entity, $field, $instance, $langcode, $items);
 }
-
-/**
- * @} End of "Field module implementations"
- */
-
-/**
- * @defgroup uuid_references References module implementations
- * @{
- *
- * @todo
- *   When the UUID API has stabilized these implementations can be moved to the
- *   appropriate sub modules of References.
- */
 
 /**
  * Implements hook_field_uuid_load().
  */
 function node_reference_field_uuid_load($entity_type, $entity, $field, $instance, $langcode, &$items) {
-  foreach ($items as &$item) {
-    $item['nid'] = reset(entity_get_uuid_by_id('node', array($item['nid'])));
-  }
+  entity_property_id_to_uuid($items, 'node', 'nid');
 }
 
 /**
  * Implements hook_field_uuid_presave().
  */
 function node_reference_field_uuid_presave($entity_type, $entity, $field, $instance, $langcode, &$items) {
-  foreach ($items as &$item) {
-    $item['nid'] = reset(entity_get_id_by_uuid('node', array($item['nid'])));
-  }
+  entity_property_uuid_to_id($items, 'node', 'nid');
 }
 
 /**
  * Implements hook_field_uuid_load().
  */
 function user_reference_field_uuid_load($entity_type, $entity, $field, $instance, $langcode, &$items) {
-  foreach ($items as &$item) {
-    $item['uid'] = reset(entity_get_uuid_by_id('user', array($item['uid'])));
-  }
+  entity_property_id_to_uuid($items, 'user', 'uid');
 }
 
 /**
  * Implements hook_field_uuid_presave().
  */
 function user_reference_field_uuid_presave($entity_type, $entity, $field, $instance, $langcode, &$items) {
+  entity_property_uuid_to_id($items, 'user', 'uid');
+}
+
+/**
+ * Implements hook_field_uuid_load().
+ */
+function entityreference_field_uuid_load($entity_type, $entity, $field, $instance, $langcode, &$items) {
   foreach ($items as &$item) {
-    $item['uid'] = reset(entity_get_id_by_uuid('user', array($item['uid'])));
+    $info = entity_get_info($item['target_type']);
+    entity_property_id_to_uuid($item, $item['target_type'], $info['entity keys']['id']);
   }
 }
 
 /**
- * @} End of "References module implementations"
+ * Implements hook_field_uuid_presave().
+ */
+function entityreference_field_uuid_presave($entity_type, $entity, $field, $instance, $langcode, &$items) {
+  foreach ($items as &$item) {
+    $info = entity_get_info($item['target_type']);
+    entity_property_uuid_to_id($item, $item['target_type'], $info['entity keys']['id']);
+  }
+}
+
+/**
+ * @} End of "Field implementations"
+ */
+
+/**
+ * @defgroup uuid_export Export alterations
+ * @{
+ */
+
+/**
+ * Implements hook_uuid_entities_features_export_entity_alter().
+ */
+function node_uuid_entities_features_export_entity_alter(&$entity, $entity_type) {
+  if ($entity_type == 'node') {
+    foreach (array('data', 'name', 'picture', 'revision_uid', 'last_comment_timestamp') as $property) {
+      if (isset($entity->{$property})) {
+        unset($entity->{$property});
+      }
+    }
+  }
+}
+
+/**
+ * Implementation of hook_uuid_entities_features_export_entity_alter().
+ */
+function user_uuid_entities_features_export_entity_alter(&$entity, $entity_type) {
+  if ($entity_type == 'user') {
+    foreach (array('data', 'access', 'login') as $property) {
+      if (isset($entity->{$property})) {
+        unset($entity->{$property});
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_uuid_entities_features_export_alter().
+ */
+function file_uuid_entities_features_export_field_alter($entity_type, $entity, $field, $instance, $langcode, &$items) {
+  foreach ($items as &$item) {
+    if (isset($item['timestamp'])) {
+      unset($item['timestamp']);
+    }
+  }
+}
+
+/**
+ * Implements hook_uuid_entities_features_export_entity_alter().
+ */
+function workbench_uuid_entities_features_export_entity_alter(&$entity, $entity_type) {
+  foreach (array('workbench_moderation', 'my_revision', 'workbench_access', 'workbench_access_scheme', 'workbench_access_by_role') as $property) {
+    if (isset($entity->{$property})) {
+      unset($entity->{$property});
+    }
+  }
+}
+
+/**
+ * @} End of "Export alterations"
  */

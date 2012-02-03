@@ -329,7 +329,7 @@ function _field_permissions_field_settings_form_submit($form, &$form_state) {
 function field_permissions_overview() {
   drupal_add_css(drupal_get_path('module', 'field_permissions') .'/field_permissions.admin.css');
 
-  $headers = array(t('Field name'), t('Field type'), t('Object type'), t('Used in'));
+  $headers = array(t('Field name'), t('Field type'), t('Entity type'), t('Used in'));
   foreach (field_permissions_list() as $permission_type => $permission_info) {
     $headers[] = array('data' => $permission_info['label'], 'class' => 'field-permissions-header');
   }

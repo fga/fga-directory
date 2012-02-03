@@ -1,7 +1,12 @@
 <?php
 
 /**
- * Implementation of hook_help().
+ * @file
+ * @todo.
+ */
+
+/**
+ * Implements hook_help().
  */
 function date_tools_help($section, $arg) {
   switch ($section) {
@@ -9,12 +14,11 @@ function date_tools_help($section, $arg) {
       return '<p>' . t('Tools for creating and importing dates and calendars.') . '</p>';
 
     case 'admin/structure/date/change':
-      return '<p>'. t('Change a date field from one type to another. Very experimental, use at your own risk!') .'</p>';
+      return '<p>' . t('Change a date field from one type to another. Very experimental, use at your own risk!') . '</p>';
 
     case 'admin/structure/date/date_wizard':
 
-      $output =
-      t('Fill out the following form to auto-create a date content type, with a datetime field and matching pre-configured calendar. A calendar and upcoming events block will be created, an ical feed will be added to the calendar, and the mini calendar, calendar legend, and upcoming events blocks will be added to the sidebar of the default theme. Nodes created from this new content type will include a link to the calendar, and the calendar will have a link to the \'add new date\' form. You can also add new date fields to an existing content type by entering the existing content type name instead of creating a new one.') .
+      $output = t("Fill out the following form to auto-create a date content type, with a datetime field and matching pre-configured calendar. A calendar and upcoming events block will be created, an ical feed will be added to the calendar, and the mini calendar, calendar legend, and upcoming events blocks will be added to the sidebar of the default theme. Nodes created from this new content type will include a link to the calendar, and the calendar will have a link to the 'add new date' form. You can also add new date fields to an existing content type by entering the existing content type name instead of creating a new one.") .
       '</p><p>' .
       t('Only a limited set of options are displayed here to make this easy to set up. Once the date has been created you will be able to make other changes to the date settings and add other fields to your new content type on the Manage fields screen, and make changes to the calendar on the Views edit page.') .
       '</p>';
@@ -39,13 +43,13 @@ function date_tools_permission() {
 function date_tools_menu() {
 
   $items = array();
-  $items['admin/structure/date'] = array(
+  $items['admin/config/date/tools'] = array(
     'title'    => 'Date Tools',
     'description' => 'Tools to import and auto-create dates and calendars. ',
     'access arguments'   => array('administer date tools'),
     'page callback' => 'date_tools_page',
   );
-  $items['admin/structure/date/about'] = array(
+  $items['admin/config/date/tools/about'] = array(
     'title' => 'About',
     'description' => 'Tools to import and auto-create dates and calendars. ',
     'type' => MENU_DEFAULT_LOCAL_TASK,
@@ -53,7 +57,7 @@ function date_tools_menu() {
     'page callback' => 'date_tools_page',
     'access arguments' => array('administer date tools'),
   );
-  $items['admin/structure/date/date_wizard'] = array(
+  $items['admin/config/date/tools/date_wizard'] = array(
     'title' => 'Date wizard',
     'description' => 'Easy creation of date content types and calendars. ',
     'type' => MENU_LOCAL_TASK,
@@ -63,14 +67,14 @@ function date_tools_menu() {
     'access arguments' => array('administer date tools'),
     'file' => 'date_tools.wizard.inc',
   );
-  $items['admin/structure/date/remove'] = array(
+  $items['admin/config/date/tools/remove'] = array(
     'title'    => 'Remove calendar',
     'access arguments'   => array('administer date tools'),
     'page callback' => 'drupal_get_form',
     'page arguments' => array('date_tools_remove_form', 4),
     'type' => MENU_CALLBACK,
   );
-  $items['admin/structure/date/change'] = array(
+  $items['admin/config/date/tools/change'] = array(
     'title'    => 'Change type',
     'access arguments'   => array('administer date tools'),
     'page callback' => 'drupal_get_form',
@@ -121,7 +125,11 @@ function date_tools_page() {
 }
 
 /**
- * Menu callback; present a form for removing a field from a content type.
+ * Form constructor for the date field removal form.
+ *
+ * Path: admin/config/date/tools/remove
+ *
+ * @see date_tools_remove_form_submit()
  */
 function date_tools_remove_form($form, &$form_state, $view_name) {
   $form = array();
@@ -140,15 +148,14 @@ function date_tools_remove_form($form, &$form_state, $view_name) {
 }
 
 /**
- * Remove a field from a content type.
+ * Form submission handler for date_tools_remove_form().
  */
 function date_tools_remove_form_submit($form, &$form_state) {
   $form_values = $form_state['values'];
   $view_name = $form_values['view_name'];
   if ($view_name && $form_values['confirm']) {
     calendar_remove($view_name);
-    drupal_set_message(t('Removed calendar %calendar. ', array(
-      '%calendar' => $view_name)));
+    drupal_set_message(t('Removed calendar %calendar.', array('%calendar' => $view_name)));
   }
   $form_state['redirect'] = 'admin/structure/date';
 }

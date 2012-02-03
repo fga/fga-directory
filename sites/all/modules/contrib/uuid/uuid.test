@@ -133,7 +133,8 @@ class UUIDUserTestCase extends UUIDTestCase {
     $this->assertEqual($user_test->uuid, $user->uuid, 'User UUID was intact after update.');
 
     // Test entity_uuid_load().
-    $user_test = reset(entity_uuid_load('user', array($user->uuid), array(), TRUE));
+    $users = entity_uuid_load('user', array($user->uuid), array(), TRUE);
+    $user_test = reset($users);
     $this->assertEqual($user_test->uid, $user->uid, 'User was correctly loaded with UUID.');
 
     // The following tests depends on the optional Entity API module.
@@ -146,6 +147,11 @@ class UUIDUserTestCase extends UUIDTestCase {
       $user_test = user_load($user->uid, TRUE);
       $this->assertEqual($user_test->name, 'new name', 'Saving user with UUID mapped to correct user.');
       $this->assertEqual($user_test->uuid, $user->uuid, 'User UUID was intact after saving with UUID.');
+
+      // Test entity_uuid_delete() for users.
+      entity_uuid_delete('user', $user->uuid);
+      $user_test = user_load($user->uid);
+      $this->assertFalse($user_test, 'Deleting user with UUID worked.');
     }
   }
 }
@@ -204,7 +210,8 @@ class UUIDNodeTestCase extends UUIDTestCase {
     $this->assertUUID($node_test->vuuid, 'The new node revision UUID was valid.');
 
     // Test entity_uuid_load().
-    $node_test = reset(entity_uuid_load('node', array($node->uuid), array(), TRUE));
+    $nodes = entity_uuid_load('node', array($node->uuid), array(), TRUE);
+    $node_test = reset($nodes);
     $this->assertEqual($node_test->nid, $node->nid, 'Node was correctly loaded with UUID.');
     $this->assertEqual($node_test->uid, $user->uuid, "Node property 'uid' was transformed to UUID when loaded with UUID.");
 
@@ -213,7 +220,8 @@ class UUIDNodeTestCase extends UUIDTestCase {
       // Reload the node again because we have created new revisions above.
       $node = node_load($node->nid, FALSE, TRUE);
       // Test entity_uuid_save() for nodes.
-      $node_test = reset(entity_uuid_load('node', array($node->uuid), array(), TRUE));
+      $nodes = entity_uuid_load('node', array($node->uuid), array(), TRUE);
+      $node_test = reset($nodes);
       $node_test->nid = rand();
       $node_test->vid = rand();
       $node_test->title = 'new title';
@@ -226,7 +234,8 @@ class UUIDNodeTestCase extends UUIDTestCase {
       $this->assertEqual($node_test->uid, $node->uid, "Node property 'uid' was intact after saving with UUID, when not creating new revision.");
 
       // Test the same thing again, but now triggering a new revision.
-      $node_test = reset(entity_uuid_load('node', array($node->uuid), array(), TRUE));
+      $nodes = entity_uuid_load('node', array($node->uuid), array(), TRUE);
+      $node_test = reset($nodes);
       $node_test->nid = rand();
       $node_test->vid = rand();
       $node_test->title = 'newer title';
@@ -238,6 +247,11 @@ class UUIDNodeTestCase extends UUIDTestCase {
       $this->assertNotEqual($node_test->vuuid, $node->vuuid, 'A new node revison UUID was generated after saving with UUID, when creating new revision.');
       $this->assertUUID($node_test->vuuid, 'New node revision UUID was valid.');
       $this->assertEqual($node_test->uid, $node->uid, "Node property 'uid' was intact after saving with UUID, when creating new revision.");
+
+      // Test entity_uuid_delete() for nodes.
+      entity_uuid_delete('node', $node->uuid);
+      $node_test = node_load($node->nid);
+      $this->assertFalse($node_test, 'Deleting node with UUID worked.');
     }
   }
 }
@@ -272,11 +286,10 @@ class UUIDCommentTestCase extends CommentHelperCase {
    * Test CRUD on comments with UUID functions.
    */
   function testCommentCRUD() {
-    // This is sub optimal, but due to how CommentHelperCase::setUp() is 
+    // This is sub optimal, but due to how CommentHelperCase::setUp() is
     // constructed we are enforced to do this. So unfortunately this test
     // depends on 'entity' module for now.
     module_enable(array('uuid', 'entity'), TRUE);
-
     $user = $this->drupalCreateUser();
     $this->drupalLogin($user);
     $node = $this->drupalCreateNode();
@@ -293,7 +306,8 @@ class UUIDCommentTestCase extends CommentHelperCase {
     $this->assertEqual($comment_test->uuid, $comment->uuid, 'Comment UUID was intact after update.');
 
     // Test entity_uuid_load().
-    $comment_test = reset(entity_uuid_load('comment', array($comment->uuid), array(), TRUE));
+    $comments = entity_uuid_load('comment', array($comment->uuid), array(), TRUE);
+    $comment_test = reset($comments);
     $this->assertEqual($comment_test->cid, $return->id, 'Comment was correctly loaded with UUID.');
     $this->assertEqual($comment_test->uid, $user->uuid, "Comment property 'uid' was transformed to UUID when loaded with UUID.");
     $this->assertEqual($comment_test->nid, $node->uuid, "Comment property 'nid' was transformed to UUID when loaded with UUID.");
@@ -301,7 +315,8 @@ class UUIDCommentTestCase extends CommentHelperCase {
     // The following tests depends on the optional Entity API module.
     if (module_exists('entity')) {
       // Test entity_uuid_save() for comments.
-      $comment_test = reset(entity_uuid_load('comment', array($comment->uuid), array(), TRUE));
+      $comments = entity_uuid_load('comment', array($comment->uuid), array(), TRUE);
+      $comment_test = reset($comments);
       $comment_test->cid = rand();
       $comment_test->subject = 'newer subject';
       entity_uuid_save('comment', $comment_test);
@@ -310,6 +325,11 @@ class UUIDCommentTestCase extends CommentHelperCase {
       $this->assertEqual($comment_test->uuid, $comment->uuid, 'Comment UUID was intact after saving with UUID.');
       $this->assertEqual($comment_test->uid, $user->uid, "Comment property 'uid' was after saving with UUID.");
       $this->assertEqual($comment_test->nid, $node->nid, "Comment property 'nid' was after saving with UUID.");
+
+      // Test entity_uuid_delete() for comments.
+      entity_uuid_delete('comment', $comment->uuid);
+      $comment_test = comment_load($comment->cid);
+      $this->assertFalse($comment_test, 'Deleting comment with UUID worked.');
     }
   }
 }
@@ -358,15 +378,9 @@ class UUIDTaxonomyTestCase extends TaxonomyWebTestCase {
     $this->drupalLogin($user);
 
     // Create a term by tagging a node. We'll use this node later too.
-    $langcode = LANGUAGE_NONE;
-    $edit = array();
-    $edit['title'] = $this->randomName();
-    $edit["field_tags[$langcode]"] = $this->randomName();
-    $this->drupalPost('node/add/article', $edit, t('Save'));
-
-    $node = $this->drupalGetNodeByTitle($edit['title']);
-    $term = taxonomy_term_load($node->field_tags[$langcode][0]['tid']);
-
+    $vocabulary = new stdClass;
+    $vocabulary->vid = 1;
+    $term = $this->createTerm($vocabulary);
     $this->assertUUID($term->uuid, 'Term UUID was generated.');
 
     // Test updating term.
@@ -377,17 +391,15 @@ class UUIDTaxonomyTestCase extends TaxonomyWebTestCase {
     $this->assertEqual($term_test->uuid, $term->uuid, 'Term UUID was intact after update.');
 
     // Test entity_uuid_load().
-    $term_test = reset(entity_uuid_load('taxonomy_term', array($term->uuid), array(), TRUE));
+    $terms = entity_uuid_load('taxonomy_term', array($term->uuid), array(), TRUE);
+    $term_test = reset($terms);
     $this->assertEqual($term_test->tid, $term->tid, 'Term was correctly loaded with UUID.');
-
-    // Test the term reference field.
-    $node_test = reset(entity_uuid_load('node', array($node->uuid), array(), TRUE));
-    $this->assertEqual($node_test->field_tags[$langcode][0]['tid'], $term->uuid, "Term field key 'tid' was transformed to UUID when node was loaded with UUID.");
 
     // The following tests depends on the Entity API module.
     if (module_exists('entity')) {
       // Test entity_uuid_save() for terms.
-      $term_test = reset(entity_uuid_load('taxonomy_term', array($term->uuid), array(), TRUE));
+      $terms = entity_uuid_load('taxonomy_term', array($term->uuid), array(), TRUE);
+      $term_test = reset($terms);
       $term_test->tid = rand();
       $term_test->name = 'newer name';
       entity_uuid_save('taxonomy_term', $term_test);
@@ -395,17 +407,10 @@ class UUIDTaxonomyTestCase extends TaxonomyWebTestCase {
       $this->assertEqual($term_test->name, 'newer name', 'Saving term with UUID mapped to correct term.');
       $this->assertEqual($term_test->uuid, $term->uuid, 'Term UUID was intact after saving with UUID.');
 
-      // Test saving a node with UUID and a term UUID.
-      $vocabulary = new stdClass;
-      $vocabulary->vid = 1;
-      $term_new = $this->createTerm($vocabulary);
-      $node_test = reset(entity_uuid_load('node', array($node->uuid), array(), TRUE));
-      $node_test->nid = rand();
-      $node_test->vid = rand();
-      $node_test->field_tags[$langcode][0]['tid'] = $term_new->uuid;
-      entity_uuid_save('node', $node_test);
-      $node_test = node_load($node->nid, FALSE, TRUE);
-      $this->assertEqual($node_test->field_tags[$langcode][0]['tid'], $term_new->tid, 'New term reference was added when saving node with UUID.');
+      // Test entity_uuid_delete() for nodes.
+      entity_uuid_delete('taxonomy_term', $term->uuid);
+      $term_test = taxonomy_term_load($term->tid);
+      $this->assertFalse($term_test, 'Deleting term with UUID worked.');
     }
   }
 }

@@ -7,29 +7,20 @@
 
 define('UUID_UPGRADE_VAR', 'uuid_upgrade_in_progress');
 
-// Include UUID schema helper functions.
-module_load_include('inc', 'uuid', 'uuid.schema');
+/**
+ * Include some helper functions for the Entity API.
+ */
+module_load_include('inc', 'uuid', 'uuid.entity');
 
 /**
  * Implements of hook_schema_alter().
  */
 function uuid_schema_alter(&$schema = array()) {
-  // We aren't calling entity_get_info() directly here becase it's caching too
-  // hard and can't be used inside hook_schema_alter(). Also, we are only using
-  // a fraction of what we original logic fetches and we don't need the fancy
-  // logic for default values since it's a prerequsite that
-  // $info['entity keys']['uuid'] is set for the alteration to kick in.
-  $entity_info = module_invoke_all('entity_info');
-  drupal_alter('entity_info', $entity_info);
-
-  foreach ($entity_info as $entity_type => $info) {
-    if (isset($info['uuid']) && $info['uuid'] == TRUE && !empty($info['entity keys']['uuid'])) {
-      // Add the Universally Unique Identifier column to the definition.
-      uuid_schema_generate($schema, $info['base table'], $info['entity keys']['uuid']);
-      if (!empty($info['revision table']) && !empty($info['entity keys']['revision uuid'])) {
-        // Add the Universally Unique Version Identifier to the definition.
-        uuid_schema_generate($schema, $info['revision table'], $info['entity keys']['revision uuid']);
-      }
+  $field = uuid_schema_field_definition();
+  foreach (uuid_get_core_entity_info() as $entity_type => $info) {
+    $schema[$info['base table']]['fields'][$info['entity keys']['uuid']] = $field;
+    if (!empty($info['revision table']) && !empty($info['entity keys']['revision uuid'])) {
+      $schema[$info['revision table']]['fields'][$info['entity keys']['revision uuid']] = $field;
     }
   }
 }
@@ -38,39 +29,47 @@ function uuid_schema_alter(&$schema = array()) {
  * Implements hook_install().
  */
 function uuid_install() {
-  foreach (entity_get_info() as $entity_type => $info) {
-    if (isset($info['uuid']) && $info['uuid'] == TRUE) {
-      $schema = array();
-      // Add the UUID columns to the definition.
-      uuid_schema_alter($schema);
-      // Now drop the actual UUID field.
-      uuid_add_field($schema, $info['base table']);
-      if (!empty($info['revision table'])) {
-        // Now drop the actual UUVID field.
-        uuid_add_field($schema, $info['revision table']);
+  $field = uuid_schema_field_definition();
+  foreach (uuid_get_core_entity_info() as $entity_type => $info) {
+    if (!db_field_exists($info['base table'], $info['entity keys']['uuid'])) {
+      db_add_field($info['base table'], $info['entity keys']['uuid'], $field);
+      db_add_index($info['base table'], $info['entity keys']['uuid'], array($info['entity keys']['uuid']));
+    }
+    if (!empty($info['revision table']) && !empty($info['entity keys']['revision uuid'])) {
+      if (!db_field_exists($info['revision table'], $info['entity keys']['revision uuid'])) {
+        db_add_field($info['revision table'], $info['entity keys']['revision uuid'], $field);
+        db_add_index($info['revision table'], $info['entity keys']['revision uuid'], array($info['entity keys']['revision uuid']));
       }
     }
   }
+  uuid_sync_all();
 }
 
 /**
  * Implements hook_uninstall().
  */
 function uuid_uninstall() {
-  variable_del('uuid_generator');
-  foreach (entity_get_info() as $entity_type => $info) {
-    if (isset($info['uuid']) && $info['uuid'] == TRUE) {
-      $schema = array();
-      // Add the UUID columns to the definition.
-      uuid_schema_alter($schema);
-      // Now drop the actual UUID field.
-      uuid_add_field($schema, $info['base table']);
-      if (!empty($info['revision table'])) {
-        // Now drop the actual UUVID field.
-        uuid_add_field($schema, $info['revision table']);
+  foreach (uuid_get_core_entity_info() as $entity_type => $info) {
+    if (db_field_exists($info['base table'], $info['entity keys']['uuid'])) {
+      db_drop_field($info['base table'], $info['entity keys']['uuid']);
+      db_drop_index($info['base table'], $info['entity keys']['uuid']);
+    }
+    if (!empty($info['revision table']) && !empty($info['entity keys']['revision uuid'])) {
+      if (db_field_exists($info['revision table'], $info['entity keys']['revision uuid'])) {
+        db_drop_field($info['revision table'], $info['entity keys']['revision uuid']);
+        db_drop_index($info['revision table'], $info['entity keys']['revision uuid']);
       }
     }
   }
+}
+
+/**
+ * Implements hook_modules_installed().
+ */
+function uuid_modules_installed($modules) {
+  // Run the installation hook. This makes sure that the schema for all
+  // supported core entity types is set correct.
+  uuid_install();
 }
 
 /**

@@ -23,7 +23,7 @@ class FieldPermissionsTestCase extends DrupalWebTestCase {
   }
 
   function setUp() {
-    parent::setUp('field_permissions');
+    parent::setUp('field_ui', 'field_permissions');
 
     // Create test user.
     $admin_permissions = array('access content', 'administer nodes', 'bypass node access', 'administer content types', 'administer taxonomy', 'administer permissions', 'create page content');
@@ -33,6 +33,7 @@ class FieldPermissionsTestCase extends DrupalWebTestCase {
     $this->limited_rid = array_pop($all_rids);
 
     $admin_permissions[] = 'administer field permissions';
+    $admin_permissions[] = 'administer users';
     $this->admin_user = $this->drupalCreateUser($admin_permissions);
     $all_rids = array_keys($this->admin_user->roles);
     sort($all_rids);
@@ -261,6 +262,39 @@ class FieldPermissionsTestCase extends DrupalWebTestCase {
     $this->drupalLogin($this->limited_user);
     $this->drupalGet('node/' . $nid2 . '/edit');
     $this->assertText($field_info['value']);
+  }
+
+  function testUserFields() {
+    // Create a field attached to users and make it appear on the user
+    // registration form with (default) custom permissions.
+    $this->drupalLogin($this->admin_user);
+    $label = 'Field attached to users';
+    $edit = array(
+      'fields[_add_new_field][label]' => $label,
+      'fields[_add_new_field][field_name]' => 'attached_to_users',
+      'fields[_add_new_field][type]' => 'text',
+      'fields[_add_new_field][widget_type]' => 'text_textfield',
+    );
+    $this->drupalPost('admin/config/people/accounts/fields',  $edit, t('Save'));
+    $this->drupalPost(NULL, array(), t('Save field settings'));
+    $edit = array(
+      'field[field_permissions][type]' => 2,
+      'instance[settings][user_register_form]' => TRUE,
+    );
+    $this->drupalPost(NULL, $edit, t('Save settings'));
+
+    // Log out, go to the registration form and make sure the field appears
+    // there for anonymous users.
+    $this->drupalLogout();
+    $this->drupalGet('user/register');
+    $this->assertText($label);
+
+    // Log in and make sure the user does not have access to edit the field
+    // (i.e., there are only default permissions to create it).
+    $this->drupalLogin($this->limited_user);
+    $this->drupalGet('user/' . $this->limited_user->uid . '/edit');
+    $this->assertResponse(200);
+    $this->assertNoText($label);
   }
 
   /**

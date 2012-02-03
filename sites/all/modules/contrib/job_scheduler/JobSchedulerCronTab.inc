@@ -58,7 +58,7 @@ class JobSchedulerCronTab {
     if (count($array) == 5) {
       $values = array_combine(array('minutes', 'hours', 'mday', 'mon', 'wday'), array_map('trim', $array));
       $elements = array();
-      foreach($values as $type => $string) {
+      foreach ($values as $type => $string) {
         $elements[$type] = self::parseElement($type, $string, TRUE);
       }
       // Return only if we have the right number of elements
