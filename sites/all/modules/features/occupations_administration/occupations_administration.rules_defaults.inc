@@ -37,7 +37,7 @@ function occupations_administration_default_rules_configuration() {
             "type" : { "value" : { "occupation" : "occupation" } }
           }
         },
-        { "NOT user_has_role" : { "account" : [ "node:author" ], "roles" : { "value" : { "1" : "1" } } } }
+        { "user_has_role" : { "account" : [ "node:author" ], "roles" : { "value" : { "2" : "2" } } } }
       ],
       "DO" : [
         { "mail_to_users_of_role" : {
@@ -63,7 +63,8 @@ function occupations_administration_default_rules_configuration() {
           }
         },
         { "node_is_published" : { "node" : [ "node" ] } },
-        { "NOT node_is_published" : { "node" : [ "node-unchanged" ] } }
+        { "NOT node_is_published" : { "node" : [ "node-unchanged" ] } },
+        { "user_has_role" : { "account" : [ "node:author" ], "roles" : { "value" : { "2" : "2" } } } }
       ],
       "DO" : [
         { "mail" : {
