@@ -37,11 +37,7 @@ function occupations_administration_default_rules_configuration() {
             "type" : { "value" : { "occupation" : "occupation" } }
           }
         },
-        { "NOT user_has_role" : {
-            "account" : [ "site:current-user" ],
-            "roles" : { "value" : { "1" : "1" } }
-          }
-        }
+        { "NOT user_has_role" : { "account" : [ "node:author" ], "roles" : { "value" : { "1" : "1" } } } }
       ],
       "DO" : [
         { "mail_to_users_of_role" : {
