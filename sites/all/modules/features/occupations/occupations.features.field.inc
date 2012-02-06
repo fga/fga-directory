@@ -56,6 +56,18 @@ function occupations_field_default_fields() {
           'type' => 'addressfield_default',
           'weight' => '1',
         ),
+        'full' => array(
+          'label' => 'hidden',
+          'module' => 'addressfield',
+          'settings' => array(
+            'format_handlers' => array(
+              'address' => 'address',
+            ),
+            'use_widget_handlers' => 1,
+          ),
+          'type' => 'addressfield_default',
+          'weight' => '8',
+        ),
         'rss' => array(
           'label' => 'hidden',
           'module' => 'addressfield',
@@ -142,6 +154,13 @@ function occupations_field_default_fields() {
           'type' => 'text_default',
           'weight' => '3',
         ),
+        'full' => array(
+          'label' => 'above',
+          'module' => 'text',
+          'settings' => array(),
+          'type' => 'text_default',
+          'weight' => '6',
+        ),
         'rss' => array(
           'label' => 'hidden',
           'module' => 'text',
@@ -171,7 +190,106 @@ function occupations_field_default_fields() {
           'rows' => '5',
         ),
         'type' => 'text_textarea',
-        'weight' => '7',
+        'weight' => '18',
+      ),
+    ),
+  );
+
+  // Exported field: 'node-occupation-field_occupation_donate_url'
+  $fields['node-occupation-field_occupation_donate_url'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_occupation_donate_url',
+      'field_permissions' => array(
+        'type' => '0',
+      ),
+      'foreign keys' => array(),
+      'indexes' => array(),
+      'module' => 'link',
+      'settings' => array(
+        'attributes' => array(
+          'class' => '',
+          'rel' => '',
+          'target' => 'default',
+        ),
+        'display' => array(
+          'url_cutoff' => 80,
+        ),
+        'enable_tokens' => 1,
+        'title' => 'optional',
+        'title_maxlength' => 128,
+        'title_value' => '',
+        'url' => 0,
+      ),
+      'translatable' => '0',
+      'type' => 'link_field',
+    ),
+    'field_instance' => array(
+      'bundle' => 'occupation',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'module' => 'link',
+          'settings' => array(),
+          'type' => 'link_default',
+          'weight' => '18',
+        ),
+        'full' => array(
+          'label' => 'hidden',
+          'module' => 'link',
+          'settings' => array(),
+          'type' => 'link_default',
+          'weight' => '9',
+        ),
+        'rss' => array(
+          'label' => 'hidden',
+          'module' => 'link',
+          'settings' => array(),
+          'type' => 'link_plain',
+          'weight' => '16',
+        ),
+        'teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'node',
+      'field_name' => 'field_occupation_donate_url',
+      'label' => 'Donate URL',
+      'required' => 0,
+      'settings' => array(
+        'attributes' => array(
+          'class' => '',
+          'configurable_title' => 0,
+          'rel' => '',
+          'target' => '_blank',
+          'title' => '',
+        ),
+        'display' => array(
+          'url_cutoff' => '80',
+        ),
+        'enable_tokens' => 0,
+        'title' => 'none',
+        'title_maxlength' => '128',
+        'title_value' => 'Donate to [node:title]',
+        'url' => 0,
+        'user_register_form' => FALSE,
+        'validate_url' => 1,
+      ),
+      'widget' => array(
+        'active' => 0,
+        'module' => 'link',
+        'settings' => array(),
+        'type' => 'link_field',
+        'weight' => '21',
       ),
     ),
   );
@@ -218,13 +336,20 @@ function occupations_field_default_fields() {
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
-          'weight' => 25,
+          'weight' => '25',
+        ),
+        'full' => array(
+          'label' => 'above',
+          'module' => 'text',
+          'settings' => array(),
+          'type' => 'text_default',
+          'weight' => '8',
         ),
         'rss' => array(
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '0',
+          'weight' => 0,
         ),
         'teaser' => array(
           'label' => 'above',
@@ -248,7 +373,7 @@ function occupations_field_default_fields() {
           'size' => '60',
         ),
         'type' => 'text_textfield',
-        'weight' => '14',
+        'weight' => '20',
       ),
     ),
   );
@@ -280,6 +405,13 @@ function occupations_field_default_fields() {
           'settings' => array(),
           'type' => 'email_default',
           'weight' => '5',
+        ),
+        'full' => array(
+          'label' => 'hidden',
+          'module' => 'email',
+          'settings' => array(),
+          'type' => 'email_plain',
+          'weight' => '4',
         ),
         'rss' => array(
           'label' => 'hidden',
@@ -340,6 +472,12 @@ function occupations_field_default_fields() {
           'settings' => array(),
           'type' => 'hidden',
           'weight' => '21',
+        ),
+        'full' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '15',
         ),
         'rss' => array(
           'label' => 'hidden',
@@ -411,6 +549,13 @@ function occupations_field_default_fields() {
       'display' => array(
         'default' => array(
           'label' => 'above',
+          'module' => 'link',
+          'settings' => array(),
+          'type' => 'link_default',
+          'weight' => '14',
+        ),
+        'full' => array(
+          'label' => 'hidden',
           'module' => 'link',
           'settings' => array(),
           'type' => 'link_default',
@@ -505,6 +650,13 @@ function occupations_field_default_fields() {
           'type' => 'text_default',
           'weight' => '7',
         ),
+        'full' => array(
+          'label' => 'inline',
+          'module' => 'text',
+          'settings' => array(),
+          'type' => 'text_default',
+          'weight' => '7',
+        ),
         'rss' => array(
           'label' => 'hidden',
           'module' => 'text',
@@ -521,7 +673,7 @@ function occupations_field_default_fields() {
       ),
       'entity_type' => 'node',
       'field_name' => 'field_occupation_general_info',
-      'label' => 'General assembly information',
+      'label' => 'General Assembly',
       'required' => 0,
       'settings' => array(
         'text_processing' => '1',
@@ -534,7 +686,7 @@ function occupations_field_default_fields() {
           'rows' => '5',
         ),
         'type' => 'text_textarea',
-        'weight' => '8',
+        'weight' => '19',
       ),
     ),
   );
@@ -587,6 +739,31 @@ function occupations_field_default_fields() {
           ),
           'type' => 'geofield_map_map',
           'weight' => '20',
+        ),
+        'full' => array(
+          'label' => 'hidden',
+          'module' => 'geofield_map',
+          'settings' => array(
+            'geofield_map_baselayers_hybrid' => 1,
+            'geofield_map_baselayers_map' => 1,
+            'geofield_map_baselayers_physical' => 0,
+            'geofield_map_baselayers_satellite' => 1,
+            'geofield_map_controltype' => 'default',
+            'geofield_map_draggable' => 0,
+            'geofield_map_height' => '300px',
+            'geofield_map_maptype' => 'map',
+            'geofield_map_mtc' => 'standard',
+            'geofield_map_overview' => 0,
+            'geofield_map_overview_opened' => 0,
+            'geofield_map_pancontrol' => 1,
+            'geofield_map_scale' => 0,
+            'geofield_map_scrollwheel' => 0,
+            'geofield_map_streetview_show' => 0,
+            'geofield_map_width' => '100%',
+            'geofield_map_zoom' => '8',
+          ),
+          'type' => 'geofield_map_map',
+          'weight' => '9',
         ),
         'rss' => array(
           'label' => 'hidden',
@@ -678,6 +855,16 @@ function occupations_field_default_fields() {
           'type' => 'image',
           'weight' => '0',
         ),
+        'full' => array(
+          'label' => 'hidden',
+          'module' => 'image',
+          'settings' => array(
+            'image_link' => '',
+            'image_style' => '',
+          ),
+          'type' => 'image',
+          'weight' => '10',
+        ),
         'rss' => array(
           'label' => 'hidden',
           'module' => 'rss_enclosure',
@@ -763,6 +950,13 @@ function occupations_field_default_fields() {
           'type' => 'link_default',
           'weight' => '12',
         ),
+        'full' => array(
+          'label' => 'hidden',
+          'module' => 'link',
+          'settings' => array(),
+          'type' => 'link_default',
+          'weight' => '12',
+        ),
         'rss' => array(
           'label' => 'hidden',
           'module' => 'link',
@@ -818,6 +1012,9 @@ function occupations_field_default_fields() {
       'deleted' => '0',
       'entity_types' => array(),
       'field_name' => 'field_occupation_meetup_url',
+      'field_permissions' => array(
+        'type' => '0',
+      ),
       'foreign keys' => array(),
       'indexes' => array(),
       'module' => 'link',
@@ -852,6 +1049,13 @@ function occupations_field_default_fields() {
           'type' => 'link_default',
           'weight' => '15',
         ),
+        'full' => array(
+          'label' => 'hidden',
+          'module' => 'link',
+          'settings' => array(),
+          'type' => 'link_default',
+          'weight' => '11',
+        ),
         'rss' => array(
           'label' => 'hidden',
           'module' => 'link',
@@ -882,9 +1086,9 @@ function occupations_field_default_fields() {
           'url_cutoff' => '80',
         ),
         'enable_tokens' => 0,
-        'title' => 'none',
+        'title' => 'value',
         'title_maxlength' => '128',
-        'title_value' => '',
+        'title_value' => 'Meetup URL',
         'url' => 0,
         'user_register_form' => FALSE,
         'validate_url' => 1,
@@ -942,6 +1146,12 @@ function occupations_field_default_fields() {
           'settings' => array(),
           'type' => 'hidden',
           'weight' => '24',
+        ),
+        'full' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '18',
         ),
         'rss' => array(
           'label' => 'above',
@@ -1016,6 +1226,13 @@ function occupations_field_default_fields() {
           'settings' => array(),
           'type' => 'link_default',
           'weight' => '17',
+        ),
+        'full' => array(
+          'label' => 'hidden',
+          'module' => 'link',
+          'settings' => array(),
+          'type' => 'link_default',
+          'weight' => '12',
         ),
         'rss' => array(
           'label' => 'hidden',
@@ -1105,6 +1322,12 @@ function occupations_field_default_fields() {
           'type' => 'hidden',
           'weight' => '23',
         ),
+        'full' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '17',
+        ),
         'rss' => array(
           'label' => 'above',
           'settings' => array(),
@@ -1178,6 +1401,12 @@ function occupations_field_default_fields() {
           'settings' => array(),
           'type' => 'hidden',
           'weight' => '22',
+        ),
+        'full' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '16',
         ),
         'rss' => array(
           'label' => 'above',
@@ -1260,6 +1489,19 @@ function occupations_field_default_fields() {
           'type' => 'date_default',
           'weight' => '2',
         ),
+        'full' => array(
+          'label' => 'inline',
+          'module' => 'date',
+          'settings' => array(
+            'format_type' => 'date_long',
+            'fromto' => 'both',
+            'multiple_from' => '',
+            'multiple_number' => '',
+            'multiple_to' => '',
+          ),
+          'type' => 'date_default',
+          'weight' => '11',
+        ),
         'rss' => array(
           'label' => 'hidden',
           'module' => 'date',
@@ -1303,7 +1545,7 @@ function occupations_field_default_fields() {
           'year_range' => '-3:+3',
         ),
         'type' => 'date_popup',
-        'weight' => '4',
+        'weight' => '16',
       ),
     ),
   );
@@ -1349,6 +1591,13 @@ function occupations_field_default_fields() {
           'settings' => array(),
           'type' => 'link_default',
           'weight' => '11',
+        ),
+        'full' => array(
+          'label' => 'hidden',
+          'module' => 'link',
+          'settings' => array(),
+          'type' => 'link_default',
+          'weight' => '13',
         ),
         'rss' => array(
           'label' => 'hidden',
@@ -1441,6 +1690,13 @@ function occupations_field_default_fields() {
           'type' => 'text_default',
           'weight' => '6',
         ),
+        'full' => array(
+          'label' => 'hidden',
+          'module' => 'text',
+          'settings' => array(),
+          'type' => 'text_default',
+          'weight' => '5',
+        ),
         'rss' => array(
           'label' => 'hidden',
           'module' => 'text',
@@ -1516,6 +1772,13 @@ function occupations_field_default_fields() {
           'type' => 'list_default',
           'weight' => '8',
         ),
+        'full' => array(
+          'label' => 'inline',
+          'module' => 'list',
+          'settings' => array(),
+          'type' => 'list_default',
+          'weight' => '12',
+        ),
         'rss' => array(
           'label' => 'hidden',
           'module' => 'list',
@@ -1542,7 +1805,7 @@ function occupations_field_default_fields() {
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_buttons',
-        'weight' => '6',
+        'weight' => '17',
       ),
     ),
   );
@@ -1588,6 +1851,13 @@ function occupations_field_default_fields() {
           'settings' => array(),
           'type' => 'link_default',
           'weight' => '19',
+        ),
+        'full' => array(
+          'label' => 'hidden',
+          'module' => 'link',
+          'settings' => array(),
+          'type' => 'link_default',
+          'weight' => '23',
         ),
         'rss' => array(
           'label' => 'hidden',
@@ -1678,6 +1948,13 @@ URL: http address of the page.',
           'settings' => array(),
           'type' => 'link_default',
           'weight' => '16',
+        ),
+        'full' => array(
+          'label' => 'hidden',
+          'module' => 'link',
+          'settings' => array(),
+          'type' => 'link_default',
+          'weight' => '17',
         ),
         'rss' => array(
           'label' => 'hidden',
@@ -1770,6 +2047,13 @@ URL: http address of the page.',
           'type' => 'text_default',
           'weight' => '9',
         ),
+        'full' => array(
+          'label' => 'hidden',
+          'module' => 'text',
+          'settings' => array(),
+          'type' => 'text_default',
+          'weight' => '15',
+        ),
         'rss' => array(
           'label' => 'hidden',
           'module' => 'text',
@@ -1853,6 +2137,13 @@ URL: http address of the page.',
           'type' => 'taxonomy_term_reference_link',
           'weight' => '10',
         ),
+        'full' => array(
+          'label' => 'hidden',
+          'module' => 'taxonomy',
+          'settings' => array(),
+          'type' => 'taxonomy_term_reference_link',
+          'weight' => '16',
+        ),
         'rss' => array(
           'label' => 'hidden',
           'module' => 'taxonomy',
@@ -1928,6 +2219,13 @@ URL: http address of the page.',
           'settings' => array(),
           'type' => 'link_default',
           'weight' => '4',
+        ),
+        'full' => array(
+          'label' => 'hidden',
+          'module' => 'link',
+          'settings' => array(),
+          'type' => 'link_default',
+          'weight' => '3',
         ),
         'rss' => array(
           'label' => 'hidden',
@@ -2018,6 +2316,13 @@ URL: http address of the page.',
           'type' => 'link_default',
           'weight' => '13',
         ),
+        'full' => array(
+          'label' => 'hidden',
+          'module' => 'link',
+          'settings' => array(),
+          'type' => 'link_default',
+          'weight' => '13',
+        ),
         'rss' => array(
           'label' => 'hidden',
           'module' => 'link',
@@ -2068,8 +2373,9 @@ URL: http address of the page.',
   // Translatables
   // Included for use with string extractors like potx.
   t('Donate Information');
+  t('Donate URL');
   t('Facebook Pages');
-  t('General assembly information');
+  t('General Assembly');
   t('General email address');
   t('General phone');
   t('Geofield');
