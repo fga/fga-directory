@@ -16,12 +16,8 @@ function occupations_menu_default_menu_links() {
     'link_path' => 'occupations',
     'router_path' => 'occupations',
     'link_title' => 'Directory',
-    'options' => array(
-      'attributes' => array(
-        'title' => '',
-      ),
-    ),
-    'module' => 'menu',
+    'options' => array(),
+    'module' => 'system',
     'hidden' => '0',
     'external' => '0',
     'has_children' => '0',

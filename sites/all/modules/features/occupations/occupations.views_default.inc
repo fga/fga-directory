@@ -12,8 +12,8 @@ function occupations_views_default_views() {
 
   $view = new view;
   $view->name = 'occupation_directory';
-  $view->description = '';
-  $view->tag = 'default';
+  $view->description = 'tabbed views to list and manage occupations';
+  $view->tag = 'FGA';
   $view->base_table = 'node';
   $view->human_name = 'Occupation Directory';
   $view->core = 7;
@@ -22,7 +22,8 @@ function occupations_views_default_views() {
 
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
-  $handler->display->display_options['title'] = 'Occupations Directory';
+  $handler->display->display_options['title'] = 'Occupation Directory';
+  $handler->display->display_options['css_class'] = 'list-occupations node-list';
   $handler->display->display_options['use_ajax'] = TRUE;
   $handler->display->display_options['access']['type'] = 'perm';
   $handler->display->display_options['cache']['type'] = 'none';
@@ -30,30 +31,33 @@ function occupations_views_default_views() {
   $handler->display->display_options['query']['options']['query_comment'] = FALSE;
   $handler->display->display_options['exposed_form']['type'] = 'basic';
   $handler->display->display_options['pager']['type'] = 'full';
-  $handler->display->display_options['pager']['options']['items_per_page'] = '50';
+  $handler->display->display_options['pager']['options']['items_per_page'] = '25';
   $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['pager']['options']['id'] = '0';
   $handler->display->display_options['pager']['options']['expose']['items_per_page'] = TRUE;
-  $handler->display->display_options['pager']['options']['expose']['items_per_page_options'] = '25, 50, 100, 250, 500, 1000';
+  $handler->display->display_options['pager']['options']['expose']['items_per_page_options'] = '10, 25, 50, 100, 250, 500, 1000';
   $handler->display->display_options['pager']['options']['expose']['items_per_page_options_all'] = 1;
   $handler->display->display_options['style_plugin'] = 'table';
   $handler->display->display_options['style_options']['columns'] = array(
-    'field_occupation_image' => 'field_occupation_image',
-    'rendered_entity' => 'rendered_entity',
+    'views_bulk_operations' => 'views_bulk_operations',
+    'title' => 'title',
     'field_occupation_address' => 'field_occupation_address',
-    'field_occupation_address_1' => 'field_occupation_address_1',
+    'status' => 'status',
+    'comment_count' => 'comment_count',
+    'new_comments' => 'new_comments',
+    'last_updated' => 'last_updated',
     'edit_node' => 'edit_node',
   );
   $handler->display->display_options['style_options']['default'] = '-1';
   $handler->display->display_options['style_options']['info'] = array(
-    'field_occupation_image' => array(
-      'sortable' => 1,
-      'default_sort_order' => 'asc',
+    'views_bulk_operations' => array(
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
     ),
-    'rendered_entity' => array(
+    'title' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
@@ -61,25 +65,44 @@ function occupations_views_default_views() {
     'field_occupation_address' => array(
       'sortable' => 1,
       'default_sort_order' => 'asc',
-      'align' => '',
+      'align' => 'views-align-left',
       'separator' => '',
       'empty_column' => 0,
     ),
-    'field_occupation_address_1' => array(
+    'status' => array(
       'sortable' => 1,
       'default_sort_order' => 'asc',
-      'align' => '',
+      'align' => 'views-align-center',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'comment_count' => array(
+      'sortable' => 1,
+      'default_sort_order' => 'asc',
+      'align' => 'views-align-center',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'new_comments' => array(
+      'align' => 'views-align-center',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'last_updated' => array(
+      'sortable' => 1,
+      'default_sort_order' => 'asc',
+      'align' => 'views-align-left',
       'separator' => '',
       'empty_column' => 0,
     ),
     'edit_node' => array(
-      'align' => '',
+      'align' => 'views-align-right',
       'separator' => '',
       'empty_column' => 0,
     ),
   );
   $handler->display->display_options['style_options']['override'] = 1;
-  $handler->display->display_options['style_options']['sticky'] = 0;
+  $handler->display->display_options['style_options']['sticky'] = 1;
   $handler->display->display_options['style_options']['empty_table'] = 0;
   /* Relationship: File Usage: File */
   $handler->display->display_options['relationships']['node_to_file']['id'] = 'node_to_file';
@@ -207,15 +230,19 @@ function occupations_views_default_views() {
   );
 
   /* Display: Directory landing page */
-  $handler = $view->new_display('page', 'Directory landing page', 'page');
+  $handler = $view->new_display('page', 'Directory landing page', 'occupations_list');
   $handler->display->display_options['display_description'] = 'A table showing all Occupations, sorted by ___, paginated x 10';
+  $handler->display->display_options['defaults']['exposed_form'] = FALSE;
+  $handler->display->display_options['exposed_form']['type'] = 'basic';
+  $handler->display->display_options['exposed_form']['options']['autosubmit'] = 1;
+  $handler->display->display_options['exposed_form']['options']['autosubmit_hide'] = 0;
   $handler->display->display_options['defaults']['pager'] = FALSE;
   $handler->display->display_options['pager']['type'] = 'full';
   $handler->display->display_options['pager']['options']['items_per_page'] = '10';
   $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['pager']['options']['id'] = '0';
   $handler->display->display_options['pager']['options']['expose']['items_per_page'] = TRUE;
-  $handler->display->display_options['pager']['options']['expose']['items_per_page_label'] = 'Occupations per page';
+  $handler->display->display_options['pager']['options']['expose']['items_per_page_label'] = 'Results per page';
   $handler->display->display_options['pager']['options']['expose']['items_per_page_options'] = '10, 25, 50, 100, 250, 500, 1000';
   $handler->display->display_options['pager']['options']['expose']['items_per_page_options_all'] = 1;
   $handler->display->display_options['defaults']['style_plugin'] = FALSE;
@@ -284,6 +311,18 @@ function occupations_views_default_views() {
   $handler->display->display_options['defaults']['style_options'] = FALSE;
   $handler->display->display_options['defaults']['row_plugin'] = FALSE;
   $handler->display->display_options['defaults']['row_options'] = FALSE;
+  $handler->display->display_options['exposed_block'] = TRUE;
+  $handler->display->display_options['defaults']['empty'] = FALSE;
+  /* No results behavior: Global: Text area */
+  $handler->display->display_options['empty']['area']['id'] = 'area';
+  $handler->display->display_options['empty']['area']['table'] = 'views';
+  $handler->display->display_options['empty']['area']['field'] = 'area';
+  $handler->display->display_options['empty']['area']['empty'] = FALSE;
+  $handler->display->display_options['empty']['area']['content'] = 'There aren\'t any listings based on your search criteria, but it\'s only a matter of time.
+
+Do you have the information? <strong><a href="/node/add/occupation">Add an Occupation</a>!</strong>';
+  $handler->display->display_options['empty']['area']['format'] = 'filtered_html';
+  $handler->display->display_options['empty']['area']['tokenize'] = 1;
   $handler->display->display_options['defaults']['fields'] = FALSE;
   /* Field: Content: Occupation Image or Icon */
   $handler->display->display_options['fields']['field_occupation_image']['id'] = 'field_occupation_image';
@@ -452,7 +491,7 @@ function occupations_views_default_views() {
   $handler->display->display_options['fields']['field_occupation_address_1']['alter']['html'] = 0;
   $handler->display->display_options['fields']['field_occupation_address_1']['element_label_colon'] = 1;
   $handler->display->display_options['fields']['field_occupation_address_1']['element_default_classes'] = 1;
-  $handler->display->display_options['fields']['field_occupation_address_1']['hide_empty'] = 0;
+  $handler->display->display_options['fields']['field_occupation_address_1']['hide_empty'] = 1;
   $handler->display->display_options['fields']['field_occupation_address_1']['empty_zero'] = 0;
   $handler->display->display_options['fields']['field_occupation_address_1']['hide_alter_empty'] = 1;
   $handler->display->display_options['fields']['field_occupation_address_1']['click_sort_column'] = 'country';
@@ -542,7 +581,7 @@ function occupations_views_default_views() {
   $handler->display->display_options['filters']['title']['operator'] = 'allwords';
   $handler->display->display_options['filters']['title']['exposed'] = TRUE;
   $handler->display->display_options['filters']['title']['expose']['operator_id'] = 'title_op';
-  $handler->display->display_options['filters']['title']['expose']['label'] = 'Name';
+  $handler->display->display_options['filters']['title']['expose']['label'] = 'Search in name';
   $handler->display->display_options['filters']['title']['expose']['operator'] = 'title_op';
   $handler->display->display_options['filters']['title']['expose']['identifier'] = 'title';
   $handler->display->display_options['filters']['title']['expose']['required'] = 0;
@@ -555,9 +594,10 @@ function occupations_views_default_views() {
   $handler->display->display_options['filters']['field_occupation_address_country']['expose']['operator_id'] = 'field_occupation_address_country_op';
   $handler->display->display_options['filters']['field_occupation_address_country']['expose']['label'] = 'Country';
   $handler->display->display_options['filters']['field_occupation_address_country']['expose']['operator'] = 'field_occupation_address_country_op';
-  $handler->display->display_options['filters']['field_occupation_address_country']['expose']['identifier'] = 'field_occupation_address_country';
+  $handler->display->display_options['filters']['field_occupation_address_country']['expose']['identifier'] = 'country';
+  $handler->display->display_options['filters']['field_occupation_address_country']['expose']['remember'] = 1;
   $handler->display->display_options['filters']['field_occupation_address_country']['expose']['reduce'] = 0;
-  $handler->display->display_options['path'] = 'occupations';
+  $handler->display->display_options['path'] = 'occupations/list';
   $handler->display->display_options['menu']['type'] = 'default tab';
   $handler->display->display_options['menu']['title'] = 'Directory';
   $handler->display->display_options['menu']['weight'] = '0';
@@ -568,398 +608,14 @@ function occupations_views_default_views() {
   $handler->display->display_options['tab_options']['weight'] = '0';
   $handler->display->display_options['tab_options']['name'] = 'main-menu';
 
-  /* Display: Block */
-  $handler = $view->new_display('block', 'Block', 'block_1');
-  $handler->display->display_options['defaults']['title'] = FALSE;
-  $handler->display->display_options['title'] = 'My Occupations';
-  $handler->display->display_options['defaults']['pager'] = FALSE;
-  $handler->display->display_options['pager']['type'] = 'none';
-  $handler->display->display_options['pager']['options']['offset'] = '0';
-  $handler->display->display_options['defaults']['style_plugin'] = FALSE;
-  $handler->display->display_options['style_plugin'] = 'list';
-  $handler->display->display_options['defaults']['style_options'] = FALSE;
-  $handler->display->display_options['defaults']['row_plugin'] = FALSE;
-  $handler->display->display_options['row_plugin'] = 'fields';
-  $handler->display->display_options['defaults']['row_options'] = FALSE;
-  $handler->display->display_options['defaults']['fields'] = FALSE;
-  /* Field: Content: Title */
-  $handler->display->display_options['fields']['title']['id'] = 'title';
-  $handler->display->display_options['fields']['title']['table'] = 'node';
-  $handler->display->display_options['fields']['title']['field'] = 'title';
-  $handler->display->display_options['fields']['title']['label'] = '';
-  $handler->display->display_options['fields']['title']['alter']['alter_text'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['make_link'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['absolute'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['external'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['replace_spaces'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['trim_whitespace'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['nl2br'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['word_boundary'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['ellipsis'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['strip_tags'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['trim'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['html'] = 0;
-  $handler->display->display_options['fields']['title']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['title']['element_default_classes'] = 1;
-  $handler->display->display_options['fields']['title']['hide_empty'] = 0;
-  $handler->display->display_options['fields']['title']['empty_zero'] = 0;
-  $handler->display->display_options['fields']['title']['hide_alter_empty'] = 1;
-  $handler->display->display_options['fields']['title']['link_to_node'] = 1;
-  $handler->display->display_options['defaults']['arguments'] = FALSE;
-  /* Contextual filter: Content: Author uid */
-  $handler->display->display_options['arguments']['uid']['id'] = 'uid';
-  $handler->display->display_options['arguments']['uid']['table'] = 'node';
-  $handler->display->display_options['arguments']['uid']['field'] = 'uid';
-  $handler->display->display_options['arguments']['uid']['default_action'] = 'default';
-  $handler->display->display_options['arguments']['uid']['default_argument_type'] = 'current_user';
-  $handler->display->display_options['arguments']['uid']['default_argument_skip_url'] = 0;
-  $handler->display->display_options['arguments']['uid']['summary']['number_of_records'] = '0';
-  $handler->display->display_options['arguments']['uid']['summary']['format'] = 'default_summary';
-  $handler->display->display_options['arguments']['uid']['summary_options']['items_per_page'] = '25';
-  $handler->display->display_options['arguments']['uid']['specify_validation'] = 1;
-  $handler->display->display_options['arguments']['uid']['validate']['type'] = 'user';
-  $handler->display->display_options['arguments']['uid']['validate_options']['restrict_roles'] = '1';
-  $handler->display->display_options['arguments']['uid']['validate_options']['roles'] = array(
-    2 => '2',
-  );
-  $handler->display->display_options['arguments']['uid']['break_phrase'] = 0;
-  $handler->display->display_options['arguments']['uid']['not'] = 0;
-  $handler->display->display_options['defaults']['filters'] = FALSE;
-  /* Filter criterion: Content: Published */
-  $handler->display->display_options['filters']['status']['id'] = 'status';
-  $handler->display->display_options['filters']['status']['table'] = 'node';
-  $handler->display->display_options['filters']['status']['field'] = 'status';
-  $handler->display->display_options['filters']['status']['value'] = 1;
-  $handler->display->display_options['filters']['status']['group'] = 0;
-  $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
-  /* Filter criterion: Content: Type */
-  $handler->display->display_options['filters']['type']['id'] = 'type';
-  $handler->display->display_options['filters']['type']['table'] = 'node';
-  $handler->display->display_options['filters']['type']['field'] = 'type';
-  $handler->display->display_options['filters']['type']['value'] = array(
-    'occupation' => 'occupation',
-  );
-  $handler->display->display_options['block_description'] = 'My Occupations';
-
-  /* Display: Manage */
-  $handler = $view->new_display('page', 'Manage', 'occupation_manage');
-  $handler->display->display_options['defaults']['title'] = FALSE;
-  $handler->display->display_options['title'] = 'Manage: Occupations';
-  $handler->display->display_options['defaults']['fields'] = FALSE;
-  /* Field: Content: Bulk operations */
-  $handler->display->display_options['fields']['views_bulk_operations']['id'] = 'views_bulk_operations';
-  $handler->display->display_options['fields']['views_bulk_operations']['table'] = 'node';
-  $handler->display->display_options['fields']['views_bulk_operations']['field'] = 'views_bulk_operations';
-  $handler->display->display_options['fields']['views_bulk_operations']['label'] = '';
-  $handler->display->display_options['fields']['views_bulk_operations']['alter']['alter_text'] = 0;
-  $handler->display->display_options['fields']['views_bulk_operations']['alter']['make_link'] = 0;
-  $handler->display->display_options['fields']['views_bulk_operations']['alter']['absolute'] = 0;
-  $handler->display->display_options['fields']['views_bulk_operations']['alter']['external'] = 0;
-  $handler->display->display_options['fields']['views_bulk_operations']['alter']['replace_spaces'] = 0;
-  $handler->display->display_options['fields']['views_bulk_operations']['alter']['trim_whitespace'] = 0;
-  $handler->display->display_options['fields']['views_bulk_operations']['alter']['nl2br'] = 0;
-  $handler->display->display_options['fields']['views_bulk_operations']['alter']['word_boundary'] = 1;
-  $handler->display->display_options['fields']['views_bulk_operations']['alter']['ellipsis'] = 1;
-  $handler->display->display_options['fields']['views_bulk_operations']['alter']['strip_tags'] = 0;
-  $handler->display->display_options['fields']['views_bulk_operations']['alter']['trim'] = 0;
-  $handler->display->display_options['fields']['views_bulk_operations']['alter']['html'] = 0;
-  $handler->display->display_options['fields']['views_bulk_operations']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['views_bulk_operations']['element_default_classes'] = 1;
-  $handler->display->display_options['fields']['views_bulk_operations']['hide_empty'] = 0;
-  $handler->display->display_options['fields']['views_bulk_operations']['empty_zero'] = 0;
-  $handler->display->display_options['fields']['views_bulk_operations']['hide_alter_empty'] = 1;
-  $handler->display->display_options['fields']['views_bulk_operations']['vbo']['entity_load_capacity'] = '25';
-  $handler->display->display_options['fields']['views_bulk_operations']['vbo']['operations'] = array(
-    'node_assign_owner_action' => array(
-      'selected' => 1,
-      'use_queue' => 0,
-      'skip_confirmation' => 0,
-      'override_label' => 0,
-      'label' => '',
-    ),
-    'views_bulk_operations_delete_item' => array(
-      'selected' => 1,
-      'use_queue' => 1,
-      'skip_confirmation' => 0,
-      'override_label' => 0,
-      'label' => '',
-    ),
-    'system_message_action' => array(
-      'selected' => 0,
-      'use_queue' => 0,
-      'skip_confirmation' => 0,
-      'override_label' => 0,
-      'label' => '',
-    ),
-    'views_bulk_operations_script_action' => array(
-      'selected' => 0,
-      'use_queue' => 0,
-      'skip_confirmation' => 0,
-      'override_label' => 0,
-      'label' => '',
-    ),
-    'node_make_sticky_action' => array(
-      'selected' => 0,
-      'use_queue' => 0,
-      'skip_confirmation' => 0,
-      'override_label' => 0,
-      'label' => '',
-    ),
-    'node_make_unsticky_action' => array(
-      'selected' => 0,
-      'use_queue' => 0,
-      'skip_confirmation' => 0,
-      'override_label' => 0,
-      'label' => '',
-    ),
-    'views_bulk_operations_argument_selector_action' => array(
-      'selected' => 0,
-      'skip_confirmation' => 0,
-      'override_label' => 0,
-      'label' => '',
-      'settings' => array(
-        'url' => '',
-      ),
-    ),
-    'node_promote_action' => array(
-      'selected' => 0,
-      'use_queue' => 0,
-      'skip_confirmation' => 0,
-      'override_label' => 0,
-      'label' => '',
-    ),
-    'node_publish_action' => array(
-      'selected' => 1,
-      'use_queue' => 0,
-      'skip_confirmation' => 0,
-      'override_label' => 0,
-      'label' => '',
-    ),
-    'system_goto_action' => array(
-      'selected' => 0,
-      'use_queue' => 0,
-      'skip_confirmation' => 0,
-      'override_label' => 0,
-      'label' => '',
-    ),
-    'node_unpromote_action' => array(
-      'selected' => 0,
-      'use_queue' => 0,
-      'skip_confirmation' => 0,
-      'override_label' => 0,
-      'label' => '',
-    ),
-    'node_save_action' => array(
-      'selected' => 0,
-      'use_queue' => 0,
-      'skip_confirmation' => 0,
-      'override_label' => 0,
-      'label' => '',
-    ),
-    'system_send_email_action' => array(
-      'selected' => 0,
-      'use_queue' => 0,
-      'skip_confirmation' => 0,
-      'override_label' => 0,
-      'label' => '',
-    ),
-    'node_unpublish_action' => array(
-      'selected' => 1,
-      'use_queue' => 0,
-      'skip_confirmation' => 0,
-      'override_label' => 0,
-      'label' => '',
-    ),
-    'node_unpublish_by_keyword_action' => array(
-      'selected' => 1,
-      'use_queue' => 0,
-      'skip_confirmation' => 0,
-      'override_label' => 0,
-      'label' => '',
-    ),
-  );
-  $handler->display->display_options['fields']['views_bulk_operations']['vbo']['enable_select_all_pages'] = 1;
-  $handler->display->display_options['fields']['views_bulk_operations']['vbo']['display_type'] = '0';
-  $handler->display->display_options['fields']['views_bulk_operations']['vbo']['display_result'] = 1;
-  $handler->display->display_options['fields']['views_bulk_operations']['vbo']['merge_single_action'] = 0;
-  $handler->display->display_options['fields']['views_bulk_operations']['vbo']['force_single'] = 0;
-  /* Field: Content: Title */
-  $handler->display->display_options['fields']['title']['id'] = 'title';
-  $handler->display->display_options['fields']['title']['table'] = 'node';
-  $handler->display->display_options['fields']['title']['field'] = 'title';
-  $handler->display->display_options['fields']['title']['alter']['alter_text'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['make_link'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['absolute'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['external'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['replace_spaces'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['trim_whitespace'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['nl2br'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['word_boundary'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['ellipsis'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['strip_tags'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['trim'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['html'] = 0;
-  $handler->display->display_options['fields']['title']['element_label_colon'] = 1;
-  $handler->display->display_options['fields']['title']['element_default_classes'] = 1;
-  $handler->display->display_options['fields']['title']['hide_empty'] = 0;
-  $handler->display->display_options['fields']['title']['empty_zero'] = 0;
-  $handler->display->display_options['fields']['title']['hide_alter_empty'] = 1;
-  $handler->display->display_options['fields']['title']['link_to_node'] = 1;
-  /* Field: Content: Location (Address) */
-  $handler->display->display_options['fields']['field_occupation_address']['id'] = 'field_occupation_address';
-  $handler->display->display_options['fields']['field_occupation_address']['table'] = 'field_data_field_occupation_address';
-  $handler->display->display_options['fields']['field_occupation_address']['field'] = 'field_occupation_address';
-  $handler->display->display_options['fields']['field_occupation_address']['label'] = 'City';
-  $handler->display->display_options['fields']['field_occupation_address']['alter']['alter_text'] = 0;
-  $handler->display->display_options['fields']['field_occupation_address']['alter']['make_link'] = 0;
-  $handler->display->display_options['fields']['field_occupation_address']['alter']['absolute'] = 0;
-  $handler->display->display_options['fields']['field_occupation_address']['alter']['external'] = 0;
-  $handler->display->display_options['fields']['field_occupation_address']['alter']['replace_spaces'] = 0;
-  $handler->display->display_options['fields']['field_occupation_address']['alter']['trim_whitespace'] = 0;
-  $handler->display->display_options['fields']['field_occupation_address']['alter']['nl2br'] = 0;
-  $handler->display->display_options['fields']['field_occupation_address']['alter']['word_boundary'] = 1;
-  $handler->display->display_options['fields']['field_occupation_address']['alter']['ellipsis'] = 1;
-  $handler->display->display_options['fields']['field_occupation_address']['alter']['strip_tags'] = 0;
-  $handler->display->display_options['fields']['field_occupation_address']['alter']['trim'] = 0;
-  $handler->display->display_options['fields']['field_occupation_address']['alter']['html'] = 0;
-  $handler->display->display_options['fields']['field_occupation_address']['element_label_colon'] = 1;
-  $handler->display->display_options['fields']['field_occupation_address']['element_default_classes'] = 1;
-  $handler->display->display_options['fields']['field_occupation_address']['hide_empty'] = 0;
-  $handler->display->display_options['fields']['field_occupation_address']['empty_zero'] = 0;
-  $handler->display->display_options['fields']['field_occupation_address']['hide_alter_empty'] = 1;
-  $handler->display->display_options['fields']['field_occupation_address']['click_sort_column'] = 'country';
-  $handler->display->display_options['fields']['field_occupation_address']['type'] = 'locality';
-  $handler->display->display_options['fields']['field_occupation_address']['settings'] = array(
-    'use_widget_handlers' => 1,
-    'format_handlers' => array(
-      'address' => 'address',
-    ),
-  );
-  $handler->display->display_options['fields']['field_occupation_address']['field_api_classes'] = 0;
-  /* Field: Content: Published */
-  $handler->display->display_options['fields']['status']['id'] = 'status';
-  $handler->display->display_options['fields']['status']['table'] = 'node';
-  $handler->display->display_options['fields']['status']['field'] = 'status';
-  $handler->display->display_options['fields']['status']['alter']['alter_text'] = 0;
-  $handler->display->display_options['fields']['status']['alter']['make_link'] = 0;
-  $handler->display->display_options['fields']['status']['alter']['absolute'] = 0;
-  $handler->display->display_options['fields']['status']['alter']['external'] = 0;
-  $handler->display->display_options['fields']['status']['alter']['replace_spaces'] = 0;
-  $handler->display->display_options['fields']['status']['alter']['trim_whitespace'] = 0;
-  $handler->display->display_options['fields']['status']['alter']['nl2br'] = 0;
-  $handler->display->display_options['fields']['status']['alter']['word_boundary'] = 1;
-  $handler->display->display_options['fields']['status']['alter']['ellipsis'] = 1;
-  $handler->display->display_options['fields']['status']['alter']['strip_tags'] = 0;
-  $handler->display->display_options['fields']['status']['alter']['trim'] = 0;
-  $handler->display->display_options['fields']['status']['alter']['html'] = 0;
-  $handler->display->display_options['fields']['status']['element_label_colon'] = 1;
-  $handler->display->display_options['fields']['status']['element_default_classes'] = 1;
-  $handler->display->display_options['fields']['status']['hide_empty'] = 0;
-  $handler->display->display_options['fields']['status']['empty_zero'] = 0;
-  $handler->display->display_options['fields']['status']['hide_alter_empty'] = 1;
-  $handler->display->display_options['fields']['status']['not'] = 0;
-  /* Field: Content: Comment count */
-  $handler->display->display_options['fields']['comment_count']['id'] = 'comment_count';
-  $handler->display->display_options['fields']['comment_count']['table'] = 'node_comment_statistics';
-  $handler->display->display_options['fields']['comment_count']['field'] = 'comment_count';
-  $handler->display->display_options['fields']['comment_count']['label'] = 'Comments';
-  $handler->display->display_options['fields']['comment_count']['alter']['alter_text'] = 0;
-  $handler->display->display_options['fields']['comment_count']['alter']['make_link'] = 0;
-  $handler->display->display_options['fields']['comment_count']['alter']['absolute'] = 0;
-  $handler->display->display_options['fields']['comment_count']['alter']['external'] = 0;
-  $handler->display->display_options['fields']['comment_count']['alter']['replace_spaces'] = 0;
-  $handler->display->display_options['fields']['comment_count']['alter']['trim_whitespace'] = 0;
-  $handler->display->display_options['fields']['comment_count']['alter']['nl2br'] = 0;
-  $handler->display->display_options['fields']['comment_count']['alter']['word_boundary'] = 1;
-  $handler->display->display_options['fields']['comment_count']['alter']['ellipsis'] = 1;
-  $handler->display->display_options['fields']['comment_count']['alter']['strip_tags'] = 0;
-  $handler->display->display_options['fields']['comment_count']['alter']['trim'] = 0;
-  $handler->display->display_options['fields']['comment_count']['alter']['html'] = 0;
-  $handler->display->display_options['fields']['comment_count']['element_label_colon'] = 1;
-  $handler->display->display_options['fields']['comment_count']['element_default_classes'] = 1;
-  $handler->display->display_options['fields']['comment_count']['hide_empty'] = 1;
-  $handler->display->display_options['fields']['comment_count']['empty_zero'] = 0;
-  $handler->display->display_options['fields']['comment_count']['hide_alter_empty'] = 1;
-  $handler->display->display_options['fields']['comment_count']['separator'] = '';
-  $handler->display->display_options['fields']['comment_count']['format_plural'] = 0;
-  /* Field: Content: New comments */
-  $handler->display->display_options['fields']['new_comments']['id'] = 'new_comments';
-  $handler->display->display_options['fields']['new_comments']['table'] = 'node';
-  $handler->display->display_options['fields']['new_comments']['field'] = 'new_comments';
-  $handler->display->display_options['fields']['new_comments']['alter']['alter_text'] = 0;
-  $handler->display->display_options['fields']['new_comments']['alter']['make_link'] = 0;
-  $handler->display->display_options['fields']['new_comments']['alter']['absolute'] = 0;
-  $handler->display->display_options['fields']['new_comments']['alter']['external'] = 0;
-  $handler->display->display_options['fields']['new_comments']['alter']['replace_spaces'] = 0;
-  $handler->display->display_options['fields']['new_comments']['alter']['trim_whitespace'] = 0;
-  $handler->display->display_options['fields']['new_comments']['alter']['nl2br'] = 0;
-  $handler->display->display_options['fields']['new_comments']['alter']['word_boundary'] = 1;
-  $handler->display->display_options['fields']['new_comments']['alter']['ellipsis'] = 1;
-  $handler->display->display_options['fields']['new_comments']['alter']['strip_tags'] = 0;
-  $handler->display->display_options['fields']['new_comments']['alter']['trim'] = 0;
-  $handler->display->display_options['fields']['new_comments']['alter']['html'] = 0;
-  $handler->display->display_options['fields']['new_comments']['element_label_colon'] = 1;
-  $handler->display->display_options['fields']['new_comments']['element_default_classes'] = 1;
-  $handler->display->display_options['fields']['new_comments']['hide_empty'] = 0;
-  $handler->display->display_options['fields']['new_comments']['empty_zero'] = 0;
-  $handler->display->display_options['fields']['new_comments']['hide_alter_empty'] = 1;
-  $handler->display->display_options['fields']['new_comments']['format_plural'] = 0;
-  $handler->display->display_options['fields']['new_comments']['link_to_comment'] = 1;
-  /* Field: Content: Updated/commented date */
-  $handler->display->display_options['fields']['last_updated']['id'] = 'last_updated';
-  $handler->display->display_options['fields']['last_updated']['table'] = 'node_comment_statistics';
-  $handler->display->display_options['fields']['last_updated']['field'] = 'last_updated';
-  $handler->display->display_options['fields']['last_updated']['label'] = 'Last Update';
-  $handler->display->display_options['fields']['last_updated']['alter']['alter_text'] = 0;
-  $handler->display->display_options['fields']['last_updated']['alter']['make_link'] = 0;
-  $handler->display->display_options['fields']['last_updated']['alter']['absolute'] = 0;
-  $handler->display->display_options['fields']['last_updated']['alter']['external'] = 0;
-  $handler->display->display_options['fields']['last_updated']['alter']['replace_spaces'] = 0;
-  $handler->display->display_options['fields']['last_updated']['alter']['trim_whitespace'] = 0;
-  $handler->display->display_options['fields']['last_updated']['alter']['nl2br'] = 0;
-  $handler->display->display_options['fields']['last_updated']['alter']['word_boundary'] = 1;
-  $handler->display->display_options['fields']['last_updated']['alter']['ellipsis'] = 1;
-  $handler->display->display_options['fields']['last_updated']['alter']['strip_tags'] = 0;
-  $handler->display->display_options['fields']['last_updated']['alter']['trim'] = 0;
-  $handler->display->display_options['fields']['last_updated']['alter']['html'] = 0;
-  $handler->display->display_options['fields']['last_updated']['element_label_colon'] = 1;
-  $handler->display->display_options['fields']['last_updated']['element_default_classes'] = 1;
-  $handler->display->display_options['fields']['last_updated']['hide_empty'] = 1;
-  $handler->display->display_options['fields']['last_updated']['empty_zero'] = 0;
-  $handler->display->display_options['fields']['last_updated']['hide_alter_empty'] = 1;
-  $handler->display->display_options['fields']['last_updated']['date_format'] = 'raw time ago';
-  $handler->display->display_options['fields']['last_updated']['custom_date_format'] = '1';
-  /* Field: Content: Edit link */
-  $handler->display->display_options['fields']['edit_node']['id'] = 'edit_node';
-  $handler->display->display_options['fields']['edit_node']['table'] = 'views_entity_node';
-  $handler->display->display_options['fields']['edit_node']['field'] = 'edit_node';
-  $handler->display->display_options['fields']['edit_node']['label'] = 'Edit';
-  $handler->display->display_options['fields']['edit_node']['alter']['alter_text'] = 0;
-  $handler->display->display_options['fields']['edit_node']['alter']['make_link'] = 0;
-  $handler->display->display_options['fields']['edit_node']['alter']['absolute'] = 0;
-  $handler->display->display_options['fields']['edit_node']['alter']['replace_spaces'] = 0;
-  $handler->display->display_options['fields']['edit_node']['alter']['trim_whitespace'] = 0;
-  $handler->display->display_options['fields']['edit_node']['alter']['nl2br'] = 0;
-  $handler->display->display_options['fields']['edit_node']['alter']['word_boundary'] = 1;
-  $handler->display->display_options['fields']['edit_node']['alter']['ellipsis'] = 1;
-  $handler->display->display_options['fields']['edit_node']['alter']['strip_tags'] = 0;
-  $handler->display->display_options['fields']['edit_node']['alter']['trim'] = 0;
-  $handler->display->display_options['fields']['edit_node']['alter']['html'] = 0;
-  $handler->display->display_options['fields']['edit_node']['element_label_colon'] = 1;
-  $handler->display->display_options['fields']['edit_node']['element_default_classes'] = 1;
-  $handler->display->display_options['fields']['edit_node']['hide_empty'] = 0;
-  $handler->display->display_options['fields']['edit_node']['empty_zero'] = 0;
-  $handler->display->display_options['fields']['edit_node']['hide_alter_empty'] = 1;
-  $handler->display->display_options['path'] = 'occupations/manage';
-  $handler->display->display_options['menu']['type'] = 'tab';
-  $handler->display->display_options['menu']['title'] = 'Manage Occupations';
-  $handler->display->display_options['menu']['weight'] = '0';
-  $handler->display->display_options['menu']['name'] = 'management';
-  $handler->display->display_options['menu']['context'] = 0;
-
   /* Display: Cards */
-  $handler = $view->new_display('page', 'Cards', 'page_1');
+  $handler = $view->new_display('page', 'Cards', 'occupations_cards');
   $handler->display->display_options['display_description'] = 'Card-like display of occupations';
+  $handler->display->display_options['defaults']['access'] = FALSE;
+  $handler->display->display_options['access']['type'] = 'role';
+  $handler->display->display_options['access']['role'] = array(
+    3 => '3',
+  );
   $handler->display->display_options['defaults']['pager'] = FALSE;
   $handler->display->display_options['pager']['type'] = 'mini';
   $handler->display->display_options['pager']['options']['items_per_page'] = '50';
@@ -1266,6 +922,458 @@ function occupations_views_default_views() {
   $handler->display->display_options['menu']['weight'] = '3';
   $handler->display->display_options['menu']['name'] = 'main-menu';
   $handler->display->display_options['menu']['context'] = 0;
+
+  /* Display: Manage */
+  $handler = $view->new_display('page', 'Manage', 'occupations_manage');
+  $handler->display->display_options['defaults']['title'] = FALSE;
+  $handler->display->display_options['title'] = 'Manage Occupations';
+  $handler->display->display_options['display_comment'] = 'we expose a different filter block on the manage occupations page';
+  $handler->display->display_options['defaults']['css_class'] = FALSE;
+  $handler->display->display_options['css_class'] = 'list-occupations node-list manage-occupatiions';
+  $handler->display->display_options['defaults']['access'] = FALSE;
+  $handler->display->display_options['access']['type'] = 'perm';
+  $handler->display->display_options['access']['perm'] = 'edit any occupation content';
+  $handler->display->display_options['exposed_block'] = TRUE;
+  $handler->display->display_options['defaults']['header'] = FALSE;
+  /* Header: + add a new Occupation */
+  $handler->display->display_options['header']['area']['id'] = 'area';
+  $handler->display->display_options['header']['area']['table'] = 'views';
+  $handler->display->display_options['header']['area']['field'] = 'area';
+  $handler->display->display_options['header']['area']['ui_name'] = '+ add a new Occupation';
+  $handler->display->display_options['header']['area']['empty'] = TRUE;
+  $handler->display->display_options['header']['area']['content'] = '<strong>+ <a href="/node/add/occupation">add a new Occupation</a></strong>';
+  $handler->display->display_options['header']['area']['format'] = 'filtered_html';
+  $handler->display->display_options['header']['area']['tokenize'] = 0;
+  $handler->display->display_options['defaults']['fields'] = FALSE;
+  /* Field: Content: Bulk operations */
+  $handler->display->display_options['fields']['views_bulk_operations']['id'] = 'views_bulk_operations';
+  $handler->display->display_options['fields']['views_bulk_operations']['table'] = 'node';
+  $handler->display->display_options['fields']['views_bulk_operations']['field'] = 'views_bulk_operations';
+  $handler->display->display_options['fields']['views_bulk_operations']['label'] = '';
+  $handler->display->display_options['fields']['views_bulk_operations']['alter']['alter_text'] = 0;
+  $handler->display->display_options['fields']['views_bulk_operations']['alter']['make_link'] = 0;
+  $handler->display->display_options['fields']['views_bulk_operations']['alter']['absolute'] = 0;
+  $handler->display->display_options['fields']['views_bulk_operations']['alter']['external'] = 0;
+  $handler->display->display_options['fields']['views_bulk_operations']['alter']['replace_spaces'] = 0;
+  $handler->display->display_options['fields']['views_bulk_operations']['alter']['trim_whitespace'] = 0;
+  $handler->display->display_options['fields']['views_bulk_operations']['alter']['nl2br'] = 0;
+  $handler->display->display_options['fields']['views_bulk_operations']['alter']['word_boundary'] = 1;
+  $handler->display->display_options['fields']['views_bulk_operations']['alter']['ellipsis'] = 1;
+  $handler->display->display_options['fields']['views_bulk_operations']['alter']['strip_tags'] = 0;
+  $handler->display->display_options['fields']['views_bulk_operations']['alter']['trim'] = 0;
+  $handler->display->display_options['fields']['views_bulk_operations']['alter']['html'] = 0;
+  $handler->display->display_options['fields']['views_bulk_operations']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['views_bulk_operations']['element_default_classes'] = 1;
+  $handler->display->display_options['fields']['views_bulk_operations']['hide_empty'] = 0;
+  $handler->display->display_options['fields']['views_bulk_operations']['empty_zero'] = 0;
+  $handler->display->display_options['fields']['views_bulk_operations']['hide_alter_empty'] = 1;
+  $handler->display->display_options['fields']['views_bulk_operations']['vbo']['entity_load_capacity'] = '25';
+  $handler->display->display_options['fields']['views_bulk_operations']['vbo']['operations'] = array(
+    'node_assign_owner_action' => array(
+      'selected' => 1,
+      'use_queue' => 0,
+      'skip_confirmation' => 0,
+      'override_label' => 0,
+      'label' => '',
+    ),
+    'views_bulk_operations_delete_item' => array(
+      'selected' => 1,
+      'use_queue' => 1,
+      'skip_confirmation' => 0,
+      'override_label' => 0,
+      'label' => '',
+    ),
+    'system_message_action' => array(
+      'selected' => 0,
+      'use_queue' => 0,
+      'skip_confirmation' => 0,
+      'override_label' => 0,
+      'label' => '',
+    ),
+    'views_bulk_operations_script_action' => array(
+      'selected' => 0,
+      'use_queue' => 0,
+      'skip_confirmation' => 0,
+      'override_label' => 0,
+      'label' => '',
+    ),
+    'node_make_sticky_action' => array(
+      'selected' => 0,
+      'use_queue' => 0,
+      'skip_confirmation' => 0,
+      'override_label' => 0,
+      'label' => '',
+    ),
+    'node_make_unsticky_action' => array(
+      'selected' => 0,
+      'use_queue' => 0,
+      'skip_confirmation' => 0,
+      'override_label' => 0,
+      'label' => '',
+    ),
+    'views_bulk_operations_argument_selector_action' => array(
+      'selected' => 0,
+      'skip_confirmation' => 0,
+      'override_label' => 0,
+      'label' => '',
+      'settings' => array(
+        'url' => '',
+      ),
+    ),
+    'node_promote_action' => array(
+      'selected' => 0,
+      'use_queue' => 0,
+      'skip_confirmation' => 0,
+      'override_label' => 0,
+      'label' => '',
+    ),
+    'node_publish_action' => array(
+      'selected' => 1,
+      'use_queue' => 0,
+      'skip_confirmation' => 0,
+      'override_label' => 0,
+      'label' => '',
+    ),
+    'system_goto_action' => array(
+      'selected' => 0,
+      'use_queue' => 0,
+      'skip_confirmation' => 0,
+      'override_label' => 0,
+      'label' => '',
+    ),
+    'node_unpromote_action' => array(
+      'selected' => 0,
+      'use_queue' => 0,
+      'skip_confirmation' => 0,
+      'override_label' => 0,
+      'label' => '',
+    ),
+    'node_save_action' => array(
+      'selected' => 0,
+      'use_queue' => 0,
+      'skip_confirmation' => 0,
+      'override_label' => 0,
+      'label' => '',
+    ),
+    'system_send_email_action' => array(
+      'selected' => 0,
+      'use_queue' => 0,
+      'skip_confirmation' => 0,
+      'override_label' => 0,
+      'label' => '',
+    ),
+    'node_unpublish_action' => array(
+      'selected' => 1,
+      'use_queue' => 0,
+      'skip_confirmation' => 0,
+      'override_label' => 0,
+      'label' => '',
+    ),
+    'node_unpublish_by_keyword_action' => array(
+      'selected' => 1,
+      'use_queue' => 0,
+      'skip_confirmation' => 0,
+      'override_label' => 0,
+      'label' => '',
+    ),
+  );
+  $handler->display->display_options['fields']['views_bulk_operations']['vbo']['enable_select_all_pages'] = 1;
+  $handler->display->display_options['fields']['views_bulk_operations']['vbo']['display_type'] = '0';
+  $handler->display->display_options['fields']['views_bulk_operations']['vbo']['display_result'] = 1;
+  $handler->display->display_options['fields']['views_bulk_operations']['vbo']['merge_single_action'] = 0;
+  $handler->display->display_options['fields']['views_bulk_operations']['vbo']['force_single'] = 0;
+  /* Field: Content: Title */
+  $handler->display->display_options['fields']['title']['id'] = 'title';
+  $handler->display->display_options['fields']['title']['table'] = 'node';
+  $handler->display->display_options['fields']['title']['field'] = 'title';
+  $handler->display->display_options['fields']['title']['alter']['alter_text'] = 0;
+  $handler->display->display_options['fields']['title']['alter']['make_link'] = 0;
+  $handler->display->display_options['fields']['title']['alter']['absolute'] = 0;
+  $handler->display->display_options['fields']['title']['alter']['external'] = 0;
+  $handler->display->display_options['fields']['title']['alter']['replace_spaces'] = 0;
+  $handler->display->display_options['fields']['title']['alter']['trim_whitespace'] = 0;
+  $handler->display->display_options['fields']['title']['alter']['nl2br'] = 0;
+  $handler->display->display_options['fields']['title']['alter']['word_boundary'] = 0;
+  $handler->display->display_options['fields']['title']['alter']['ellipsis'] = 0;
+  $handler->display->display_options['fields']['title']['alter']['strip_tags'] = 0;
+  $handler->display->display_options['fields']['title']['alter']['trim'] = 0;
+  $handler->display->display_options['fields']['title']['alter']['html'] = 0;
+  $handler->display->display_options['fields']['title']['element_label_colon'] = 1;
+  $handler->display->display_options['fields']['title']['element_default_classes'] = 1;
+  $handler->display->display_options['fields']['title']['hide_empty'] = 0;
+  $handler->display->display_options['fields']['title']['empty_zero'] = 0;
+  $handler->display->display_options['fields']['title']['hide_alter_empty'] = 1;
+  $handler->display->display_options['fields']['title']['link_to_node'] = 1;
+  /* Field: Content: Location (Address) */
+  $handler->display->display_options['fields']['field_occupation_address']['id'] = 'field_occupation_address';
+  $handler->display->display_options['fields']['field_occupation_address']['table'] = 'field_data_field_occupation_address';
+  $handler->display->display_options['fields']['field_occupation_address']['field'] = 'field_occupation_address';
+  $handler->display->display_options['fields']['field_occupation_address']['label'] = 'City';
+  $handler->display->display_options['fields']['field_occupation_address']['alter']['alter_text'] = 0;
+  $handler->display->display_options['fields']['field_occupation_address']['alter']['make_link'] = 0;
+  $handler->display->display_options['fields']['field_occupation_address']['alter']['absolute'] = 0;
+  $handler->display->display_options['fields']['field_occupation_address']['alter']['external'] = 0;
+  $handler->display->display_options['fields']['field_occupation_address']['alter']['replace_spaces'] = 0;
+  $handler->display->display_options['fields']['field_occupation_address']['alter']['trim_whitespace'] = 0;
+  $handler->display->display_options['fields']['field_occupation_address']['alter']['nl2br'] = 0;
+  $handler->display->display_options['fields']['field_occupation_address']['alter']['word_boundary'] = 1;
+  $handler->display->display_options['fields']['field_occupation_address']['alter']['ellipsis'] = 1;
+  $handler->display->display_options['fields']['field_occupation_address']['alter']['strip_tags'] = 0;
+  $handler->display->display_options['fields']['field_occupation_address']['alter']['trim'] = 0;
+  $handler->display->display_options['fields']['field_occupation_address']['alter']['html'] = 0;
+  $handler->display->display_options['fields']['field_occupation_address']['element_label_colon'] = 1;
+  $handler->display->display_options['fields']['field_occupation_address']['element_default_classes'] = 1;
+  $handler->display->display_options['fields']['field_occupation_address']['hide_empty'] = 0;
+  $handler->display->display_options['fields']['field_occupation_address']['empty_zero'] = 0;
+  $handler->display->display_options['fields']['field_occupation_address']['hide_alter_empty'] = 1;
+  $handler->display->display_options['fields']['field_occupation_address']['click_sort_column'] = 'country';
+  $handler->display->display_options['fields']['field_occupation_address']['type'] = 'locality';
+  $handler->display->display_options['fields']['field_occupation_address']['settings'] = array(
+    'use_widget_handlers' => 1,
+    'format_handlers' => array(
+      'address' => 'address',
+    ),
+  );
+  $handler->display->display_options['fields']['field_occupation_address']['field_api_classes'] = 0;
+  /* Field: Content: Published */
+  $handler->display->display_options['fields']['status']['id'] = 'status';
+  $handler->display->display_options['fields']['status']['table'] = 'node';
+  $handler->display->display_options['fields']['status']['field'] = 'status';
+  $handler->display->display_options['fields']['status']['alter']['alter_text'] = 0;
+  $handler->display->display_options['fields']['status']['alter']['make_link'] = 0;
+  $handler->display->display_options['fields']['status']['alter']['absolute'] = 0;
+  $handler->display->display_options['fields']['status']['alter']['external'] = 0;
+  $handler->display->display_options['fields']['status']['alter']['replace_spaces'] = 0;
+  $handler->display->display_options['fields']['status']['alter']['trim_whitespace'] = 0;
+  $handler->display->display_options['fields']['status']['alter']['nl2br'] = 0;
+  $handler->display->display_options['fields']['status']['alter']['word_boundary'] = 1;
+  $handler->display->display_options['fields']['status']['alter']['ellipsis'] = 1;
+  $handler->display->display_options['fields']['status']['alter']['strip_tags'] = 0;
+  $handler->display->display_options['fields']['status']['alter']['trim'] = 0;
+  $handler->display->display_options['fields']['status']['alter']['html'] = 0;
+  $handler->display->display_options['fields']['status']['element_label_colon'] = 1;
+  $handler->display->display_options['fields']['status']['element_default_classes'] = 1;
+  $handler->display->display_options['fields']['status']['hide_empty'] = 0;
+  $handler->display->display_options['fields']['status']['empty_zero'] = 0;
+  $handler->display->display_options['fields']['status']['hide_alter_empty'] = 1;
+  $handler->display->display_options['fields']['status']['not'] = 0;
+  /* Field: Content: Comment count */
+  $handler->display->display_options['fields']['comment_count']['id'] = 'comment_count';
+  $handler->display->display_options['fields']['comment_count']['table'] = 'node_comment_statistics';
+  $handler->display->display_options['fields']['comment_count']['field'] = 'comment_count';
+  $handler->display->display_options['fields']['comment_count']['label'] = 'Comments';
+  $handler->display->display_options['fields']['comment_count']['alter']['alter_text'] = 0;
+  $handler->display->display_options['fields']['comment_count']['alter']['make_link'] = 0;
+  $handler->display->display_options['fields']['comment_count']['alter']['absolute'] = 0;
+  $handler->display->display_options['fields']['comment_count']['alter']['external'] = 0;
+  $handler->display->display_options['fields']['comment_count']['alter']['replace_spaces'] = 0;
+  $handler->display->display_options['fields']['comment_count']['alter']['trim_whitespace'] = 0;
+  $handler->display->display_options['fields']['comment_count']['alter']['nl2br'] = 0;
+  $handler->display->display_options['fields']['comment_count']['alter']['word_boundary'] = 1;
+  $handler->display->display_options['fields']['comment_count']['alter']['ellipsis'] = 1;
+  $handler->display->display_options['fields']['comment_count']['alter']['strip_tags'] = 0;
+  $handler->display->display_options['fields']['comment_count']['alter']['trim'] = 0;
+  $handler->display->display_options['fields']['comment_count']['alter']['html'] = 0;
+  $handler->display->display_options['fields']['comment_count']['element_label_colon'] = 1;
+  $handler->display->display_options['fields']['comment_count']['element_default_classes'] = 1;
+  $handler->display->display_options['fields']['comment_count']['hide_empty'] = 1;
+  $handler->display->display_options['fields']['comment_count']['empty_zero'] = 0;
+  $handler->display->display_options['fields']['comment_count']['hide_alter_empty'] = 1;
+  $handler->display->display_options['fields']['comment_count']['separator'] = '';
+  $handler->display->display_options['fields']['comment_count']['format_plural'] = 0;
+  /* Field: Content: New comments */
+  $handler->display->display_options['fields']['new_comments']['id'] = 'new_comments';
+  $handler->display->display_options['fields']['new_comments']['table'] = 'node';
+  $handler->display->display_options['fields']['new_comments']['field'] = 'new_comments';
+  $handler->display->display_options['fields']['new_comments']['alter']['alter_text'] = 0;
+  $handler->display->display_options['fields']['new_comments']['alter']['make_link'] = 0;
+  $handler->display->display_options['fields']['new_comments']['alter']['absolute'] = 0;
+  $handler->display->display_options['fields']['new_comments']['alter']['external'] = 0;
+  $handler->display->display_options['fields']['new_comments']['alter']['replace_spaces'] = 0;
+  $handler->display->display_options['fields']['new_comments']['alter']['trim_whitespace'] = 0;
+  $handler->display->display_options['fields']['new_comments']['alter']['nl2br'] = 0;
+  $handler->display->display_options['fields']['new_comments']['alter']['word_boundary'] = 1;
+  $handler->display->display_options['fields']['new_comments']['alter']['ellipsis'] = 1;
+  $handler->display->display_options['fields']['new_comments']['alter']['strip_tags'] = 0;
+  $handler->display->display_options['fields']['new_comments']['alter']['trim'] = 0;
+  $handler->display->display_options['fields']['new_comments']['alter']['html'] = 0;
+  $handler->display->display_options['fields']['new_comments']['element_label_colon'] = 1;
+  $handler->display->display_options['fields']['new_comments']['element_default_classes'] = 1;
+  $handler->display->display_options['fields']['new_comments']['hide_empty'] = 0;
+  $handler->display->display_options['fields']['new_comments']['empty_zero'] = 0;
+  $handler->display->display_options['fields']['new_comments']['hide_alter_empty'] = 1;
+  $handler->display->display_options['fields']['new_comments']['format_plural'] = 0;
+  $handler->display->display_options['fields']['new_comments']['link_to_comment'] = 1;
+  /* Field: Content: Updated/commented date */
+  $handler->display->display_options['fields']['last_updated']['id'] = 'last_updated';
+  $handler->display->display_options['fields']['last_updated']['table'] = 'node_comment_statistics';
+  $handler->display->display_options['fields']['last_updated']['field'] = 'last_updated';
+  $handler->display->display_options['fields']['last_updated']['label'] = 'Last Update';
+  $handler->display->display_options['fields']['last_updated']['alter']['alter_text'] = 0;
+  $handler->display->display_options['fields']['last_updated']['alter']['make_link'] = 0;
+  $handler->display->display_options['fields']['last_updated']['alter']['absolute'] = 0;
+  $handler->display->display_options['fields']['last_updated']['alter']['external'] = 0;
+  $handler->display->display_options['fields']['last_updated']['alter']['replace_spaces'] = 0;
+  $handler->display->display_options['fields']['last_updated']['alter']['trim_whitespace'] = 0;
+  $handler->display->display_options['fields']['last_updated']['alter']['nl2br'] = 0;
+  $handler->display->display_options['fields']['last_updated']['alter']['word_boundary'] = 1;
+  $handler->display->display_options['fields']['last_updated']['alter']['ellipsis'] = 1;
+  $handler->display->display_options['fields']['last_updated']['alter']['strip_tags'] = 0;
+  $handler->display->display_options['fields']['last_updated']['alter']['trim'] = 0;
+  $handler->display->display_options['fields']['last_updated']['alter']['html'] = 0;
+  $handler->display->display_options['fields']['last_updated']['element_label_colon'] = 1;
+  $handler->display->display_options['fields']['last_updated']['element_default_classes'] = 1;
+  $handler->display->display_options['fields']['last_updated']['hide_empty'] = 1;
+  $handler->display->display_options['fields']['last_updated']['empty_zero'] = 0;
+  $handler->display->display_options['fields']['last_updated']['hide_alter_empty'] = 1;
+  $handler->display->display_options['fields']['last_updated']['date_format'] = 'raw time ago';
+  $handler->display->display_options['fields']['last_updated']['custom_date_format'] = '1';
+  /* Field: Content: Edit link */
+  $handler->display->display_options['fields']['edit_node']['id'] = 'edit_node';
+  $handler->display->display_options['fields']['edit_node']['table'] = 'views_entity_node';
+  $handler->display->display_options['fields']['edit_node']['field'] = 'edit_node';
+  $handler->display->display_options['fields']['edit_node']['label'] = 'Edit';
+  $handler->display->display_options['fields']['edit_node']['alter']['alter_text'] = 0;
+  $handler->display->display_options['fields']['edit_node']['alter']['make_link'] = 0;
+  $handler->display->display_options['fields']['edit_node']['alter']['absolute'] = 0;
+  $handler->display->display_options['fields']['edit_node']['alter']['replace_spaces'] = 0;
+  $handler->display->display_options['fields']['edit_node']['alter']['trim_whitespace'] = 0;
+  $handler->display->display_options['fields']['edit_node']['alter']['nl2br'] = 0;
+  $handler->display->display_options['fields']['edit_node']['alter']['word_boundary'] = 1;
+  $handler->display->display_options['fields']['edit_node']['alter']['ellipsis'] = 1;
+  $handler->display->display_options['fields']['edit_node']['alter']['strip_tags'] = 0;
+  $handler->display->display_options['fields']['edit_node']['alter']['trim'] = 0;
+  $handler->display->display_options['fields']['edit_node']['alter']['html'] = 0;
+  $handler->display->display_options['fields']['edit_node']['element_label_colon'] = 1;
+  $handler->display->display_options['fields']['edit_node']['element_default_classes'] = 1;
+  $handler->display->display_options['fields']['edit_node']['hide_empty'] = 0;
+  $handler->display->display_options['fields']['edit_node']['empty_zero'] = 0;
+  $handler->display->display_options['fields']['edit_node']['hide_alter_empty'] = 1;
+  $handler->display->display_options['defaults']['sorts'] = FALSE;
+  /* Sort criterion: Content: Updated/commented date */
+  $handler->display->display_options['sorts']['last_updated']['id'] = 'last_updated';
+  $handler->display->display_options['sorts']['last_updated']['table'] = 'node_comment_statistics';
+  $handler->display->display_options['sorts']['last_updated']['field'] = 'last_updated';
+  $handler->display->display_options['sorts']['last_updated']['order'] = 'DESC';
+  $handler->display->display_options['sorts']['last_updated']['expose']['label'] = 'Updated/commented date';
+  $handler->display->display_options['sorts']['last_updated']['granularity'] = 'minute';
+  /* Sort criterion: Content: Published */
+  $handler->display->display_options['sorts']['status']['id'] = 'status';
+  $handler->display->display_options['sorts']['status']['table'] = 'node';
+  $handler->display->display_options['sorts']['status']['field'] = 'status';
+  $handler->display->display_options['defaults']['filters'] = FALSE;
+  /* Filter criterion: Content: Type */
+  $handler->display->display_options['filters']['type']['id'] = 'type';
+  $handler->display->display_options['filters']['type']['table'] = 'node';
+  $handler->display->display_options['filters']['type']['field'] = 'type';
+  $handler->display->display_options['filters']['type']['value'] = array(
+    'occupation' => 'occupation',
+  );
+  $handler->display->display_options['filters']['type']['group'] = 1;
+  /* Filter criterion: Content: Title */
+  $handler->display->display_options['filters']['title']['id'] = 'title';
+  $handler->display->display_options['filters']['title']['table'] = 'node';
+  $handler->display->display_options['filters']['title']['field'] = 'title';
+  $handler->display->display_options['filters']['title']['group'] = 1;
+  $handler->display->display_options['filters']['title']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['title']['expose']['operator_id'] = 'title_op';
+  $handler->display->display_options['filters']['title']['expose']['label'] = 'Search in name';
+  $handler->display->display_options['filters']['title']['expose']['operator'] = 'title_op';
+  $handler->display->display_options['filters']['title']['expose']['identifier'] = 'title';
+  $handler->display->display_options['filters']['title']['expose']['required'] = 0;
+  $handler->display->display_options['filters']['title']['expose']['remember'] = 1;
+  $handler->display->display_options['filters']['title']['expose']['multiple'] = FALSE;
+  /* Filter criterion: Content: Location (Address) (field_occupation_address:country) */
+  $handler->display->display_options['filters']['field_occupation_address_country']['id'] = 'field_occupation_address_country';
+  $handler->display->display_options['filters']['field_occupation_address_country']['table'] = 'field_data_field_occupation_address';
+  $handler->display->display_options['filters']['field_occupation_address_country']['field'] = 'field_occupation_address_country';
+  $handler->display->display_options['filters']['field_occupation_address_country']['group'] = 1;
+  $handler->display->display_options['filters']['field_occupation_address_country']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_occupation_address_country']['expose']['operator_id'] = 'field_occupation_address_country_op';
+  $handler->display->display_options['filters']['field_occupation_address_country']['expose']['label'] = 'Country';
+  $handler->display->display_options['filters']['field_occupation_address_country']['expose']['operator'] = 'field_occupation_address_country_op';
+  $handler->display->display_options['filters']['field_occupation_address_country']['expose']['identifier'] = 'country';
+  $handler->display->display_options['filters']['field_occupation_address_country']['expose']['remember'] = 1;
+  $handler->display->display_options['filters']['field_occupation_address_country']['expose']['reduce'] = 0;
+  $handler->display->display_options['path'] = 'occupations/manage';
+  $handler->display->display_options['menu']['type'] = 'tab';
+  $handler->display->display_options['menu']['title'] = 'Manage Occupations';
+  $handler->display->display_options['menu']['weight'] = '33';
+  $handler->display->display_options['menu']['name'] = 'management';
+  $handler->display->display_options['menu']['context'] = 0;
+
+  /* Display: Block */
+  $handler = $view->new_display('block', 'Block', 'block_1');
+  $handler->display->display_options['defaults']['title'] = FALSE;
+  $handler->display->display_options['title'] = 'My Occupations';
+  $handler->display->display_options['defaults']['pager'] = FALSE;
+  $handler->display->display_options['pager']['type'] = 'none';
+  $handler->display->display_options['pager']['options']['offset'] = '0';
+  $handler->display->display_options['defaults']['style_plugin'] = FALSE;
+  $handler->display->display_options['style_plugin'] = 'list';
+  $handler->display->display_options['defaults']['style_options'] = FALSE;
+  $handler->display->display_options['defaults']['row_plugin'] = FALSE;
+  $handler->display->display_options['row_plugin'] = 'fields';
+  $handler->display->display_options['defaults']['row_options'] = FALSE;
+  $handler->display->display_options['defaults']['fields'] = FALSE;
+  /* Field: Content: Title */
+  $handler->display->display_options['fields']['title']['id'] = 'title';
+  $handler->display->display_options['fields']['title']['table'] = 'node';
+  $handler->display->display_options['fields']['title']['field'] = 'title';
+  $handler->display->display_options['fields']['title']['label'] = '';
+  $handler->display->display_options['fields']['title']['alter']['alter_text'] = 0;
+  $handler->display->display_options['fields']['title']['alter']['make_link'] = 0;
+  $handler->display->display_options['fields']['title']['alter']['absolute'] = 0;
+  $handler->display->display_options['fields']['title']['alter']['external'] = 0;
+  $handler->display->display_options['fields']['title']['alter']['replace_spaces'] = 0;
+  $handler->display->display_options['fields']['title']['alter']['trim_whitespace'] = 0;
+  $handler->display->display_options['fields']['title']['alter']['nl2br'] = 0;
+  $handler->display->display_options['fields']['title']['alter']['word_boundary'] = 0;
+  $handler->display->display_options['fields']['title']['alter']['ellipsis'] = 0;
+  $handler->display->display_options['fields']['title']['alter']['strip_tags'] = 0;
+  $handler->display->display_options['fields']['title']['alter']['trim'] = 0;
+  $handler->display->display_options['fields']['title']['alter']['html'] = 0;
+  $handler->display->display_options['fields']['title']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['title']['element_default_classes'] = 1;
+  $handler->display->display_options['fields']['title']['hide_empty'] = 0;
+  $handler->display->display_options['fields']['title']['empty_zero'] = 0;
+  $handler->display->display_options['fields']['title']['hide_alter_empty'] = 1;
+  $handler->display->display_options['fields']['title']['link_to_node'] = 1;
+  $handler->display->display_options['defaults']['arguments'] = FALSE;
+  /* Contextual filter: Content: Author uid */
+  $handler->display->display_options['arguments']['uid']['id'] = 'uid';
+  $handler->display->display_options['arguments']['uid']['table'] = 'node';
+  $handler->display->display_options['arguments']['uid']['field'] = 'uid';
+  $handler->display->display_options['arguments']['uid']['default_action'] = 'default';
+  $handler->display->display_options['arguments']['uid']['default_argument_type'] = 'current_user';
+  $handler->display->display_options['arguments']['uid']['default_argument_skip_url'] = 0;
+  $handler->display->display_options['arguments']['uid']['summary']['number_of_records'] = '0';
+  $handler->display->display_options['arguments']['uid']['summary']['format'] = 'default_summary';
+  $handler->display->display_options['arguments']['uid']['summary_options']['items_per_page'] = '25';
+  $handler->display->display_options['arguments']['uid']['specify_validation'] = 1;
+  $handler->display->display_options['arguments']['uid']['validate']['type'] = 'user';
+  $handler->display->display_options['arguments']['uid']['validate_options']['restrict_roles'] = '1';
+  $handler->display->display_options['arguments']['uid']['validate_options']['roles'] = array(
+    2 => '2',
+  );
+  $handler->display->display_options['arguments']['uid']['break_phrase'] = 0;
+  $handler->display->display_options['arguments']['uid']['not'] = 0;
+  $handler->display->display_options['defaults']['filters'] = FALSE;
+  /* Filter criterion: Content: Published */
+  $handler->display->display_options['filters']['status']['id'] = 'status';
+  $handler->display->display_options['filters']['status']['table'] = 'node';
+  $handler->display->display_options['filters']['status']['field'] = 'status';
+  $handler->display->display_options['filters']['status']['value'] = 1;
+  $handler->display->display_options['filters']['status']['group'] = 0;
+  $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
+  /* Filter criterion: Content: Type */
+  $handler->display->display_options['filters']['type']['id'] = 'type';
+  $handler->display->display_options['filters']['type']['table'] = 'node';
+  $handler->display->display_options['filters']['type']['field'] = 'type';
+  $handler->display->display_options['filters']['type']['value'] = array(
+    'occupation' => 'occupation',
+  );
+  $handler->display->display_options['block_description'] = 'My Occupations';
   $export['occupation_directory'] = $view;
 
   return $export;
