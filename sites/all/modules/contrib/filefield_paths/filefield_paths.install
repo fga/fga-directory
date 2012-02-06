@@ -1,0 +1,194 @@
+<?php
+/**
+ * @file
+ * Install, update and uninstall functions for the FileField Paths module.
+ */
+
+/**
+ * Implements hook_schema().
+ */
+function filefield_paths_schema() {
+  $schema['filefield_paths'] = array(
+    'fields' => array(
+      'type' => array(
+        'type' => 'varchar',
+        'length' => 128,
+        'not null' => TRUE,
+        'default' => ''
+      ),
+      'field' => array(
+        'type' => 'varchar',
+        'length' => 128,
+        'not null' => TRUE,
+        'default' => ''
+      ),
+      'filename' => array(
+        'type' => 'text',
+        'size' => 'medium',
+        'not null' => TRUE,
+        'serialize' => TRUE
+      ),
+      'filepath' => array(
+        'type' => 'text',
+        'size' => 'medium',
+        'not null' => TRUE,
+        'serialize' => TRUE
+      ),
+      'active_updating' => array(
+        'type' => 'int',
+        'size' => 'tiny',
+        'not null' => TRUE,
+        'default' => 0
+      ),
+    ),
+    'unique keys' => array(
+      'type_field' => array('type', 'field'),
+    ),
+  );
+
+  return $schema;
+}
+
+/**
+ * Implements hook_schema_alter().
+ *
+ * @param $schema
+ *   The system-wide schema
+ */
+function filefield_paths_schema_alter(&$schema) {
+  $schema['file_managed']['fields']['origname'] = array(
+    'description' => 'Original name of the file.',
+    'type' => 'varchar',
+    'length' => 255,
+    'not null' => TRUE,
+    'default' => '',
+  );
+}
+
+/**
+ * Implements hook_install().
+ */
+function filefield_paths_install() {
+  // Add origname field to {file_managed}, and populate with the current
+  // filenames.
+  db_add_field('file_managed', 'origname', array(
+    'description' => 'Original name of the file with no path components. Used by the filefield_paths module.',
+    'type' => 'varchar',
+    'length' => 255,
+    'not null' => TRUE,
+    'default' => '',
+  ));
+  db_update('file_managed')
+    ->expression('origname', 'filename')
+    ->execute();
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function filefield_paths_uninstall() {
+  db_drop_field('file_managed', 'origname');
+}
+
+/**
+ * Implements hook_update_last_removed().
+ */
+function hook_update_last_removed() {
+  return 6103;
+}
+
+/**
+ * Implements hook_update_dependencies().
+ */
+function filefield_paths_dependencies() {
+  // Update 7103 uses the {file_managed} table, so make sure it is available.
+  $dependencies['filefield_paths'][7103] = array(
+    'system' => 7034,
+  );
+
+  return $dependencies;
+}
+
+/**
+ * Add origname field to {file_managed}.
+ */
+function filefield_paths_update_7103() {
+  // Clean-up an unused variable.
+  variable_del('filefield_paths_schema_version');
+
+  // Add origname field to {file_managed}, and populate with the current
+  // filenames.
+  if (!db_field_exists('file_managed', 'origname')) {
+    db_add_field('file_managed', 'origname', array(
+      'description' => 'Original name of the file with no path components. Used by the filefield_paths module.',
+      'type' => 'varchar',
+      'length' => 255,
+      'not null' => TRUE,
+      'default' => '',
+    ));
+  }
+  db_update('file_managed')
+    ->expression('origname', 'filename')
+    ->condition('origname', '')
+    ->execute();
+}
+
+/**
+ * Add active updating flag to {filefield_paths}
+ */
+function filefield_paths_update_7104() {
+  db_add_field('filefield_paths', 'active_updating', array(
+    'type' => 'int',
+    'size' => 'tiny',
+    'not null' => TRUE,
+    'default' => '0'
+  ));
+
+  // migrate variable to filefield_paths table
+  $result = db_query("SELECT name, value FROM {variable} WHERE name LIKE 'ffp_%%_field_%%'");
+  foreach ($result as $row) {
+    if (preg_match('/ffp_(.+)_field_(.+)$/', $row->name, $match)) {
+      $active_updating = unserialize($row->value);
+      if ($active_updating) {
+        db_update('filefield_paths')
+          ->fields(array(
+            'active_updating' => $active_updating
+          ))
+          ->condition('type', $match[1])
+          ->condition('field', $match[2])
+          ->execute();
+      }
+      variable_del($row->name);
+    }
+  }
+}
+
+/**
+ * Correct the default value for {filefield_paths}.active_updating field.
+ */
+function filefield_paths_update_7105() {
+  db_change_field('filefield_paths', 'active_updating', 'active_updating', array(
+    'type' => 'int',
+    'size' => 'tiny',
+    'not null' => TRUE,
+    'default' => 0
+  ));
+}
+
+/**
+ * Increase length of 'type' and 'field' columns.
+ */
+function filefield_paths_update_7106() {
+  db_change_field('filefield_paths', 'type', 'type', array(
+    'type' => 'varchar',
+    'length' => 128,
+    'not null' => TRUE,
+    'default' => ''
+  ));
+  db_change_field('filefield_paths', 'field', 'field', array(
+    'type' => 'varchar',
+    'length' => 128,
+    'not null' => TRUE,
+    'default' => ''
+  ));
+}
