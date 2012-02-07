@@ -370,7 +370,7 @@ function occupations_field_default_fields() {
         'active' => 1,
         'module' => 'text',
         'settings' => array(
-          'size' => '60',
+          'size' => '120',
         ),
         'type' => 'text_textfield',
         'weight' => '20',
@@ -1112,7 +1112,7 @@ function occupations_field_default_fields() {
       'entity_types' => array(),
       'field_name' => 'field_occupation_needs_fixing',
       'field_permissions' => array(
-        'type' => '1',
+        'type' => '2',
       ),
       'foreign keys' => array(),
       'indexes' => array(
@@ -1290,7 +1290,7 @@ function occupations_field_default_fields() {
       'entity_types' => array(),
       'field_name' => 'field_occupation_notes',
       'field_permissions' => array(
-        'type' => '1',
+        'type' => '2',
       ),
       'foreign keys' => array(
         'format' => array(
@@ -1314,7 +1314,7 @@ function occupations_field_default_fields() {
       'bundle' => 'occupation',
       'default_value' => NULL,
       'deleted' => '0',
-      'description' => 'This field is not publicly viewable.',
+      'description' => 'You can enter general notes here; they won\'t be publicly viewable.',
       'display' => array(
         'default' => array(
           'label' => 'above',
@@ -1370,7 +1370,7 @@ function occupations_field_default_fields() {
       'entity_types' => array(),
       'field_name' => 'field_occupation_notes_legacy',
       'field_permissions' => array(
-        'type' => '1',
+        'type' => '2',
       ),
       'foreign keys' => array(
         'format' => array(
@@ -2403,6 +2403,7 @@ URL: http address of the page.');
   t('Twitter hashtag(s)');
   t('Twitter hashtags associated with this occupation, separated by commas. Please include # symbol, e.g., "#ows".');
   t('Yes, needs fixing');
+  t('You can enter general notes here; they won\'t be publicly viewable.');
   t('Youtube channel URLs');
 
   return $fields;
