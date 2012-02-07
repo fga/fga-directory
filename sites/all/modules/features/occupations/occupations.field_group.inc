@@ -294,10 +294,10 @@ function occupations_field_group_info() {
     'label' => 'Comment Counts',
     'weight' => '6',
     'children' => array(
-      0 => 'field_comments_new',
-      1 => 'field_comments_willdo',
+      0 => 'field_comments_done',
+      1 => 'field_comments_new',
       2 => 'field_comments_rejected',
-      3 => 'field_comments_done',
+      3 => 'field_comments_willdo',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(

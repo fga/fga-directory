@@ -178,7 +178,7 @@ function occupations_field_default_fields() {
           'module' => 'computed_field',
           'settings' => array(),
           'type' => 'computed_field_plain',
-          'weight' => 29,
+          'weight' => '25',
         ),
         'rss' => array(
           'label' => 'above',
@@ -252,7 +252,7 @@ function occupations_field_default_fields() {
           'module' => 'computed_field',
           'settings' => array(),
           'type' => 'computed_field_plain',
-          'weight' => 26,
+          'weight' => '22',
         ),
         'rss' => array(
           'label' => 'above',
@@ -326,7 +326,7 @@ function occupations_field_default_fields() {
           'module' => 'computed_field',
           'settings' => array(),
           'type' => 'computed_field_plain',
-          'weight' => 28,
+          'weight' => '24',
         ),
         'rss' => array(
           'label' => 'above',
@@ -400,7 +400,7 @@ function occupations_field_default_fields() {
           'module' => 'computed_field',
           'settings' => array(),
           'type' => 'computed_field_plain',
-          'weight' => 27,
+          'weight' => '23',
         ),
         'rss' => array(
           'label' => 'above',
@@ -758,7 +758,7 @@ function occupations_field_default_fields() {
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
-          'weight' => '25',
+          'weight' => '21',
         ),
         'full' => array(
           'label' => 'above',
@@ -893,7 +893,7 @@ function occupations_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '21',
+          'weight' => '27',
         ),
         'full' => array(
           'label' => 'above',
@@ -1567,7 +1567,7 @@ function occupations_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '24',
+          'weight' => '30',
         ),
         'full' => array(
           'label' => 'above',
@@ -1742,7 +1742,7 @@ function occupations_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '23',
+          'weight' => '29',
         ),
         'full' => array(
           'label' => 'above',
@@ -1822,7 +1822,7 @@ function occupations_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '22',
+          'weight' => '28',
         ),
         'full' => array(
           'label' => 'above',
@@ -2600,6 +2600,81 @@ URL: http address of the page.',
     ),
   );
 
+  // Exported field: 'node-occupation-field_occupation_type'
+  $fields['node-occupation-field_occupation_type'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_occupation_type',
+      'field_permissions' => array(
+        'type' => '2',
+      ),
+      'foreign keys' => array(
+        'tid' => array(
+          'columns' => array(
+            'tid' => 'tid',
+          ),
+          'table' => 'taxonomy_term_data',
+        ),
+      ),
+      'indexes' => array(
+        'tid' => array(
+          0 => 'tid',
+        ),
+      ),
+      'module' => 'taxonomy',
+      'settings' => array(
+        'allowed_values' => array(
+          0 => array(
+            'vocabulary' => 'occupation_type',
+            'parent' => '0',
+          ),
+        ),
+      ),
+      'translatable' => '0',
+      'type' => 'taxonomy_term_reference',
+    ),
+    'field_instance' => array(
+      'bundle' => 'occupation',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'inline',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '26',
+        ),
+        'rss' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'node',
+      'field_name' => 'field_occupation_type',
+      'label' => 'Type',
+      'required' => 0,
+      'settings' => array(
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 0,
+        'module' => 'taxonomy',
+        'settings' => array(
+          'autocomplete_path' => 'taxonomy/autocomplete',
+          'size' => 60,
+        ),
+        'type' => 'taxonomy_autocomplete',
+        'weight' => '33',
+      ),
+    ),
+  );
+
   // Exported field: 'node-occupation-field_occupation_website'
   $fields['node-occupation-field_occupation_website'] = array(
     'field_config' => array(
@@ -2829,6 +2904,7 @@ URL: http address of the page.');
   t('Twitter account(s)');
   t('Twitter hashtag(s)');
   t('Twitter hashtags associated with this occupation, separated by commas. Please include # symbol, e.g., "#ows".');
+  t('Type');
   t('Will Do comments count');
   t('Yes, needs fixing');
   t('You can enter general notes here; they won\'t be publicly viewable.');
