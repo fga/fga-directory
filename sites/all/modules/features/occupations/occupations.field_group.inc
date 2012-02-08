@@ -64,8 +64,8 @@ function occupations_field_group_info() {
     'label' => 'Donation Info',
     'weight' => '13',
     'children' => array(
-      0 => 'field_occupation_donate_url',
-      1 => 'field_occupation_dontate_info',
+      0 => 'field_occupation_dontate_info',
+      1 => 'field_occupation_donate_url',
     ),
     'format_type' => 'div',
     'format_settings' => array(

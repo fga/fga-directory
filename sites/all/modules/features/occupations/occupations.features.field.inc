@@ -180,6 +180,12 @@ function occupations_field_default_fields() {
           'type' => 'computed_field_plain',
           'weight' => '25',
         ),
+        'full' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '0',
+        ),
         'rss' => array(
           'label' => 'above',
           'settings' => array(),
@@ -253,6 +259,12 @@ function occupations_field_default_fields() {
           'settings' => array(),
           'type' => 'computed_field_plain',
           'weight' => '22',
+        ),
+        'full' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '0',
         ),
         'rss' => array(
           'label' => 'above',
@@ -328,6 +340,12 @@ function occupations_field_default_fields() {
           'type' => 'computed_field_plain',
           'weight' => '24',
         ),
+        'full' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '0',
+        ),
         'rss' => array(
           'label' => 'above',
           'settings' => array(),
@@ -401,6 +419,12 @@ function occupations_field_default_fields() {
           'settings' => array(),
           'type' => 'computed_field_plain',
           'weight' => '23',
+        ),
+        'full' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '0',
         ),
         'rss' => array(
           'label' => 'above',
@@ -1182,7 +1206,7 @@ function occupations_field_default_fields() {
             'geofield_map_scrollwheel' => 0,
             'geofield_map_streetview_show' => 0,
             'geofield_map_width' => '100%',
-            'geofield_map_zoom' => '8',
+            'geofield_map_zoom' => '12',
           ),
           'type' => 'geofield_map_map',
           'weight' => '9',
@@ -2648,7 +2672,19 @@ URL: http address of the page.',
           'type' => 'hidden',
           'weight' => '26',
         ),
+        'full' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '0',
+        ),
         'rss' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+        'teaser' => array(
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
