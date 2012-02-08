@@ -45,7 +45,7 @@
     <div class="occupy-links-secondary grid-3">
       <?php
         print render($content['group_links_news']);
-        print render($content['group_links_news']);
+        print render($content['group_links_resources']);
         ?>
     </div>
   </div>
