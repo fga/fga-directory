@@ -113,6 +113,8 @@ nav a:hover {
  font-size: 1em;
  font-weight: 200;
  margin-bottom: .25em;
+ max-width: 90%;
+ overflow: hidden;
  padding: .25em .75em;
  text-decoration: none;
  text-transform: lowercase;
