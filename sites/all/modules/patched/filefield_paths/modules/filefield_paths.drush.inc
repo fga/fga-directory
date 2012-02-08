@@ -112,7 +112,7 @@ function drush_filefield_paths_ffp_update($entity_type = NULL, $bundle_name = NU
   }
   if ($bundle_name == 'all') {
     $instances = array();
-    foreach (element_children(info[$entity_type]) as $bundle_name) {
+    foreach (element_children($info[$entity_type]) as $bundle_name) {
       foreach (element_children($info[$entity_type][$bundle_name]) as $field_name) {
         $instances[] = field_info_instance($entity_type, $field_name, $bundle_name);
       }
