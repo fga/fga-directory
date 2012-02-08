@@ -284,6 +284,36 @@ function occupations_field_group_info() {
   $field_group = new stdClass;
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
+  $field_group->identifier = 'group_occupation_comment_counts|node|occupation|form';
+  $field_group->group_name = 'group_occupation_comment_counts';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'occupation';
+  $field_group->mode = 'form';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'Comment Counts',
+    'weight' => '6',
+    'children' => array(
+      0 => 'field_comments_done',
+      1 => 'field_comments_new',
+      2 => 'field_comments_rejected',
+      3 => 'field_comments_willdo',
+    ),
+    'format_type' => 'fieldset',
+    'format_settings' => array(
+      'formatter' => 'collapsible',
+      'instance_settings' => array(
+        'description' => '',
+        'classes' => '',
+        'required_fields' => 1,
+      ),
+    ),
+  );
+  $export['group_occupation_comment_counts|node|occupation|form'] = $field_group;
+
+  $field_group = new stdClass;
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
   $field_group->identifier = 'group_occupation_contact_info|node|occupation|form';
   $field_group->group_name = 'group_occupation_contact_info';
   $field_group->entity_type = 'node';
@@ -325,9 +355,9 @@ function occupations_field_group_info() {
     'label' => 'Container',
     'weight' => '2',
     'children' => array(
-      0 => 'group_occupation_links',
-      1 => 'group_occupation_contact_info',
-      2 => 'group_occupation_information',
+      0 => 'group_occupation_contact_info',
+      1 => 'group_occupation_information',
+      2 => 'group_occupation_links',
     ),
     'format_type' => 'htabs',
     'format_settings' => array(
@@ -356,8 +386,8 @@ function occupations_field_group_info() {
       1 => 'field_occupation_description',
       2 => 'field_occupation_physical',
       3 => 'field_occupation_general_info',
-      4 => 'field_occupation_donate_url',
-      5 => 'field_occupation_dontate_info',
+      4 => 'field_occupation_dontate_info',
+      5 => 'field_occupation_donate_url',
     ),
     'format_type' => 'tab',
     'format_settings' => array(

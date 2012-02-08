@@ -10,6 +10,428 @@
 function occupations_field_default_fields() {
   $fields = array();
 
+  // Exported field: 'comment-comment_node_occupation-comment_body'
+  $fields['comment-comment_node_occupation-comment_body'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(
+        0 => 'comment',
+      ),
+      'field_name' => 'comment_body',
+      'foreign keys' => array(
+        'format' => array(
+          'columns' => array(
+            'format' => 'format',
+          ),
+          'table' => 'filter_format',
+        ),
+      ),
+      'indexes' => array(
+        'format' => array(
+          0 => 'format',
+        ),
+      ),
+      'module' => 'text',
+      'settings' => array(),
+      'translatable' => '0',
+      'type' => 'text_long',
+    ),
+    'field_instance' => array(
+      'bundle' => 'comment_node_occupation',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'hidden',
+          'module' => 'text',
+          'settings' => array(),
+          'type' => 'text_default',
+          'weight' => '1',
+        ),
+      ),
+      'entity_type' => 'comment',
+      'field_name' => 'comment_body',
+      'label' => 'Comment',
+      'required' => TRUE,
+      'settings' => array(
+        'text_processing' => 1,
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'module' => 'text',
+        'settings' => array(
+          'rows' => 5,
+        ),
+        'type' => 'text_textarea',
+        'weight' => '1',
+      ),
+    ),
+  );
+
+  // Exported field: 'comment-comment_node_occupation-field_comment_state'
+  $fields['comment-comment_node_occupation-field_comment_state'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_comment_state',
+      'field_permissions' => array(
+        'type' => '2',
+      ),
+      'foreign keys' => array(),
+      'indexes' => array(
+        'value' => array(
+          0 => 'value',
+        ),
+      ),
+      'module' => 'list',
+      'settings' => array(
+        'allowed_values' => array(
+          'new' => 'New',
+          'willdo' => 'Will do',
+          'rejected' => 'Rejected',
+          'done' => 'Done',
+        ),
+        'allowed_values_function' => '',
+      ),
+      'translatable' => '0',
+      'type' => 'list_text',
+    ),
+    'field_instance' => array(
+      'bundle' => 'comment_node_occupation',
+      'default_value' => array(
+        0 => array(
+          'value' => 'new',
+        ),
+      ),
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'inline',
+          'module' => 'list',
+          'settings' => array(),
+          'type' => 'list_default',
+          'weight' => '0',
+        ),
+      ),
+      'entity_type' => 'comment',
+      'field_name' => 'field_comment_state',
+      'label' => 'State',
+      'required' => 1,
+      'settings' => array(
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'options',
+        'settings' => array(),
+        'type' => 'options_select',
+        'weight' => '0',
+      ),
+    ),
+  );
+
+  // Exported field: 'node-occupation-field_comments_done'
+  $fields['node-occupation-field_comments_done'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_comments_done',
+      'field_permissions' => array(
+        'type' => '2',
+      ),
+      'foreign keys' => array(),
+      'indexes' => array(),
+      'module' => 'computed_field',
+      'settings' => array(
+        'code' => '$entity_field[0][\'value\'] = "";',
+        'database' => array(
+          'data_default' => '',
+          'data_index' => 0,
+          'data_length' => '32',
+          'data_not_NULL' => 0,
+          'data_precision' => '10',
+          'data_scale' => '2',
+          'data_size' => 'normal',
+          'data_type' => 'int',
+        ),
+        'display_format' => '$display_output = $entity_field_item[\'value\'];',
+        'store' => 1,
+      ),
+      'translatable' => '0',
+      'type' => 'computed',
+    ),
+    'field_instance' => array(
+      'bundle' => 'occupation',
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'module' => 'computed_field',
+          'settings' => array(),
+          'type' => 'computed_field_plain',
+          'weight' => '25',
+        ),
+        'rss' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+        'teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'node',
+      'field_name' => 'field_comments_done',
+      'label' => 'Done comments count',
+      'required' => 0,
+      'settings' => array(
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 0,
+        'module' => 'computed_field',
+        'settings' => array(),
+        'type' => 'computed',
+        'weight' => '10',
+      ),
+    ),
+  );
+
+  // Exported field: 'node-occupation-field_comments_new'
+  $fields['node-occupation-field_comments_new'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_comments_new',
+      'field_permissions' => array(
+        'type' => '2',
+      ),
+      'foreign keys' => array(),
+      'indexes' => array(),
+      'module' => 'computed_field',
+      'settings' => array(
+        'code' => '$entity_field[0][\'value\'] = "";',
+        'database' => array(
+          'data_default' => '',
+          'data_index' => 0,
+          'data_length' => '32',
+          'data_not_NULL' => 0,
+          'data_precision' => '10',
+          'data_scale' => '2',
+          'data_size' => 'normal',
+          'data_type' => 'int',
+        ),
+        'display_format' => '$display_output = $entity_field_item[\'value\'];',
+        'store' => 1,
+      ),
+      'translatable' => '0',
+      'type' => 'computed',
+    ),
+    'field_instance' => array(
+      'bundle' => 'occupation',
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'module' => 'computed_field',
+          'settings' => array(),
+          'type' => 'computed_field_plain',
+          'weight' => '22',
+        ),
+        'rss' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+        'teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'node',
+      'field_name' => 'field_comments_new',
+      'label' => 'New comments count',
+      'required' => 0,
+      'settings' => array(
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 0,
+        'module' => 'computed_field',
+        'settings' => array(),
+        'type' => 'computed',
+        'weight' => '7',
+      ),
+    ),
+  );
+
+  // Exported field: 'node-occupation-field_comments_rejected'
+  $fields['node-occupation-field_comments_rejected'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_comments_rejected',
+      'field_permissions' => array(
+        'type' => '2',
+      ),
+      'foreign keys' => array(),
+      'indexes' => array(),
+      'module' => 'computed_field',
+      'settings' => array(
+        'code' => '$entity_field[0][\'value\'] = "";',
+        'database' => array(
+          'data_default' => '',
+          'data_index' => 0,
+          'data_length' => '32',
+          'data_not_NULL' => 0,
+          'data_precision' => '10',
+          'data_scale' => '2',
+          'data_size' => 'normal',
+          'data_type' => 'int',
+        ),
+        'display_format' => '$display_output = $entity_field_item[\'value\'];',
+        'store' => 1,
+      ),
+      'translatable' => '0',
+      'type' => 'computed',
+    ),
+    'field_instance' => array(
+      'bundle' => 'occupation',
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'module' => 'computed_field',
+          'settings' => array(),
+          'type' => 'computed_field_plain',
+          'weight' => '24',
+        ),
+        'rss' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+        'teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'node',
+      'field_name' => 'field_comments_rejected',
+      'label' => 'Rejected comments count',
+      'required' => 0,
+      'settings' => array(
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 0,
+        'module' => 'computed_field',
+        'settings' => array(),
+        'type' => 'computed',
+        'weight' => '9',
+      ),
+    ),
+  );
+
+  // Exported field: 'node-occupation-field_comments_willdo'
+  $fields['node-occupation-field_comments_willdo'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_comments_willdo',
+      'field_permissions' => array(
+        'type' => '2',
+      ),
+      'foreign keys' => array(),
+      'indexes' => array(),
+      'module' => 'computed_field',
+      'settings' => array(
+        'code' => '$entity_field[0][\'value\'] = "";',
+        'database' => array(
+          'data_default' => '',
+          'data_index' => 0,
+          'data_length' => '32',
+          'data_not_NULL' => 0,
+          'data_precision' => '10',
+          'data_scale' => '2',
+          'data_size' => 'normal',
+          'data_type' => 'int',
+        ),
+        'display_format' => '$display_output = $entity_field_item[\'value\'];',
+        'store' => 1,
+      ),
+      'translatable' => '0',
+      'type' => 'computed',
+    ),
+    'field_instance' => array(
+      'bundle' => 'occupation',
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'module' => 'computed_field',
+          'settings' => array(),
+          'type' => 'computed_field_plain',
+          'weight' => '23',
+        ),
+        'rss' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+        'teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'node',
+      'field_name' => 'field_comments_willdo',
+      'label' => 'Will Do comments count',
+      'required' => 0,
+      'settings' => array(
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 0,
+        'module' => 'computed_field',
+        'settings' => array(),
+        'type' => 'computed',
+        'weight' => '8',
+      ),
+    ),
+  );
+
   // Exported field: 'node-occupation-field_occupation_address'
   $fields['node-occupation-field_occupation_address'] = array(
     'field_config' => array(
@@ -336,7 +758,7 @@ function occupations_field_default_fields() {
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
-          'weight' => '25',
+          'weight' => '21',
         ),
         'full' => array(
           'label' => 'above',
@@ -370,7 +792,7 @@ function occupations_field_default_fields() {
         'active' => 1,
         'module' => 'text',
         'settings' => array(
-          'size' => '60',
+          'size' => '120',
         ),
         'type' => 'text_textfield',
         'weight' => '20',
@@ -471,7 +893,7 @@ function occupations_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '21',
+          'weight' => '27',
         ),
         'full' => array(
           'label' => 'above',
@@ -1112,7 +1534,7 @@ function occupations_field_default_fields() {
       'entity_types' => array(),
       'field_name' => 'field_occupation_needs_fixing',
       'field_permissions' => array(
-        'type' => '1',
+        'type' => '2',
       ),
       'foreign keys' => array(),
       'indexes' => array(
@@ -1145,7 +1567,7 @@ function occupations_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '24',
+          'weight' => '30',
         ),
         'full' => array(
           'label' => 'above',
@@ -1290,7 +1712,7 @@ function occupations_field_default_fields() {
       'entity_types' => array(),
       'field_name' => 'field_occupation_notes',
       'field_permissions' => array(
-        'type' => '1',
+        'type' => '2',
       ),
       'foreign keys' => array(
         'format' => array(
@@ -1314,13 +1736,13 @@ function occupations_field_default_fields() {
       'bundle' => 'occupation',
       'default_value' => NULL,
       'deleted' => '0',
-      'description' => 'This field is not publicly viewable.',
+      'description' => 'You can enter general notes here; they won\'t be publicly viewable.',
       'display' => array(
         'default' => array(
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '23',
+          'weight' => '29',
         ),
         'full' => array(
           'label' => 'above',
@@ -1370,7 +1792,7 @@ function occupations_field_default_fields() {
       'entity_types' => array(),
       'field_name' => 'field_occupation_notes_legacy',
       'field_permissions' => array(
-        'type' => '1',
+        'type' => '2',
       ),
       'foreign keys' => array(
         'format' => array(
@@ -1400,7 +1822,7 @@ function occupations_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '22',
+          'weight' => '28',
         ),
         'full' => array(
           'label' => 'above',
@@ -2178,6 +2600,81 @@ URL: http address of the page.',
     ),
   );
 
+  // Exported field: 'node-occupation-field_occupation_type'
+  $fields['node-occupation-field_occupation_type'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_occupation_type',
+      'field_permissions' => array(
+        'type' => '2',
+      ),
+      'foreign keys' => array(
+        'tid' => array(
+          'columns' => array(
+            'tid' => 'tid',
+          ),
+          'table' => 'taxonomy_term_data',
+        ),
+      ),
+      'indexes' => array(
+        'tid' => array(
+          0 => 'tid',
+        ),
+      ),
+      'module' => 'taxonomy',
+      'settings' => array(
+        'allowed_values' => array(
+          0 => array(
+            'vocabulary' => 'occupation_type',
+            'parent' => '0',
+          ),
+        ),
+      ),
+      'translatable' => '0',
+      'type' => 'taxonomy_term_reference',
+    ),
+    'field_instance' => array(
+      'bundle' => 'occupation',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'inline',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '26',
+        ),
+        'rss' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'node',
+      'field_name' => 'field_occupation_type',
+      'label' => 'Type',
+      'required' => 0,
+      'settings' => array(
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 0,
+        'module' => 'taxonomy',
+        'settings' => array(
+          'autocomplete_path' => 'taxonomy/autocomplete',
+          'size' => 60,
+        ),
+        'type' => 'taxonomy_autocomplete',
+        'weight' => '33',
+      ),
+    ),
+  );
+
   // Exported field: 'node-occupation-field_occupation_website'
   $fields['node-occupation-field_occupation_website'] = array(
     'field_config' => array(
@@ -2372,8 +2869,10 @@ URL: http address of the page.',
 
   // Translatables
   // Included for use with string extractors like potx.
+  t('Comment');
   t('Donate Information');
   t('Donate URL');
+  t('Done comments count');
   t('Facebook Pages');
   t('General Assembly');
   t('General email address');
@@ -2386,6 +2885,7 @@ URL: http address of the page.',
   t('Location (Address)');
   t('Main @user account(s). Please include the @ symbol, e.g., "@occupywallst".');
   t('Meetup URL');
+  t('New comments count');
   t('Newspaper URL');
   t('Occupation Image or Icon');
   t('Occupation description');
@@ -2396,13 +2896,18 @@ URL: http address of the page.',
   t('Physical occupation occurring?');
   t('Point of contact email addresses');
   t('RSS feeds');
+  t('Rejected comments count');
+  t('State');
   t('This field is not publicly viewable.');
   t('Title: Facebook, Google+, etc.
 URL: http address of the page.');
   t('Twitter account(s)');
   t('Twitter hashtag(s)');
   t('Twitter hashtags associated with this occupation, separated by commas. Please include # symbol, e.g., "#ows".');
+  t('Type');
+  t('Will Do comments count');
   t('Yes, needs fixing');
+  t('You can enter general notes here; they won\'t be publicly viewable.');
   t('Youtube channel URLs');
 
   return $fields;

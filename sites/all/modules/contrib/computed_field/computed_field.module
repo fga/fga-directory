@@ -1,0 +1,469 @@
+<?php
+
+/**
+ * Implements field hook_field_info().
+ */
+function computed_field_field_info() {
+  return array(
+    'computed' => array(
+      'label' => t('Computed'),
+      'description' => t('Create field data via PHP code.'),
+      'settings' => array(
+        'code' => '$entity_field[0][\'value\'] = "";',
+        'display_format' => '$display_output = $entity_field_item[\'value\'];',
+        'store' => 1,
+        'database' => array(
+          'data_type' => 'varchar',
+          'data_length' => 32,
+          'data_size' => 'normal',
+          'data_precision' => 10,
+          'data_scale' => 2,
+          'data_not_NULL' => FALSE,
+          'data_default' => NULL,
+          'data_index' => FALSE,
+        ),
+      ),
+      'default_widget' => 'computed',
+      'default_formatter' => 'computed_field_plain',
+      // If we followed the core convention of separate fields for each data
+      // type we could make Entity API happy by just setting a property_type.
+      // Instead we have to use our own callback to determine the type then
+      // rerun theirs to setup the rest of the field properties.
+      'property_callbacks' => array('computed_field_entity_property_callback'),
+    ),
+  );
+}
+
+/**
+ * Callback to setup Entity API's field properties.
+ */
+function computed_field_entity_property_callback(&$info, $entity_type, $field, $instance, $field_type) {
+  $property_types = array(
+    'int' => 'integer',
+    'float' => 'decimal', 'numeric' => 'decimal',
+    'varchar' => 'text', 'text' => 'text', 'longtext' => 'text',
+  );
+  if (isset($field['columns']['value']) && isset($property_types[$field['columns']['value']['type']])) {
+    // Entity API's defaults are pretty good so set the property_type and let
+    // them do the work for us.
+    $field_type['property_type'] = $property_types[$field['columns']['value']['type']];
+    entity_metadata_field_default_property_callback($info, $entity_type, $field, $instance, $field_type);
+    // The only thing is that a setter doesn't make sense, so let's disable it.
+    $property = &$info[$entity_type]['bundles'][$instance['bundle']]['properties'][$field['field_name']];
+    unset($property['setter callback']);
+  }
+}
+
+/**
+ * Implements of hook_field_settings_form().
+ */
+function computed_field_field_settings_form($field, $instance, $has_data) {
+  $form = array();
+  $compute_func = 'computed_field_' . $field['field_name'] . '_compute';
+  $display_func = 'computed_field_' . $field['field_name'] . '_display';
+  $settings = $field['settings'];
+
+  $form['#element_validate'] = array('computed_field_field_settings_form_validate');
+  
+  $form['code'] = array(
+    '#type' => 'textarea',
+    '#rows' => 15,
+    '#title' => t('Computed Code (PHP)'),
+    '#description' => t('The variables available to your code include: <code>@fields</code>. To set the value of the field, set <code>@entity_field</code>.  For multi-value computed fields continue with <code>@entity_field_multi</code>.  Here\'s a simple example which sets the computed field\'s value to the value of the sum of the number fields (<code>@field_a</code> and <code>@field_b</code>) in a node entity:<p><code>@example</code> The first pop fetches the last (or only) item from the field while the second pop fetches its <code>[\'value\']</code> contents (assuming it\'s the only key that\'s set).<p>Alternately, this code can be supplied by your own custom function named: <code>@compute_func(&$entity_field, $entity_type, $entity, $field, $instance, $langcode, $items)</code>',
+      array('@fields' => '&$entity_field, $entity_type, $entity, $field, $instance, $langcode, and $items',
+        '@entity_field' => '$entity_field[0][\'value\']',
+        '@entity_field_multi' => '$entity_field[1][\'value\']',
+        '@field_a' => 'field_a',
+        '@field_b' => 'field_b',
+        '@example' => '$entity_field[0][\'value\'] = array_pop(array_pop(field_get_items($entity_type, $entity, \'field_a\'))) + array_pop(array_pop(field_get_items($entity_type, $entity, \'field_b\')));',
+        '@compute_func' => $compute_func)),
+    '#default_value' => !empty($settings['code']) ? $settings['code'] : '$entity_field[0][\'value\'] = "";',
+    '#access' => !function_exists($compute_func),
+  );
+  if (function_exists($compute_func)) {
+    $form['compute_func'] = array(
+    '#type' => 'item',
+    '#markup' => t('<strong>This field is COMPUTED using <code>@compute_func()</code>.</strong>', array('@compute_func' => $compute_func)),
+    );
+  }
+  $form['display_format'] = array(
+    '#type' => 'textarea',
+    '#title' => t('Display Code (PHP)'),
+    '#description' => t('This code should assign a string to the <code>@display_output</code> variable, which will be printed when the field is displayed. The raw computed value of the field is in <code>@value</code>.  <strong>Note:</strong> this code has no effect if you use the "Raw computed value" display formatter.<p> Alternately, this code can be supplied by your own custom function named: <code>@display_func($field, $entity_field_item, $entity_lang, $langcode)</code>.  Return the value to be displayed.  Original value is in $entity_field_item[\'value\'].', 
+      array('@display_output' => '$display_output',
+            '@value' => '$entity_field_item[\'value\']',
+            '@display_func' => $display_func)),
+    '#default_value' => !empty($settings['display_format']) ? $settings['display_format'] : '$display_output = $entity_field_item[\'value\'];',
+    '#access' => !function_exists($display_func),
+  );
+  if (function_exists($display_func)) {
+    $form['display_func'] = array(
+      '#type' => 'item',
+      '#markup' => t('<strong>This field is DISPLAYED using <code>@display_func()</code>.</strong>', array('@display_func' => $display_func)),
+      );
+  }
+  $form['store'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Store value in the database'),
+    '#description' => t('The value will be stored in the database with the settings below.  As a result, it will only be recalculated when the entity is updated.  This option is required when accessing the field through Views.'),
+    '#default_value' => is_numeric($settings['store']) ? $settings['store'] : 1 ,
+    '#disabled' => $has_data,
+  );
+  $form['database'] = array('#type' => 'fieldset', '#title' => t('Database Storage Settings'));
+  
+  if ($has_data) {
+    $form['database']['warning'] = array(
+      '#type' => 'item',
+      '#markup' => t('<strong>**This field currently has stored data, so modifications to its DB settings are not allowed.**</strong>'),
+    );
+  }
+  $form['database']['data_type'] = array(
+    '#type' => 'radios',
+    '#title' => t('Data Type'),
+    '#description' => t('The SQL datatype to store this field in.'),
+    '#default_value' => !empty($settings['database']['data_type']) ? $settings['database']['data_type'] : 'varchar',
+    '#options' => array('varchar' => 'varchar', 'text' => 'text', 'longtext' => 'longtext', 'int' => 'int', 'float' => 'float', 'numeric' => 'decimal'),
+    '#required' => FALSE,
+    '#disabled' => $has_data,
+  );
+  $form['database']['data_length'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Data Length (varchar/text)'),
+    '#description' => t('<strong>Only</strong> valid for <strong>varchar</strong> or <strong>text</strong> fields. The length of the field stored in the database.'),
+    '#default_value' => !empty($settings['database']['data_length']) ? $settings['database']['data_length'] : 32,
+    '#required' => FALSE,
+    '#disabled' => $has_data,
+  );
+  $form['database']['data_size'] = array(
+    '#type' => 'select',
+    '#title' => t('Data Size (int/float)'),
+    '#description' => t('<strong>Only</strong> valid for <strong>int</strong> or <strong>float</strong> fields. The size of the field stored in the database.'),
+    '#default_value' => !empty($settings['database']['data_size']) ? $settings['database']['data_size'] : 'normal',
+    '#options' => array('tiny' => 'tiny', 'small' => 'small', 'medium' => 'medium', 'normal' => 'normal', 'big' => 'big'),
+    '#required' => FALSE,
+    '#disabled' => $has_data,
+  );
+  $form['database']['data_precision'] = array(
+    '#type' => 'select',
+    '#title' => t('Decimal Precision (decimal)'),
+    '#description' => t('<strong>Only</strong> valid for <strong>decimal</strong> fields. The total number of digits to store in the database, including those to the right of the decimal.'),
+    '#options' => drupal_map_assoc(range(10, 32)),
+    '#default_value' => !empty($settings['database']['data_precision']) ? $settings['database']['data_precision'] : 10,
+    '#required' => FALSE,
+    '#disabled' => $has_data,
+  );
+  $form['database']['data_scale'] = array(
+    '#type' => 'select',
+    '#title' => t('Decimal Scale (decimal)'),
+    '#description' => t('<strong>Only</strong> valid for <strong>decimal</strong> fields. The number of digits to the right of the decimal. '),
+    '#options' => drupal_map_assoc(range(0, 10)),
+    '#default_value' => !empty($settings['database']['data_scale']) ? $settings['database']['data_scale'] : 2,
+    '#required' => FALSE,
+    '#disabled' => $has_data,
+  );
+  $form['database']['data_default'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Default Value'),
+    '#default_value' => $settings['database']['data_default'],
+    '#required' => FALSE,
+    '#disabled' => $has_data,
+  );
+  $form['database']['data_not_NULL'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Not NULL'),
+    '#default_value' => is_numeric($settings['database']['data_not_NULL']) ? $settings['database']['data_not_NULL'] : FALSE,
+    '#disabled' => $has_data,
+  );
+  $form['database']['data_index'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Index computed values in the database (Does not apply to text or longtext fields.)'),
+    '#default_value' => is_numeric($settings['database']['data_index']) ? $settings['database']['data_index'] : FALSE,
+    '#disabled' => $has_data,
+  );
+  return $form;
+}
+
+/**
+* Implements the #element_validate callback for computed_field_field_settings_form().
+*/
+function computed_field_field_settings_form_validate($element, &$form_state) {
+  $settings = $form_state['values']['field']['settings'];
+  if ($settings['store']) {
+    if (empty($settings['database']['data_type'])) {
+      form_set_error('field][settings][data_type', t('To store this field in the database, please specify a data type.'));
+    }
+    if (($settings['database']['data_type'] == 'text' || $settings['database']['data_type'] == 'varchar') && empty($settings['database']['data_length'])) {
+      form_set_error('field][settings][database][data_length', t('To store this field in the database, please specify the data length.'));
+    }
+    if (($settings['database']['data_type'] == 'int' || $settings['database']['data_type'] == 'float') && (!empty($settings['database']['data_default']) && !is_numeric($settings['database']['data_default']))) {
+      form_set_error('field][settings][database][data_default', t('Your default value should be numeric given your data type.'));
+    }
+  }
+}
+
+/**
+ * Implements field hook_field_load().
+ */
+function computed_field_field_load($entity_type, $entities, $field, $instances, $langcode, &$items, $age) {
+  $settings = $field['settings'];
+  // Compute field values on load if they aren't stored in the database
+  if (!$settings['store']) {
+    foreach ($entities as $etid => $entity) {
+      _computed_field_compute_value($entity_type, $entity, $field, $instances, $langcode, $items[$etid]);
+    }
+  }
+}
+
+/**
+ * Implements field hook_field_prepare_view().
+ */
+function computed_field_field_prepare_view($entity_type, $entities, $field, $instances, $langcode, &$items) {
+  // Compute field values in case user is "previewing" an entity
+  foreach ($entities as $etid => $entity) {
+    if (isset($entity->op) && $entity->op == 'Preview') {
+      _computed_field_compute_value($entity_type, $entity, $field, $instances, $langcode, $items[$etid]);
+    }
+  }
+}
+
+/**
+ * Implements field hook_field_insert().
+ */
+function computed_field_field_insert($entity_type, $entity, $field, $instance, $langcode, &$items) {
+  _computed_field_compute_value($entity_type, $entity, $field, $instance, $langcode, $items);
+}
+
+/**
+ * Implements field hook_field_update().
+ */
+function computed_field_field_update($entity_type, $entity, $field, $instance, $langcode, &$items) {
+  _computed_field_compute_value($entity_type, $entity, $field, $instance, $langcode, $items);
+}
+
+/**
+ * Implements field hook_field_widget_info().
+ */
+function computed_field_field_widget_info() {
+  return array(
+    'computed' => array(
+      'label' => t('Computed'),
+      'field types' => array('computed'),
+      'behaviors' => array(
+        'multiple values' => FIELD_BEHAVIOR_CUSTOM,
+        'default value' => FIELD_BEHAVIOR_NONE,
+      ),
+    ),
+  );
+}
+
+/**
+ * Implements field hook_field_widget_form().
+ */
+
+function computed_field_field_widget_form(&$form, &$form_state, $field, $instance, $langcode, $items, $delta, $element) {
+
+  // If there are no items yet, add a null item value to avoid
+  // preview errors when selecting a different language
+  if (empty($items)) $items[0]['value'] = NULL;
+
+  foreach ($items as $item_delta => $item) {
+    $element[$item_delta]['value'] = array(
+      '#type' => 'value',
+      '#tree' => TRUE,
+      '#default_value' => isset($item['value']) ? $item['value'] : NULL,
+    );
+  }
+  return $element;
+}
+
+/**
+ * Implements hook_field_formatter_info().
+ */
+function computed_field_field_formatter_info() {
+  return array(
+    'computed_field_unsanitized' => array(
+      'label' => t('Unsanitized'),
+      'field types' => array('computed'),
+    ),
+    'computed_field_plain' => array(
+      'label' => t('Plain text'),
+      'field types' => array('computed'),
+    ),
+    'computed_field_markup' => array(
+      'label' => t('Filtered markup'),
+      'field types' => array('computed'),
+    ),
+    'computed_field_computed_value' => array(
+      'label' => t('Raw value, no display code'),
+      'field types' => array('computed'),
+    ),
+  );
+}
+
+/**
+ * Implements hook_field_formatter_view().
+ */
+function computed_field_field_formatter_view($entity_type, $entity, $field, $instance, $langcode, $items, $display) {
+  $element = array();
+
+  // Special case formatter that returns the raw computed values without any display code processing
+  if ($display['type'] == "computed_field_computed_value") {
+    foreach ($items as $delta => $item) {
+      if (!isset($entity_field_item['value'])) $entity_field_item['value'] = NULL;
+      $element[$delta] = array('#markup' => $item['value']);
+    }
+    return $element;
+  }
+
+  // Other display formatters which run through display code processing
+  // Check if the value is to be formatted by a display function outside the DB
+  $display_func = 'computed_field_' . $field['field_name'] . '_display';
+  if (function_exists($display_func)) $display_in_code = TRUE;
+  else $display_in_code = FALSE;
+  
+  // Loop the items to display
+  foreach ($items as $delta => $item) {
+  
+    // For "some" backwards compatibility
+    $entity_field_item = $item;
+    
+    // Setup a variable with the entity language if available
+    if (isset($entity->language)) $entity_lang = $entity->language;
+    else $entity_lang = LANGUAGE_NONE;
+
+    // If there are value "holes" in the field array let's set the value to NULL
+    // to avoid undefined index errors in typical PHP display code
+    if (!isset($entity_field_item['value'])) $entity_field_item['value'] = NULL;
+
+    // Execute the display code
+    $display_output = NULL;
+    if ($display_in_code) {
+      $display_output = $display_func($field, $entity_field_item, $entity_lang, $langcode);
+    }
+    else {
+      eval($field['settings']['display_format']);
+    }
+    
+    // Output the formatted display item
+    switch ($display['type']) {
+      case 'computed_field_unsanitized':
+          $element[$delta] = array('#markup' => $display_output);
+        break;
+      case 'computed_field_plain':
+          $element[$delta] = array('#markup' => check_plain($display_output));
+        break;
+      case 'computed_field_markup':
+          $element[$delta] = array('#markup' => check_markup($display_output));
+        break;
+    }
+  }
+  return $element;
+}
+
+/**
+ * Implements field hook_field_is_empty().
+ */
+function computed_field_field_is_empty($item, $field) {
+  $data_type = $field['settings']['database']['data_type'];
+  if ($data_type == 'int' || $data_type == 'float') {
+    return !is_numeric($item['value']);
+  }
+  return empty($item['value']);
+}
+
+/**
+ * Implements hook_token_info().
+ */
+function computed_field_token_info() {
+  $types['computed'] = array(
+    'name' => t("Computed"),
+    'description' => t("Tokens related to Computed fields."),
+    'needs-data' => 'node',
+  );
+  $fields = field_info_fields();
+  $node = array();
+  $computed = array();
+  foreach ($fields as $field_name => $field) {
+    if ($field['module'] == "computed_field") {
+      $node[str_replace('_', '-', $field_name)] = array(
+        'name' => t("Computed: %field_name", array('%field_name' => $field_name)),
+        'description' => t("Computed field %field_name value.", array('%field_name' => $field_name)),
+        'type' => 'computed',
+      );
+      $computed['rawvalue'] = array(
+        'name' => t("Raw computed value"),
+        'description' => t("Computed field %field_name raw value.", array('%field_name' => $field_name)),
+      );
+    }
+  }
+  if (!empty($computed)) {
+    return array(
+      'types' => $types,
+      'tokens' => array('node' => $node, 'computed' => $computed),
+    );
+  }
+}
+
+/**
+ * Implements hook_tokens().
+ */
+function computed_field_tokens($type, $tokens, array $data = array(), array $options = array()) {
+  $computed_fields = array();
+  $replacements = array();
+  $sanitize = !empty($options['sanitize']);
+  $lang = isset($options['language']->language) ? $options['language']->language : LANGUAGE_NONE;
+  $fields = field_info_fields();
+  foreach ($fields as $field_name => $field) {
+    if ($field['module'] == "computed_field") {
+      $computed_fields[] = str_replace('_', '-', $field_name);
+    }
+  }
+  foreach ($tokens as $name => $original) {
+    // For normal display output
+    if (in_array($name, $computed_fields)) {
+      $field_name = str_replace('-', '_', $name);
+      $entity_field_item = $data[$type]->{$field_name}[$lang][0];
+      $field = $fields[$field_name];
+      // Check if the value is to be formatted by a display function outside the DB
+      $display_func = 'computed_field_' . $field_name . '_display';
+      if (function_exists($display_func))  {
+        $display_output = $display_func($field, $entity_field_item);
+      }
+      else {
+        eval($field['settings']['display_format']);
+      }
+      $replacements[$original] = $sanitize ? check_plain($display_output) : $display_output;
+    }
+    // For raw value output
+    elseif (in_array(str_replace(':rawvalue', '', $name), $computed_fields)) {
+      $field_name = str_replace('-', '_', str_replace(':rawvalue', '', $name));
+      $replacements[$original] = $sanitize ? check_plain($data[$type]->{$field_name}[$lang][0]['value']) : $data[$type]->{$field_name}[$lang][0]['value'];
+    }
+  }
+  return $replacements;
+}
+
+/**
+ * Private function to compute the fields value.
+ */
+function _computed_field_compute_value($entity_type, $entity, $field, $instance, $langcode, &$items) {
+  $settings = $field['settings'];
+
+  // Setup a variable with the field values
+  $entity_field =& $items;
+  
+  // Setup a variable with the entity language if available
+  if (isset($entity->language)) $entity_lang = $entity->language;
+  else $entity_lang = LANGUAGE_NONE;
+  
+  // Allow the value to be computed from code not stored in DB
+  $compute_func = 'computed_field_' . $field['field_name'] . '_compute';
+  if (function_exists($compute_func)) {
+    $compute_func($entity_field, $entity_type, $entity, $field, $instance, $langcode, $items);
+  }
+  else {
+    if (isset($settings['code'])) {
+      eval($settings['code']);
+    }
+  }
+}

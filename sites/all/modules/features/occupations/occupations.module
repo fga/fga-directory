@@ -14,3 +14,86 @@ function occupations_rdf_namespaces() {
     'schema'  => 'http://schema.org/',
   );
 }
+
+/*******************************************************************************
+ * Computed Field Functions
+ *
+ * Used for computing comment counts for various comment states.
+ ******************************************************************************/
+
+/**
+ * Implements hook_comment_insert().
+ */
+function occupations_comment_insert($comment) {
+  // Save node so that comment-based computed fields update.
+  $node = node_load($comment->nid);
+  node_save($node);
+}
+
+/**
+ * Implements hook_comment_update().
+ */
+function occupations_comment_update($comment) {
+  // Save node so that comment-based computed fields update.
+  $node = node_load($comment->nid);
+  node_save($node);
+}
+
+/**
+ * Implements hook_comment_delete().
+ */
+function occupations_comment_delete($comment) {
+  // Save node so that comment-based computed fields update.
+  $node = node_load($comment->nid);
+  if ($node->nid) {
+    node_save($node);
+  }
+}
+
+/**
+ * Calculate field_comments_new field.
+ */
+function computed_field_field_comments_new_compute(&$entity_field, $entity_type, $entity, $field, $instance, $langcode, $items) {
+  $query = new EntityFieldQuery();
+  $query->entityCondition('entity_type', 'comment')
+    ->propertyCondition('status', 1)
+    ->propertyCondition('nid', $entity->nid)
+    ->fieldCondition('field_comment_state', 'value', 'new');
+  $entity_field[0]['value'] = $query->count()->execute();
+}
+
+/**
+ * Calculate field_comments_willdo field.
+ */
+function computed_field_field_comments_willdo_compute(&$entity_field, $entity_type, $entity, $field, $instance, $langcode, $items) {
+  $query = new EntityFieldQuery();
+  $query->entityCondition('entity_type', 'comment')
+    ->propertyCondition('status', 1)
+    ->propertyCondition('nid', $entity->nid)
+    ->fieldCondition('field_comment_state', 'value', 'willdo');
+  $entity_field[0]['value'] = $query->count()->execute();
+}
+
+/**
+ * Calculate field_comments_rejected field.
+ */
+function computed_field_field_comments_rejected_compute(&$entity_field, $entity_type, $entity, $field, $instance, $langcode, $items) {
+  $query = new EntityFieldQuery();
+  $query->entityCondition('entity_type', 'comment')
+    ->propertyCondition('status', 1)
+    ->propertyCondition('nid', $entity->nid)
+    ->fieldCondition('field_comment_state', 'value', 'rejected');
+  $entity_field[0]['value'] = $query->count()->execute();
+}
+
+/**
+ * Calculate field_comments_done field.
+ */
+function computed_field_field_comments_done_compute(&$entity_field, $entity_type, $entity, $field, $instance, $langcode, $items) {
+  $query = new EntityFieldQuery();
+  $query->entityCondition('entity_type', 'comment')
+    ->propertyCondition('status', 1)
+    ->propertyCondition('nid', $entity->nid)
+    ->fieldCondition('field_comment_state', 'value', 'done');
+  $entity_field[0]['value'] = $query->count()->execute();
+}

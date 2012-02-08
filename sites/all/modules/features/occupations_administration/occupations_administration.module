@@ -1,6 +1,7 @@
 <?php
 /**
  * @file
+ * Code for the occupations_administration feature.
  */
 
-// Drupal needs this blank file.
+include_once('occupations_administration.features.inc');

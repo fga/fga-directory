@@ -19,7 +19,7 @@ function occupations_administration_default_rules_configuration() {
         { "mail_to_users_of_role" : {
             "roles" : { "value" : { "5" : "5" } },
             "subject" : "A comment has been added to [comment:node:title] on [site:name]",
-            "message" : "A comment has been added to [site:name] ([site:url]): \\r\\n\\r\\nNode:\\r\\n[comment:node:title] ([comment:node:url])\\r\\n\\r\\nAuthor:\\r\\n[comment:name]\\r\\n\\r\\nBody:\\r\\n[comment:body]\\r\\n\\r\\nClick here to moderate the comment: [comment:edit-url]"
+            "message" : "A comment has been added to [site:name] ([site:url]): \\u000D\\u000A\\u000D\\u000ANode:\\u000D\\u000A[comment:node:title] ([comment:node:url])\\u000D\\u000A\\u000D\\u000AAuthor:\\u000D\\u000A[comment:name]\\u000D\\u000A\\u000D\\u000ABody:\\u000D\\u000A[comment:body]\\u000D\\u000A\\u000D\\u000AClick here to moderate the comment: [comment:edit-url]"
           }
         }
       ]
@@ -43,7 +43,7 @@ function occupations_administration_default_rules_configuration() {
         { "mail_to_users_of_role" : {
             "roles" : { "value" : { "5" : "5" } },
             "subject" : "[node:title] has been added to [site:name] for approval",
-            "message" : "An occupation has been added to [site:name] ([site:url]) for approval:\\r\\n\\r\\nNode:\\r\\n[node:title]\\r\\n\\r\\nAuthor:\\r\\n[node:author:name]\\r\\n\\r\\nLocation:\\r\\n[node:field_occupation_address]\\r\\n\\r\\nDescription:\\r\\n[node:field_occupation_description]\\r\\n\\r\\nClick here to view the occupation: [node:url]"
+            "message" : "An occupation has been added to [site:name] ([site:url]) for approval:\\u000D\\u000A\\u000D\\u000ANode:\\u000D\\u000A[node:title]\\u000D\\u000A\\u000D\\u000AAuthor:\\u000D\\u000A[node:author:name]\\u000D\\u000A\\u000D\\u000ALocation:\\u000D\\u000A[node:field_occupation_address]\\u000D\\u000A\\u000D\\u000ADescription:\\u000D\\u000A[node:field_occupation_description]\\u000D\\u000A\\u000D\\u000AClick here to view the occupation: [node:url]"
           }
         },
         { "drupal_message" : { "message" : "Thank you for submitting an occupation. You will be notified when it is added to the site, after approval by one of our moderators." } }
@@ -70,7 +70,7 @@ function occupations_administration_default_rules_configuration() {
         { "mail" : {
             "to" : "[node:author:mail]",
             "subject" : "[node:title] is now live on [site:name]!",
-            "message" : "[node:author:name],\\r\\n\\r\\n[node:title], the occupation you submitted to [site:name], has been approved and is now live!\\r\\n\\r\\nYou can view and edit your occupation by clicking here: [node:url]\\r\\n\\r\\n- The Occupy Directory team"
+            "message" : "[node:author:name],\\u000D\\u000A\\u000D\\u000A[node:title], the occupation you submitted to [site:name], has been approved and is now live!\\u000D\\u000A\\u000D\\u000AYou can view and edit your occupation by clicking here: [node:url]\\u000D\\u000A\\u000D\\u000A- The Occupy Directory team"
           }
         }
       ]
