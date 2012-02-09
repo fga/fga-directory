@@ -75,6 +75,7 @@ nav a:hover {
 .zone-footer-wrapper {
  padding: 1em 0;
  margin-top: 1.5em;
+ 
 }
 
 .block-user-menu ul li {
@@ -160,4 +161,39 @@ nav a:hover {
  text-decoration: underline;
 }
 
+/* Exposed view search form formatting */
 
+.zone-preface .block {
+ padding: .75em 0;
+}
+
+#views-exposed-form-occupation-directory-occupations-list {
+ font-size: .75em;
+}
+
+#views-exposed-form-occupation-directory-occupations-list label {
+ display: inline;
+ font-weight: normal;
+ padding-left: 2em;
+ padding-right: .5em;
+ 
+}
+
+#views-exposed-form-occupation-directory-occupations-list input,
+#views-exposed-form-occupation-directory-occupations-list select,
+#views-exposed-form-occupation-directory-occupations-list div {
+ display: inline;
+ margin: 0;
+}
+
+#views-exposed-form-occupation-directory-occupations-list div {
+ padding: 0;
+}
+
+#views-exposed-form-occupation-directory-occupations-list select {
+ max-width: 200px;
+}
+
+#views-exposed-form-occupation-directory-occupations-list input.form-submit {
+ margin-left: .75em;
+}
