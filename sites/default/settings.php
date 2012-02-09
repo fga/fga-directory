@@ -499,4 +499,4 @@ $conf['allow_authorize_operations'] = FALSE;
 
 
 
-conf['googleanalytics_account'] = 'UA-29075652-1';
+$conf['googleanalytics_account'] = 'UA-29075652-1';
