@@ -184,7 +184,7 @@ function occupations_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '0',
+          'weight' => '10',
         ),
         'rss' => array(
           'label' => 'above',
@@ -264,7 +264,7 @@ function occupations_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '0',
+          'weight' => '9',
         ),
         'rss' => array(
           'label' => 'above',
@@ -344,7 +344,7 @@ function occupations_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '0',
+          'weight' => '6',
         ),
         'rss' => array(
           'label' => 'above',
@@ -424,7 +424,7 @@ function occupations_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '0',
+          'weight' => '7',
         ),
         'rss' => array(
           'label' => 'above',
@@ -512,7 +512,7 @@ function occupations_field_default_fields() {
             'use_widget_handlers' => 1,
           ),
           'type' => 'addressfield_default',
-          'weight' => '8',
+          'weight' => '6',
         ),
         'rss' => array(
           'label' => 'hidden',
@@ -605,7 +605,7 @@ function occupations_field_default_fields() {
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
-          'weight' => '6',
+          'weight' => '4',
         ),
         'rss' => array(
           'label' => 'hidden',
@@ -857,7 +857,7 @@ function occupations_field_default_fields() {
           'module' => 'email',
           'settings' => array(),
           'type' => 'email_plain',
-          'weight' => '4',
+          'weight' => '2',
         ),
         'rss' => array(
           'label' => 'hidden',
@@ -923,7 +923,7 @@ function occupations_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '15',
+          'weight' => '11',
         ),
         'rss' => array(
           'label' => 'hidden',
@@ -1101,7 +1101,7 @@ function occupations_field_default_fields() {
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
-          'weight' => '7',
+          'weight' => '5',
         ),
         'rss' => array(
           'label' => 'hidden',
@@ -1209,7 +1209,7 @@ function occupations_field_default_fields() {
             'geofield_map_zoom' => '12',
           ),
           'type' => 'geofield_map_map',
-          'weight' => '9',
+          'weight' => '7',
         ),
         'rss' => array(
           'label' => 'hidden',
@@ -1306,10 +1306,10 @@ function occupations_field_default_fields() {
           'module' => 'image',
           'settings' => array(
             'image_link' => '',
-            'image_style' => '',
+            'image_style' => 'thumbnail',
           ),
           'type' => 'image',
-          'weight' => '10',
+          'weight' => '0',
         ),
         'rss' => array(
           'label' => 'hidden',
@@ -1597,7 +1597,7 @@ function occupations_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '18',
+          'weight' => '14',
         ),
         'rss' => array(
           'label' => 'above',
@@ -1772,7 +1772,7 @@ function occupations_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '17',
+          'weight' => '13',
         ),
         'rss' => array(
           'label' => 'above',
@@ -1852,7 +1852,7 @@ function occupations_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '16',
+          'weight' => '12',
         ),
         'rss' => array(
           'label' => 'above',
@@ -1946,7 +1946,7 @@ function occupations_field_default_fields() {
             'multiple_to' => '',
           ),
           'type' => 'date_default',
-          'weight' => '11',
+          'weight' => '8',
         ),
         'rss' => array(
           'label' => 'hidden',
@@ -2141,7 +2141,7 @@ function occupations_field_default_fields() {
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
-          'weight' => '5',
+          'weight' => '3',
         ),
         'rss' => array(
           'label' => 'hidden',
@@ -2223,7 +2223,7 @@ function occupations_field_default_fields() {
           'module' => 'list',
           'settings' => array(),
           'type' => 'list_default',
-          'weight' => '12',
+          'weight' => '9',
         ),
         'rss' => array(
           'label' => 'hidden',
@@ -2676,7 +2676,7 @@ URL: http address of the page.',
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '0',
+          'weight' => '8',
         ),
         'rss' => array(
           'label' => 'above',
@@ -2758,7 +2758,7 @@ URL: http address of the page.',
           'module' => 'link',
           'settings' => array(),
           'type' => 'link_default',
-          'weight' => '3',
+          'weight' => '1',
         ),
         'rss' => array(
           'label' => 'hidden',

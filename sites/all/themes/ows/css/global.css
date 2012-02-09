@@ -67,7 +67,7 @@ nav a:hover {
 }
 
 
-.zone-header-wrapper,
+.zone-preface-wrapper,
 .zone-footer-wrapper {
  background-color: #d0d0d0;
 }
@@ -77,7 +77,7 @@ nav a:hover {
  margin-top: 1.5em;
 }
 
-.region-user-second ul li {
+.block-user-menu ul li {
  list-style-type: none;
  display: inline-block;
  background: #d0d0d0;
@@ -133,6 +133,13 @@ nav a:hover {
 
 .field-name-field-occupation-website {
   padding-bottom: 1em;
+}
+
+.field-name-field-occupation-image {
+ float: right;
+ padding-left: 1em;
+ padding-bottom: 1em;
+ padding-top: 1em;
 }
 
 .field-group-format.group_donate_info,
