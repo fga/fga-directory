@@ -234,6 +234,7 @@ function occupations_views_default_views() {
   $handler->display->display_options['display_description'] = 'A table showing all Occupations, sorted by ___, paginated x 10';
   $handler->display->display_options['defaults']['exposed_form'] = FALSE;
   $handler->display->display_options['exposed_form']['type'] = 'basic';
+  $handler->display->display_options['exposed_form']['options']['reset_button'] = TRUE;
   $handler->display->display_options['exposed_form']['options']['autosubmit'] = 1;
   $handler->display->display_options['exposed_form']['options']['autosubmit_hide'] = 0;
   $handler->display->display_options['defaults']['pager'] = FALSE;
