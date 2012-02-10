@@ -91,15 +91,8 @@ nav a:hover {
 }
 
 
-.zone-preface-wrapper,
-.zone-footer-wrapper {
+.zone-preface-wrapper {
  background-color: #d0d0d0;
-}
-
-.zone-footer-wrapper {
- padding: 1em 0;
- margin-top: 1.5em;
- 
 }
 
 .block-user-menu ul li {
@@ -266,17 +259,14 @@ nav a:hover {
 
 
 
-
-
 #region-content {
   padding-top:1em;
-  min-height: 500px;
+/*  min-height: 100%;*/
 }
+
 #section-footer {
- padding-top:20px;
- bottom: 0;
- width: 100%;
-/* position:absolute;*/
+ margin-top:1.5em;
+ background: #d0d0d0;
 }
 
 #block-menu-menu-feeds-and-exports ul {
@@ -317,4 +307,27 @@ nav a:hover {
 .front .grid-6 {
 	width: 45%;
 	float: left;
+}
+
+
+
+/* stick the footer at the bottom of the page using CSS only
+TODO: us javascript so that we can also set properties on the map element
+also, not so hot when admin menu is on.
+*/
+html,body {
+ height: 100%;
+}
+#page {
+  min-height: 100%;
+  position:relative;
+}
+#section-content {
+  padding-bottom: 100px; /* height of the footer */
+}
+#section-footer {
+ position:absolute;
+ bottom: 0;
+ width: 100%;
+ height: 100px;
 }
