@@ -20,16 +20,21 @@ h2 {
  margin-bottom: .5em;
 }
 
-.site-name {
- font-size: 2.25em;
- color: white;
- background: black;
- padding: .5em .5em .25em;
+
+a:link, a:visited {
+  color: #3b88c6;
+  text-decoration: underline;
 }
 
-.site-name a {
- color: white;
+a:hover, a:active {
+  color: #666;
+  text-decoration: none;
 }
+
+a:active {
+  color: #295b86;
+}
+
 
 h3 {
  font-size: 1.375em;
@@ -41,6 +46,25 @@ h1, h2, h3, h4, h5, h6 {
  letter-spacing: .075em;
  color: #333;
 }
+
+
+
+.site-name {
+ font-size: 2.25em;
+ color: white;
+ background: black;
+ padding: .5em .5em .25em;
+}
+.site-name a:link, .site-name a:visited {
+ color: white;
+  text-decoration: none;
+}
+.site-name a:hover {
+ color: #d0d0d0;
+}
+
+
+
 
 nav.navigation {
  margin-top: 30px;
@@ -107,7 +131,8 @@ nav a:hover {
  margin-left: 0;
 }
 
-.field-group-format.grouplinks a{
+.field-group-format.grouplinks a,
+ #block-menu-menu-feeds-and-exports li a:link {
  background-color: black;
  color: white;
  display: inline-block;
@@ -125,11 +150,25 @@ nav a:hover {
   -webkit-border-radius: .25em;
  
 }
+ #block-menu-menu-feeds-and-exports li a:link,
+ #block-menu-menu-feeds-and-exports li a:visited {
+ font-family: 'OstrichSansMedium';
+ font-size: 1em;
+ letter-spacing: .1em;
+ background-color: #aaa;
+}
 
-.field-group-format.grouplinks a:hover{
+.field-group-format.grouplinks a:hover,
+ #block-menu-menu-feeds-and-exports li a:hover{
  background-color: #d0d0d0;
  text-decoration: none;
  color: black;
+}
+
+#block-menu-menu-feeds-and-exports li a:hover{
+ background-color: #000;
+ text-decoration: none;
+ color: #efefef;
 }
 
 .field-name-field-occupation-website {
@@ -198,8 +237,44 @@ nav a:hover {
  margin-left: .75em;
 }
 
+
+
+
+
+
+
+
+
+
 /* Apologies for this hack. Talk messes up the $node->content['links']['comment']['#links']
    array and override the comment_forbidden key. CSS to the rescue for now. */
 .node-occupation .node-links .first {
   display: none;
+}
+
+
+
+
+
+#region-content {
+  padding-top:1em;
+}
+#section-footer {
+ bottom: 0;
+    position: absolute;
+    width: 100%;
+}
+
+#block-menu-menu-feeds-and-exports ul {
+  list-style-type: none;
+	margin: 0;
+}
+#block-menu-menu-feeds-and-exports li {
+ display:inline;
+ margin: 0 15px 0 0;
+ padding:0;
+ }
+
+.block .view ul.pager {
+  margin-top:.5em;
 }
