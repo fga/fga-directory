@@ -281,3 +281,29 @@ nav a:hover {
 .block .view ul.pager {
   margin-top:.5em;
 }
+
+
+
+/* front page specific styles */
+
+.front .zone-content .grid-12 {
+	margin-left: 0;
+	margin-right: 0;
+}
+
+.front #region-content {
+	padding: 0;
+}
+
+.front footer.section-footer {
+	padding-top: 0 !important;
+}
+
+.front .zone-footer-wrapper {
+	margin-top: 0;
+}
+
+.front .grid-6 {
+	width: 45%;
+	float: left;
+}
