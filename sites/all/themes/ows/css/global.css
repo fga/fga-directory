@@ -144,6 +144,7 @@ nav a:hover {
  padding: .25em .75em;
  text-decoration: none;
  text-transform: lowercase;
+ line-height:1.1em;
  
   border-radius: .25em;
   -moz-border-radius: .25em;
@@ -200,6 +201,15 @@ nav a:hover {
 
 .content a:hover {
  text-decoration: underline;
+}
+
+
+
+.node-occupation .node-links {
+  margin-top: 1.5em;
+}
+.node-occupation .node-links li.last a {
+  
 }
 
 /* Exposed view search form formatting */
@@ -260,6 +270,7 @@ nav a:hover {
 
 #region-content {
   padding-top:1em;
+  min-height: 500px;
 }
 #section-footer {
  padding-top:20px;
