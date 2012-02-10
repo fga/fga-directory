@@ -234,7 +234,6 @@ function occupations_views_default_views() {
   $handler->display->display_options['display_description'] = 'A table showing all Occupations, sorted by ___, paginated x 10';
   $handler->display->display_options['defaults']['exposed_form'] = FALSE;
   $handler->display->display_options['exposed_form']['type'] = 'basic';
-  $handler->display->display_options['exposed_form']['options']['reset_button'] = TRUE;
   $handler->display->display_options['exposed_form']['options']['autosubmit'] = 1;
   $handler->display->display_options['exposed_form']['options']['autosubmit_hide'] = 0;
   $handler->display->display_options['defaults']['pager'] = FALSE;
@@ -379,7 +378,7 @@ Do you have the information? <strong><a href="/node/add/occupation">Add an Occup
   $handler->display->display_options['fields']['rendered_entity']['hide_alter_empty'] = 1;
   $handler->display->display_options['fields']['rendered_entity']['link_to_entity'] = 1;
   $handler->display->display_options['fields']['rendered_entity']['view_mode'] = 'full';
-  /* Field: Content: Occupation founded date */
+  /* Field: Content: Founded */
   $handler->display->display_options['fields']['field_occupation_origin_date']['id'] = 'field_occupation_origin_date';
   $handler->display->display_options['fields']['field_occupation_origin_date']['table'] = 'field_data_field_occupation_origin_date';
   $handler->display->display_options['fields']['field_occupation_origin_date']['field'] = 'field_occupation_origin_date';
@@ -808,7 +807,7 @@ Do you have the information? <strong><a href="/node/add/occupation">Add an Occup
   $handler->display->display_options['fields']['nid']['empty_zero'] = 0;
   $handler->display->display_options['fields']['nid']['hide_alter_empty'] = 1;
   $handler->display->display_options['fields']['nid']['link_to_node'] = 0;
-  /* Field: Content: Facebook Pages */
+  /* Field: Content: Facebook Page(s) */
   $handler->display->display_options['fields']['field_occupation_facebook']['id'] = 'field_occupation_facebook';
   $handler->display->display_options['fields']['field_occupation_facebook']['table'] = 'field_data_field_occupation_facebook';
   $handler->display->display_options['fields']['field_occupation_facebook']['field'] = 'field_occupation_facebook';
@@ -1147,8 +1146,8 @@ Do you have the information? <strong><a href="/node/add/occupation">Add an Occup
       'label' => '',
     ),
     'node_save_action' => array(
-      'selected' => 0,
-      'use_queue' => 0,
+      'selected' => 1,
+      'use_queue' => 1,
       'skip_confirmation' => 0,
       'override_label' => 0,
       'label' => '',

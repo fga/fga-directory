@@ -71,10 +71,12 @@ function occupations_node_info() {
     'occupation' => array(
       'name' => t('Occupation'),
       'base' => 'node_content',
-      'description' => t('Occupation. This content type is very much a work in progress. The current fields are 100% proof of concept.'),
+      'description' => t('An occupation is a multi-field, geo-coded entity, with taxonomies and publishing workflows.'),
       'has_title' => '1',
       'title_label' => t('Name of Occupation'),
-      'help' => '',
+      'help' => t('<p><strong>Occupations</strong> in this context are defined as geographically based. Organizations that don\'t hold physical space, like <em>Occupy the Environment</em>, or organizations in solidarity to the movement, like <em>Occupy Air Force</em>, will be considered in their own right after the initial directory is up and running. We will also soon be adding listings for broader geographies, like state and country-wide "occupations."</p>
+
+<p>Further down the line, we will be incorporating <em>groups</em> also. That\'s big. That\'s awesome. BUT –– that\'s the future (not the present; please don\'t submit your group yet)!</p>'),
     ),
   );
   return $items;

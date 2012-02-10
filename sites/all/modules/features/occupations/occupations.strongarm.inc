@@ -14,7 +14,7 @@ function occupations_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'additional_settings__active_tab_occupation';
-  $strongarm->value = 'edit-comment';
+  $strongarm->value = 'edit-submission';
   $export['additional_settings__active_tab_occupation'] = $strongarm;
 
   $strongarm = new stdClass;
@@ -49,7 +49,7 @@ function occupations_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'comment_occupation';
-  $strongarm->value = '2';
+  $strongarm->value = '0';
   $export['comment_occupation'] = $strongarm;
 
   $strongarm = new stdClass;
