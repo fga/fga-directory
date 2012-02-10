@@ -35,12 +35,6 @@ function occupation_directory_structure_context_default_contexts() {
         'menu-menu-feeds-and-exports' => array(
           'module' => 'menu',
           'delta' => 'menu-feeds-and-exports',
-          'region' => 'postscript_first',
-          'weight' => '-10',
-        ),
-        'system-powered-by' => array(
-          'module' => 'system',
-          'delta' => 'powered-by',
           'region' => 'footer_first',
           'weight' => '-10',
         ),
