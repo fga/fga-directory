@@ -22,7 +22,7 @@ h2 {
 
 
 a:link, a:visited {
-  color: #3b88c6;
+  color: #4298dd;
   text-decoration: underline;
 }
 
@@ -32,7 +32,7 @@ a:hover, a:active {
 }
 
 a:active {
-  color: #295b86;
+  color: #3a87c5;
 }
 
 
@@ -95,15 +95,29 @@ nav a:hover {
  background-color: #d0d0d0;
 }
 
+.zone-content .region-inner {
+  margin-bottom: 66px;
+}
+
 .block-user-menu ul li {
  list-style-type: none;
  display: inline-block;
- background: #d0d0d0;
+ background: #efefef;
  padding: .25em .5em;
  margin-left: 1em;
  float: right;
-}
 
+  border-radius: 0 0 .4em .4em;
+  -moz-border-radius: 0 0 .4em .4m;
+  -webkit-border-radius: 0 0 .4em .4em;
+}
+.block-user-menu ul li a:link, .block-user-menu ul li a:visited {
+  color: #aaa;
+}
+.block-user-menu ul li a:hover {
+  color: #000;
+  text-decoration:none;
+}
 .region-user-second ul li a{
  color: black;
  
@@ -113,14 +127,23 @@ nav a:hover {
  margin-top: 1em;
 }
 
+
 /* Occupation Node Detail Formatting */
+
+
+
+article p { /* affect all node types */
+  font-size:.9em;
+  margin-bottom: 1em;
+}
+
 
 
 .field-group-format.grouplinks {
  margin-bottom: 1em;
 }
 
-.content .grid-6 {
+.node-type-occupation .node .content.grid-6 {
  margin-left: 0;
 }
 
@@ -205,6 +228,55 @@ nav a:hover {
   
 }
 
+
+/* Comments */
+
+article.comment {
+  margin-bottom: 1.5em;
+}
+
+article.comment header h3 {
+  margin: 0;  padding: 0;
+}
+article.comment footer { /* author + date */
+  font-size:.8em;
+  font-style:italic;
+  margin-bottom:1.25em;
+  color: #666;
+}
+article.comment .field-name-field-comment-state {
+  background-color: #d6ff7d;
+  padding: 5px 10px;
+  display:inline-block;
+}
+
+article.comment nav.comment-links {
+  margin-top: 1em;
+}
+article.comment nav.comment-links a {
+  font-size: .8em;
+}
+
+/* hide log in or register to post comments since we use talk */
+article.comment nav.comment-links li.comment_forbidden {
+	display: none;
+}
+#comments h2.title {
+  display: none;
+}
+
+div.talk-page li.comment_forbidden,
+div.talk-page li.comment-add {
+  display: inline-block;
+  padding: 1em 0 1em 0;
+  font-size:1.5em;
+  font-style:italic;
+}
+div.talk-page li.comment-add:before {
+  content: "+ ";
+}
+
+
 /* Exposed view search form formatting */
 
 .zone-preface .block {
@@ -265,10 +337,11 @@ nav a:hover {
 }
 
 #section-footer {
- margin-top:1.5em;
+ margin-top: 5em;
  background: #d0d0d0;
 }
-
+#zone-footer {}
+#zone-footer #block-menu-menu-feeds-and-exports h2{}
 #block-menu-menu-feeds-and-exports ul {
   list-style-type: none;
 	margin: 0;
@@ -295,27 +368,26 @@ nav a:hover {
 .front #region-content {
 	padding: 0;
 }
-
+.front .zone-content .region-inner {
+    margin-bottom: 0;
+}
 .front footer.section-footer {
 	padding-top: 0 !important;
 }
-
 .front .zone-footer-wrapper {
 	margin-top: 0;
 }
-
 .front .grid-6 {
 	width: 45%;
 	float: left;
 }
 
 
-
 /* stick the footer at the bottom of the page using CSS only
 TODO: us javascript so that we can also set properties on the map element
-also, not so hot when admin menu is on.
+also, not so hot when admin menu is on, and the homepage isn't as nice.
 */
-html,body {
+html, body.not-front {
  height: 100%;
 }
 #page {
@@ -323,11 +395,11 @@ html,body {
   position:relative;
 }
 #section-content {
-  padding-bottom: 100px; /* height of the footer */
+  padding-bottom: 120px; /* height of the footer */
 }
 #section-footer {
  position:absolute;
  bottom: 0;
  width: 100%;
- height: 100px;
+ height: 120px;
 }
