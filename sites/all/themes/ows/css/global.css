@@ -156,6 +156,8 @@ nav a:hover {
  font-size: 1em;
  letter-spacing: .1em;
  background-color: #aaa;
+ color: white;
+
 }
 
 .field-group-format.grouplinks a:hover,
@@ -260,9 +262,10 @@ nav a:hover {
   padding-top:1em;
 }
 #section-footer {
+ padding-top:20px;
  bottom: 0;
-    position: absolute;
-    width: 100%;
+ width: 100%;
+/* position:absolute;*/
 }
 
 #block-menu-menu-feeds-and-exports ul {
