@@ -176,7 +176,12 @@ function occupations_import_export_feeds_importer_default() {
           27 => array(
             'source' => 'ID',
             'target' => 'guid',
-            'unique' => 0,
+            'unique' => 1,
+          ),
+          28 => array(
+            'source' => 'Occupation Type',
+            'target' => 'field_occupation_type',
+            'unique' => FALSE,
           ),
         ),
         'update_existing' => '2',

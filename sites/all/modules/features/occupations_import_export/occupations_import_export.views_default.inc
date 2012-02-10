@@ -255,7 +255,7 @@ function occupations_import_export_views_default_views() {
   $handler->display->display_options['fields']['field_occupation_dontate_info']['empty_zero'] = 0;
   $handler->display->display_options['fields']['field_occupation_dontate_info']['hide_alter_empty'] = 1;
   $handler->display->display_options['fields']['field_occupation_dontate_info']['field_api_classes'] = 0;
-  /* Field: Content: Facebook Pages */
+  /* Field: Content: Facebook Page(s) */
   $handler->display->display_options['fields']['field_occupation_facebook']['id'] = 'field_occupation_facebook';
   $handler->display->display_options['fields']['field_occupation_facebook']['table'] = 'field_data_field_occupation_facebook';
   $handler->display->display_options['fields']['field_occupation_facebook']['field'] = 'field_occupation_facebook';
@@ -377,7 +377,7 @@ function occupations_import_export_views_default_views() {
   $handler->display->display_options['fields']['field_occupation_phone_general']['empty_zero'] = 0;
   $handler->display->display_options['fields']['field_occupation_phone_general']['hide_alter_empty'] = 1;
   $handler->display->display_options['fields']['field_occupation_phone_general']['field_api_classes'] = 0;
-  /* Field: Content: Links to other social media pages */
+  /* Field: Content: Additional social media sites */
   $handler->display->display_options['fields']['field_occupation_social_sites']['id'] = 'field_occupation_social_sites';
   $handler->display->display_options['fields']['field_occupation_social_sites']['table'] = 'field_data_field_occupation_social_sites';
   $handler->display->display_options['fields']['field_occupation_social_sites']['field'] = 'field_occupation_social_sites';
@@ -503,7 +503,7 @@ function occupations_import_export_views_default_views() {
   $handler->display->display_options['fields']['field_occupation_description']['empty_zero'] = 0;
   $handler->display->display_options['fields']['field_occupation_description']['hide_alter_empty'] = 1;
   $handler->display->display_options['fields']['field_occupation_description']['field_api_classes'] = 0;
-  /* Field: Content: Occupation founded date */
+  /* Field: Content: Founded */
   $handler->display->display_options['fields']['field_occupation_origin_date']['id'] = 'field_occupation_origin_date';
   $handler->display->display_options['fields']['field_occupation_origin_date']['table'] = 'field_data_field_occupation_origin_date';
   $handler->display->display_options['fields']['field_occupation_origin_date']['field'] = 'field_occupation_origin_date';
@@ -555,7 +555,7 @@ function occupations_import_export_views_default_views() {
   $handler->display->display_options['fields']['field_occupation_website']['hide_alter_empty'] = 1;
   $handler->display->display_options['fields']['field_occupation_website']['click_sort_column'] = 'url';
   $handler->display->display_options['fields']['field_occupation_website']['field_api_classes'] = 0;
-  /* Field: Content: Other websites */
+  /* Field: Content: Additional Occupation websites */
   $handler->display->display_options['fields']['field_occupation_other_websites']['id'] = 'field_occupation_other_websites';
   $handler->display->display_options['fields']['field_occupation_other_websites']['table'] = 'field_data_field_occupation_other_websites';
   $handler->display->display_options['fields']['field_occupation_other_websites']['field'] = 'field_occupation_other_websites';
@@ -1338,7 +1338,7 @@ function occupations_import_export_views_default_views() {
   $handler->display->display_options['fields']['field_occupation_dontate_info']['empty_zero'] = 0;
   $handler->display->display_options['fields']['field_occupation_dontate_info']['hide_alter_empty'] = 1;
   $handler->display->display_options['fields']['field_occupation_dontate_info']['field_api_classes'] = 0;
-  /* Field: Content: Facebook Pages */
+  /* Field: Content: Facebook Page(s) */
   $handler->display->display_options['fields']['field_occupation_facebook']['id'] = 'field_occupation_facebook';
   $handler->display->display_options['fields']['field_occupation_facebook']['table'] = 'field_data_field_occupation_facebook';
   $handler->display->display_options['fields']['field_occupation_facebook']['field'] = 'field_occupation_facebook';
@@ -1461,7 +1461,7 @@ function occupations_import_export_views_default_views() {
   $handler->display->display_options['fields']['field_occupation_phone_general']['empty_zero'] = 0;
   $handler->display->display_options['fields']['field_occupation_phone_general']['hide_alter_empty'] = 1;
   $handler->display->display_options['fields']['field_occupation_phone_general']['field_api_classes'] = 0;
-  /* Field: Content: Links to other social media pages */
+  /* Field: Content: Additional social media sites */
   $handler->display->display_options['fields']['field_occupation_social_sites']['id'] = 'field_occupation_social_sites';
   $handler->display->display_options['fields']['field_occupation_social_sites']['table'] = 'field_data_field_occupation_social_sites';
   $handler->display->display_options['fields']['field_occupation_social_sites']['field'] = 'field_occupation_social_sites';
@@ -1587,7 +1587,7 @@ function occupations_import_export_views_default_views() {
   $handler->display->display_options['fields']['field_occupation_description']['empty_zero'] = 0;
   $handler->display->display_options['fields']['field_occupation_description']['hide_alter_empty'] = 1;
   $handler->display->display_options['fields']['field_occupation_description']['field_api_classes'] = 0;
-  /* Field: Content: Occupation founded date */
+  /* Field: Content: Founded */
   $handler->display->display_options['fields']['field_occupation_origin_date']['id'] = 'field_occupation_origin_date';
   $handler->display->display_options['fields']['field_occupation_origin_date']['table'] = 'field_data_field_occupation_origin_date';
   $handler->display->display_options['fields']['field_occupation_origin_date']['field'] = 'field_occupation_origin_date';
@@ -1640,7 +1640,7 @@ function occupations_import_export_views_default_views() {
   $handler->display->display_options['fields']['field_occupation_website']['click_sort_column'] = 'url';
   $handler->display->display_options['fields']['field_occupation_website']['type'] = 'link_plain';
   $handler->display->display_options['fields']['field_occupation_website']['field_api_classes'] = 0;
-  /* Field: Content: Other websites */
+  /* Field: Content: Additional Occupation websites */
   $handler->display->display_options['fields']['field_occupation_other_websites']['id'] = 'field_occupation_other_websites';
   $handler->display->display_options['fields']['field_occupation_other_websites']['table'] = 'field_data_field_occupation_other_websites';
   $handler->display->display_options['fields']['field_occupation_other_websites']['field'] = 'field_occupation_other_websites';
@@ -2076,7 +2076,7 @@ function occupations_import_export_views_default_views() {
   $handler->display->display_options['fields']['field_occupation_dontate_info']['empty_zero'] = 0;
   $handler->display->display_options['fields']['field_occupation_dontate_info']['hide_alter_empty'] = 1;
   $handler->display->display_options['fields']['field_occupation_dontate_info']['field_api_classes'] = 0;
-  /* Field: Content: Facebook Pages */
+  /* Field: Content: Facebook Page(s) */
   $handler->display->display_options['fields']['field_occupation_facebook']['id'] = 'field_occupation_facebook';
   $handler->display->display_options['fields']['field_occupation_facebook']['table'] = 'field_data_field_occupation_facebook';
   $handler->display->display_options['fields']['field_occupation_facebook']['field'] = 'field_occupation_facebook';
@@ -2199,7 +2199,7 @@ function occupations_import_export_views_default_views() {
   $handler->display->display_options['fields']['field_occupation_phone_general']['empty_zero'] = 0;
   $handler->display->display_options['fields']['field_occupation_phone_general']['hide_alter_empty'] = 1;
   $handler->display->display_options['fields']['field_occupation_phone_general']['field_api_classes'] = 0;
-  /* Field: Content: Links to other social media pages */
+  /* Field: Content: Additional social media sites */
   $handler->display->display_options['fields']['field_occupation_social_sites']['id'] = 'field_occupation_social_sites';
   $handler->display->display_options['fields']['field_occupation_social_sites']['table'] = 'field_data_field_occupation_social_sites';
   $handler->display->display_options['fields']['field_occupation_social_sites']['field'] = 'field_occupation_social_sites';
@@ -2325,7 +2325,7 @@ function occupations_import_export_views_default_views() {
   $handler->display->display_options['fields']['field_occupation_description']['empty_zero'] = 0;
   $handler->display->display_options['fields']['field_occupation_description']['hide_alter_empty'] = 1;
   $handler->display->display_options['fields']['field_occupation_description']['field_api_classes'] = 0;
-  /* Field: Content: Occupation founded date */
+  /* Field: Content: Founded */
   $handler->display->display_options['fields']['field_occupation_origin_date']['id'] = 'field_occupation_origin_date';
   $handler->display->display_options['fields']['field_occupation_origin_date']['table'] = 'field_data_field_occupation_origin_date';
   $handler->display->display_options['fields']['field_occupation_origin_date']['field'] = 'field_occupation_origin_date';
@@ -2378,7 +2378,7 @@ function occupations_import_export_views_default_views() {
   $handler->display->display_options['fields']['field_occupation_website']['click_sort_column'] = 'url';
   $handler->display->display_options['fields']['field_occupation_website']['type'] = 'link_plain';
   $handler->display->display_options['fields']['field_occupation_website']['field_api_classes'] = 0;
-  /* Field: Content: Other websites */
+  /* Field: Content: Additional Occupation websites */
   $handler->display->display_options['fields']['field_occupation_other_websites']['id'] = 'field_occupation_other_websites';
   $handler->display->display_options['fields']['field_occupation_other_websites']['table'] = 'field_data_field_occupation_other_websites';
   $handler->display->display_options['fields']['field_occupation_other_websites']['field'] = 'field_occupation_other_websites';
@@ -2814,7 +2814,7 @@ function occupations_import_export_views_default_views() {
   $handler->display->display_options['fields']['field_occupation_dontate_info']['empty_zero'] = 0;
   $handler->display->display_options['fields']['field_occupation_dontate_info']['hide_alter_empty'] = 1;
   $handler->display->display_options['fields']['field_occupation_dontate_info']['field_api_classes'] = 0;
-  /* Field: Content: Facebook Pages */
+  /* Field: Content: Facebook Page(s) */
   $handler->display->display_options['fields']['field_occupation_facebook']['id'] = 'field_occupation_facebook';
   $handler->display->display_options['fields']['field_occupation_facebook']['table'] = 'field_data_field_occupation_facebook';
   $handler->display->display_options['fields']['field_occupation_facebook']['field'] = 'field_occupation_facebook';
@@ -2937,7 +2937,7 @@ function occupations_import_export_views_default_views() {
   $handler->display->display_options['fields']['field_occupation_phone_general']['empty_zero'] = 0;
   $handler->display->display_options['fields']['field_occupation_phone_general']['hide_alter_empty'] = 1;
   $handler->display->display_options['fields']['field_occupation_phone_general']['field_api_classes'] = 0;
-  /* Field: Content: Links to other social media pages */
+  /* Field: Content: Additional social media sites */
   $handler->display->display_options['fields']['field_occupation_social_sites']['id'] = 'field_occupation_social_sites';
   $handler->display->display_options['fields']['field_occupation_social_sites']['table'] = 'field_data_field_occupation_social_sites';
   $handler->display->display_options['fields']['field_occupation_social_sites']['field'] = 'field_occupation_social_sites';
@@ -3063,7 +3063,7 @@ function occupations_import_export_views_default_views() {
   $handler->display->display_options['fields']['field_occupation_description']['empty_zero'] = 0;
   $handler->display->display_options['fields']['field_occupation_description']['hide_alter_empty'] = 1;
   $handler->display->display_options['fields']['field_occupation_description']['field_api_classes'] = 0;
-  /* Field: Content: Occupation founded date */
+  /* Field: Content: Founded */
   $handler->display->display_options['fields']['field_occupation_origin_date']['id'] = 'field_occupation_origin_date';
   $handler->display->display_options['fields']['field_occupation_origin_date']['table'] = 'field_data_field_occupation_origin_date';
   $handler->display->display_options['fields']['field_occupation_origin_date']['field'] = 'field_occupation_origin_date';
@@ -3116,7 +3116,7 @@ function occupations_import_export_views_default_views() {
   $handler->display->display_options['fields']['field_occupation_website']['click_sort_column'] = 'url';
   $handler->display->display_options['fields']['field_occupation_website']['type'] = 'link_plain';
   $handler->display->display_options['fields']['field_occupation_website']['field_api_classes'] = 0;
-  /* Field: Content: Other websites */
+  /* Field: Content: Additional Occupation websites */
   $handler->display->display_options['fields']['field_occupation_other_websites']['id'] = 'field_occupation_other_websites';
   $handler->display->display_options['fields']['field_occupation_other_websites']['table'] = 'field_data_field_occupation_other_websites';
   $handler->display->display_options['fields']['field_occupation_other_websites']['field'] = 'field_occupation_other_websites';
