@@ -197,3 +197,9 @@ nav a:hover {
 #views-exposed-form-occupation-directory-occupations-list input.form-submit {
  margin-left: .75em;
 }
+
+/* Apologies for this hack. Talk messes up the $node->content['links']['comment']['#links']
+   array and override the comment_forbidden key. CSS to the rescue for now. */
+.node-occupation .node-links .first {
+  display: none;
+}
