@@ -3,6 +3,7 @@
 sites/*/files
 sites/*/files/*
 files/*
+sites/all/modules/contrib/devel_themer
 
 # Packages #
 ############
