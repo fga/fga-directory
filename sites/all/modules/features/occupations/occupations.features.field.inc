@@ -1327,6 +1327,22 @@ function occupations_field_default_fields() {
         ),
       ),
       'entity_type' => 'node',
+      'ffp_field_occupation_image' => array(
+        'active_updating' => 0,
+        'file_name' => '[file:ffp-name-only-original].[file:ffp-extension-original]',
+        'file_name_cleanup' => array(
+          'file_name_pathauto' => 1,
+          'file_name_tolower' => 1,
+          'file_name_transliterate' => 1,
+        ),
+        'file_path' => 'images/occupations/icons',
+        'file_path_cleanup' => array(
+          'file_path_pathauto' => 1,
+          'file_path_tolower' => 1,
+          'file_path_transliterate' => 1,
+        ),
+        'retroactive_update' => 0,
+      ),
       'field_name' => 'field_occupation_image',
       'label' => 'Occupation Image or Icon',
       'required' => 0,

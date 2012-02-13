@@ -33,6 +33,34 @@ function occupations_views_api() {
 }
 
 /**
+ * Implements hook_default_filefield_paths().
+ */
+function occupations_default_filefield_paths() {
+  $settings = array();
+
+  // Exported node::occupation::field_occupation_image
+  $settings['node::occupation::field_occupation_image'] = array(
+    'type' => 'node::occupation',
+    'field' => 'field_occupation_image',
+    'filename' => array(
+      'value' => '[file:ffp-name-only-original].[file:ffp-extension-original]',
+      'tolower' => 1,
+      'pathauto' => 1,
+      'transliterate' => 1,
+    ),
+    'filepath' => array(
+      'value' => 'images/occupations/icons',
+      'tolower' => 1,
+      'pathauto' => 1,
+      'transliterate' => 1,
+    ),
+    'active_updating' => '0',
+  );
+
+  return $settings;
+}
+
+/**
  * Implements hook_image_default_styles().
  */
 function occupations_image_default_styles() {
