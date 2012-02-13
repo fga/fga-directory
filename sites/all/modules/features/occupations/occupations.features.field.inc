@@ -812,7 +812,7 @@ function occupations_field_default_fields() {
         'active' => 1,
         'module' => 'text',
         'settings' => array(
-          'size' => '120',
+          'size' => '160',
         ),
         'type' => 'text_textfield',
         'weight' => '20',
