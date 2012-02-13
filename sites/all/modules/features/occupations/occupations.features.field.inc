@@ -1244,7 +1244,7 @@ function occupations_field_default_fields() {
             'field_occupation_address' => 'field_occupation_address',
           ),
           'geocoder_hander' => '',
-          'geocoder_handler' => 'google',
+          'geocoder_handler' => 'yahoo',
           'geocoder_presave' => 1,
         ),
         'type' => 'geocoder',
