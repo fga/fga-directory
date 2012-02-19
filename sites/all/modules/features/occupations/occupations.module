@@ -6,6 +6,12 @@
 
 include_once('occupations.features.inc');
 
+
+function occupations_node_view($node) {
+  //dpr($node);
+}
+
+
 /**
  * Implements hook_rdf_namespaces().
  */

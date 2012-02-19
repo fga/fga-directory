@@ -992,10 +992,17 @@ function node_validate($node, $form, &$form_state) {
   if (function_exists($function)) {
     $function($node, $form, $form_state);
   }
+  dvm($node, 'before');
   foreach (module_implements('node_validate') as $module) {
+    // dpm('##############################');
+    // dpm("$module - before");
+    // dpm($node);
     $function = $module . '_node_validate';
     $function($node, $form, $form_state);
+    // dpm($node);
+    // dpm("$module - after");
   }
+  dvm($node, 'after');
 }
 
 /**
