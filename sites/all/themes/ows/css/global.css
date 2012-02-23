@@ -120,7 +120,7 @@ nav a:hover {
 }
 .region-user-second ul li a{
  color: black;
- 
+
 }
 
 .region-user-second {
@@ -161,11 +161,11 @@ article p { /* affect all node types */
  text-decoration: none;
  text-transform: lowercase;
  line-height:1.1em;
- 
+
   border-radius: .25em;
   -moz-border-radius: .25em;
   -webkit-border-radius: .25em;
- 
+
 }
  #block-menu-menu-feeds-and-exports li a:link,
  #block-menu-menu-feeds-and-exports li a:visited {
@@ -225,7 +225,7 @@ article p { /* affect all node types */
   margin-top: 1.5em;
 }
 .node-occupation .node-links li.last a {
-  
+
 }
 
 
@@ -276,9 +276,11 @@ div.talk-page li.comment-add:before {
   content: "+ ";
 }
 
+/**
+ * VIEWS
+ */
 
 /* Exposed view search form formatting */
-
 .zone-preface .block {
  padding: .75em 0;
 }
@@ -292,7 +294,7 @@ div.talk-page li.comment-add:before {
  font-weight: normal;
  padding-left: 2em;
  padding-right: .5em;
- 
+
 }
 
 #views-exposed-form-occupation-directory-occupations-list input,
@@ -314,8 +316,11 @@ div.talk-page li.comment-add:before {
  margin-left: .75em;
 }
 
-
-
+/* Occupation Directory Views table listing page */
+div.view-display-id-occupations_list table img {
+  padding-right: 8px;
+  vertical-align: middle;
+}
 
 
 
