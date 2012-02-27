@@ -924,13 +924,14 @@ Do you have the information? <strong><a href="/node/add/occupation">Add an Occup
   $handler->display->display_options['menu']['name'] = 'main-menu';
   $handler->display->display_options['menu']['context'] = 0;
 
-  /* Display: Manage */
-  $handler = $view->new_display('page', 'Manage', 'occupations_manage');
+  /* Display: Directory Management */
+  $handler = $view->new_display('page', 'Directory Management', 'occupations_manage');
   $handler->display->display_options['defaults']['title'] = FALSE;
   $handler->display->display_options['title'] = 'Manage Occupations';
   $handler->display->display_options['display_comment'] = 'we expose a different filter block on the manage occupations page';
   $handler->display->display_options['defaults']['css_class'] = FALSE;
   $handler->display->display_options['css_class'] = 'list-occupations node-list manage-occupatiions';
+  $handler->display->display_options['display_description'] = 'Curators use this page to manage geograhic-area specific Occupation content via Views Bulk Operations';
   $handler->display->display_options['defaults']['access'] = FALSE;
   $handler->display->display_options['access']['type'] = 'perm';
   $handler->display->display_options['access']['perm'] = 'edit any occupation content';
@@ -1038,6 +1039,7 @@ Do you have the information? <strong><a href="/node/add/occupation">Add an Occup
   $handler->display->display_options['header']['area']['table'] = 'views';
   $handler->display->display_options['header']['area']['field'] = 'area';
   $handler->display->display_options['header']['area']['ui_name'] = '+ add a new Occupation';
+  $handler->display->display_options['header']['area']['label'] = 'links to node/add/occupation';
   $handler->display->display_options['header']['area']['empty'] = TRUE;
   $handler->display->display_options['header']['area']['content'] = '<strong>+ <a href="/node/add/occupation">add a new Occupation</a></strong>';
   $handler->display->display_options['header']['area']['format'] = 'filtered_html';
@@ -1424,6 +1426,33 @@ Do you have the information? <strong><a href="/node/add/occupation">Add an Occup
   $handler->display->display_options['sorts']['status']['id'] = 'status';
   $handler->display->display_options['sorts']['status']['table'] = 'node';
   $handler->display->display_options['sorts']['status']['field'] = 'status';
+  $handler->display->display_options['defaults']['arguments'] = FALSE;
+  /* Contextual filter: Filter by user&#039;s chosen geographic area */
+  $handler->display->display_options['arguments']['field_term_geographic_area_tid']['id'] = 'field_term_geographic_area_tid';
+  $handler->display->display_options['arguments']['field_term_geographic_area_tid']['table'] = 'field_data_field_term_geographic_area';
+  $handler->display->display_options['arguments']['field_term_geographic_area_tid']['field'] = 'field_term_geographic_area_tid';
+  $handler->display->display_options['arguments']['field_term_geographic_area_tid']['ui_name'] = 'Filter by user\'s chosen geographic area';
+  $handler->display->display_options['arguments']['field_term_geographic_area_tid']['title'] = 'Geographic area specific Occupation content';
+  $handler->display->display_options['arguments']['field_term_geographic_area_tid']['default_argument_type'] = 'taxonomy_tid';
+  $handler->display->display_options['arguments']['field_term_geographic_area_tid']['default_argument_options']['term_page'] = 1;
+  $handler->display->display_options['arguments']['field_term_geographic_area_tid']['default_argument_options']['node'] = 0;
+  $handler->display->display_options['arguments']['field_term_geographic_area_tid']['default_argument_options']['limit'] = 0;
+  $handler->display->display_options['arguments']['field_term_geographic_area_tid']['default_argument_skip_url'] = 0;
+  $handler->display->display_options['arguments']['field_term_geographic_area_tid']['summary']['number_of_records'] = '0';
+  $handler->display->display_options['arguments']['field_term_geographic_area_tid']['summary']['format'] = 'jump_menu_summary';
+  $handler->display->display_options['arguments']['field_term_geographic_area_tid']['summary_options']['count'] = '1';
+  $handler->display->display_options['arguments']['field_term_geographic_area_tid']['summary_options']['hide'] = 0;
+  $handler->display->display_options['arguments']['field_term_geographic_area_tid']['summary_options']['default_value'] = 0;
+  $handler->display->display_options['arguments']['field_term_geographic_area_tid']['specify_validation'] = 1;
+  $handler->display->display_options['arguments']['field_term_geographic_area_tid']['validate']['type'] = 'taxonomy_term';
+  $handler->display->display_options['arguments']['field_term_geographic_area_tid']['validate_options']['vocabularies'] = array(
+    'geographic_area' => 'geographic_area',
+  );
+  $handler->display->display_options['arguments']['field_term_geographic_area_tid']['validate_options']['type'] = 'convert';
+  $handler->display->display_options['arguments']['field_term_geographic_area_tid']['validate_options']['transform'] = 0;
+  $handler->display->display_options['arguments']['field_term_geographic_area_tid']['validate']['fail'] = 'ignore';
+  $handler->display->display_options['arguments']['field_term_geographic_area_tid']['break_phrase'] = 0;
+  $handler->display->display_options['arguments']['field_term_geographic_area_tid']['not'] = 0;
   $handler->display->display_options['defaults']['filters'] = FALSE;
   /* Filter criterion: Content: Type */
   $handler->display->display_options['filters']['type']['id'] = 'type';
