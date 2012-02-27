@@ -85,7 +85,13 @@ function occupations_administration_default_rules_configuration() {
       "IF" : [
         { "user_has_role" : { "account" : [ "account" ], "roles" : { "value" : { "5" : "5" } } } }
       ],
-      "DO" : [ { "redirect" : { "url" : "occupations\\/manage", "force" : 0 } } ]
+      "DO" : [
+        { "redirect" : {
+            "url" : "occupations\\/manage\\/[account:field-term-geographic-area]",
+            "force" : 0
+          }
+        }
+      ]
     }
   }');
   return $items;
