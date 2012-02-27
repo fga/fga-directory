@@ -935,6 +935,14 @@ Do you have the information? <strong><a href="/node/add/occupation">Add an Occup
   $handler->display->display_options['defaults']['access'] = FALSE;
   $handler->display->display_options['access']['type'] = 'perm';
   $handler->display->display_options['access']['perm'] = 'edit any occupation content';
+  $handler->display->display_options['defaults']['pager'] = FALSE;
+  $handler->display->display_options['pager']['type'] = 'full';
+  $handler->display->display_options['pager']['options']['items_per_page'] = '20';
+  $handler->display->display_options['pager']['options']['offset'] = '0';
+  $handler->display->display_options['pager']['options']['id'] = '0';
+  $handler->display->display_options['pager']['options']['expose']['items_per_page'] = TRUE;
+  $handler->display->display_options['pager']['options']['expose']['items_per_page_options'] = '10, 25, 50, 100, 250, 500, 1000';
+  $handler->display->display_options['pager']['options']['expose']['items_per_page_options_all'] = 1;
   $handler->display->display_options['defaults']['style_plugin'] = FALSE;
   $handler->display->display_options['style_plugin'] = 'table';
   $handler->display->display_options['style_options']['columns'] = array(
@@ -1034,14 +1042,15 @@ Do you have the information? <strong><a href="/node/add/occupation">Add an Occup
   $handler->display->display_options['defaults']['row_options'] = FALSE;
   $handler->display->display_options['exposed_block'] = TRUE;
   $handler->display->display_options['defaults']['header'] = FALSE;
-  /* Header: + add a new Occupation */
+  /* Header: Global: Result summary */
+  $handler->display->display_options['header']['result']['content'] = 'Displaying @start - @end of @total Occupations';
+  /* Header: Utility links for Curators */
   $handler->display->display_options['header']['area']['id'] = 'area';
   $handler->display->display_options['header']['area']['table'] = 'views';
   $handler->display->display_options['header']['area']['field'] = 'area';
-  $handler->display->display_options['header']['area']['ui_name'] = '+ add a new Occupation';
-  $handler->display->display_options['header']['area']['label'] = 'links to node/add/occupation';
+  $handler->display->display_options['header']['area']['ui_name'] = 'Utility links for Curators';
   $handler->display->display_options['header']['area']['empty'] = TRUE;
-  $handler->display->display_options['header']['area']['content'] = '<strong>+ <a href="/node/add/occupation">add a new Occupation</a></strong>';
+  $handler->display->display_options['header']['area']['content'] = '<strong><a href="/occupations/manage">Show all Occupations, not just my geographic area</a></strong>&nbsp;&nbsp;|&nbsp;&nbsp;<strong><a href="/node/add/occupation">Add new Occupation content</a></strong>';
   $handler->display->display_options['header']['area']['format'] = 'filtered_html';
   $handler->display->display_options['header']['area']['tokenize'] = 0;
   $handler->display->display_options['defaults']['fields'] = FALSE;
@@ -1432,7 +1441,8 @@ Do you have the information? <strong><a href="/node/add/occupation">Add an Occup
   $handler->display->display_options['arguments']['field_term_geographic_area_tid']['table'] = 'field_data_field_term_geographic_area';
   $handler->display->display_options['arguments']['field_term_geographic_area_tid']['field'] = 'field_term_geographic_area_tid';
   $handler->display->display_options['arguments']['field_term_geographic_area_tid']['ui_name'] = 'Filter by user\'s chosen geographic area';
-  $handler->display->display_options['arguments']['field_term_geographic_area_tid']['title'] = 'Geographic area specific Occupation content';
+  $handler->display->display_options['arguments']['field_term_geographic_area_tid']['title_enable'] = 1;
+  $handler->display->display_options['arguments']['field_term_geographic_area_tid']['title'] = 'Manage Geographic Area-specific Occupations';
   $handler->display->display_options['arguments']['field_term_geographic_area_tid']['default_argument_type'] = 'taxonomy_tid';
   $handler->display->display_options['arguments']['field_term_geographic_area_tid']['default_argument_options']['term_page'] = 1;
   $handler->display->display_options['arguments']['field_term_geographic_area_tid']['default_argument_options']['node'] = 0;
