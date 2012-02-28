@@ -587,7 +587,7 @@ function occupations_field_default_fields() {
       'bundle' => 'occupation',
       'default_value' => NULL,
       'deleted' => '0',
-      'description' => 'Describe how often and where your General Assembly takes place. Provide a link to additional information, if you have one.',
+      'description' => 'Describe in a paragraph what differentiates your occupation from others, how you operate, a bit about your history, physical location, or other details that tell your story.',
       'display' => array(
         'default' => array(
           'label' => 'above',
@@ -1086,7 +1086,7 @@ function occupations_field_default_fields() {
       'bundle' => 'occupation',
       'default_value' => NULL,
       'deleted' => '0',
-      'description' => '',
+      'description' => 'Describe how often and where your General Assembly takes place. Provide a link to additional information, if you have one.',
       'display' => array(
         'default' => array(
           'label' => 'above',
@@ -3026,6 +3026,7 @@ URL: http address of the page.',
   t('Data carried over from the initial import that we didn\'t quite know where to put. Should be migrated by occupation owners or curators, else it will eventually be deleted.
 [This field is not publicly viewable.]');
   t('Describe how often and where your General Assembly takes place. Provide a link to additional information, if you have one.');
+  t('Describe in a paragraph what differentiates your occupation from others, how you operate, a bit about your history, physical location, or other details that tell your story.');
   t('Donate Information');
   t('Donate URL');
   t('Done comments count');
