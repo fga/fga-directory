@@ -258,9 +258,10 @@ article.comment nav.comment-links a {
 }
 
 /* hide log in or register to post comments since we use talk */
-article.comment nav.comment-links li.comment_forbidden {
+/*article.comment nav.comment-links li.comment_forbidden {
 	display: none;
-}
+}*/
+
 #comments h2.title {
   display: none;
 }
@@ -335,7 +336,6 @@ div.view-display-id-occupations_list table img {
 }
 
 
-
 #region-content {
   padding-top:1em;
 /*  min-height: 100%;*/
@@ -385,6 +385,17 @@ div.view-display-id-occupations_list table img {
 .front .grid-6 {
 	width: 45%;
 	float: left;
+}
+
+ div.view-display-id-occupations_list table img {
+ }
+ 
+.openlayers-map .olPopup a:link, .openlayers-map .olPopup a:visited {
+  color: #FFF;
+}
+.openlayers-map .olPopup a:hover {
+  color: #4298DD;
+  text-decoration: none;
 }
 
 
