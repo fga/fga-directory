@@ -1,81 +1,21 @@
 <?php
 /**
  * @file
- * Flag module install/schema/update hooks.
+ * occupations module install/schema/update hooks.
  */
 
 /**
  * Implements hook_install().
  */
 function occupations_install() {
-
 }
 
-
 /**
- * Resaves all nodes to eliminate empty fieldsets
+ * enable comments for all occupation nodes
  */
 function occupations_update_7001(&$sandbox) {
   
-  
-  if (!isset($sandbox['progress'])) {
+  db_query("UPDATE node_revision SET comment=2 WHERE nid IN (SELECT nid FROM node WHERE node.type='occupation')");
 
-    $sandbox['progress'] = 0;
-    $sandbox['last_nid'] = 0;
-    $sandbox['limit'] = 5;
-    $sandbox['max'] = db_query('SELECT COUNT(DISTINCT nid) FROM {node}')->fetchField() - 1;
-        
-  }
-  
-  
-  //  $nids = db_query("SELECT nid FROM node WHERE type = 'occupation' LIMIT 1");
-  $nids = db_query("SELECT nid FROM node WHERE type = 'occupation' ");
-
-    foreach ($nids as $nid) {
-      
-      // this is not the way; objects can't get loaded as strings
-      $node = node_load($nid);
-
-      $form_state = array(
-        'node' => $node,
-      );
-      
-      
-      drupal_form_submit('node_form', $form_state, $node);
-      
-      // // node_save($node);
-      // foreach (module_implements('node_validate') as $module) {
-      //   $function = $module . '_node_validate';
-      //   $function($node, array(), $form_state);
-      // }
-      // node_save($node);
-
-
-
-      // Save new node
-      node_validate($node);
-      node_submit($node);
-      node_save($node);
-
-      //structure the notification message
-       $output .= t("saved node") . $nid . ('\n');
-
-     
-       $sandbox['progress']++;
-     
-
-    }
-    
-    $sandbox['#finished'] = empty($sandbox['max']) ? 1 : ($sandbox['progress'] / $sandbox['max']);
-    $sandbox['last_nid'] = $loaded_node->nid;
-    
-  
-    drupal_set_message($output);
-  
-  
-  //field_cache_clear();
-  drupal_set_message(t('Nodes have been successfully processed'));
-  
-  
-  
+  drupal_set_message(t('Comment successfully enabled on all occupations'));
 }
