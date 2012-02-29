@@ -1,0 +1,37 @@
+<?php
+
+/**
+ * @file
+ * The Node export file install file.
+ */
+
+/**
+ * Implements hook_install().
+ *
+ * @todo
+ *  Why is this weighting required, and how can we replace it with
+ *  hook_module_implements_alter() ?
+ */
+function node_export_file_install() {
+  // Weight the module light to ensure it runs before all CCK modules
+  db_update('system')
+    ->fields(array('weight' => -10))
+    ->condition('name', 'node_export_file')
+    ->execute();
+}
+
+/**
+ * Implementation of hook_uninstall().
+ */
+function node_export_file_uninstall() {
+  variable_del('node_export_file_types');
+}
+
+/**
+ * Remove settings for file mode and file assets path.
+ */
+function node_export_file_update_7300() {
+  variable_del('node_export_file_mode');
+  variable_del('node_export_file_assets_path');
+  return 'Remove settings for file mode and file assets path.';
+}
