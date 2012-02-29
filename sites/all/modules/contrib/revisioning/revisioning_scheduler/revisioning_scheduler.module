@@ -1,0 +1,163 @@
+<?php
+/**
+ * @file
+ * Allows revisions to be published at a specified time and date.
+ *
+ * @author Adam Bramley <adam@catalyst.net.nz>, Zombienaute (drupal.org)
+ */
+
+/**
+ * Register View API information.
+ *
+ * @return
+ *   An array with the following possible keys:
+ *   - api:  (required) The version of the Views API the module implements.
+ *   - path: (optional)
+ */
+function revisioning_scheduler_views_api() {
+  return array(
+    'api' => views_api_version(),
+    'path' => drupal_get_path('module', 'revisioning_scheduler'),
+  );
+}
+
+/**
+ * Implements hook_form_alter().
+ *
+ * Adds date and time fields to the publication and reverting forms.
+ * Also shows the entered date and time on the revisions summary.
+ */
+function revisioning_scheduler_form_alter(&$form, $form_state, $form_id) {
+
+  switch ($form_id) {
+
+    case 'revisioning_publish_confirm':
+    case 'node_revision_revert_confirm':
+      $result = db_query('SELECT * FROM {revisioning_scheduler} WHERE revision_vid = :vid',
+        array(':vid' => arg(3))
+      );
+      $revision = $result->fetchAssoc();
+      if (!empty($revision->vid)) {
+        $user = user_load($revision->revision_uid);
+        drupal_set_message(t('Revision is already scheduled to be published on %date by %username',
+          array(
+            '%date' => format_date($revision->revision_date),
+            '%username' => $user->name
+          )),
+          'warning');
+      }
+      $form['revisioning_scheduler_date'] =  array(
+        '#title'         => 'Date for publication',
+        '#type'          => 'textfield',
+        '#description'   => t('Enter the date you want this revision to be published.'),
+        '#maxlength'     => 10,
+        '#size'          => 10,
+        '#default_value' => date('d-m-Y'),
+        '#weight'        => -1,
+      );
+      $form['revisioning_scheduler_time'] =  array(
+        '#title'         => 'Time for publication',
+        '#type'          => 'textfield',
+        '#maxlength'     => 5,
+        '#size'          => 5,
+        '#default_value' => date('H:i'),
+        '#description'   => t('Enter the time you want this revision to be published. Use the 24 hour clock.'),
+        '#weight'        => 0,
+      );
+    break;
+
+    case 'revisioning_revisions_summary':
+      $result = db_query('SELECT * FROM {revisioning_scheduler} WHERE revision_nid = :nid and revision_date >= :date',
+        array(':nid' => arg(1),
+              ':date' => strtotime('1 hour ago')
+        )
+      );
+      foreach ($result as $revision) {
+        $form['info'][$revision->revision_vid]['#markup'] .= '<br/>' . t('Scheduled to be published on %date.',
+          array('%date' => format_date($revision->revision_date, 'long')));
+      }
+
+    break;
+  }
+}
+
+/**
+ * Implements hook_revisionapi().
+ *
+ * @see revisioning/revisioning_api.inc
+ */
+function revisioning_scheduler_revisionapi($op, $node) {
+  switch ($op) {
+    case 'pre publish':
+    case 'post revert':
+      if (empty($_POST['revisioning_scheduler_date'])) {
+        break;
+      }
+      $vid = $node->vid;
+      $nid = $node->nid;
+      $uid = $node->uid;
+      $date = check_plain($_POST['revisioning_scheduler_date']);
+      $time = check_plain($_POST['revisioning_scheduler_time']);
+      _revisioning_scheduler_check($vid);
+      $timeofday = strtotime($date . $time);
+      if ($timeofday > time()) {
+        $data = array(
+          'revision_vid' => $vid,
+          'revision_nid' => $nid,
+          'revision_uid' => $uid,
+          'revision_date' => strtotime($date . $time)
+        );
+        drupal_write_record('revisioning_scheduler', $data);
+        drupal_set_message(t('Revision scheduled to be published at %time on %date', array('%time' => $time, '%date' => $date)));
+        return FALSE; // this will abort the current publication operation
+      }
+    break;
+  }
+}
+
+/**
+ * Implements hook_validate().
+ */
+function revisioning_publish_confirm_validate($node, &$form)  {
+  $date = check_plain($_POST['revisioning_scheduler_date']);
+  $time = check_plain($_POST['revisioning_scheduler_time']);
+  $setdate = strtotime($date);
+  $timeofday = strtotime($date . $time);
+  if ($setdate < strtotime(date('d-m-Y'))) {
+    form_set_error('revisioning_scheduler_date', t('The publication date you set is in the past.'));
+  }
+  // Add 60 seconds slack to give user a chance to publish instantly by leaving time as is.
+  elseif ($timeofday < time() - 60) {
+    form_set_error('revisioning_scheduler_time', t('The publication time you set is in the past.'));
+  }
+}
+
+/**
+ * Implements of hook_cron().
+ *
+ * If there are any revisions with times that have passed, then publish them
+ * and delete them from the database.
+ */
+function revisioning_scheduler_cron() {
+  module_load_include('inc', 'revisioning', 'revisioning_api');
+  $result = db_query('SELECT * FROM {revisioning_scheduler} WHERE revision_date <= :date',
+    array(':date' => strtotime('now'))
+  );
+  foreach ($result as $revision) {
+    _revisioning_publish_revision(node_load($revision->revision_nid, $revision->revision_vid));
+    _revisioning_scheduler_check($revision->revision_vid);
+  }
+}
+
+
+/**
+ * Check if there is a scheduled publication date for this revision.
+ * If so delete that date.
+ *
+ * @param $vid the unique revision id
+ */
+function _revisioning_scheduler_check($vid) {
+  return db_delete('revisioning_scheduler')
+    ->condition('revision_vid', $vid)
+    ->execute();
+}
