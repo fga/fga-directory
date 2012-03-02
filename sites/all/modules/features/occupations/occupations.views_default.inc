@@ -526,12 +526,11 @@ Do you have the information? <strong><a href="/node/add/occupation">Add an Occup
   $handler->display->display_options['fields']['edit_node']['empty_zero'] = 0;
   $handler->display->display_options['fields']['edit_node']['hide_alter_empty'] = 1;
   $handler->display->display_options['defaults']['sorts'] = FALSE;
-  /* Sort criterion: Founded on: */
-  $handler->display->display_options['sorts']['field_occupation_origin_date_value']['id'] = 'field_occupation_origin_date_value';
-  $handler->display->display_options['sorts']['field_occupation_origin_date_value']['table'] = 'field_data_field_occupation_origin_date';
-  $handler->display->display_options['sorts']['field_occupation_origin_date_value']['field'] = 'field_occupation_origin_date_value';
-  $handler->display->display_options['sorts']['field_occupation_origin_date_value']['ui_name'] = 'Founded on:';
-  $handler->display->display_options['sorts']['field_occupation_origin_date_value']['order'] = 'DESC';
+  /* Sort criterion: Alphabetically by Country */
+  $handler->display->display_options['sorts']['field_occupation_address_country']['id'] = 'field_occupation_address_country';
+  $handler->display->display_options['sorts']['field_occupation_address_country']['table'] = 'field_data_field_occupation_address';
+  $handler->display->display_options['sorts']['field_occupation_address_country']['field'] = 'field_occupation_address_country';
+  $handler->display->display_options['sorts']['field_occupation_address_country']['ui_name'] = 'Alphabetically by Country';
   $handler->display->display_options['defaults']['arguments'] = FALSE;
   /* Contextual filter: Content: Location (Address) (field_occupation_address:country) */
   $handler->display->display_options['arguments']['field_occupation_address_country']['id'] = 'field_occupation_address_country';
