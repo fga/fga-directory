@@ -347,9 +347,26 @@ div.view-display-id-occupations_list table img {
 }
 #zone-footer {}
 #zone-footer #block-menu-menu-feeds-and-exports h2{}
-#block-menu-menu-feeds-and-exports ul {
+#block-menu-menu-feeds-and-exports ul,
+#block-menu-menu-add-your-occupation ul {
   list-style-type: none;
 	margin: 0;
+}
+#block-menu-menu-add-your-occupation{
+  float:right;
+}
+#block-menu-menu-add-your-occupation ul li {
+  list-style: none;
+  font-style: italic;
+  margin-top:-24px;
+  font-size:1.2em;
+}
+#block-menu-menu-add-your-occupation li a:link, #block-menu-menu-add-your-occupation li a:visited {
+  color:#FFF;
+}
+#block-menu-menu-add-your-occupation li a:hover {
+  color:#4298DD;
+  text-decoration:none;
 }
 #block-menu-menu-feeds-and-exports li {
  display:inline;

@@ -58,11 +58,17 @@ function occupation_directory_structure_context_default_contexts() {
           'region' => 'user_first',
           'weight' => '-10',
         ),
+        'menu-menu-add-your-occupation' => array(
+          'module' => 'menu',
+          'delta' => 'menu-add-your-occupation',
+          'region' => 'footer_first',
+          'weight' => '-10',
+        ),
         'menu-menu-feeds-and-exports' => array(
           'module' => 'menu',
           'delta' => 'menu-feeds-and-exports',
           'region' => 'footer_first',
-          'weight' => '-10',
+          'weight' => '-9',
         ),
       ),
     ),
