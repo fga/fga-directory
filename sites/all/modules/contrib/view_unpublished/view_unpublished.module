@@ -1,0 +1,90 @@
+<?php
+// $Id$
+
+/**
+ * @file
+ * This is the file description for View Unpublished module.
+ *
+ */
+
+/**
+ * Implements hook_permission().
+ */
+function view_unpublished_permission() {
+  $perms = array(
+    'view any unpublished content' => array(
+      'title' => t('View any unpublished content'),
+    ),
+  );
+  // Generate standard node permissions for all applicable node types.
+  foreach (view_unpublished_get_configured_types() as $type) {
+    $perms += view_unpublished_list_permissions($type);
+  }
+  return $perms;
+}
+
+function view_unpublished_list_permissions($type) {
+  $info = node_type_get_type($type);
+  $type = check_plain($info->type);
+  $perms = array(
+    "view any unpublished $type content" => array(
+      'title' => t('%type_name: View any unpublished content', array('%type_name' => $info->name)),
+    ),
+  );
+  return $perms;
+}
+
+/**
+ * Implements hook_node_access_records().
+ */
+function view_unpublished_node_access_records($node) {
+  // We only care about the node if is unpublished. If not, it is
+  // treated just like any other node and we completely ignore it.
+  if ($node->status == 0) {
+    $grants = array();
+    // Unpublished nodes should be viewable to all editors.
+    $grants[] = array(
+      'realm' => 'view_unpublished_content',
+      'gid' => 1,
+      'grant_view' => 1,
+      'grant_update' => 0,
+      'grant_delete' => 0,
+      'priority' => 0,
+    );
+    $grants[] = array(
+      'realm' => 'view_unpublished_' . $node->type . '_content',
+      'gid' => 1,
+      'grant_view' => 1,
+      'grant_update' => 0,
+      'grant_delete' => 0,
+      'priority' => 0,
+    );
+    return $grants;
+  }
+}
+
+/**
+ * Implements hook_node_grants().
+ */
+function view_unpublished_node_grants($account, $op) {
+  $grants = array();
+  if ($op == 'view') {
+    if (user_access('view any unpublished content', $account)) {
+      $grants['view_unpublished_content'] = array(1);
+      return $grants;
+    }
+    foreach(view_unpublished_get_configured_types() as $type) {
+      if (user_access("view any unpublished $type content", $account)) {
+        $grants['view_unpublished_' . $type . '_content'] = array(1);
+        return $grants;
+      }
+    }
+  }
+  return $grants;
+}
+
+function view_unpublished_get_configured_types($reset = FALSE) {
+  static $types = array();
+  $types = (empty($types) || $reset == TRUE) ? node_permissions_get_configured_types() : $types;
+  return $types;
+}
