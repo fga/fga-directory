@@ -16,6 +16,14 @@
 /**
  * Define callbacks that can be used as select list options.
  *
+ * When users create a select component, they may select a pre-built list of
+ * certain options. Webform core provides a few of these lists such as the
+ * United States, countries of the world, and days of the week. This hook
+ * provides additional lists that may be utilized.
+ *
+ * @see webform_options_example()
+ * @see hook_webform_select_options_info_alter()
+ *
  * @return
  *   An array of callbacks that can be used for select list options. This array
  *   should be keyed by the "name" of the pre-defined list. The values should
@@ -36,6 +44,51 @@ function hook_webform_select_options_info() {
   );
 
   return $items;
+}
+
+/**
+ * Alter the list of select list options provided by Webform and other modules.
+ *
+ * @see hook_webform_select_options_info().
+ */
+function hook_webform_select_options_info_alter(&$items) {
+  // Remove the days of the week options.
+  unset($items['days']);
+}
+
+/**
+ * This is an example function to demonstrate a webform options callback.
+ *
+ * This function returns a list of options that Webform may use in a select
+ * component. In order to be called, the function name
+ * ("webform_options_example" in this case), needs to be specified as a callback
+ * in hook_webform_select_options_info().
+ *
+ * @param $component
+ *   The Webform component array for the select component being displayed.
+ * @param $flat
+ *   Boolean value indicating whether the returned list needs to be a flat array
+ *   of key => value pairs. Select components support up to one level of
+ *   nesting, but when results are displayed, the list needs to be returned
+ *   without the nesting.
+ * @param $filter
+ *   Boolean value indicating whether the included options should be passed
+ *   through the _webform_filter_values() function for token replacement (only)
+ *   needed if your list contains tokens).
+ * @param $arguments
+ *   The "options arguments" specified in hook_webform_select_options_info().
+ * @return
+ *   An array of key => value pairs suitable for a select list's #options
+ *   FormAPI property.
+ */
+function webform_options_example($component, $flat, $filter, $arguments) {
+  $options = array(
+    'one' => t('Pre-built option one'),
+    'two' => t('Pre-built option two'),
+    'three' => t('Pre-built option three'),
+  );
+
+  return $options;
 }
 
 /**
@@ -311,6 +364,12 @@ function hook_webform_component_info() {
       // Add content to CSV downloads. Defaults to TRUE.
       'csv' => TRUE,
 
+      // This component supports default values. Defaults to TRUE.
+      'default_value' => FALSE,
+
+      // This component supports a description field. Defaults to TRUE.
+      'description' => FALSE,
+
       // Show this component in e-mailed submissions. Defaults to TRUE.
       'email' => TRUE,
 
@@ -324,6 +383,9 @@ function hook_webform_component_info() {
 
       // This component may be toggled as required or not. Defaults to TRUE.
       'required' => TRUE,
+
+      // This component supports a title attribute. Defaults to TRUE.
+      'title' => FALSE,
 
       // This component has a title that can be toggled as displayed or not.
       'title_display' => TRUE,
@@ -367,6 +429,36 @@ function hook_webform_component_info_alter(&$components) {
 
   // Change the name of a component.
   $components['textarea']['label'] = t('Text box');
+}
+
+/**
+ * Return an array of files associated with the component.
+ *
+ * The output of this function will be used to attach files to e-mail messages.
+ *
+ * @param $component
+ *   A Webform component array.
+ * @param $value
+ *   An array of information containing the submission result, directly
+ *   correlating to the webform_submitted_data database schema.
+ * @return
+ *   An array of files, each file is an array with following keys:
+ *     - filepath: The relative path to the file.
+ *     - filename: The name of the file including the extension.
+ *     - filemime: The mimetype of the file.
+ *   This will result in an array looking something like this:
+ *   @code
+ *   array[0] => array(
+ *     'filepath' => '/sites/default/files/attachment.txt',
+ *     'filename' => 'attachment.txt',
+ *     'filemime' => 'text/plain',
+ *   );
+ *   @endcode
+ */
+function _webform_attachments_component($component, $value) {
+  $files = array();
+  $files[] = (array) file_load($value[0]);
+  return $files;
 }
 
 /**
