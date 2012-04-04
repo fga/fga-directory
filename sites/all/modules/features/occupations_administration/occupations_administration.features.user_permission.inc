@@ -55,22 +55,75 @@ function occupations_administration_user_default_permissions() {
     'roles' => array(),
   );
 
-  // Exported permission: view any unpublished article content
-  $permissions['view any unpublished article content'] = array(
-    'name' => 'view any unpublished article content',
+  // Exported permission: enter occupation revision log entry
+  $permissions['enter occupation revision log entry'] = array(
+    'name' => 'enter occupation revision log entry',
     'roles' => array(
-      0 => 'site developer',
+      0 => 'occupation curator',
+      1 => 'site administrator',
+      2 => 'site developer',
     ),
-    'module' => 'view_unpublished',
+    'module' => 'override_node_options',
   );
 
-  // Exported permission: view any unpublished content
-  $permissions['view any unpublished content'] = array(
-    'name' => 'view any unpublished content',
+  // Exported permission: override occupation authored by option
+  $permissions['override occupation authored by option'] = array(
+    'name' => 'override occupation authored by option',
+    'roles' => array(
+      0 => 'occupation curator',
+      1 => 'site administrator',
+      2 => 'site developer',
+    ),
+    'module' => 'override_node_options',
+  );
+
+  // Exported permission: override occupation authored on option
+  $permissions['override occupation authored on option'] = array(
+    'name' => 'override occupation authored on option',
+    'roles' => array(
+      0 => 'site administrator',
+      1 => 'site developer',
+    ),
+    'module' => 'override_node_options',
+  );
+
+  // Exported permission: override occupation promote to front page option
+  $permissions['override occupation promote to front page option'] = array(
+    'name' => 'override occupation promote to front page option',
     'roles' => array(
       0 => 'site developer',
     ),
-    'module' => 'view_unpublished',
+    'module' => 'override_node_options',
+  );
+
+  // Exported permission: override occupation published option
+  $permissions['override occupation published option'] = array(
+    'name' => 'override occupation published option',
+    'roles' => array(
+      0 => 'occupation curator',
+      1 => 'site administrator',
+      2 => 'site developer',
+    ),
+    'module' => 'override_node_options',
+  );
+
+  // Exported permission: override occupation revision option
+  $permissions['override occupation revision option'] = array(
+    'name' => 'override occupation revision option',
+    'roles' => array(
+      0 => 'site administrator',
+      1 => 'site developer',
+    ),
+    'module' => 'override_node_options',
+  );
+
+  // Exported permission: override occupation sticky option
+  $permissions['override occupation sticky option'] = array(
+    'name' => 'override occupation sticky option',
+    'roles' => array(
+      0 => 'site developer',
+    ),
+    'module' => 'override_node_options',
   );
 
   // Exported permission: view any unpublished occupation content
@@ -78,25 +131,8 @@ function occupations_administration_user_default_permissions() {
     'name' => 'view any unpublished occupation content',
     'roles' => array(
       0 => 'occupation curator',
-      1 => 'site developer',
-    ),
-    'module' => 'view_unpublished',
-  );
-
-  // Exported permission: view any unpublished page content
-  $permissions['view any unpublished page content'] = array(
-    'name' => 'view any unpublished page content',
-    'roles' => array(
-      0 => 'site developer',
-    ),
-    'module' => 'view_unpublished',
-  );
-
-  // Exported permission: view any unpublished webform content
-  $permissions['view any unpublished webform content'] = array(
-    'name' => 'view any unpublished webform content',
-    'roles' => array(
-      0 => 'site developer',
+      1 => 'site administrator',
+      2 => 'site developer',
     ),
     'module' => 'view_unpublished',
   );
