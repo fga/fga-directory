@@ -55,6 +55,52 @@ function occupations_administration_user_default_permissions() {
     'roles' => array(),
   );
 
+  // Exported permission: view any unpublished article content
+  $permissions['view any unpublished article content'] = array(
+    'name' => 'view any unpublished article content',
+    'roles' => array(
+      0 => 'site developer',
+    ),
+    'module' => 'view_unpublished',
+  );
+
+  // Exported permission: view any unpublished content
+  $permissions['view any unpublished content'] = array(
+    'name' => 'view any unpublished content',
+    'roles' => array(
+      0 => 'site developer',
+    ),
+    'module' => 'view_unpublished',
+  );
+
+  // Exported permission: view any unpublished occupation content
+  $permissions['view any unpublished occupation content'] = array(
+    'name' => 'view any unpublished occupation content',
+    'roles' => array(
+      0 => 'occupation curator',
+      1 => 'site developer',
+    ),
+    'module' => 'view_unpublished',
+  );
+
+  // Exported permission: view any unpublished page content
+  $permissions['view any unpublished page content'] = array(
+    'name' => 'view any unpublished page content',
+    'roles' => array(
+      0 => 'site developer',
+    ),
+    'module' => 'view_unpublished',
+  );
+
+  // Exported permission: view any unpublished webform content
+  $permissions['view any unpublished webform content'] = array(
+    'name' => 'view any unpublished webform content',
+    'roles' => array(
+      0 => 'site developer',
+    ),
+    'module' => 'view_unpublished',
+  );
+
   // Exported permission: view field_term_geographic_area
   $permissions['view field_term_geographic_area'] = array(
     'name' => 'view field_term_geographic_area',
