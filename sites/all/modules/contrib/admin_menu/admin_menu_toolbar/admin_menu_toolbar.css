@@ -31,8 +31,6 @@ body div#toolbar {
   -moz-box-shadow: 0 3px 20px #000;
   -webkit-box-shadow: 0 3px 20px #000;
   box-shadow: 0 3px 20px #000;
-  filter: progid:DXImageTransform.Microsoft.Shadow(color=#000000, direction='180', strength='10');
-  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(color=#000000, direction='180', strength='10')";
   right: 0;
   width: auto;
 }

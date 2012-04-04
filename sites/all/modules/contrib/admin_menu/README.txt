@@ -28,15 +28,20 @@ None.
 
 -- CONFIGURATION --
 
-* Configure user permissions in Administration » People » Permissions »
-  admin_menu module:
+* Configure user permissions in Administration » People » Permissions:
 
-  - access administration menu
+  - Use the administration pages and help (System module)
+
+    The top-level administration categories require this permission to be
+    accessible. The administration menu will be empty unless this permission is
+    granted.
+
+  - Access administration menu
 
     Users in roles with the "Access administration menu" permission will see
     the administration menu at the top of each page.
 
-  - display drupal links
+  - Display Drupal links
 
     Users in roles with the "Display drupal links" permission will receive
     links to drupal.org issue queues for all enabled contributed modules. The
@@ -81,7 +86,7 @@ None.
 
 * If the menu does not display, check the following:
 
-  - Are the "access administration menu" and "access administration pages"
+  - Are the "Access administration menu" and "Use the administration pages and help"
     permissions enabled for the appropriate roles?
 
   - Does html.tpl.php of your theme output the $page_bottom variable?

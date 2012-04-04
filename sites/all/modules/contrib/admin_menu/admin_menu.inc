@@ -20,18 +20,12 @@ function admin_menu_tree($menu_name) {
   drupal_alter('admin_menu_map', $expand_map);
 
   $new_map = array();
-  $hidden = array();
   foreach ($expand_map as $path => $data) {
     // Convert named placeholders to anonymous placeholders, since the menu
     // system stores paths using anonymous placeholders.
     $replacements = array_fill_keys(array_keys($data['arguments'][0]), '%');
     $data['parent'] = strtr($data['parent'], $replacements);
     $new_map[strtr($path, $replacements)] = $data;
-
-    // Collect paths to hide.
-    if (isset($data['hide'])) {
-      $hidden[strtr($data['hide'], $replacements)] = 1;
-    }
   }
   $expand_map = $new_map;
   unset($new_map);
@@ -48,7 +42,7 @@ function admin_menu_tree($menu_name) {
 
   // Merge local tasks with static menu tree.
   $tree = menu_tree_all_data($menu_name);
-  admin_menu_merge_tree($tree, $tree_dynamic, array(), $hidden);
+  admin_menu_merge_tree($tree, $tree_dynamic, array());
 
   return $tree;
 }
@@ -147,25 +141,18 @@ function admin_menu_tree_dynamic(array $expand_map) {
  * @param $expand_map
  *   An array containing menu router path placeholder expansion argument
  *   mappings.
- * @param $hidden
- *   An array containing links to hide, keyed by path.
  *
  * @see hook_admin_menu_map()
  * @see admin_menu_tree_dynamic()
  * @see menu_tree_all_data()
  */
-function admin_menu_merge_tree(array &$tree, array $tree_dynamic, array $expand_map, array $hidden) {
+function admin_menu_merge_tree(array &$tree, array $tree_dynamic, array $expand_map) {
   foreach ($tree as $key => $data) {
     $path = $data['link']['router_path'];
 
     // Recurse into regular menu tree.
     if ($tree[$key]['below']) {
-      admin_menu_merge_tree($tree[$key]['below'], $tree_dynamic, $expand_map, $hidden);
-    }
-    // Hide link if requested, but only if there is no dynamic tree data for it.
-    elseif (isset($hidden[$path]) && !isset($tree_dynamic[$path])) {
-      $tree[$key]['link']['access'] = FALSE;
-      continue;
+      admin_menu_merge_tree($tree[$key]['below'], $tree_dynamic, $expand_map);
     }
     // Nothing to merge, if this parent path is not in our dynamic tree.
     if (!isset($tree_dynamic[$path])) {
@@ -213,14 +200,16 @@ function admin_menu_merge_tree(array &$tree, array $tree_dynamic, array $expand_
       // @see _menu_load_objects()
       $path_args = explode('/', $link['path']);
       $load_functions = unserialize($link['load_functions']);
-      foreach ($load_functions as $index => $function) {
-        if ($function) {
-          if (is_array($function)) {
-            list($function,) = each($function);
+      if (is_array($load_functions)) {
+        foreach ($load_functions as $index => $function) {
+          if ($function) {
+            if (is_array($function)) {
+              list($function,) = each($function);
+            }
+            // Add the loader function name minus "_load".
+            $placeholder = '%' . substr($function, 0, -5);
+            $path_args[$index] = $placeholder;
           }
-          // Add the loader function name minus "_load".
-          $placeholder = '%' . substr($function, 0, -5);
-          $path_args[$index] = $placeholder;
         }
       }
       $path_dynamic = implode('/', $path_args);
@@ -247,7 +236,7 @@ function admin_menu_merge_tree(array &$tree, array $tree_dynamic, array $expand_
           foreach ($replacements as $placeholder => $value) {
             $new_expand_map[$placeholder] = array($value);
           }
-          admin_menu_merge_tree($item, $tree_dynamic, array($new_expand_map), $hidden);
+          admin_menu_merge_tree($item, $tree_dynamic, array($new_expand_map));
           $tree[$key]['below'] += $item;
         }
       }
@@ -370,9 +359,11 @@ function admin_menu_expand_args($arguments) {
  */
 function admin_menu_links_menu($tree) {
   $links = array();
-  foreach ($tree as $key => $data) {
-    // Skip invisible items.
-    if (!$data['link']['access'] || $data['link']['type'] == MENU_CALLBACK) {
+  foreach ($tree as $data) {
+    // Skip items that are inaccessible, invisible, or link to their parent.
+    // (MENU_DEFAULT_LOCAL_TASK), and MENU_CALLBACK-alike items that should only
+    // appear in the breadcrumb.
+    if (!$data['link']['access'] || $data['link']['type'] & MENU_LINKS_TO_PARENT || $data['link']['type'] == MENU_VISIBLE_IN_BREADCRUMB || $data['link']['hidden'] == 1) {
       continue;
     }
     // Hide 'Administer' and make child links appear on this level.
@@ -388,14 +379,30 @@ function admin_menu_links_menu($tree) {
     // Remove description to prevent mouseover tooltip clashes.
     unset($data['link']['localized_options']['attributes']['title']);
 
-    $links[$key] = array(
+    $links[$data['link']['href']] = array(
       '#title' => $data['link']['title'],
       '#href' => $data['link']['href'],
       '#options' => $data['link']['localized_options'],
       '#weight' => $data['link']['weight'],
     );
+
+    // Recurse to add any child links.
+    $children = array();
     if ($data['below']) {
-      $links[$key] += admin_menu_links_menu($data['below']);
+      $children = admin_menu_links_menu($data['below']);
+      $links[$data['link']['href']] += $children;
+    }
+
+    // Handle links pointing to category/overview pages.
+    if ($data['link']['page_callback'] == 'system_admin_menu_block_page' || $data['link']['page_callback'] == 'system_admin_config_page') {
+      // Apply a marker for others to consume.
+      $links[$data['link']['href']]['#is_category'] = TRUE;
+      // Automatically hide empty categories.
+      // Check for empty children first for performance. Only when non-empty
+      // (typically 'admin/config'), check whether children are accessible.
+      if (empty($children) || !element_get_visible_children($children)) {
+        $links[$data['link']['href']]['#access'] = FALSE;
+      }
     }
   }
   return $links;
@@ -432,7 +439,8 @@ function admin_menu_links_icon() {
   $links['icon']['update'] = array(
     '#title' => t('Run updates'),
     '#weight' => 50,
-    '#access' => ($GLOBALS['user']->uid == 1 || !empty($GLOBALS['update_free_access'])),
+    // @see update_access_allowed()
+    '#access' => $GLOBALS['user']->uid == 1 || !empty($GLOBALS['update_free_access']) || user_access('administer software updates'),
     '#href' => base_path() . 'update.php',
     '#options' => array(
       'external' => TRUE,
@@ -470,20 +478,13 @@ function admin_menu_links_icon() {
       'query' => $destination + array('token' => drupal_get_token('admin_menu/flush-cache')),
     ),
   );
-  $caches = array(
-    'admin_menu' => t('Administration menu'),
-    'cache' => t('Cache tables'),
-    'menu' => t('Menu'),
-    'registry' => t('Class registry'),
-    'requisites' => t('Page requisites'),
-    'theme' => t('Theme registry'),
-  );
-  foreach ($caches as $arg => $title) {
-    $links['icon']['flush-cache'][$arg] = array(
-      '#title' => $title,
-      '#href' => 'admin_menu/flush-cache/' . $arg,
+  $caches = module_invoke_all('admin_menu_cache_info');
+  foreach ($caches as $name => $cache) {
+    $links['icon']['flush-cache'][$name] = array(
+      '#title' => $cache['title'],
+      '#href' => 'admin_menu/flush-cache/' . $name,
       '#options' => array(
-        'query' => $destination + array('token' => drupal_get_token('admin_menu/flush-cache/' . $arg)),
+        'query' => $destination + array('token' => drupal_get_token('admin_menu/flush-cache/' . $name)),
       ),
     );
   }
@@ -581,6 +582,11 @@ function admin_menu_theme_settings() {
   );
   // @todo Re-confirm this with latest browser versions.
   $form['admin_menu_position_fixed']['#description'] .= '<br /><strong>' . t('In some browsers, this setting may result in a malformed page, an invisible cursor, non-selectable elements in forms, or other issues.') . '</strong>';
+  $form['admin_menu_cache_client'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Cache menu in client-side browser'),
+    '#default_value' => variable_get('admin_menu_cache_client', 1),
+  );
 
   $form['tweaks'] = array(
     '#type' => 'fieldset',
@@ -741,10 +747,12 @@ function _admin_menu_developer_modules() {
     'devel_node_access',
     'devel_themer',
     'field_ui',
-    'macro',
     'form_controller',
     'imagecache_ui',
     'journal',
+    'l10n_client',
+    'l10n_update',
+    'macro',
     'rules_admin',
     'stringoverrides',
     'trace',
@@ -766,7 +774,81 @@ function admin_menu_flush_cache($name = NULL) {
   if (!isset($_GET['token']) || !drupal_valid_token($_GET['token'], current_path())) {
     return MENU_ACCESS_DENIED;
   }
+  if (isset($name)) {
+    $caches = module_invoke_all('admin_menu_cache_info');
+    if (!isset($caches[$name])) {
+      return MENU_NOT_FOUND;
+    }
+  }
+  else {
+    $caches[$name] = array(
+      'title' => t('Every'),
+      'callback' => 'drupal_flush_all_caches',
+    );
+  }
+  // Pass the cache to flush forward to the callback.
+  $function = $caches[$name]['callback'];
+  $function($name);
 
+  drupal_set_message(t('!title cache cleared.', array('!title' => $caches[$name]['title'])));
+
+  // The JavaScript injects a destination request parameter pointing to the
+  // originating page, so the user is redirected back to that page. Without
+  // destination parameter, the redirect ends on the front page.
+  drupal_goto();
+}
+
+/**
+ * Implements hook_admin_menu_cache_info().
+ */
+function admin_menu_admin_menu_cache_info() {
+  $caches['admin_menu'] = array(
+    'title' => t('Administration menu'),
+    'callback' => '_admin_menu_flush_cache',
+  );
+  return $caches;
+}
+
+/**
+ * Implements hook_admin_menu_cache_info() on behalf of System module.
+ */
+function system_admin_menu_cache_info() {
+  $caches = array(
+    'assets' => t('CSS and JavaScript'),
+    'cache' => t('Page and else'),
+    'menu' => t('Menu'),
+    'registry' => t('Class registry'),
+    'theme' => t('Theme registry'),
+  );
+  foreach ($caches as $name => $cache) {
+    $caches[$name] = array(
+      'title' => $cache,
+      'callback' => '_admin_menu_flush_cache',
+    );
+  }
+  return $caches;
+}
+
+/**
+ * Implements hook_admin_menu_cache_info() on behalf of Update module.
+ */
+function update_admin_menu_cache_info() {
+  $caches['update'] = array(
+    'title' => t('Update data'),
+    'callback' => '_update_cache_clear',
+  );
+  return $caches;
+}
+
+/**
+ * Flush all caches or a specific one.
+ *
+ * @param $name
+ *   (optional) Name of cache to flush.
+ *
+ * @see system_admin_menu_cache_info()
+ */
+function _admin_menu_flush_cache($name = NULL) {
   switch ($name) {
     case 'admin_menu':
       admin_menu_flush_caches();
@@ -780,7 +862,6 @@ function admin_menu_flush_cache($name = NULL) {
       registry_rebuild();
       // Fall-through to clear cache tables, since registry information is
       // usually the base for other data that is cached (e.g. SimpleTests).
-
     case 'cache':
       // Don't clear cache_form - in-progress form submissions may break.
       // Ordered so clearing the page cache will always be the last action.
@@ -792,35 +873,54 @@ function admin_menu_flush_cache($name = NULL) {
       }
       break;
 
-    case 'requisites':
+    case 'assets':
       // Change query-strings on css/js files to enforce reload for all users.
       _drupal_flush_css_js();
 
       drupal_clear_css_cache();
       drupal_clear_js_cache();
+
+      // Clear the page cache, since cached HTML pages might link to old CSS and
+      // JS aggregates.
+      cache_clear_all('*', 'cache_page', TRUE);
       break;
 
     case 'theme':
       system_rebuild_theme_data();
       drupal_theme_rebuild();
       break;
-
-    default:
-      // Flush all caches; no need to re-implement this.
-      module_load_include('inc', 'system', 'system.admin');
-      $form = $form_state = array();
-      system_clear_cache_submit($form, $form_state);
-      break;
   }
-  drupal_goto();
 }
 
 /**
- * Render an icon to display in the administration menu.
+ * Preprocesses variables for theme_admin_menu_icon().
+ */
+function template_preprocess_admin_menu_icon(&$variables) {
+  // Image source might have been passed in as theme variable.
+  if (!isset($variables['src'])) {
+    if (theme_get_setting('toggle_favicon')) {
+      $variables['src'] = theme_get_setting('favicon');
+    }
+    else {
+      $variables['src'] = base_path() . 'misc/favicon.ico';
+    }
+  }
+  // Strip the protocol without delimiters for transient HTTP/HTTPS support.
+  // Since the menu is cached on the server-side and client-side, the cached
+  // version might contain a HTTP link, whereas the actual page is on HTTPS.
+  // Relative paths will work fine, but theme_get_setting() returns an
+  // absolute URI.
+  $variables['src'] = preg_replace('@^https?:@', '', $variables['src']);
+  $variables['src'] = check_plain($variables['src']);
+  $variables['alt'] = t('Home');
+}
+
+/**
+ * Renders an icon to display in the administration menu.
  *
  * @ingroup themeable
  */
-function theme_admin_menu_icon() {
-  return '<img class="admin-menu-icon" src="' . (theme_get_setting('toggle_favicon') ? theme_get_setting('favicon') : base_path() . 'misc/favicon.ico') . '" width="16" height="16" alt="' . t('Home') . '" />';
+function theme_admin_menu_icon($variables) {
+  return '<img class="admin-menu-icon" src="' . $variables['src'] . '" width="16" height="16" alt="' . $variables['alt'] . '" />';
 }
 
