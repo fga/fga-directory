@@ -10,7 +10,7 @@
 function occupations_field_group_info() {
   $export = array();
 
-  $field_group = new stdClass;
+  $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
   $field_group->identifier = 'group_content_main|node|occupation|full';
@@ -48,7 +48,7 @@ function occupations_field_group_info() {
   );
   $export['group_content_main|node|occupation|full'] = $field_group;
 
-  $field_group = new stdClass;
+  $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
   $field_group->identifier = 'group_donate_info|node|occupation|full';
@@ -80,7 +80,7 @@ function occupations_field_group_info() {
   );
   $export['group_donate_info|node|occupation|full'] = $field_group;
 
-  $field_group = new stdClass;
+  $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
   $field_group->identifier = 'group_links_media|node|occupation|full';
@@ -112,7 +112,7 @@ function occupations_field_group_info() {
   );
   $export['group_links_media|node|occupation|full'] = $field_group;
 
-  $field_group = new stdClass;
+  $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
   $field_group->identifier = 'group_links_news|node|occupation|full';
@@ -145,7 +145,7 @@ function occupations_field_group_info() {
   );
   $export['group_links_news|node|occupation|full'] = $field_group;
 
-  $field_group = new stdClass;
+  $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
   $field_group->identifier = 'group_links_resources|node|occupation|full';
@@ -176,7 +176,7 @@ function occupations_field_group_info() {
   );
   $export['group_links_resources|node|occupation|full'] = $field_group;
 
-  $field_group = new stdClass;
+  $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
   $field_group->identifier = 'group_links_social|node|occupation|full';
@@ -210,7 +210,7 @@ function occupations_field_group_info() {
   );
   $export['group_links_social|node|occupation|full'] = $field_group;
 
-  $field_group = new stdClass;
+  $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
   $field_group->identifier = 'group_occupate_rss_links|node|occupation|rss';
@@ -249,7 +249,7 @@ function occupations_field_group_info() {
   );
   $export['group_occupate_rss_links|node|occupation|rss'] = $field_group;
 
-  $field_group = new stdClass;
+  $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
   $field_group->identifier = 'group_occupation_admin|node|occupation|form';
@@ -278,7 +278,7 @@ function occupations_field_group_info() {
   );
   $export['group_occupation_admin|node|occupation|form'] = $field_group;
 
-  $field_group = new stdClass;
+  $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
   $field_group->identifier = 'group_occupation_comment_counts|node|occupation|form';
@@ -308,7 +308,7 @@ function occupations_field_group_info() {
   );
   $export['group_occupation_comment_counts|node|occupation|form'] = $field_group;
 
-  $field_group = new stdClass;
+  $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
   $field_group->identifier = 'group_occupation_contact_info|node|occupation|form';
@@ -339,7 +339,7 @@ function occupations_field_group_info() {
   );
   $export['group_occupation_contact_info|node|occupation|form'] = $field_group;
 
-  $field_group = new stdClass;
+  $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
   $field_group->identifier = 'group_occupation_description|node|occupation|full';
@@ -372,7 +372,7 @@ function occupations_field_group_info() {
   );
   $export['group_occupation_description|node|occupation|full'] = $field_group;
 
-  $field_group = new stdClass;
+  $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
   $field_group->identifier = 'group_occupation_infogroup|node|occupation|form';
@@ -399,7 +399,7 @@ function occupations_field_group_info() {
   );
   $export['group_occupation_infogroup|node|occupation|form'] = $field_group;
 
-  $field_group = new stdClass;
+  $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
   $field_group->identifier = 'group_occupation_information|node|occupation|form';
@@ -431,7 +431,7 @@ function occupations_field_group_info() {
   );
   $export['group_occupation_information|node|occupation|form'] = $field_group;
 
-  $field_group = new stdClass;
+  $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
   $field_group->identifier = 'group_occupation_links|node|occupation|form';

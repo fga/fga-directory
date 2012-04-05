@@ -1040,8 +1040,8 @@ Do you have the information? <strong><a href="/node/add/occupation">Add an Occup
   $handler->display->display_options['defaults']['row_options'] = FALSE;
   $handler->display->display_options['exposed_block'] = TRUE;
   $handler->display->display_options['defaults']['header'] = FALSE;
-  /* Header: Global: Result summary */
-  $handler->display->display_options['header']['result']['content'] = 'Displaying @start - @end of @total Occupations';
+  /* Header: Broken/missing handler */
+  $handler->display->display_options['header']['result']['empty'] = FALSE;
   /* Header: Utility links for Curators */
   $handler->display->display_options['header']['area']['id'] = 'area';
   $handler->display->display_options['header']['area']['table'] = 'views';

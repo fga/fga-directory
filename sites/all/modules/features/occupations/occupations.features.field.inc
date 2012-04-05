@@ -1351,7 +1351,7 @@ function occupations_field_default_fields() {
         'file_directory' => 'images/occupations/icons',
         'file_extensions' => 'png gif jpg jpeg',
         'max_filesize' => '',
-        'max_resolution' => '1200x1200',
+        'max_resolution' => '1600x1600',
         'min_resolution' => '60x60',
         'title_field' => 0,
         'user_register_form' => FALSE,
@@ -1360,6 +1360,21 @@ function occupations_field_default_fields() {
         'active' => 1,
         'module' => 'image',
         'settings' => array(
+          'filefield_sources' => array(
+            'filefield_sources' => array(
+              'attach' => 0,
+              'reference' => 0,
+              'remote' => 'remote',
+            ),
+            'source_attach' => array(
+              'absolute' => '0',
+              'attach_mode' => 'copy',
+              'path' => 'file_attach',
+            ),
+            'source_reference' => array(
+              'autocomplete' => '0',
+            ),
+          ),
           'preview_image_style' => 'thumbnail',
           'progress_indicator' => 'throbber',
         ),
