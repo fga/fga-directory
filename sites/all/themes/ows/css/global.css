@@ -350,9 +350,10 @@ div.view-display-id-occupations_list table img {
 #block-menu-menu-feeds-and-exports ul,
 #block-menu-menu-add-your-occupation ul {
   list-style-type: none;
-	margin: 0;
+  margin: 0;
+  line-height:1;
 }
-#block-menu-menu-add-your-occupation{
+#block-menu-menu-add-your-occupation {
   float:right;
 }
 #block-menu-menu-add-your-occupation ul li {
@@ -378,6 +379,12 @@ div.view-display-id-occupations_list table img {
   margin-top:.5em;
 }
 
+
+#region-footer-second #block-block-1 p {
+  padding:0 0 10px;
+  text-align:right;
+  line-height:1;
+}
 
 
 /* front page specific styles */
