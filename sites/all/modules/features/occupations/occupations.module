@@ -6,6 +6,12 @@
 
 include_once('occupations.features.inc');
 
+
+function occupations_node_view($node) {
+  //dpr($node);
+}
+
+
 /**
  * Implements hook_rdf_namespaces().
  */
@@ -39,6 +45,16 @@ function occupations_comment_update($comment) {
   node_save($node);
 }
 
+/**
+ * Implements hook_comment_delete().
+ */
+function occupations_comment_delete($comment) {
+  // Save node so that comment-based computed fields update.
+  $node = node_load($comment->nid);
+  if ($node->nid) {
+    node_save($node);
+  }
+}
 
 /**
  * Calculate field_comments_new field.

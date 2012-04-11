@@ -497,3 +497,6 @@ $conf['allow_authorize_operations'] = FALSE;
  */
 # $conf['pressflow_smart_start'] = TRUE;
 
+
+
+$conf['googleanalytics_account'] = 'UA-29075652-1';

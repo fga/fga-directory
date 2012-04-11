@@ -1,0 +1,6 @@
+
+Changelog for Revisioning module for drupal 7.
+
+7.x-1.0-alpha1
+==============
+Initial D7 port based on 6.x-3.11.

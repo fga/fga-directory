@@ -20,16 +20,21 @@ h2 {
  margin-bottom: .5em;
 }
 
-.site-name {
- font-size: 2.25em;
- color: white;
- background: black;
- padding: .5em .5em .25em;
+
+a:link, a:visited {
+  color: #4298dd;
+  text-decoration: underline;
 }
 
-.site-name a {
- color: white;
+a:hover, a:active {
+  color: #666;
+  text-decoration: none;
 }
+
+a:active {
+  color: #3a87c5;
+}
+
 
 h3 {
  font-size: 1.375em;
@@ -41,6 +46,25 @@ h1, h2, h3, h4, h5, h6 {
  letter-spacing: .075em;
  color: #333;
 }
+
+
+
+.site-name {
+ font-size: 2.25em;
+ color: white;
+ background: black;
+ padding: .5em .5em .25em;
+}
+.site-name a:link, .site-name a:visited {
+ color: white;
+  text-decoration: none;
+}
+.site-name a:hover {
+ color: #d0d0d0;
+}
+
+
+
 
 nav.navigation {
  margin-top: 30px;
@@ -67,70 +91,114 @@ nav a:hover {
 }
 
 
-.zone-header-wrapper,
-.zone-footer-wrapper {
+.zone-preface-wrapper {
  background-color: #d0d0d0;
 }
 
-.zone-footer-wrapper {
- padding: 1em 0;
- margin-top: 1.5em;
+.zone-content .region-inner {
+  margin-bottom: 66px;
 }
 
-.region-user-second ul li {
+.block-user-menu ul li {
  list-style-type: none;
  display: inline-block;
- background: #d0d0d0;
+ background: #efefef;
  padding: .25em .5em;
  margin-left: 1em;
  float: right;
-}
 
+  border-radius: 0 0 .4em .4em;
+  -moz-border-radius: 0 0 .4em .4m;
+  -webkit-border-radius: 0 0 .4em .4em;
+}
+.block-user-menu ul li a:link, .block-user-menu ul li a:visited {
+  color: #aaa;
+}
+.block-user-menu ul li a:hover {
+  color: #000;
+  text-decoration:none;
+}
 .region-user-second ul li a{
  color: black;
- 
+
 }
 
 .region-user-second {
  margin-top: 1em;
 }
 
+
 /* Occupation Node Detail Formatting */
+
+
+
+article p { /* affect all node types */
+  font-size:.9em;
+  margin-bottom: 1em;
+}
+
 
 
 .field-group-format.grouplinks {
  margin-bottom: 1em;
 }
 
-.content .grid-6 {
+.node-type-occupation .node .content.grid-6 {
  margin-left: 0;
 }
 
-.field-group-format.grouplinks a{
+.field-group-format.grouplinks a,
+ #block-menu-menu-feeds-and-exports li a:link {
  background-color: black;
  color: white;
  display: inline-block;
  font-size: 1em;
  font-weight: 200;
  margin-bottom: .25em;
+ max-width: 90%;
+ overflow: hidden;
  padding: .25em .75em;
  text-decoration: none;
  text-transform: lowercase;
- 
+ line-height:1.1em;
+
   border-radius: .25em;
   -moz-border-radius: .25em;
   -webkit-border-radius: .25em;
- 
+
+}
+ #block-menu-menu-feeds-and-exports li a:link,
+ #block-menu-menu-feeds-and-exports li a:visited {
+ font-family: 'OstrichSansMedium';
+ font-size: 1em;
+ letter-spacing: .1em;
+ background-color: #aaa;
+ color: white;
+
 }
 
-.field-group-format.grouplinks a:hover{
+.field-group-format.grouplinks a:hover,
+ #block-menu-menu-feeds-and-exports li a:hover{
  background-color: #d0d0d0;
  text-decoration: none;
  color: black;
 }
 
+#block-menu-menu-feeds-and-exports li a:hover{
+ background-color: #000;
+ text-decoration: none;
+ color: #efefef;
+}
+
 .field-name-field-occupation-website {
   padding-bottom: 1em;
+}
+
+.field-name-field-occupation-image {
+ float: right;
+ padding-left: 1em;
+ padding-bottom: 1em;
+ padding-top: 1em;
 }
 
 .field-group-format.group_donate_info,
@@ -152,3 +220,226 @@ nav a:hover {
 }
 
 
+
+.node-occupation .node-links {
+  margin-top: 1.5em;
+}
+.node-occupation .node-links li.last a {
+
+}
+
+
+/* Comments */
+
+article.comment {
+  margin-bottom: 1.5em;
+}
+
+article.comment header h3 {
+  margin: 0;  padding: 0;
+}
+article.comment footer { /* author + date */
+  font-size:.8em;
+  font-style:italic;
+  margin-bottom:1.25em;
+  color: #666;
+}
+article.comment .field-name-field-comment-state {
+  background-color: #d6ff7d;
+  padding: 5px 10px;
+  display:inline-block;
+}
+
+article.comment nav.comment-links {
+  margin-top: 1em;
+}
+article.comment nav.comment-links a {
+  font-size: .8em;
+}
+
+/* hide log in or register to post comments since we use talk */
+/*article.comment nav.comment-links li.comment_forbidden {
+	display: none;
+}*/
+
+#comments h2.title {
+  display: none;
+}
+
+div.talk-page li.comment_forbidden,
+div.talk-page li.comment-add {
+  display: inline-block;
+  padding: 1em 0 1em 0;
+  font-size:1.5em;
+  font-style:italic;
+}
+div.talk-page li.comment-add:before {
+  content: "+ ";
+}
+
+/**
+ * VIEWS
+ */
+
+/* Exposed view search form formatting */
+.zone-preface .block {
+ padding: .75em 0;
+}
+
+#views-exposed-form-occupation-directory-occupations-list {
+ font-size: .75em;
+}
+
+#views-exposed-form-occupation-directory-occupations-list label {
+ display: inline;
+ font-weight: normal;
+ padding-left: 2em;
+ padding-right: .5em;
+
+}
+
+#views-exposed-form-occupation-directory-occupations-list input,
+#views-exposed-form-occupation-directory-occupations-list select,
+#views-exposed-form-occupation-directory-occupations-list div {
+ display: inline;
+ margin: 0;
+}
+
+#views-exposed-form-occupation-directory-occupations-list div {
+ padding: 0;
+}
+
+#views-exposed-form-occupation-directory-occupations-list select {
+ max-width: 200px;
+}
+
+#views-exposed-form-occupation-directory-occupations-list input.form-submit {
+ margin-left: .75em;
+}
+
+/* Occupation Directory Views table listing page */
+div.view-display-id-occupations_list table img {
+  padding-right: 8px;
+  vertical-align: middle;
+}
+
+
+
+
+
+
+
+/* Apologies for this hack. Talk messes up the $node->content['links']['comment']['#links']
+   array and override the comment_forbidden key. CSS to the rescue for now. */
+.node-occupation .node-links .first {
+  display: none;
+}
+
+
+#region-content {
+  padding-top:1em;
+/*  min-height: 100%;*/
+}
+
+#section-footer {
+ margin-top: 5em;
+ background: #d0d0d0;
+}
+#zone-footer {}
+#zone-footer #block-menu-menu-feeds-and-exports h2{}
+#block-menu-menu-feeds-and-exports ul,
+#block-menu-menu-add-your-occupation ul {
+  list-style-type: none;
+  margin: 0;
+  line-height:1;
+}
+#block-menu-menu-add-your-occupation {
+  float:right;
+}
+#block-menu-menu-add-your-occupation ul li {
+  list-style: none;
+  font-style: italic;
+  margin-top:-24px;
+  font-size:1.2em;
+}
+#block-menu-menu-add-your-occupation li a:link, #block-menu-menu-add-your-occupation li a:visited {
+  color:#FFF;
+}
+#block-menu-menu-add-your-occupation li a:hover {
+  color:#4298DD;
+  text-decoration:none;
+}
+#block-menu-menu-feeds-and-exports li {
+ display:inline;
+ margin: 0 15px 0 0;
+ padding:0;
+ }
+
+.block .view ul.pager {
+  margin-top:.5em;
+}
+
+
+#region-footer-second #block-block-1 p {
+  padding:0 0 10px;
+  text-align:right;
+  line-height:1;
+}
+
+
+/* front page specific styles */
+
+.front .zone-content .grid-12 {
+	margin-left: 0;
+	margin-right: 0;
+}
+
+.front #region-content {
+	padding: 0;
+}
+.front .zone-content .region-inner {
+    margin-bottom: 0;
+}
+.front footer.section-footer {
+	padding-top: 0 !important;
+}
+.front .zone-footer-wrapper {
+	margin-top: 0;
+}
+.front .grid-6 {
+	width: 45%;
+	float: left;
+}
+
+ div.view-display-id-occupations_list table img {
+ }
+ 
+.openlayers-map .olPopup a:link, .openlayers-map .olPopup a:visited {
+  color: #FFF;
+}
+.openlayers-map .olPopup a:hover {
+  color: #4298DD;
+  text-decoration: none;
+}
+
+
+/* stick the footer at the bottom of the page using CSS only
+TODO: us javascript so that we can also set properties on the map element
+also, not so hot when admin menu is on, and the homepage isn't as nice.
+*/
+html, body.not-front {
+ height: 100%;
+}
+#page {
+  min-height: 100%;
+  position:relative;
+}
+#section-content {
+  padding-bottom: 120px; /* height of the footer */
+}
+#section-footer {
+ position:absolute;
+ bottom: 0;
+ width: 100%;
+ height: 120px;
+}

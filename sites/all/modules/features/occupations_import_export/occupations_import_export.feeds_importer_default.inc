@@ -168,6 +168,21 @@ function occupations_import_export_feeds_importer_default() {
             'target' => 'field_occupation_dontate_info',
             'unique' => FALSE,
           ),
+          26 => array(
+            'source' => 'Occupation Type',
+            'target' => 'field_occupation_type',
+            'unique' => FALSE,
+          ),
+          27 => array(
+            'source' => 'ID',
+            'target' => 'guid',
+            'unique' => 1,
+          ),
+          28 => array(
+            'source' => 'Occupation Type',
+            'target' => 'field_occupation_type',
+            'unique' => FALSE,
+          ),
         ),
         'update_existing' => '2',
         'input_format' => 'plain_text',

@@ -3,12 +3,10 @@ description = A better Toolbar.
 package = Administration
 core = 7.x
 dependencies[] = admin_menu
-files[] = admin_menu_toolbar.module
-files[] = admin_menu_toolbar.install
 
-; Information added by drupal.org packaging script on 2012-01-20
-version = "7.x-3.0-rc1+23-dev"
+; Information added by drupal.org packaging script on 2012-03-09
+version = "7.x-3.0-rc1+55-dev"
 core = "7.x"
 project = "admin_menu"
-datestamp = "1327017666"
+datestamp = "1331294503"
 

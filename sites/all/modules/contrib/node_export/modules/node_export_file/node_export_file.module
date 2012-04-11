@@ -1,0 +1,365 @@
+<?php
+
+/**
+ * @file
+ * The Node export file module.
+ *
+ * Export helper module for handling CCK FileFields, Uploaded files, and Images.
+ */
+
+define('NODE_EXPORT_FILE_FILES_DIR_SUBSTITUTION', '#FILES_DIRECTORY_PATH#');
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function node_export_file_form_node_export_settings_alter(&$form, &$form_state, $form_id) {
+  $form['file'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Export files'),
+  );
+
+  $types = node_type_get_names();
+  $form['file']['node_export_file_types'] = array(
+    '#type' => 'checkboxes',
+    '#title' => t('Files exported for content types'),
+    '#default_value' => variable_get('node_export_file_types', array()),
+    '#options' => $types,
+    '#description' => t('Which content types should export file attachments and uploads?'),
+  );
+}
+
+/**
+ * Implements hook_node_export_node_alter().
+ */
+function node_export_file_node_export_node_alter(&$node, $original_node) {
+  $types = array_filter(variable_get('node_export_file_types', array()));
+  if (in_array($node->type, $types)) {
+    node_export_file_alter_filefield($node, $original_node, 'export', 'node_export_file_filefield_filter');
+    node_export_file_alter_upload($node, $original_node, 'export');
+    node_export_file_alter_image($node, $original_node, 'export');
+  }
+}
+
+/**
+ * Implements hook_node_export_node_import_alter().
+ */
+function node_export_file_node_export_node_import_alter(&$node, $original_node) {
+  node_export_file_alter_filefield($node, $original_node, 'import', 'node_export_file_filefield_filter');
+  node_export_file_alter_upload($node, $original_node, 'import');
+  node_export_file_alter_image($node, $original_node, 'import');
+}
+
+/**
+ * FileField field filter callback used in node_export_file_alter_filefield().
+ */
+function node_export_file_filefield_filter($attribute, $field) {
+  return is_array($field);
+}
+
+/**
+ * Handles importing and exporting File Fields.
+ */
+function node_export_file_alter_upload(&$node, $original_node, $op) {
+  if (isset($original_node->files) && count($original_node->files) > 0) {
+    // Re-attach files, node_export module strips them off
+    $node->files = $original_node->files;
+
+    if ($op == 'export') {
+      // Mark all file uploads as "new", this is required by the upload module
+      foreach ($node->files as $fid => $file) {
+        $node->files[$fid]->new = TRUE;
+      }
+    }
+
+    node_export_file_alter_filefield($node, $original_node, $op, 'node_export_file_upload_filter');
+  }
+}
+
+/**
+ * Upload module field filter callback used in node_export_file_alter_filefield().
+ */
+function node_export_file_upload_filter($attribute, $field) {
+  return ($attribute == 'files' && is_array($field));
+}
+
+/**
+ * Handles importing and exporting photos uploaded to image nodes.  This
+ * is more complicated than for filefields or upload attachments because
+ * the image module doesn't attach the file objects for images to the node.
+ * To get around this we create a special 'image_export_files' attribute
+ * on the node.  This will be stripped off when the node is imported.
+ */
+function node_export_file_alter_image(&$node, $original_node, $op) {
+  // Only act on image nodes
+  if ($node->type != 'image') {
+    return;
+  }
+
+  if ($op == 'export') {
+    // Only export the original image, the build-derivatives attribute
+    // is set later to rebuild all image sizes on the import side
+    $result = db_query(
+      "SELECT f.*
+       FROM {image} AS i
+       INNER JOIN {files} AS f ON i.fid = f.fid
+       WHERE i.nid = :nid AND f.filename = :filename",
+      array(
+        ':nid' => $original_node->nid,
+        ':filename' => IMAGE_ORIGINAL,
+      )
+    );
+    $node->image_export_files = array($result->fetchObject());
+
+    // Unset the images array, this will cause problems during the
+    // 'prepopulate' step during import
+    $node->images = array();
+
+    $node->rebuild_images = TRUE;
+  }
+
+  node_export_file_alter_filefield($node, $original_node, $op, 'node_export_file_image_filter');
+
+  // The file objects have been saved to the database but the rest of the
+  // image tables have not been hooked up yet.
+  if (($op == 'import') && !empty($node->image_export_files)) {
+    $node->images = array();
+
+    // Create the images array based on the imported files
+    foreach ($node->image_export_files as $file) {
+      $node->images[$file->filename] = $file->uri;
+    }
+  }
+}
+
+/**
+ * Upload module field filter callback used in node_export_file_alter_filefield().
+ */
+function node_export_file_image_filter($attribute, $field) {
+  return ($attribute == 'image_export_files' && is_array($field));
+}
+
+/**
+ * Abstract hook_node_export_node_alter() used by filefield, upload, and image.
+ */
+function node_export_file_alter_filefield(&$node, $original_node, $op, $attribute_filter_callback) {
+  $export_var = 'node_export_file_data';
+
+  foreach ($node as $attr => $value) {
+    $field = &$node->$attr;
+
+    // Filter this attribute by callback
+    if (!call_user_func_array($attribute_filter_callback, array('attribute' => $attr, 'field' => $field))) {
+      continue;
+    }
+
+    // Strip off anything that isn't a file, if no files are found skip to
+    // the next attribute
+    if (($files = node_export_file_check_files(array_key_exists($node->language, $field) ? $field[$node->language] : NULL)) == FALSE) {
+      continue;
+    }
+
+    foreach ($files as $i => $file) {
+      // When exporting a node ...
+      if ($op == 'export') {
+        if (!isset($file->uri) || !is_file($file->uri)) {
+          drupal_set_message(t("File upload field found on node, but doesn't exist on disk? '!path'", array('!path' => $file->uri)), 'error');
+          continue;
+        }
+
+        $export_data = base64_encode(file_get_contents($file->uri));
+
+        if (is_object($field[$node->language][$i])) {
+          $field[$node->language][$i]->{$export_var} = $export_data;
+          $field[$node->language][$i]->fid = NULL;
+          node_export_file_clean_local_file_path($field[$node->language][$i]->uri);
+        }
+        elseif (is_array($field[$node->language][$i])) {
+          $field[$node->language][$i][$export_var] = $export_data;
+          $field[$node->language][$i]['fid'] = NULL;
+          node_export_file_clean_local_file_path($field[$node->language][$i]['uri']);
+        }
+      }
+      // When importing a node ...
+      elseif ($op == 'import') {
+        $result = node_export_file_import_file($file);
+
+        // The file was saved successfully, update the file field (by reference)
+        if ($result == TRUE && isset($file->fid)) {
+          if (is_object($field[$node->language][$i])) {
+            $field[$node->language][$i]->fid = $file->fid;
+            $field[$node->language][$i]->uri = $file->uri;
+          }
+          elseif (is_array($field[$node->language][$i])) {
+            $field[$node->language][$i]['fid'] = $file->fid;
+            $field[$node->language][$i]['uri'] = $file->uri;
+          }
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Checks an array of files, removing any that are invalid.
+ *
+ * @return $files or FALSE
+ *   Returns an array of $files objects, or FALSE if there are no files.
+ */
+function node_export_file_check_files($original_files) {
+  $files = array();
+
+  if (is_array($original_files)) {
+    foreach ($original_files as $i => $file) {
+      $file = (object) $file;
+
+      if (isset($file->uri)) {
+        // NOTE: Preserving the $i key is important for later manipulation
+        $files[$i] = $file;
+      }
+    }
+  }
+
+  return (count($files) > 0) ? $files : FALSE;
+}
+
+/**
+ * Replaces the files directory portion of a path with a substition
+ * this forces clients decoding the node export to use their own
+ * files directory path.  This helps get around issues with multi-site
+ * installations and non-standard files directory locations.
+ */
+function node_export_file_clean_local_file_path(&$path) {
+  $path = preg_replace('/^' . preg_quote('public:/', '/') . '/', NODE_EXPORT_FILE_FILES_DIR_SUBSTITUTION, $path);
+}
+
+/**
+ * Replaces the NODE_EXPORT_FILE_FILES_DIR_SUBSTITUTION with the files directory
+ * path, wherever found.
+ */
+function node_export_file_unclean_local_file_path(&$path) {
+  $path = strtr($path, array(NODE_EXPORT_FILE_FILES_DIR_SUBSTITUTION => 'public:/'));
+}
+
+/**
+ * Detects remote and local file exports and imports accordingly.
+ *
+ * @param &$file
+ *   The file, passed by reference.
+ * @return TRUE or FALSE
+ *   Depending on success or failure.  On success the $file object will
+ *   have a valid $file->fid attribute.
+ */
+function node_export_file_import_file(&$file) {
+  // Ensure the filepath is set correctly relative to this Drupal site's
+  // files directory
+  node_export_file_unclean_local_file_path($file->uri);
+
+  // The file is already in the right location AND either the
+  // node_export_file_path is not set or the node_export_file_path and filepath
+  // contain the same file
+  if (is_file($file->uri) &&
+    (
+      (!isset($file->node_export_file_path) || !is_file($file->node_export_file_path)) ||
+      (
+        is_file($file->node_export_file_path) &&
+        filesize($file->uri) == filesize($file->node_export_file_path) &&
+        strtoupper(dechex(crc32(file_get_contents($file->uri)))) ==
+          strtoupper(dechex(crc32(file_get_contents($file->node_export_file_path))))
+      )
+    )
+  ) {
+    // Keep existing file if it exists already at this uri (see also #1023254)
+    // Issue #1058750.
+    $query = db_select('file_managed', 'f')
+        ->fields('f', array('fid'))
+        ->condition('uri', $file->uri)
+        ->execute()
+        ->fetchCol();
+
+    if (!empty($query)) {
+      watchdog('node_export_file_import_file', 'kept existing managed file at uri "%uri"', array('%uri' => $file->uri), WATCHDOG_NOTICE);
+      $file = file_load(array_shift($query));
+    }
+
+    $file = file_save($file);
+  }
+  elseif (isset($file->node_export_file_data)) {
+    $directory = drupal_dirname($file->uri);
+    if (file_prepare_directory($directory, FILE_CREATE_DIRECTORY)) {
+      if (file_put_contents($file->uri, base64_decode($file->node_export_file_data))) {
+        $file = file_save($file);
+      }
+    }
+  }
+  // The file is in a local location, move it to the
+  // destination then finish the save
+  elseif (isset($file->node_export_file_path) && is_file($file->node_export_file_path)) {
+    $directory = drupal_dirname($file->uri);
+    if (file_prepare_directory($directory, FILE_CREATE_DIRECTORY)) {
+      // The $file->node_export_file_path is passed to reference, and modified
+      // by file_unmanaged_copy().  Making a copy to avoid tainting the original.
+      $node_export_file_path = $file->node_export_file_path;
+      file_unmanaged_copy($node_export_file_path, $directory, FILE_EXISTS_REPLACE);
+
+      // At this point the $file->node_export_file_path will contain the
+      // destination of the copied file
+      //$file->uri = $node_export_file_path;
+      $file = file_save($file);
+    }
+  }
+  // The file is in a remote location, attempt to download it
+  elseif (isset($file->node_export_file_url)) {
+    // Need time to do the download
+    ini_set('max_execution_time', 900);
+
+    $temp_path = file_directory_temp() . '/' . md5(mt_rand()) . '.txt';
+    if (($source = fopen($file->node_export_file_url, 'r')) == FALSE) {
+      drupal_set_message(t("Could not open '@file' for reading.", array('@file' => $file->node_export_file_url)));
+      return FALSE;
+    }
+    elseif (($dest = fopen($temp_path, 'w')) == FALSE) {
+      drupal_set_message(t("Could not open '@file' for writing.", array('@file' => $file->uri)));
+      return FALSE;
+    }
+    else {
+      // PHP5 specific, downloads the file and does buffering
+      // automatically.
+      $bytes_read = @stream_copy_to_stream($source, $dest);
+
+      // Flush all buffers and wipe the file statistics cache
+      @fflush($source);
+      @fflush($dest);
+      clearstatcache();
+
+      if ($bytes_read != filesize($temp_path)) {
+        drupal_set_message(t("Remote export '!url' could not be fully downloaded, '@file' to temporary location '!temp'.", array('!url' => $file->node_export_file_url, '@file' => $file->uri, '!temp' => $temp_path)));
+        return FALSE;
+      }
+      // File was downloaded successfully!
+      else {
+        if (!@copy($temp_path, $file->uri)) {
+          unlink($temp_path);
+          drupal_set_message(t("Could not move temporary file '@temp' to '@file'.", array('@temp' => $temp_path, '@file' => $file->uri)));
+          return FALSE;
+        }
+
+        unlink($temp_path);
+        $file->filesize = filesize($file->uri);
+        $file->filemime = file_get_mimetype($file->uri);
+      }
+    }
+
+    fclose($source);
+    fclose($dest);
+
+    $file = file_save($file);
+  }
+  // Unknown error
+  else {
+    drupal_set_message(t("Unknown error occurred attempting to import file: @filepath", array('@filepath' => $file->uri)), 'error');
+    return FALSE;
+  }
+
+  return TRUE;
+}
+

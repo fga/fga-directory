@@ -8,22 +8,17 @@
  */
 
 /**
- * Implementation of hook_init().
- *
- * @todo Add another admin_menu hook to avoid cluttering hook_init().
+ * Implementation of hook_page_build().
  */
-function admin_menu_toolbar_init() {
-  if (!user_access('access administration menu') || admin_menu_suppress(FALSE)) {
-    return;
-  }
-  // Performance: Skip this entirely for AJAX requests.
-  if (strpos($_GET['q'], 'js/') === 0) {
+function admin_menu_toolbar_page_build(&$page) {
+  if (!isset($page['page_bottom']['admin_menu'])) {
     return;
   }
   $path = drupal_get_path('module', 'admin_menu_toolbar');
-  drupal_add_css($path . '/admin_menu_toolbar.css', array('preprocess' => FALSE));
-  // Performance: Defer execution.
-  drupal_add_js($path . '/admin_menu_toolbar.js', array('defer' => TRUE));
+  $attached = &$page['page_bottom']['admin_menu']['#attached'];
+
+  $attached['css'][] = $path . '/admin_menu_toolbar.css';
+  $attached['js'][] = $path . '/admin_menu_toolbar.js';
 
   $settings = array();
   // Add current path to support menu item highlighting.
@@ -35,7 +30,11 @@ function admin_menu_toolbar_init() {
   elseif (drupal_is_front_page()) {
     $settings['activeTrail'] = url('<front>');
   }
-  drupal_add_js(array('admin_menu' => array('toolbar' => $settings)), 'setting');
+
+  $attached['js'][] = array(
+    'data' => array('admin_menu' => array('toolbar' => $settings)),
+    'type' => 'setting',
+  );
 }
 
 /**

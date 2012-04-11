@@ -171,16 +171,13 @@ function _uuid_sync_table($table, $id_field, $uuid_field) {
  * identify all dependencies for all entities.
  */
 function uuid_features_api() {
-  if (module_exists('deploy')) {
-    return array(
-      'uuid_entities' => array(
-        'name' => t('UUID entities'),
-        'default_hook' => 'uuid_default_entities',
-        'default_file' => FEATURES_DEFAULTS_INCLUDED,
-        'features_source' => TRUE,
-        'file' => drupal_get_path('module', 'uuid') .'/uuid.features.inc',
-      ),
-    );
-  }
-  return array();
+  return array(
+    'uuid_entities' => array(
+      'name' => t('UUID entities'),
+      'default_hook' => 'uuid_default_entities',
+      'default_file' => FEATURES_DEFAULTS_INCLUDED,
+      'features_source' => TRUE,
+      'file' => drupal_get_path('module', 'uuid') .'/uuid.features.inc',
+    ),
+  );
 }

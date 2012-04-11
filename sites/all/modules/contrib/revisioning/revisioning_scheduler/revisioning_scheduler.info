@@ -1,0 +1,11 @@
+name = Revisioning Scheduler
+description = "Allows revisions to be published at specified times."
+core = "7.x"
+version = "7.x-dev"
+
+; Information added by drupal.org packaging script on 2012-01-17
+version = "7.x-1.3"
+core = "7.x"
+project = "revisioning"
+datestamp = "1326771044"
+

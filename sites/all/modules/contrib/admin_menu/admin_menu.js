@@ -70,7 +70,7 @@ Drupal.behaviors.adminMenuCollapsePermissions = {
       // Freeze width of first column to prevent jumping.
       $('#permissions th:first', context).css({ width: $('#permissions th:first', context).width() });
       // Attach click handler.
-      $('#permissions tr:has(td.module)', context).once('admin-menu-tweak-permissions', function () {
+      $modules = $('#permissions tr:has(td.module)', context).once('admin-menu-tweak-permissions', function () {
         var $module = $(this);
         $module.bind('click.admin-menu', function () {
           // @todo Replace with .nextUntil() in jQuery 1.4.
@@ -82,7 +82,11 @@ Drupal.behaviors.adminMenuCollapsePermissions = {
             $row.toggleClass('element-hidden');
           });
         });
-      }).trigger('click.admin-menu');
+      });
+      // Get fragment from current URL.
+      var fragment = window.location.hash || '#';
+      // Collapse all but the targeted permission rows set.
+      $modules.not(':has(' + fragment + ')').trigger('click.admin-menu');
     }
   }
 };
@@ -125,6 +129,21 @@ Drupal.admin.getCache = function (hash, onSuccess) {
       Drupal.admin.hashes.hash = status;
     }
   });
+};
+
+/**
+ * TableHeader callback to determine top viewport offset.
+ *
+ * @see toolbar.js
+ */
+Drupal.admin.height = function() {
+  var height = $('#admin-menu').outerHeight();
+  // In IE, Shadow filter adds some extra height, so we need to remove it from
+  // the returned height.
+  if ($('#admin-menu').css('filter') && $('#admin-menu').css('filter').match(/DXImageTransform\.Microsoft\.Shadow/)) {
+    height -= $('#admin-menu').get(0).filters.item("DXImageTransform.Microsoft.Shadow").strength;
+  }
+  return height;
 };
 
 /**

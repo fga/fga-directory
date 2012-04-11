@@ -51,7 +51,7 @@ function admin_menu_theme() {
       'render element' => 'elements',
     ),
     'admin_menu_icon' => array(
-      'variables' => array(),
+      'variables' => array('src' => NULL, 'alt' => NULL),
       'file' => 'admin_menu.inc',
     ),
   );
@@ -110,14 +110,33 @@ function admin_menu_menu_alter(&$items) {
 }
 
 /**
- * Implements hook_init().
- *
- * We can't move this into admin_menu_footer(), because PHP-only based themes
- * like chameleon load and output scripts and stylesheets in front of
- * theme_closure(), so we ensure Admin menu's styles and scripts are loaded on
- * all pages via hook_init().
+ * Implements hook_menu_link_insert().
  */
-function admin_menu_init() {
+function admin_menu_menu_link_insert($link) {
+  // Flush all of our caches to pick up the link.
+  admin_menu_flush_caches();
+}
+
+/**
+ * Implements hook_menu_link_update().
+ */
+function admin_menu_menu_link_update($link) {
+  // Flush all of our caches to pick up the link.
+  admin_menu_flush_caches();
+}
+
+/**
+ * Implements hook_menu_link_delete().
+ */
+function admin_menu_menu_link_delete($link) {
+  // Flush all of our caches to pick up the link.
+  admin_menu_flush_caches();
+}
+
+/**
+ * Implements hook_page_build().
+ */
+function admin_menu_page_build(&$page) {
   if (!user_access('access administration menu') || admin_menu_suppress(FALSE)) {
     return;
   }
@@ -126,23 +145,29 @@ function admin_menu_init() {
     return;
   }
   global $user, $language;
-
   $path = drupal_get_path('module', 'admin_menu');
-  drupal_add_css($path . '/admin_menu.css');
+
+  $page['page_bottom']['admin_menu'] = array(
+    '#markup' => admin_menu_output(),
+    '#attached' => array(),
+  );
+  $attached = &$page['page_bottom']['admin_menu']['#attached'];
+
+  $attached['css'][] = $path . '/admin_menu.css';
   if ($user->uid == 1) {
-    drupal_add_css($path . '/admin_menu.uid1.css');
+    $attached['css'][] = $path . '/admin_menu.uid1.css';
   }
   // Previous versions used the 'defer' attribute to increase browser rendering
   // performance. At least starting with Firefox 3.6, deferred .js files are
   // loaded, but Drupal.behaviors are not contained in the DOM when drupal.js
   // executes Drupal.attachBehaviors().
-  drupal_add_js($path . '/admin_menu.js');
+  $attached['js'][] = $path . '/admin_menu.js';
 
   // Destination query strings are applied via JS.
   $settings['destination'] = drupal_http_build_query(drupal_get_destination());
 
   // Hash for client-side HTTP/AJAX caching.
-  $cid = 'admin_menu:' . session_id() . ':' . $language->language;
+  $cid = 'admin_menu:' . $user->uid . ':' . session_id() . ':' . $language->language;
   if (!empty($_COOKIE['has_js']) && ($hash = admin_menu_cache_get($cid))) {
     $settings['hash'] = $hash;
     // The base path to use for cache requests depends on whether clean URLs
@@ -162,9 +187,21 @@ function admin_menu_init() {
 
   if ($setting = variable_get('admin_menu_margin_top', 1)) {
     $settings['margin_top'] = $setting;
+    // @todo Drupal.behaviors.adminMenuMarginTop is obsolete, but
+    //   hook_page_build() does not allow to set a CSS class on the body yet.
+    // @see http://drupal.org/node/1473548, http://drupal.org/node/1194528
+    //$page['#attributes']['class'][] = 'admin-menu';
   }
   if ($setting = variable_get('admin_menu_position_fixed', 0)) {
     $settings['position_fixed'] = $setting;
+
+    // In fixed positioning, supply a callback function for tableheader.js to
+    // allow it to determine the top viewport offset.
+    // @see admin_menu.js, toolbar.js
+    $attached['js'][] = array(
+      'data' => array('tableHeaderOffset' => 'Drupal.admin.height'),
+      'type' => 'setting',
+    );
   }
   if ($setting = variable_get('admin_menu_tweak_tabs', 0)) {
     $settings['tweak_tabs'] = $setting;
@@ -176,7 +213,10 @@ function admin_menu_init() {
     $settings['tweak_permissions'] = variable_get('admin_menu_tweak_permissions', 0);
   }
 
-  drupal_add_js(array('admin_menu' => $settings), 'setting');
+  $attached['js'][] = array(
+    'data' => array('admin_menu' => $settings),
+    'type' => 'setting',
+  );
 }
 
 /**
@@ -199,15 +239,6 @@ function admin_menu_suppress($set = TRUE) {
     drupal_add_js(array('admin_menu' => array('suppress' => 1)), 'setting');
   }
   return $suppress;
-}
-
-/**
- * Implements hook_page_alter().
- */
-function admin_menu_page_alter(&$page) {
-  $page['page_bottom']['admin_menu'] = array(
-    '#markup' => admin_menu_output(),
-  );
 }
 
 /**
@@ -236,7 +267,7 @@ function admin_menu_js() {
  *   The cache ID of the data to retrieve.
  */
 function admin_menu_cache_get($cid) {
-  static $cache = array();
+  $cache = &drupal_static(__FUNCTION__, array());
 
   if (!variable_get('admin_menu_cache_client', TRUE)) {
     return FALSE;
@@ -299,11 +330,12 @@ function admin_menu_js_cache($hash = NULL) {
     }
   }
 
-  $expires = REQUEST_TIME + (3600 * 24 * 365);
-  header('Expires: ' . gmdate(DATE_RFC1123, $expires));
+  $max_age = 3600 * 24 * 365;
+  header('Expires: ' . gmdate(DATE_RFC1123, REQUEST_TIME + $max_age));
   header('Last-Modified: ' . gmdate(DATE_RFC1123, REQUEST_TIME));
-  header('Cache-Control: max-age=' . $expires);
-  header('Content-Length: ' . strlen($content));
+  header('Cache-Control: max-age=' . $max_age . ', private');
+  header('Content-Length: ' . drupal_strlen($content));
+  header('Content-Type: text/html; charset=utf-8');
 
   // Suppress Devel module.
   $GLOBALS['devel_shutdown'] = FALSE;
@@ -372,7 +404,7 @@ function admin_menu_output() {
   global $user, $language;
 
   $cache_server_enabled = variable_get('admin_menu_cache_server', TRUE);
-  $cid = 'admin_menu:' . session_id() . ':' . $language->language;
+  $cid = 'admin_menu:' . $user->uid . ':' . session_id() . ':' . $language->language;
 
   // Do nothing at all here if the client supports client-side caching, the user
   // has a hash, and is NOT requesting the cache update path. Consult the hash
@@ -426,7 +458,7 @@ function admin_menu_output() {
 
     // Allow modules to alter the output.
     // The '_output' suffix is required to prevent hook implementation function
-    // name clashes with Admin module.
+    // name clashes with the contributed Admin module.
     drupal_alter('admin_menu_output', $content);
 
     $content = drupal_render($content);
@@ -449,7 +481,16 @@ function admin_menu_output() {
  * Implements hook_admin_menu_output_build().
  */
 function admin_menu_admin_menu_output_build(&$content) {
-  // Add "Add content" link tree on the top level.
+  // Unassign weights for categories below Configuration.
+  // An alphabetical order is more natural for a dropdown menu.
+  if ($content['menu']['admin/config']) {
+    foreach (element_children($content['menu']['admin/config']) as $key) {
+      $content['menu']['admin/config'][$key]['#weight_original'] = $content['menu']['admin/config'][$key]['#weight'];
+      unset($content['menu']['admin/config'][$key]['#weight']);
+    }
+  }
+
+  // Retrieve the "Add content" link tree.
   $link = db_query("SELECT * FROM {menu_links} WHERE router_path = 'node/add' AND module = 'system'")->fetchAssoc();
   $conditions = array();
   for ($i = 1; $i < MENU_MAX_DEPTH; $i++) {
@@ -463,9 +504,17 @@ function admin_menu_admin_menu_output_build(&$content) {
   ));
   $links = admin_menu_links_menu($tree);
   if (!empty($links)) {
-    $key = key($links);
-    $links[$key]['#weight'] = -100;
-    $content['menu'] += $links;
+    // If the user has access to the top-level "Content" category, insert the
+    // "Add content" link tree there.
+    if (isset($content['menu']['admin/content'])) {
+      $content['menu']['admin/content'] += $links;
+    }
+    // Otherwise make insert "Add content" as top-level category.
+    else {
+      $key = key($links);
+      $links[$key]['#weight'] = -100;
+      $content['menu'] += $links;
+    }
   }
 }
 
@@ -475,7 +524,7 @@ function admin_menu_admin_menu_output_build(&$content) {
 function admin_menu_admin_menu_output_alter(&$content) {
   foreach ($content['menu'] as $key => $link) {
     // Move local tasks on 'admin' into icon menu.
-    if ($link['#href'] == 'admin/tasks' || $link['#href'] == 'admin/index') {
+    if ($key == 'admin/tasks' || $key == 'admin/index') {
       $content['icon']['icon'][$key] = $link;
       unset($content['menu'][$key]);
     }
@@ -636,25 +685,63 @@ function admin_menu_translated_menu_link_alter(&$item, $map) {
 /**
  * Implements hook_flush_caches().
  *
- * Flush client-side caches.
+ * Flushes client-side caches.
+ *
+ * @param int $uid
+ *   (optional) A user ID to limit the cache flush to.
  */
-function admin_menu_flush_caches() {
+function admin_menu_flush_caches($uid = NULL) {
+  $cid = 'admin_menu:';
+  if (isset($uid)) {
+    $cid .= $uid . ':';
+  }
   // Flush cached output of admin_menu.
-  cache_clear_all('admin_menu:', 'cache_menu', TRUE);
+  cache_clear_all($cid, 'cache_menu', TRUE);
   // Flush client-side cache hashes.
+  drupal_static_reset('admin_menu_cache_get');
   // db_table_exists() required for SimpleTest.
   if (db_table_exists('cache_admin_menu')) {
-    cache_clear_all('*', 'cache_admin_menu', TRUE);
+    cache_clear_all(isset($uid) ? $cid : '*', 'cache_admin_menu', TRUE);
   }
 }
 
 /**
- * Implements hook_form_FORM_ID_alter().
- *
- * Form submit handler to flush client-side cache hashes when clean URLs are toggled.
+ * Implements hook_form_alter().
  */
-function admin_menu_form_system_clean_url_settings_alter(&$form, $form_state) {
-  $form['#submit'][] = 'admin_menu_flush_caches';
+function admin_menu_form_alter(&$form, &$form_state, $form_id) {
+  $global_flush_ids = array(
+    // Update links for clean/non-clean URLs.
+    'system_clean_url_settings' => 1,
+    // Incorporate changed user permissions.
+    'user_admin_permissions' => 1,
+    // Removing a role potentially means less permissions.
+    'user_admin_role_delete_confirm' => 1,
+    // User name and roles may be changed on the user account form.
+    'user_profile_form' => 1,
+  );
+  if (isset($global_flush_ids[$form_id])) {
+    $form['#submit'][] = 'admin_menu_form_alter_flush_cache_submit';
+  }
+
+  // Optionally limit the cache flush to a certain user ID.
+  $form_state['admin_menu_uid'] = NULL;
+  if ($form_id == 'user_profile_form') {
+    $form_state['admin_menu_uid'] = $form_state['user']->uid;
+  }
+
+  // UX: Add a confirmation to the permissions form to ask the user whether to
+  // auto-enable the 'access administration menu' permission along with
+  // 'access administration pages'.
+  if ($form_id == 'user_admin_permissions') {
+    $form['#attached']['js'][] = drupal_get_path('module', 'admin_menu') . '/admin_menu.admin.js';
+  }
+}
+
+/**
+ * Form submission handler to flush Administration menu caches.
+ */
+function admin_menu_form_alter_flush_cache_submit($form, &$form_state) {
+  admin_menu_flush_caches($form_state['admin_menu_uid']);
 }
 
 /**
@@ -663,6 +750,6 @@ function admin_menu_form_system_clean_url_settings_alter(&$form, $form_state) {
  * Extends Devel module with Administration menu developer settings.
  */
 function admin_menu_form_devel_admin_settings_alter(&$form, &$form_state) {
-  module_load_include('inc', 'admin_menu');
+  form_load_include($form_state, 'inc', 'admin_menu');
   _admin_menu_form_devel_admin_settings_alter($form, $form_state);
 }

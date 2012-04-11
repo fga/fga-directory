@@ -49,7 +49,7 @@ function occupations_field_default_fields() {
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
-          'weight' => '1',
+          'weight' => '0',
         ),
       ),
       'entity_type' => 'comment',
@@ -116,7 +116,7 @@ function occupations_field_default_fields() {
           'module' => 'list',
           'settings' => array(),
           'type' => 'list_default',
-          'weight' => '0',
+          'weight' => '1',
         ),
       ),
       'entity_type' => 'comment',
@@ -175,10 +175,15 @@ function occupations_field_default_fields() {
       'display' => array(
         'default' => array(
           'label' => 'above',
-          'module' => 'computed_field',
           'settings' => array(),
-          'type' => 'computed_field_plain',
-          'weight' => 29,
+          'type' => 'hidden',
+          'weight' => '25',
+        ),
+        'full' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '11',
         ),
         'rss' => array(
           'label' => 'above',
@@ -249,10 +254,15 @@ function occupations_field_default_fields() {
       'display' => array(
         'default' => array(
           'label' => 'above',
-          'module' => 'computed_field',
           'settings' => array(),
-          'type' => 'computed_field_plain',
-          'weight' => 26,
+          'type' => 'hidden',
+          'weight' => '22',
+        ),
+        'full' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '10',
         ),
         'rss' => array(
           'label' => 'above',
@@ -323,10 +333,15 @@ function occupations_field_default_fields() {
       'display' => array(
         'default' => array(
           'label' => 'above',
-          'module' => 'computed_field',
           'settings' => array(),
-          'type' => 'computed_field_plain',
-          'weight' => 28,
+          'type' => 'hidden',
+          'weight' => '24',
+        ),
+        'full' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '8',
         ),
         'rss' => array(
           'label' => 'above',
@@ -397,10 +412,15 @@ function occupations_field_default_fields() {
       'display' => array(
         'default' => array(
           'label' => 'above',
-          'module' => 'computed_field',
           'settings' => array(),
-          'type' => 'computed_field_plain',
-          'weight' => 27,
+          'type' => 'hidden',
+          'weight' => '23',
+        ),
+        'full' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '9',
         ),
         'rss' => array(
           'label' => 'above',
@@ -476,7 +496,7 @@ function occupations_field_default_fields() {
             'use_widget_handlers' => 1,
           ),
           'type' => 'addressfield_default',
-          'weight' => '1',
+          'weight' => '8',
         ),
         'full' => array(
           'label' => 'hidden',
@@ -488,7 +508,7 @@ function occupations_field_default_fields() {
             'use_widget_handlers' => 1,
           ),
           'type' => 'addressfield_default',
-          'weight' => '8',
+          'weight' => '17',
         ),
         'rss' => array(
           'label' => 'hidden',
@@ -567,21 +587,21 @@ function occupations_field_default_fields() {
       'bundle' => 'occupation',
       'default_value' => NULL,
       'deleted' => '0',
-      'description' => '',
+      'description' => 'Describe in a paragraph what differentiates your occupation from others, how you operate, a bit about your history, physical location, or other details that tell your story.',
       'display' => array(
         'default' => array(
           'label' => 'above',
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
-          'weight' => '3',
+          'weight' => '2',
         ),
         'full' => array(
-          'label' => 'above',
+          'label' => 'hidden',
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
-          'weight' => '6',
+          'weight' => '15',
         ),
         'rss' => array(
           'label' => 'hidden',
@@ -758,10 +778,10 @@ function occupations_field_default_fields() {
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
-          'weight' => '25',
+          'weight' => '20',
         ),
         'full' => array(
-          'label' => 'above',
+          'label' => 'hidden',
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
@@ -792,7 +812,7 @@ function occupations_field_default_fields() {
         'active' => 1,
         'module' => 'text',
         'settings' => array(
-          'size' => '120',
+          'size' => '160',
         ),
         'type' => 'text_textfield',
         'weight' => '20',
@@ -826,14 +846,14 @@ function occupations_field_default_fields() {
           'module' => 'email',
           'settings' => array(),
           'type' => 'email_default',
-          'weight' => '5',
+          'weight' => '6',
         ),
         'full' => array(
           'label' => 'hidden',
           'module' => 'email',
           'settings' => array(),
           'type' => 'email_plain',
-          'weight' => '4',
+          'weight' => '11',
         ),
         'rss' => array(
           'label' => 'hidden',
@@ -863,7 +883,7 @@ function occupations_field_default_fields() {
           'size' => '60',
         ),
         'type' => 'email_textfield',
-        'weight' => '5',
+        'weight' => '6',
       ),
     ),
   );
@@ -893,13 +913,13 @@ function occupations_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '21',
+          'weight' => '27',
         ),
         'full' => array(
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '15',
+          'weight' => '12',
         ),
         'rss' => array(
           'label' => 'hidden',
@@ -929,7 +949,7 @@ function occupations_field_default_fields() {
           'size' => '60',
         ),
         'type' => 'email_textfield',
-        'weight' => '6',
+        'weight' => '7',
       ),
     ),
   );
@@ -942,6 +962,9 @@ function occupations_field_default_fields() {
       'deleted' => '0',
       'entity_types' => array(),
       'field_name' => 'field_occupation_facebook',
+      'field_permissions' => array(
+        'type' => '0',
+      ),
       'foreign keys' => array(),
       'indexes' => array(),
       'module' => 'link',
@@ -999,7 +1022,7 @@ function occupations_field_default_fields() {
       ),
       'entity_type' => 'node',
       'field_name' => 'field_occupation_facebook',
-      'label' => 'Facebook Pages',
+      'label' => 'Facebook Page(s)',
       'required' => 0,
       'settings' => array(
         'attributes' => array(
@@ -1025,7 +1048,7 @@ function occupations_field_default_fields() {
         'module' => 'link',
         'settings' => array(),
         'type' => 'link_field',
-        'weight' => '18',
+        'weight' => '15',
       ),
     ),
   );
@@ -1063,21 +1086,21 @@ function occupations_field_default_fields() {
       'bundle' => 'occupation',
       'default_value' => NULL,
       'deleted' => '0',
-      'description' => '',
+      'description' => 'Describe how often and where your General Assembly takes place. Provide a link to additional information, if you have one.',
       'display' => array(
         'default' => array(
           'label' => 'above',
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
-          'weight' => '7',
+          'weight' => '4',
         ),
         'full' => array(
           'label' => 'inline',
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
-          'weight' => '7',
+          'weight' => '17',
         ),
         'rss' => array(
           'label' => 'hidden',
@@ -1160,7 +1183,7 @@ function occupations_field_default_fields() {
             'geofield_map_zoom' => '8',
           ),
           'type' => 'geofield_map_map',
-          'weight' => '20',
+          'weight' => '21',
         ),
         'full' => array(
           'label' => 'hidden',
@@ -1182,10 +1205,10 @@ function occupations_field_default_fields() {
             'geofield_map_scrollwheel' => 0,
             'geofield_map_streetview_show' => 0,
             'geofield_map_width' => '100%',
-            'geofield_map_zoom' => '8',
+            'geofield_map_zoom' => '12',
           ),
           'type' => 'geofield_map_map',
-          'weight' => '9',
+          'weight' => '18',
         ),
         'rss' => array(
           'label' => 'hidden',
@@ -1221,11 +1244,11 @@ function occupations_field_default_fields() {
             'field_occupation_address' => 'field_occupation_address',
           ),
           'geocoder_hander' => '',
-          'geocoder_handler' => 'google',
+          'geocoder_handler' => 'yahoo',
           'geocoder_presave' => 1,
         ),
         'type' => 'geocoder',
-        'weight' => '4',
+        'weight' => '5',
       ),
     ),
   );
@@ -1282,10 +1305,10 @@ function occupations_field_default_fields() {
           'module' => 'image',
           'settings' => array(
             'image_link' => '',
-            'image_style' => '',
+            'image_style' => 'thumbnail',
           ),
           'type' => 'image',
-          'weight' => '10',
+          'weight' => '9',
         ),
         'rss' => array(
           'label' => 'hidden',
@@ -1304,6 +1327,22 @@ function occupations_field_default_fields() {
         ),
       ),
       'entity_type' => 'node',
+      'ffp_field_occupation_image' => array(
+        'active_updating' => 0,
+        'file_name' => '[file:ffp-name-only-original].[file:ffp-extension-original]',
+        'file_name_cleanup' => array(
+          'file_name_pathauto' => 1,
+          'file_name_tolower' => 1,
+          'file_name_transliterate' => 1,
+        ),
+        'file_path' => 'images/occupations/icons',
+        'file_path_cleanup' => array(
+          'file_path_pathauto' => 1,
+          'file_path_tolower' => 1,
+          'file_path_transliterate' => 1,
+        ),
+        'retroactive_update' => 0,
+      ),
       'field_name' => 'field_occupation_image',
       'label' => 'Occupation Image or Icon',
       'required' => 0,
@@ -1312,7 +1351,7 @@ function occupations_field_default_fields() {
         'file_directory' => 'images/occupations/icons',
         'file_extensions' => 'png gif jpg jpeg',
         'max_filesize' => '',
-        'max_resolution' => '1200x1200',
+        'max_resolution' => '1600x1600',
         'min_resolution' => '60x60',
         'title_field' => 0,
         'user_register_form' => FALSE,
@@ -1321,6 +1360,21 @@ function occupations_field_default_fields() {
         'active' => 1,
         'module' => 'image',
         'settings' => array(
+          'filefield_sources' => array(
+            'filefield_sources' => array(
+              'attach' => 0,
+              'reference' => 0,
+              'remote' => 'remote',
+            ),
+            'source_attach' => array(
+              'absolute' => '0',
+              'attach_mode' => 'copy',
+              'path' => 'file_attach',
+            ),
+            'source_reference' => array(
+              'autocomplete' => '0',
+            ),
+          ),
           'preview_image_style' => 'thumbnail',
           'progress_indicator' => 'throbber',
         ),
@@ -1338,6 +1392,9 @@ function occupations_field_default_fields() {
       'deleted' => '0',
       'entity_types' => array(),
       'field_name' => 'field_occupation_live_video',
+      'field_permissions' => array(
+        'type' => '0',
+      ),
       'foreign keys' => array(),
       'indexes' => array(),
       'module' => 'link',
@@ -1421,7 +1478,7 @@ function occupations_field_default_fields() {
         'module' => 'link',
         'settings' => array(),
         'type' => 'link_field',
-        'weight' => '23',
+        'weight' => '17',
       ),
     ),
   );
@@ -1500,7 +1557,7 @@ function occupations_field_default_fields() {
         'attributes' => array(
           'class' => '',
           'configurable_title' => 0,
-          'rel' => '',
+          'rel' => 'nofollow',
           'target' => '_blank',
           'title' => '',
         ),
@@ -1520,7 +1577,7 @@ function occupations_field_default_fields() {
         'module' => 'link',
         'settings' => array(),
         'type' => 'link_field',
-        'weight' => '17',
+        'weight' => '16',
       ),
     ),
   );
@@ -1567,13 +1624,13 @@ function occupations_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '24',
+          'weight' => '30',
         ),
         'full' => array(
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '18',
+          'weight' => '15',
         ),
         'rss' => array(
           'label' => 'above',
@@ -1602,7 +1659,7 @@ function occupations_field_default_fields() {
           'display_label' => 1,
         ),
         'type' => 'options_onoff',
-        'weight' => '32',
+        'weight' => '36',
       ),
     ),
   );
@@ -1615,6 +1672,9 @@ function occupations_field_default_fields() {
       'deleted' => '0',
       'entity_types' => array(),
       'field_name' => 'field_occupation_newspaper_url',
+      'field_permissions' => array(
+        'type' => '0',
+      ),
       'foreign keys' => array(),
       'indexes' => array(),
       'module' => 'link',
@@ -1686,7 +1746,7 @@ function occupations_field_default_fields() {
           'url_cutoff' => '80',
         ),
         'enable_tokens' => 0,
-        'title' => 'none',
+        'title' => 'optional',
         'title_maxlength' => '128',
         'title_value' => '',
         'url' => 0,
@@ -1698,7 +1758,7 @@ function occupations_field_default_fields() {
         'module' => 'link',
         'settings' => array(),
         'type' => 'link_field',
-        'weight' => '16',
+        'weight' => '13',
       ),
     ),
   );
@@ -1742,13 +1802,13 @@ function occupations_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '23',
+          'weight' => '29',
         ),
         'full' => array(
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '17',
+          'weight' => '14',
         ),
         'rss' => array(
           'label' => 'above',
@@ -1778,7 +1838,7 @@ function occupations_field_default_fields() {
           'rows' => '5',
         ),
         'type' => 'text_textarea',
-        'weight' => '30',
+        'weight' => '35',
       ),
     ),
   );
@@ -1816,19 +1876,20 @@ function occupations_field_default_fields() {
       'bundle' => 'occupation',
       'default_value' => NULL,
       'deleted' => '0',
-      'description' => 'This field is not publicly viewable.',
+      'description' => 'Data carried over from the initial import that we didn\'t quite know where to put. Should be migrated by occupation owners or curators, else it will eventually be deleted.
+[This field is not publicly viewable.]',
       'display' => array(
         'default' => array(
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '22',
+          'weight' => '28',
         ),
         'full' => array(
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '16',
+          'weight' => '13',
         ),
         'rss' => array(
           'label' => 'above',
@@ -1848,7 +1909,7 @@ function occupations_field_default_fields() {
       'label' => 'Legacy notes',
       'required' => 0,
       'settings' => array(
-        'text_processing' => '1',
+        'text_processing' => '0',
         'user_register_form' => FALSE,
       ),
       'widget' => array(
@@ -1858,7 +1919,7 @@ function occupations_field_default_fields() {
           'rows' => '5',
         ),
         'type' => 'text_textarea',
-        'weight' => '29',
+        'weight' => '34',
       ),
     ),
   );
@@ -1878,6 +1939,8 @@ function occupations_field_default_fields() {
       'indexes' => array(),
       'module' => 'date',
       'settings' => array(
+        'cache_count' => '4',
+        'cache_enabled' => 0,
         'granularity' => array(
           'day' => 'day',
           'hour' => 0,
@@ -1896,7 +1959,7 @@ function occupations_field_default_fields() {
     'field_instance' => array(
       'bundle' => 'occupation',
       'deleted' => '0',
-      'description' => '',
+      'description' => 'The date your Occupation was founded.',
       'display' => array(
         'default' => array(
           'label' => 'inline',
@@ -1909,7 +1972,7 @@ function occupations_field_default_fields() {
             'multiple_to' => '',
           ),
           'type' => 'date_default',
-          'weight' => '2',
+          'weight' => '1',
         ),
         'full' => array(
           'label' => 'inline',
@@ -1922,7 +1985,7 @@ function occupations_field_default_fields() {
             'multiple_to' => '',
           ),
           'type' => 'date_default',
-          'weight' => '11',
+          'weight' => '8',
         ),
         'rss' => array(
           'label' => 'hidden',
@@ -1946,7 +2009,7 @@ function occupations_field_default_fields() {
       ),
       'entity_type' => 'node',
       'field_name' => 'field_occupation_origin_date',
-      'label' => 'Occupation founded date',
+      'label' => 'Founded',
       'required' => 0,
       'settings' => array(
         'default_value' => 'blank',
@@ -1980,6 +2043,9 @@ function occupations_field_default_fields() {
       'deleted' => '0',
       'entity_types' => array(),
       'field_name' => 'field_occupation_other_websites',
+      'field_permissions' => array(
+        'type' => '0',
+      ),
       'foreign keys' => array(),
       'indexes' => array(),
       'module' => 'link',
@@ -2005,7 +2071,7 @@ function occupations_field_default_fields() {
       'bundle' => 'occupation',
       'default_value' => NULL,
       'deleted' => '0',
-      'description' => '',
+      'description' => 'These are other websites your Occupation hosts, like a wiki, another brochure site, or forums, etc. Please put social media sites like tumblr in the next category.',
       'display' => array(
         'default' => array(
           'label' => 'above',
@@ -2037,7 +2103,7 @@ function occupations_field_default_fields() {
       ),
       'entity_type' => 'node',
       'field_name' => 'field_occupation_other_websites',
-      'label' => 'Other websites',
+      'label' => 'Additional Occupation websites',
       'required' => 0,
       'settings' => array(
         'attributes' => array(
@@ -2063,7 +2129,7 @@ function occupations_field_default_fields() {
         'module' => 'link',
         'settings' => array(),
         'type' => 'link_field',
-        'weight' => '12',
+        'weight' => '21',
       ),
     ),
   );
@@ -2110,14 +2176,14 @@ function occupations_field_default_fields() {
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
-          'weight' => '6',
+          'weight' => '7',
         ),
         'full' => array(
           'label' => 'hidden',
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
-          'weight' => '5',
+          'weight' => '12',
         ),
         'rss' => array(
           'label' => 'hidden',
@@ -2148,7 +2214,7 @@ function occupations_field_default_fields() {
           'size' => '60',
         ),
         'type' => 'text_textfield',
-        'weight' => '4',
+        'weight' => '5',
       ),
     ),
   );
@@ -2192,14 +2258,14 @@ function occupations_field_default_fields() {
           'module' => 'list',
           'settings' => array(),
           'type' => 'list_default',
-          'weight' => '8',
+          'weight' => '3',
         ),
         'full' => array(
-          'label' => 'inline',
+          'label' => 'hidden',
           'module' => 'list',
           'settings' => array(),
           'type' => 'list_default',
-          'weight' => '12',
+          'weight' => '16',
         ),
         'rss' => array(
           'label' => 'hidden',
@@ -2323,7 +2389,7 @@ function occupations_field_default_fields() {
         'module' => 'link',
         'settings' => array(),
         'type' => 'link_field',
-        'weight' => '13',
+        'weight' => '14',
       ),
     ),
   );
@@ -2336,6 +2402,9 @@ function occupations_field_default_fields() {
       'deleted' => '0',
       'entity_types' => array(),
       'field_name' => 'field_occupation_social_sites',
+      'field_permissions' => array(
+        'type' => '0',
+      ),
       'foreign keys' => array(),
       'indexes' => array(),
       'module' => 'link',
@@ -2361,7 +2430,7 @@ function occupations_field_default_fields() {
       'bundle' => 'occupation',
       'default_value' => NULL,
       'deleted' => '0',
-      'description' => 'Title: Facebook, Google+, etc.
+      'description' => 'Title: Google+, tumblr, flickr, etc.
 URL: http address of the page.',
       'display' => array(
         'default' => array(
@@ -2376,7 +2445,7 @@ URL: http address of the page.',
           'module' => 'link',
           'settings' => array(),
           'type' => 'link_default',
-          'weight' => '17',
+          'weight' => '18',
         ),
         'rss' => array(
           'label' => 'hidden',
@@ -2394,7 +2463,7 @@ URL: http address of the page.',
       ),
       'entity_type' => 'node',
       'field_name' => 'field_occupation_social_sites',
-      'label' => 'Links to other social media pages',
+      'label' => 'Additional social media sites',
       'required' => 0,
       'settings' => array(
         'attributes' => array(
@@ -2405,7 +2474,7 @@ URL: http address of the page.',
           'title' => '',
         ),
         'display' => array(
-          'url_cutoff' => '120',
+          'url_cutoff' => '80',
         ),
         'enable_tokens' => 0,
         'title' => 'optional',
@@ -2420,7 +2489,7 @@ URL: http address of the page.',
         'module' => 'link',
         'settings' => array(),
         'type' => 'link_field',
-        'weight' => '19',
+        'weight' => '22',
       ),
     ),
   );
@@ -2505,7 +2574,7 @@ URL: http address of the page.',
           'size' => '60',
         ),
         'type' => 'text_textfield',
-        'weight' => '21',
+        'weight' => '19',
       ),
     ),
   );
@@ -2595,7 +2664,94 @@ URL: http address of the page.',
           'size' => 60,
         ),
         'type' => 'taxonomy_autocomplete',
-        'weight' => '22',
+        'weight' => '20',
+      ),
+    ),
+  );
+
+  // Exported field: 'node-occupation-field_occupation_type'
+  $fields['node-occupation-field_occupation_type'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_occupation_type',
+      'field_permissions' => array(
+        'type' => '2',
+      ),
+      'foreign keys' => array(
+        'tid' => array(
+          'columns' => array(
+            'tid' => 'tid',
+          ),
+          'table' => 'taxonomy_term_data',
+        ),
+      ),
+      'indexes' => array(
+        'tid' => array(
+          0 => 'tid',
+        ),
+      ),
+      'module' => 'taxonomy',
+      'settings' => array(
+        'allowed_values' => array(
+          0 => array(
+            'vocabulary' => 'occupation_type',
+            'parent' => '0',
+          ),
+        ),
+      ),
+      'translatable' => '0',
+      'type' => 'taxonomy_term_reference',
+    ),
+    'field_instance' => array(
+      'bundle' => 'occupation',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'inline',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '26',
+        ),
+        'full' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '7',
+        ),
+        'rss' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+        'teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'node',
+      'field_name' => 'field_occupation_type',
+      'label' => 'Type',
+      'required' => 0,
+      'settings' => array(
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 0,
+        'module' => 'taxonomy',
+        'settings' => array(
+          'autocomplete_path' => 'taxonomy/autocomplete',
+          'size' => 60,
+        ),
+        'type' => 'taxonomy_autocomplete',
+        'weight' => '2',
       ),
     ),
   );
@@ -2640,14 +2796,14 @@ URL: http address of the page.',
           'module' => 'link',
           'settings' => array(),
           'type' => 'link_default',
-          'weight' => '4',
+          'weight' => '5',
         ),
         'full' => array(
           'label' => 'hidden',
           'module' => 'link',
           'settings' => array(),
           'type' => 'link_default',
-          'weight' => '3',
+          'weight' => '10',
         ),
         'rss' => array(
           'label' => 'hidden',
@@ -2787,25 +2943,117 @@ URL: http address of the page.',
         'module' => 'link',
         'settings' => array(),
         'type' => 'link_field',
-        'weight' => '20',
+        'weight' => '18',
+      ),
+    ),
+  );
+
+  // Exported field: 'node-occupation-field_term_geographic_area'
+  $fields['node-occupation-field_term_geographic_area'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_term_geographic_area',
+      'field_permissions' => array(
+        'type' => '2',
+      ),
+      'foreign keys' => array(
+        'tid' => array(
+          'columns' => array(
+            'tid' => 'tid',
+          ),
+          'table' => 'taxonomy_term_data',
+        ),
+      ),
+      'indexes' => array(
+        'tid' => array(
+          0 => 'tid',
+        ),
+      ),
+      'module' => 'taxonomy',
+      'settings' => array(
+        'allowed_values' => array(
+          0 => array(
+            'vocabulary' => 'geographic_area',
+            'parent' => '0',
+          ),
+        ),
+      ),
+      'translatable' => '0',
+      'type' => 'taxonomy_term_reference',
+    ),
+    'field_instance' => array(
+      'bundle' => 'occupation',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => 'Please select the approximate geographic area, which will be used to determine the best Curators for this Occupation.',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'module' => 'taxonomy',
+          'settings' => array(),
+          'type' => 'taxonomy_term_reference_link',
+          'weight' => 32,
+        ),
+        'full' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+        'rss' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+        'teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'node',
+      'field_name' => 'field_term_geographic_area',
+      'label' => 'Geographic area',
+      'required' => 1,
+      'settings' => array(
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'options',
+        'settings' => array(),
+        'type' => 'options_select',
+        'weight' => '37',
       ),
     ),
   );
 
   // Translatables
   // Included for use with string extractors like potx.
+  t('Additional Occupation websites');
+  t('Additional social media sites');
   t('Comment');
+  t('Data carried over from the initial import that we didn\'t quite know where to put. Should be migrated by occupation owners or curators, else it will eventually be deleted.
+[This field is not publicly viewable.]');
+  t('Describe how often and where your General Assembly takes place. Provide a link to additional information, if you have one.');
+  t('Describe in a paragraph what differentiates your occupation from others, how you operate, a bit about your history, physical location, or other details that tell your story.');
   t('Donate Information');
   t('Donate URL');
   t('Done comments count');
-  t('Facebook Pages');
+  t('Facebook Page(s)');
+  t('Founded');
   t('General Assembly');
   t('General email address');
   t('General phone');
   t('Geofield');
+  t('Geographic area');
   t('If you do not have a postal address, please enter the intersection closest to your physical center.');
   t('Legacy notes');
-  t('Links to other social media pages');
   t('Live video streams');
   t('Location (Address)');
   t('Main @user account(s). Please include the @ symbol, e.g., "@occupywallst".');
@@ -2814,21 +3062,23 @@ URL: http address of the page.',
   t('Newspaper URL');
   t('Occupation Image or Icon');
   t('Occupation description');
-  t('Occupation founded date');
   t('Occupation notes');
   t('Occupation website');
-  t('Other websites');
   t('Physical occupation occurring?');
+  t('Please select the approximate geographic area, which will be used to determine the best Curators for this Occupation.');
   t('Point of contact email addresses');
   t('RSS feeds');
   t('Rejected comments count');
   t('State');
+  t('The date your Occupation was founded.');
+  t('These are other websites your Occupation hosts, like a wiki, another brochure site, or forums, etc. Please put social media sites like tumblr in the next category.');
   t('This field is not publicly viewable.');
-  t('Title: Facebook, Google+, etc.
+  t('Title: Google+, tumblr, flickr, etc.
 URL: http address of the page.');
   t('Twitter account(s)');
   t('Twitter hashtag(s)');
   t('Twitter hashtags associated with this occupation, separated by commas. Please include # symbol, e.g., "#ows".');
+  t('Type');
   t('Will Do comments count');
   t('Yes, needs fixing');
   t('You can enter general notes here; they won\'t be publicly viewable.');

@@ -1,0 +1,34 @@
+<?php
+
+/**
+ * @file
+ * Install and uninstall hooks for Revisioning module.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function revisioning_install() {
+  // Panels override fix, see http://drupal.org/node/519924.
+  variable_set('page_manager_override_anyway', TRUE);
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function revisioning_uninstall() {
+  // Delete all revisioning_* variables at once
+  db_query("DELETE FROM {variable} WHERE name LIKE 'revisioning_%%'");
+  variable_del('page_manager_override_anyway'); // see above
+  foreach (node_type_get_types() as $type) {
+    // Maybe revisioning_auto_publish_<type> and new_revisions_<type>
+    // should be used in array, like 'revision_moderation' below?
+    variable_del('new_revisions_' . $type->type);
+    // Remove 'revision_moderation' from all node_options_<content_type> variables
+    $variable_name = 'node_options_' . $type->type;
+    if ($node_options = variable_get($variable_name, NULL)) {
+      $node_options = array_diff($node_options, array('revision_moderation'));
+      variable_set($variable_name, $node_options);
+    }
+  }
+}

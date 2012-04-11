@@ -10,7 +10,7 @@
 function occupations_field_group_info() {
   $export = array();
 
-  $field_group = new stdClass;
+  $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
   $field_group->identifier = 'group_content_main|node|occupation|full';
@@ -25,15 +25,12 @@ function occupations_field_group_info() {
     'children' => array(
       0 => 'field_occupation_address',
       1 => 'field_occupation_origin_date',
-      2 => 'field_occupation_description',
-      3 => 'field_occupation_image',
-      4 => 'field_occupation_website',
-      5 => 'field_occupation_physical',
-      6 => 'field_occupation_general_info',
-      7 => 'field_occupation_email_general',
-      8 => 'field_occupation_phone_general',
-      9 => 'field_occupation_geo',
-      10 => 'group_donate_info',
+      2 => 'field_occupation_image',
+      3 => 'field_occupation_website',
+      4 => 'field_occupation_email_general',
+      5 => 'field_occupation_phone_general',
+      6 => 'field_occupation_geo',
+      7 => 'group_occupation_description',
     ),
     'format_type' => 'div',
     'format_settings' => array(
@@ -51,7 +48,7 @@ function occupations_field_group_info() {
   );
   $export['group_content_main|node|occupation|full'] = $field_group;
 
-  $field_group = new stdClass;
+  $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
   $field_group->identifier = 'group_donate_info|node|occupation|full';
@@ -59,13 +56,13 @@ function occupations_field_group_info() {
   $field_group->entity_type = 'node';
   $field_group->bundle = 'occupation';
   $field_group->mode = 'full';
-  $field_group->parent_name = 'group_content_main';
+  $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Donation Info',
-    'weight' => '13',
+    'weight' => '6',
     'children' => array(
-      0 => 'field_occupation_donate_url',
-      1 => 'field_occupation_dontate_info',
+      0 => 'field_occupation_dontate_info',
+      1 => 'field_occupation_donate_url',
     ),
     'format_type' => 'div',
     'format_settings' => array(
@@ -83,7 +80,7 @@ function occupations_field_group_info() {
   );
   $export['group_donate_info|node|occupation|full'] = $field_group;
 
-  $field_group = new stdClass;
+  $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
   $field_group->identifier = 'group_links_media|node|occupation|full';
@@ -94,7 +91,7 @@ function occupations_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Video & Audio',
-    'weight' => '13',
+    'weight' => '4',
     'children' => array(
       0 => 'field_occupation_live_video',
       1 => 'field_occupation_youtube_chan',
@@ -115,7 +112,7 @@ function occupations_field_group_info() {
   );
   $export['group_links_media|node|occupation|full'] = $field_group;
 
-  $field_group = new stdClass;
+  $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
   $field_group->identifier = 'group_links_news|node|occupation|full';
@@ -126,7 +123,7 @@ function occupations_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'News & Info',
-    'weight' => '14',
+    'weight' => '5',
     'children' => array(
       0 => 'field_occupation_other_websites',
       1 => 'field_occupation_newspaper_url',
@@ -148,7 +145,7 @@ function occupations_field_group_info() {
   );
   $export['group_links_news|node|occupation|full'] = $field_group;
 
-  $field_group = new stdClass;
+  $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
   $field_group->identifier = 'group_links_resources|node|occupation|full';
@@ -159,7 +156,7 @@ function occupations_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Other Resources',
-    'weight' => '12',
+    'weight' => '3',
     'children' => array(
       0 => 'field_occupation_rss',
     ),
@@ -179,7 +176,7 @@ function occupations_field_group_info() {
   );
   $export['group_links_resources|node|occupation|full'] = $field_group;
 
-  $field_group = new stdClass;
+  $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
   $field_group->identifier = 'group_links_social|node|occupation|full';
@@ -190,7 +187,7 @@ function occupations_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Social Media',
-    'weight' => '11',
+    'weight' => '1',
     'children' => array(
       0 => 'field_occupation_twitter',
       1 => 'field_occupation_social_sites',
@@ -213,7 +210,7 @@ function occupations_field_group_info() {
   );
   $export['group_links_social|node|occupation|full'] = $field_group;
 
-  $field_group = new stdClass;
+  $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
   $field_group->identifier = 'group_occupate_rss_links|node|occupation|rss';
@@ -252,7 +249,7 @@ function occupations_field_group_info() {
   );
   $export['group_occupate_rss_links|node|occupation|rss'] = $field_group;
 
-  $field_group = new stdClass;
+  $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
   $field_group->identifier = 'group_occupation_admin|node|occupation|form';
@@ -263,7 +260,7 @@ function occupations_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Administration',
-    'weight' => '3',
+    'weight' => '4',
     'children' => array(
       0 => 'field_occupation_notes_legacy',
       1 => 'field_occupation_notes',
@@ -281,7 +278,7 @@ function occupations_field_group_info() {
   );
   $export['group_occupation_admin|node|occupation|form'] = $field_group;
 
-  $field_group = new stdClass;
+  $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
   $field_group->identifier = 'group_occupation_comment_counts|node|occupation|form';
@@ -292,12 +289,12 @@ function occupations_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Comment Counts',
-    'weight' => '6',
+    'weight' => '7',
     'children' => array(
-      0 => 'field_comments_new',
-      1 => 'field_comments_willdo',
+      0 => 'field_comments_done',
+      1 => 'field_comments_new',
       2 => 'field_comments_rejected',
-      3 => 'field_comments_done',
+      3 => 'field_comments_willdo',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -311,7 +308,7 @@ function occupations_field_group_info() {
   );
   $export['group_occupation_comment_counts|node|occupation|form'] = $field_group;
 
-  $field_group = new stdClass;
+  $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
   $field_group->identifier = 'group_occupation_contact_info|node|occupation|form';
@@ -342,7 +339,40 @@ function occupations_field_group_info() {
   );
   $export['group_occupation_contact_info|node|occupation|form'] = $field_group;
 
-  $field_group = new stdClass;
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_occupation_description|node|occupation|full';
+  $field_group->group_name = 'group_occupation_description';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'occupation';
+  $field_group->mode = 'full';
+  $field_group->parent_name = 'group_content_main';
+  $field_group->data = array(
+    'label' => 'Occupation Description',
+    'weight' => '13',
+    'children' => array(
+      0 => 'field_occupation_description',
+      1 => 'field_occupation_physical',
+      2 => 'field_occupation_general_info',
+    ),
+    'format_type' => 'div',
+    'format_settings' => array(
+      'label' => 'Occupation Description',
+      'instance_settings' => array(
+        'classes' => '',
+        'description' => '',
+        'show_label' => '0',
+        'label_element' => 'h3',
+        'effect' => 'none',
+        'speed' => 'fast',
+      ),
+      'formatter' => 'open',
+    ),
+  );
+  $export['group_occupation_description|node|occupation|full'] = $field_group;
+
+  $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
   $field_group->identifier = 'group_occupation_infogroup|node|occupation|form';
@@ -353,7 +383,7 @@ function occupations_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Container',
-    'weight' => '2',
+    'weight' => '3',
     'children' => array(
       0 => 'group_occupation_contact_info',
       1 => 'group_occupation_information',
@@ -369,7 +399,7 @@ function occupations_field_group_info() {
   );
   $export['group_occupation_infogroup|node|occupation|form'] = $field_group;
 
-  $field_group = new stdClass;
+  $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
   $field_group->identifier = 'group_occupation_information|node|occupation|form';
@@ -401,7 +431,7 @@ function occupations_field_group_info() {
   );
   $export['group_occupation_information|node|occupation|form'] = $field_group;
 
-  $field_group = new stdClass;
+  $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
   $field_group->identifier = 'group_occupation_links|node|occupation|form';

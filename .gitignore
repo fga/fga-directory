@@ -1,8 +1,19 @@
+
 # Drupal #
 ##########
 sites/*/files
 sites/*/files/*
 files/*
+
+# Ignore paths that contain user-generated content.
+/sites/*/files
+/sites/*/private
+/files/*
+/cache
+
+# ** Only works in OSs that support newer versions of fnmatch (Bash 4+)
+/sites/default/**/files
+/sites/default/**/private
 
 # Packages #
 ############
@@ -22,14 +33,24 @@ files/*
 
 # OS generated files #
 ######################
-.DS_Store?
+.DS_Store*
 ehthumbs.db
 Icon?
 Thumbs.db
 ._*
 
 
+# Vim generated files #
+######################
+*.un~
+
+# SASS #
+##########
+.sass-cache
+
 
 sites/.gitignore
 sites/directory.occupy.lan
 sites/fga-directory.loc
+sites/directory.occupy.lan
+sites/all/modules/contrib/devel_themer

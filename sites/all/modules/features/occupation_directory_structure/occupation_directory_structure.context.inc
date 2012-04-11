@@ -10,7 +10,33 @@
 function occupation_directory_structure_context_default_contexts() {
   $export = array();
 
-  $context = new stdClass;
+  $context = new stdClass();
+  $context->disabled = FALSE; /* Edit this to true to make a default context disabled initially */
+  $context->api_version = 3;
+  $context->name = 'front';
+  $context->description = 'Is the front page';
+  $context->tag = 'pages';
+  $context->conditions = array(
+    'path' => array(
+      'values' => array(
+        '<front>' => '<front>',
+      ),
+    ),
+  );
+  $context->reactions = array(
+    'delta' => array(
+      'delta_template' => 'directory_fullmap',
+    ),
+  );
+  $context->condition_mode = 0;
+
+  // Translatables
+  // Included for use with string extractors like potx.
+  t('Is the front page');
+  t('pages');
+  $export['front'] = $context;
+
+  $context = new stdClass();
   $context->disabled = FALSE; /* Edit this to true to make a default context disabled initially */
   $context->api_version = 3;
   $context->name = 'sidewide_blocks';
@@ -32,16 +58,22 @@ function occupation_directory_structure_context_default_contexts() {
           'region' => 'user_first',
           'weight' => '-10',
         ),
+        'menu-menu-add-your-occupation' => array(
+          'module' => 'menu',
+          'delta' => 'menu-add-your-occupation',
+          'region' => 'footer_first',
+          'weight' => '-10',
+        ),
         'menu-menu-feeds-and-exports' => array(
           'module' => 'menu',
           'delta' => 'menu-feeds-and-exports',
-          'region' => 'postscript_first',
-          'weight' => '-10',
-        ),
-        'system-powered-by' => array(
-          'module' => 'system',
-          'delta' => 'powered-by',
           'region' => 'footer_first',
+          'weight' => '-9',
+        ),
+        'block-1' => array(
+          'module' => 'block',
+          'delta' => 1,
+          'region' => 'footer_second',
           'weight' => '-10',
         ),
       ),
