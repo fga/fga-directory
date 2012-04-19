@@ -1,0 +1,28 @@
+name = FGA Users
+description = base user roles and permissions for FGA hemispheres. 
+core = 7.x
+package = FGA
+php = 5.2.4
+version = 7.x-0.12
+project = fga_users
+dependencies[] = admin_menu
+dependencies[] = contextual
+dependencies[] = features
+dependencies[] = strongarm
+#####################################################################
+
+dependencies[] = features
+features[ctools][] = strongarm:strongarm:1
+features[features_api][] = api:1
+features[user_permission][] = access administration menu
+features[user_permission][] = access administration pages
+features[user_permission][] = access contextual links
+features[user_permission][] = access site in maintenance mode
+features[user_permission][] = access site reports
+features[user_permission][] = bypass node access
+features[user_permission][] = view the administration theme
+features[user_role][] = site administrator
+features[user_role][] = site developer
+features[user_role][] = unconfirmed
+features[variable][] = user_admin_role
+recommends[] = admin_menu

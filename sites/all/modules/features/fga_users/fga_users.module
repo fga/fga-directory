@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the fga_users feature.
+ */
+
+include_once('fga_users.features.inc');
