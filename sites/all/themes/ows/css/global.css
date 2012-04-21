@@ -387,26 +387,29 @@ div.view-display-id-occupations_list table img {
 }
 
 
-/* front page specific styles */
+/* full width map */
 
-.front .zone-content .grid-12 {
+.fullwidth-map .zone-content .grid-12 {
 	margin-left: 0;
 	margin-right: 0;
 }
-
-.front #region-content {
+.fullwidth-map #section-content {
+  background:#D0D0D0;
+}
+.fullwidth-map #region-content {
 	padding: 0;
 }
-.front .zone-content .region-inner {
+.fullwidth-map .zone-content .region-inner {
     margin-bottom: 0;
+    line-height: 0.7em !important;
 }
-.front footer.section-footer {
+.fullwidth-map footer.section-footer {
 	padding-top: 0 !important;
 }
-.front .zone-footer-wrapper {
+.fullwidth-map .zone-footer-wrapper {
 	margin-top: 0;
 }
-.front .grid-6 {
+.fullwidth-map .grid-6 {
 	width: 45%;
 	float: left;
 }
@@ -424,7 +427,7 @@ div.view-display-id-occupations_list table img {
 
 
 /* stick the footer at the bottom of the page using CSS only
-TODO: us javascript so that we can also set properties on the map element
+TODO: use javascript so that we can also set properties on the map element
 also, not so hot when admin menu is on, and the homepage isn't as nice.
 */
 html, body.not-front {
@@ -435,11 +438,11 @@ html, body.not-front {
   position:relative;
 }
 #section-content {
-  padding-bottom: 120px; /* height of the footer */
+  padding-bottom: 140px; /* height of the footer */
 }
 #section-footer {
  position:absolute;
  bottom: 0;
  width: 100%;
- height: 120px;
+ height: 140px;
 }

@@ -20,12 +20,16 @@ function occupation_directory_structure_context_default_contexts() {
     'path' => array(
       'values' => array(
         '<front>' => '<front>',
+        'world-map' => 'world-map',
       ),
     ),
   );
   $context->reactions = array(
     'delta' => array(
       'delta_template' => 'directory_fullmap',
+    ),
+    'theme_html' => array(
+      'class' => 'fullwidth-map',
     ),
   );
   $context->condition_mode = 0;
