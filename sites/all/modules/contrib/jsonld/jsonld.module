@@ -46,7 +46,7 @@ function jsonld_restws_format_info_alter(&$info) {
   $info['jsonld'] = array(
     'label' => t('JSON-LD'),
     'class' => 'JsonldRestWSFormatJsonld',
-    'mime type' => 'application/ld+json',
+    'mime type' => 'application/json',
   );
 }
 
