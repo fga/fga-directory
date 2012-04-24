@@ -85,7 +85,7 @@ function sparql_endpoint_node_insert($node) {
 
   // Attach RDF mappings and build RDF model for the node.
   $node = node_load($node->nid);
-  $rdf = rdfx_get_rdf_model('node', $node);
+  $rdf = rdfx_get_rdf_model('node', $node->nid);
 
   // Add node to the store.
   $store->insert($rdf->index, $rdf->uri);
@@ -99,7 +99,7 @@ function sparql_endpoint_node_update($node) {
   $store = sparql_get_store('site_endpoint');
 
   // Build RDF model for the node.
-  $rdf = rdfx_get_rdf_model('node', $node);
+  $rdf = rdfx_get_rdf_model('node', $node->nid);
 
   // Cleans out the graph and reindex the node.
   $store->query('DELETE FROM <' . $rdf->uri . '>');
