@@ -1,6 +1,11 @@
 <?php
 
 /**
+ * Defines the number of entities to process at once when rebuilding the RDF index.
+ */
+define('SPARQL_ENDPOINT_BUILD_AT_ONCE', 300);
+
+/**
  * Implements hook_menu().
  */
 function sparql_endpoint_menu() {
@@ -23,53 +28,65 @@ function sparql_endpoint_index_rdf() {
   $store = sparql_get_store('site_endpoint');
 
   // Emtpy the local store.
-  // FIXME optimize by doing this only when creating/saving a node.
   $store->reset();
 
-  // Index all the nodes which are published.
-  $query = db_select('node', 'n')->extend('PagerDefault')->extend('TableSort');
-  $query->condition('n.status', 1);
-  $ids = $query
-    ->fields('n',array('nid'))
-    ->limit(500)
-    ->execute()
-    ->fetchCol();
-
-  foreach ($ids as $id) {
-    $rdf = rdfx_get_rdf_model('node', $id);
-    $store->insert($rdf->index, $rdf->uri);
-  }
-
-  // Index all the users.
-  $query = db_select('users', 'u')->extend('PagerDefault')->extend('TableSort');
-  $query->condition('u.uid', 0, '<>');
-  $ids = $query
-    ->fields('u', array('uid'))
-    ->limit(500)
-    ->execute()
-    ->fetchCol();
-
-  foreach ($ids as $id) {
-    $rdf = rdfx_get_rdf_model('user', $id);
-    $store->insert($rdf->index, $rdf->uri);
-  }
-
-  // Index all the terms.
-  $query = db_select('taxonomy_term_data', 't')->extend('PagerDefault')->extend('TableSort');
-  $ids = $query
-    ->fields('t', array('tid'))
-    ->limit(500)
-    ->execute()
-    ->fetchCol();
-
-  foreach ($ids as $id) {
-    $rdf = rdfx_get_rdf_model('taxonomy_term', $id);
-    $store->insert($rdf->index, $rdf->uri);
-  }
-
-  return t('The RDF index of the site has been rebuilt. Browse to the <a href="@endpoint">SPARQL endpoint</a> to query it.', array('@endpoint' => url('sparql')));
+  // Rebuild in a batch to prevent timeouts.
+  $batch = array(
+    'title' => t('Rebuilding RDF index from scratch.'),
+    'operations' => array(
+      array('_sparql_endpoint_index_rebuild_entity', array('node')),
+      array('_sparql_endpoint_index_rebuild_entity', array('user')),
+      array('_sparql_endpoint_index_rebuild_entity', array('taxonomy_term')),
+    ),
+    'progress_message' => 'Completed @current of @total entity types.',
+    'finished' => '_sparql_endpoint_index_rebuild_entity_done',
+  );
+  batch_set($batch);
+  batch_process('');
 }
 
+/**
+ * Rebuilds the RDF index for the given entity type.
+ */
+function _sparql_endpoint_index_rebuild_entity($entity_type, &$context) {
+  if (empty($context['sandbox'])) {
+    // Initiate progress counter.
+    $context['sandbox']['progress'] = 0;
+  }
+
+  $query = new EntityFieldQuery();
+  $query->entityCondition('entity_type', $entity_type, '=')
+        ->range($context['sandbox']['progress'], SPARQL_ENDPOINT_BUILD_AT_ONCE);
+  $result = $query->execute();
+
+  $ids = !empty($result[$entity_type]) ? array_keys($result[$entity_type]) : array();
+  $entities = entity_load($entity_type, $ids);
+  $store = sparql_get_store('site_endpoint');
+
+  foreach ($entities as $id => $entity) {
+    $rdf = rdfx_get_rdf_model($entity_type, $id);
+    $store->insert($rdf->index, $rdf->uri);
+  }
+
+  drupal_set_message(t('Processed @num @type entities.', array('@num' => $context['sandbox']['progress'], '@type' => $entity_type)));
+
+  $context['sandbox']['progress'] += SPARQL_ENDPOINT_BUILD_AT_ONCE;
+  // If less than SPARQL_ENDPOINT_BUILD_AT_ONCE entities were retrieved we have
+  // reached the end and stop processing.
+  $context['finished'] = count($entities) < SPARQL_ENDPOINT_BUILD_AT_ONCE;
+}
+
+/**
+ * Finish callback for the rebuild batch.
+ */
+function _sparql_endpoint_index_rebuild_entity_done() {
+  $endpoint = l(t('SPARQL endpoint'), 'sparql', array('attributes' => array('target' => '_blank'), 'alias' => TRUE));
+  drupal_set_message(t('The RDF index of the site has been rebuilt. Browse to the !endpoint to query it.', array('!endpoint' => $endpoint)));
+}
+
+/**
+ * Menu page callback.
+ */
 function sparql_endpoint_sparql_endpoint() {
   // Instantiate the ARC2 SPARQL endpoint.
   $ep = sparql_get_store('site_endpoint', SPARQL_ENDPOINT);
