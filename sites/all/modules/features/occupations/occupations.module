@@ -11,13 +11,13 @@ function occupations_node_view($node) {
   //dpr($node);
 }
 
-
 /**
  * Implements hook_rdf_namespaces().
  */
 function occupations_rdf_namespaces() {
   return array(
-    'schema'  => 'http://schema.org/',
+    'ows'    => 'http://vocab.occupy.net/ows#',
+    'schema' => 'http://schema.org/',
   );
 }
 

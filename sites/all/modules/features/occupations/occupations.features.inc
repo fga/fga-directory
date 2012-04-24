@@ -108,8 +108,185 @@ function occupations_node_info() {
       'title_label' => t('Name of Occupation'),
       'help' => t('<p><strong>Occupations</strong> in this context are defined as geographically based. Organizations that don\'t hold physical space, like <em>Occupy the Environment</em>, or organizations in solidarity to the movement, like <em>Occupy Air Force</em>, will be considered in their own right after the initial directory is up and running. We will also soon be adding listings for broader geographies, like state and country-wide "occupations."</p>
 
+
+
 <p>Further down the line, we will be incorporating <em>groups</em> also. That\'s big. That\'s awesome. BUT –– that\'s the future (not the present; please don\'t submit your group yet)!</p>'),
     ),
   );
   return $items;
+}
+
+/**
+ * Implements hook_rdf_default_mappings().
+ */
+function occupations_rdf_default_mappings() {
+  $rdf_mappings = array();
+
+  // Exported RDF mapping: occupation
+  $rdf_mappings['node']['occupation'] = array(
+    'rdftype' => array(
+      0 => 'foaf:Group',
+      1 => 'schema:Organization',
+      2 => 'ows:'
+    ),
+    'title' => array(
+      'predicates' => array(
+        0 => 'foaf:name',
+        1 => 'schema:name',
+      ),
+      'type' => 'property',
+    ),
+    'created' => array(
+      'predicates' => array(
+        0 => 'dc:date',
+        1 => 'dc:created',
+      ),
+      'datatype' => 'xsd:dateTime',
+      'callback' => 'date_iso8601',
+    ),
+    'changed' => array(
+      'predicates' => array(
+        0 => 'dc:modified',
+      ),
+      'datatype' => 'xsd:dateTime',
+      'callback' => 'date_iso8601',
+    ),
+    'body' => array(
+      'predicates' => array(
+        0 => 'content:encoded',
+      ),
+    ),
+    'uid' => array(
+      'predicates' => array(
+        0 => 'sioc:has_creator',
+      ),
+      'type' => 'rel',
+    ),
+    'name' => array(
+      'predicates' => array(
+        0 => 'foaf:name',
+      ),
+    ),
+    'comment_count' => array(
+      'predicates' => array(
+        0 => 'sioc:num_replies',
+      ),
+      'datatype' => 'xsd:integer',
+    ),
+    'last_activity' => array(
+      'predicates' => array(
+        0 => 'sioc:last_activity_date',
+      ),
+      'datatype' => 'xsd:dateTime',
+      'callback' => 'date_iso8601',
+    ),
+    'field_occupation_origin_date' => array(
+      'type' => 'property',
+      'predicates' => array(
+        0 => 'schema:foundingDate',
+      ),
+      'datatype' => 'xsd:date',
+      'callback' => 'date_iso8601',
+    ),
+    'field_occupation_description' => array(
+      'type' => 'property',
+      'predicates' => array(
+        0 => 'schema:description',
+      ),
+    ),
+    'field_occupation_phone_general' => array(
+      'type' => 'property',
+      'predicates' => array(
+        0 => 'schema:telephone',
+        1 => 'foaf:phone',
+      ),
+    ),
+    'field_occupation_image' => array(
+      'type' => 'rel',
+      'predicates' => array(
+        0 => 'schema:image',
+        1 => 'foaf:img',
+      ),
+    ),
+    'field_occupation_website' => array(
+      'type' => 'property',
+      'predicates' => array(
+        0 => 'ows:website',
+      ),
+    ),
+    'field_occupation_physical' => array(
+      'type' => 'property',
+      'predicates' => array(
+        0 => 'schema:phy',
+      ),
+    ),
+    'field_occupation_social_sites' => array(
+      'type' => 'property',
+      'predicates' => array(
+        0 => 'rdfs:seeAlso',
+      ),
+    ),
+    'field_occupation_email_general' => array(
+      'type' => 'property',
+      'predicates' => array(
+        0 => 'foaf:mbox',
+      ),
+    ),
+    'field_occupation_other_websites' => array(
+      'type' => 'property',
+      'predicates' => array(
+        0 => 'rdfs:seeAlso',
+      ),
+    ),
+    'field_occupation_rss' => array(
+      'type' => 'property',
+      'predicates' => array(
+        0 => 'rdfs:seeAlso',
+      ),
+    ),
+    'field_occupation_donate_url' => array(
+      'type' => 'property',
+      'predicates' => array(
+        0 => 'rdfs:seeAlso',
+      ),
+    ),
+    'field_occupation_newspaper_url' => array(
+      'type' => 'property',
+      'predicates' => array(
+        0 => 'rdfs:seeAlso',
+      ),
+    ),
+    'field_occupation_meetup_url' => array(
+      'type' => 'property',
+      'predicates' => array(
+        0 => 'ows:meetup_url',
+      ),
+    ),
+    'field_occupation_live_video' => array(
+      'type' => 'rel',
+      'predicates' => array(
+        0 => 'ows:live_video_stream',
+      ),
+    ),
+    'field_occupation_facebook' => array(
+      'type' => 'property',
+      'predicates' => array(
+        0 => 'rdfs:seeAlso',
+      ),
+    ),
+    'field_occupation_youtube_chan' => array(
+      'type' => 'property',
+      'predicates' => array(
+        0 => 'rdfs:seeAlso',
+      ),
+    ),
+    'field_occupation_twitter' => array(
+      'type' => 'property',
+      'predicates' => array(
+        0 => 'ows:twitter_account',
+      ),
+    ),
+  );
+
+  return $rdf_mappings;
 }
