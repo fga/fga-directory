@@ -69,7 +69,7 @@ class RdfxNodeSerializationTestCase extends DrupalWebTestCase {
     $uri = url('node/' . $node->nid, array('absolute' => TRUE));
 
     // Get the node as RDF.
-    $g = rdfx_get_rdf_model('node', $node);
+    $g = rdfx_get_rdf_model('node', $node->nid);
 
     // Inspect the PHP object returned by ARC2.
     // Test object class.
@@ -132,4 +132,40 @@ class RdfxNodeSerializationTestCase extends DrupalWebTestCase {
     $this->assertTrue(in_array($o, $g->index[$uri]['http://rdfs.org/sioc/ns#num_replies']), t('sioc:num_replies value found in ARC2 index.'));
   }
 
+}
+
+/**
+ * Tests the RDF features integration.
+ */
+class RdfxFeaturesIntegrationTestCase extends DrupalWebTestCase {
+  public static function getInfo() {
+    return array(
+      'name' => 'RDF Features integration',
+      'description' => 'Enables a feature and check whether the RDF mappings defined by the feature have been saved. (REQUIRES FEATURES)',
+      'group' => 'RDFx',
+    );
+  }
+
+  function setUp() {
+    parent::setUp('rdfx', 'features');
+  }
+
+  /**
+   * Enables a feature and ensures the RDF mappings take effect.
+   */
+  function testFeaturesEnable() {
+    // Checks initial Article RDF mappings.
+    $mappings = rdf_mapping_load('node', 'article');
+    $this->assertTrue($mappings['rdftype'] == array('sioc:Item', 'foaf:Document'), t('Initial RDF type set properly.'));
+    $this->assertTrue($mappings['title']['predicates'] == array('dc:title'), t('Initial property for title set properly.'));
+    $this->assertTrue($mappings['field_tags']['predicates'] == array('dc:subject'), t('Initial property for tags field set properly.'));
+
+    // Checks if mappings defined in the feature have been saved.
+    module_enable(array('rdfx_test'));
+    features_revert(array('rdfx_test' => array('rdf_mappings')));
+    $mappings = rdf_mapping_load('node', 'article');
+    $this->assertTrue($mappings['rdftype'] == array('sioc:Post'), t('sioc:num_replies value found in ARC2 index.'));
+    $this->assertTrue($mappings['title']['predicates'] == array('rdfs:label'), t('sioc:num_replies value found in ARC2 index.'));
+    $this->assertTrue($mappings['field_tags']['predicates'] == array('dc:subject'), t('Initial property for tags field set properly.'));
+  }
 }

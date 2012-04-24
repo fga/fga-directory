@@ -10,8 +10,8 @@ function rdf_mappings_features_export($data, &$export, $module_name = '') {
   $export['dependencies']['rdf'] = 'rdf';
   $export['dependencies']['rdfx'] = 'rdfx';
 
-  foreach ($data as $key => $value) {
-    $parts = explode('-', $key);
+  foreach ($data as $name) {
+    $parts = explode('-', $name);
     $entity_type = $parts[0];
     $bundle_name = $parts[1];
 

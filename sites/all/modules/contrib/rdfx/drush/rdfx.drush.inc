@@ -88,7 +88,7 @@ function rdfx_drush_arc2_download() {
     drush_log('ARC2 already present. No download required.', 'ok');
   }
   elseif (drush_op('chdir', $path) &&
-      drush_shell_exec('wget --no-check-certificate -O arc.tar.gz http://github.com/semsol/arc2/tarball/master') &&
+      drush_shell_exec('wget -O arc.tar.gz http://github.com/semsol/arc2/tarball/master') &&
       drush_shell_exec('tar zxvf arc.tar.gz') &&
       drush_shell_exec('mv semsol-arc2-* arc') &&
       drush_shell_exec('rm arc.tar.gz')) {
