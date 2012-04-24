@@ -1,0 +1,107 @@
+<?php
+
+/**
+ * Implements hook_menu().
+ */
+function sparql_endpoint_menu() {
+  // @todo use access RDF data permission instead of access content.
+  $items['sparql'] = array(
+    'title' => 'SPARQL endpoint',
+    'page callback' => 'sparql_endpoint_sparql_endpoint',
+    'access arguments' => array('access content'),
+  );
+  $items['sparql_endpoint_index'] = array(
+    'title' => 'Build RDF index',
+    'page callback' => 'sparql_endpoint_index_rdf',
+    'access arguments' => array('administer rdf'),
+  );
+  return $items;
+}
+
+function sparql_endpoint_index_rdf() {
+  // Instantiate the ARC2 local store.
+  $store = sparql_get_store('site_endpoint');
+
+  // Emtpy the local store.
+  // FIXME optimize by doing this only when creating/saving a node.
+  $store->reset();
+
+  // Index all the nodes which are published.
+  $query = db_select('node', 'n')->extend('PagerDefault')->extend('TableSort');
+  $query->condition('n.status', 1);
+  $ids = $query
+    ->fields('n',array('nid'))
+    ->limit(500)
+    ->execute()
+    ->fetchCol();
+
+  foreach ($ids as $id) {
+    $rdf = rdfx_get_rdf_model('node', $id);
+    $store->insert($rdf->index, $rdf->uri);
+  }
+
+  // Index all the users.
+  $query = db_select('users', 'u')->extend('PagerDefault')->extend('TableSort');
+  $query->condition('u.uid', 0, '<>');
+  $ids = $query
+    ->fields('u', array('uid'))
+    ->limit(500)
+    ->execute()
+    ->fetchCol();
+
+  foreach ($ids as $id) {
+    $rdf = rdfx_get_rdf_model('user', $id);
+    $store->insert($rdf->index, $rdf->uri);
+  }
+
+  // Index all the terms.
+  $query = db_select('taxonomy_term_data', 't')->extend('PagerDefault')->extend('TableSort');
+  $ids = $query
+    ->fields('t', array('tid'))
+    ->limit(500)
+    ->execute()
+    ->fetchCol();
+
+  foreach ($ids as $id) {
+    $rdf = rdfx_get_rdf_model('taxonomy_term', $id);
+    $store->insert($rdf->index, $rdf->uri);
+  }
+
+  return t('The RDF index of the site has been rebuilt. Browse to the <a href="@endpoint">SPARQL endpoint</a> to query it.', array('@endpoint' => url('sparql')));
+}
+
+function sparql_endpoint_sparql_endpoint() {
+  // Instantiate the ARC2 SPARQL endpoint.
+  $ep = sparql_get_store('site_endpoint', SPARQL_ENDPOINT);
+  $ep->go();
+}
+
+/**
+ * Implements hook_node_insert().
+ */
+function sparql_endpoint_node_insert($node) {
+  // Instantiate the ARC2 local store.
+  $store = sparql_get_store('site_endpoint');
+
+  // Attach RDF mappings and build RDF model for the node.
+  $node = node_load($node->nid);
+  $rdf = rdfx_get_rdf_model('node', $node);
+
+  // Add node to the store.
+  $store->insert($rdf->index, $rdf->uri);
+}
+
+/**
+ * Implements hook_node_update().
+ */
+function sparql_endpoint_node_update($node) {
+  // Instantiate the ARC2 local store.
+  $store = sparql_get_store('site_endpoint');
+
+  // Build RDF model for the node.
+  $rdf = rdfx_get_rdf_model('node', $node);
+
+  // Cleans out the graph and reindex the node.
+  $store->query('DELETE FROM <' . $rdf->uri . '>');
+  $store->insert($rdf->index, $rdf->uri);
+}

@@ -1,0 +1,37 @@
+<?php
+/**
+ * @file
+ * SPARQL API installation/uninstallation.
+ *
+ * @author Arto Bendiken <http://bendiken.net/>
+ * @copyright Copyright (c) 2007-2008 Arto Bendiken. All rights reserved.
+ * @license GPL <http://creativecommons.org/licenses/GPL/2.0/>
+ * @package sparql.module
+ */
+
+//////////////////////////////////////////////////////////////////////////////
+// Core API hooks
+
+/**
+ * Implements hook_enable().
+ */
+function sparql_enable() {
+  drupal_set_message(t('SPARQL API successfully installed.'));
+}
+
+/**
+ * Implements hook_install().
+ */
+function sparql_install() {
+
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function sparql_uninstall() {
+
+
+  db_query("DELETE FROM {variable} WHERE name LIKE 'sparql_%'");
+  cache_clear_all('variables', 'cache');
+}

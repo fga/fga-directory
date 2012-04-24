@@ -1,0 +1,79 @@
+<?php
+
+/**
+ * Implements hook_schema().
+ *
+ * @see hook_schema()
+ * @link schemaapi Schema API @endlink
+ */
+function sparql_registry_schema() {
+  $schema['sparql_registry'] = array(
+    'description' => 'The base table for SPARQL Endpoints',
+    'fields' => array(
+      'srid' => array(
+        'description' => 'The primary identifier for an endpoint.',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'title' => array(
+        'description' => 'The title of this endpoint, always treated as non-markup plain text.',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'uri' => array(
+        'description' => 'The URI of this endpoint.',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'options' => array(
+        'description' => 'Additional query options.',
+        'type' => 'blob',
+        'not null' => FALSE,
+        'size' => 'big',
+        'serialize' => TRUE,
+      ),
+      'dataset' => array(
+        'description' => 'dataset',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => FALSE,
+        'default' => '',
+      ),
+    ),
+    'primary key' => array('srid'),
+  );
+  return $schema;
+}
+
+/**
+ * Change column name from endpoint to uri.
+ */
+function sparql_registry_update_7200() {
+  $schema = array(
+    'description' => 'The URI of this endpoint.',
+    'type' => 'varchar',
+    'length' => 255,
+    'not null' => TRUE,
+    'default' => '',
+  );
+  db_change_field('sparql_registry', 'endpoint', 'uri', $schema);
+}
+
+/**
+ * Add columns to SPARQL Registry database table.
+ */
+function sparql_registry_update_7201() {
+  $schema = array(
+    'description' => 'Additional query options.',
+    'type' => 'blob',
+    'not null' => FALSE,
+    'size' => 'big',
+    'serialize' => TRUE,
+  );
+  db_add_field('sparql_registry', 'options', $schema);
+}

@@ -1,0 +1,5 @@
+name = SPARQL Endpoints Registry
+description = SPARQL Endpoints Registry
+package = RDF
+core = 7.x
+files[] = sparql_registry.module
