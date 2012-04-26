@@ -122,6 +122,66 @@ function occupations_node_info() {
 function occupations_rdf_default_mappings() {
   $rdf_mappings = array();
 
+  // Exported RDF mapping: twitter_hashtags
+  $rdf_mappings['taxonomy_term']['twitter_hashtags'] = array(
+    'rdftype' => array(
+      0 => 'skos:Concept',
+    ),
+    'name' => array(
+      'predicates' => array(
+        0 => 'rdfs:label',
+        1 => 'skos:prefLabel',
+      ),
+    ),
+    'description' => array(
+      'predicates' => array(
+        0 => 'skos:definition',
+      ),
+    ),
+    'vid' => array(
+      'predicates' => array(
+        0 => 'skos:inScheme',
+      ),
+      'type' => 'rel',
+    ),
+    'parent' => array(
+      'predicates' => array(
+        0 => 'skos:broader',
+      ),
+      'type' => 'rel',
+    ),
+  );
+
+  // Exported RDF mapping: occupation_type
+  $rdf_mappings['taxonomy_term']['occupation_type'] = array(
+    'rdftype' => array(
+      0 => 'skos:Concept',
+    ),
+    'name' => array(
+      'predicates' => array(
+        0 => 'rdfs:label',
+        1 => 'skos:prefLabel',
+      ),
+    ),
+    'description' => array(
+      'predicates' => array(
+        0 => 'skos:definition',
+      ),
+    ),
+    'vid' => array(
+      'predicates' => array(
+        0 => 'skos:inScheme',
+      ),
+      'type' => 'rel',
+    ),
+    'parent' => array(
+      'predicates' => array(
+        0 => 'skos:broader',
+      ),
+      'type' => 'rel',
+    ),
+  );
+
   // Exported RDF mapping: occupation
   $rdf_mappings['node']['occupation'] = array(
     'rdftype' => array(
