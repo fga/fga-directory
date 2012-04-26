@@ -49,7 +49,7 @@ class JsonLdDrupalProcessor extends JsonLdProcessor {
             // @todo
           case 'literal':
           default:
-            $json_object['@value'] = $object['value'];
+            $json_object = array('@value' => $object['value']);
             if (!empty($object['datatype'])) {
               $json_object['@type'] = $object['datatype'];
             }
