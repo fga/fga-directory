@@ -125,9 +125,8 @@ function occupations_rdf_default_mappings() {
   // Exported RDF mapping: occupation
   $rdf_mappings['node']['occupation'] = array(
     'rdftype' => array(
-      0 => 'foaf:Group',
+      0 => 'ows:Occupation',
       1 => 'schema:Organization',
-      2 => 'ows:'
     ),
     'title' => array(
       'predicates' => array(
