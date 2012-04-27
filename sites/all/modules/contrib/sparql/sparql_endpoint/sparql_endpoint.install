@@ -1,0 +1,34 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the SPARQL Endpoint module.
+ */
+
+/**
+ * Enable sparql module (new dependency).
+ */
+function sparql_endpoint_update_7001() {
+  $t = get_t();
+
+  module_enable(array('sparql'));
+  drupal_set_message($t('The SPARQL module is now required by the SPARQL Endpoint module and has been enabled.'));
+}
+
+/**
+ * Move SPARQL endpoint tables.
+ */
+function sparql_endpoint_update_7002() {
+  $t = get_t();
+
+  $arc2_tables = array('g2t', 'id2val', 'o2val', 's2val', 'setting', 'triple');
+  $old_prefix = 'sparql_endpoint_arc2_';
+  $new_prefix = 'sparql_store_site_endpoint_';
+  foreach ($arc2_tables as $table) {
+    if (db_table_exists($old_prefix . $table)) {
+      db_rename_table($old_prefix . $table, $new_prefix . $table);
+    }
+  }
+
+  drupal_set_message($t('The SPARQL Endpoint database tables have been moved.'), 'status');
+}

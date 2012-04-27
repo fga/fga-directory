@@ -1,0 +1,49 @@
+<?php
+
+/**
+ * @file
+ * Tests for the sparql module.
+ *
+ */
+
+//////////////////////////////////////////////////////////////////////////////
+// SPARQL unit tests (CIA Factbook)
+
+class SPARQL_CIAFactbookTestCase extends DrupalWebTestCase {
+  const ENDPOINT = 'http://www4.wiwiss.fu-berlin.de/factbook/sparql';
+  const COUNTRY  = 'http://www4.wiwiss.fu-berlin.de/factbook/ns#Country';
+
+  public function getInfo() {
+    return array(
+      'name'        => t('CIA Factbook'),
+      'description' => t('Executes queries against the CIA Factbook\'s SPARQL endpoint, attempting to parse resultsets in both JSON and XML format.'),
+      'group'       => t('SPARQL'),
+    );
+  }
+
+  function setup() {
+    parent::setup('rdf', 'sparql');
+  }
+
+  public function test_json_query() {
+    $this->query_classes(t('JSON'), array('format' => 'application/sparql-results+json', 'output' => 'json'));
+  }
+
+  public function test_xml_query() {
+    $this->query_classes(t('XML'), array('format' => 'application/sparql-results+xml', 'output' => 'xml'));
+  }
+
+  private function query_classes($format, array $options = array()) {
+    $results = $this->query('SELECT DISTINCT ?class WHERE { [] a ?class } ORDER BY ?class', $options);
+    $this->assertTrue(empty($this->errors), t('@format: No errors', array('@format' => $format)));
+    $this->assertNotNull($results, t('@format: Has results', array('@format' => $format)));
+    $this->assertEqual(count($results), 1, t('@format: Has one result', array('@format' => $format)));
+    $this->assertTrue(isset($results[0]['class']), t('@format: Contains ?class column', array('@format' => $format)));
+    $this->assertEqual((string)$results[0]['class'], self::COUNTRY, t('@format: Correct answer', array('@format' => $format)));
+  }
+
+  private function query($query, array $options = array()) {
+    $this->errors = array();
+    return sparql_query($query, array_merge(array('endpoint' => self::ENDPOINT), $options), $this->errors);
+  }
+}

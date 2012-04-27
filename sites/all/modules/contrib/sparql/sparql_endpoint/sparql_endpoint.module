@@ -1,0 +1,124 @@
+<?php
+
+/**
+ * Defines the number of entities to process at once when rebuilding the RDF index.
+ */
+define('SPARQL_ENDPOINT_BUILD_AT_ONCE', 300);
+
+/**
+ * Implements hook_menu().
+ */
+function sparql_endpoint_menu() {
+  // @todo use access RDF data permission instead of access content.
+  $items['sparql'] = array(
+    'title' => 'SPARQL endpoint',
+    'page callback' => 'sparql_endpoint_sparql_endpoint',
+    'access arguments' => array('access content'),
+  );
+  $items['sparql_endpoint_index'] = array(
+    'title' => 'Build RDF index',
+    'page callback' => 'sparql_endpoint_index_rdf',
+    'access arguments' => array('administer rdf'),
+  );
+  return $items;
+}
+
+function sparql_endpoint_index_rdf() {
+  // Instantiate the ARC2 local store.
+  $store = sparql_get_store('site_endpoint');
+
+  // Emtpy the local store.
+  $store->reset();
+
+  // Rebuild in a batch to prevent timeouts.
+  $batch = array(
+    'title' => t('Rebuilding RDF index from scratch.'),
+    'operations' => array(
+      array('_sparql_endpoint_index_rebuild_entity', array('node')),
+      array('_sparql_endpoint_index_rebuild_entity', array('user')),
+      array('_sparql_endpoint_index_rebuild_entity', array('taxonomy_term')),
+    ),
+    'progress_message' => 'Completed @current of @total entity types.',
+    'finished' => '_sparql_endpoint_index_rebuild_entity_done',
+  );
+  batch_set($batch);
+  batch_process('');
+}
+
+/**
+ * Rebuilds the RDF index for the given entity type.
+ */
+function _sparql_endpoint_index_rebuild_entity($entity_type, &$context) {
+  if (empty($context['sandbox'])) {
+    // Initiate progress counter.
+    $context['sandbox']['progress'] = 0;
+  }
+
+  $query = new EntityFieldQuery();
+  $query->entityCondition('entity_type', $entity_type, '=')
+        ->range($context['sandbox']['progress'], SPARQL_ENDPOINT_BUILD_AT_ONCE);
+  $result = $query->execute();
+
+  $ids = !empty($result[$entity_type]) ? array_keys($result[$entity_type]) : array();
+  $entities = entity_load($entity_type, $ids);
+  $store = sparql_get_store('site_endpoint');
+
+  foreach ($entities as $id => $entity) {
+    $rdf = rdfx_get_rdf_model($entity_type, $id);
+    $store->insert($rdf->index, $rdf->uri);
+  }
+
+  drupal_set_message(t('Processed @num @type entities.', array('@num' => $context['sandbox']['progress'], '@type' => $entity_type)));
+
+  $context['sandbox']['progress'] += SPARQL_ENDPOINT_BUILD_AT_ONCE;
+  // If less than SPARQL_ENDPOINT_BUILD_AT_ONCE entities were retrieved we have
+  // reached the end and stop processing.
+  $context['finished'] = count($entities) < SPARQL_ENDPOINT_BUILD_AT_ONCE;
+}
+
+/**
+ * Finish callback for the rebuild batch.
+ */
+function _sparql_endpoint_index_rebuild_entity_done() {
+  $endpoint = l(t('SPARQL endpoint'), 'sparql', array('attributes' => array('target' => '_blank'), 'alias' => TRUE));
+  drupal_set_message(t('The RDF index of the site has been rebuilt. Browse to the !endpoint to query it.', array('!endpoint' => $endpoint)));
+}
+
+/**
+ * Menu page callback.
+ */
+function sparql_endpoint_sparql_endpoint() {
+  // Instantiate the ARC2 SPARQL endpoint.
+  $ep = sparql_get_store('site_endpoint', SPARQL_ENDPOINT);
+  $ep->go();
+}
+
+/**
+ * Implements hook_node_insert().
+ */
+function sparql_endpoint_node_insert($node) {
+  // Instantiate the ARC2 local store.
+  $store = sparql_get_store('site_endpoint');
+
+  // Attach RDF mappings and build RDF model for the node.
+  $node = node_load($node->nid);
+  $rdf = rdfx_get_rdf_model('node', $node->nid);
+
+  // Add node to the store.
+  $store->insert($rdf->index, $rdf->uri);
+}
+
+/**
+ * Implements hook_node_update().
+ */
+function sparql_endpoint_node_update($node) {
+  // Instantiate the ARC2 local store.
+  $store = sparql_get_store('site_endpoint');
+
+  // Build RDF model for the node.
+  $rdf = rdfx_get_rdf_model('node', $node->nid);
+
+  // Cleans out the graph and reindex the node.
+  $store->query('DELETE FROM <' . $rdf->uri . '>');
+  $store->insert($rdf->index, $rdf->uri);
+}

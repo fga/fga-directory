@@ -1,0 +1,180 @@
+<?php
+/*
+ * @file
+ * API function for running queries on external SPARQL endpoints.
+ */
+
+define('SPARQL_ENDPOINT', 'endpoint');
+
+/**
+ * Implements hook_help().
+ */
+function sparql_help($path, $arg = NULL) {
+  switch ($path) {
+    case 'admin/settings/sparql':
+      return '<p>' . t('The sparql module provides an interface for other modules to perform sparql queries') . '</p>'; // TODO
+  }
+}
+
+/**
+ * Executes a SPARQL query.
+ *
+ * @param $query
+ *   The SPARQL query to execute.
+ * @param $endpoint
+ *   An endpoint object, as returned by SPARQL Registry.
+ * @return
+ *   The SPARQL results.
+ */
+function sparql_request($query, $endpoint) {
+  $rows = _sparql_request($query, $endpoint);
+  return $rows;
+}
+
+function sparql_get_store($name, $type = 'store') {
+  $db = $GLOBALS['databases']['default']['default'];
+  $name = "sparql_store_$name";
+
+  $config = array(
+    /* db */
+    'db_host' => $db['host'],
+    'db_name' => $db['database'],
+    'db_user' => $db['username'],
+    'db_pwd' => $db['password'],
+    /* store */
+    'store_name' => $name,
+
+    /* endpoint */
+    'endpoint_features' => array(
+      'select', 'construct', 'ask', 'describe',
+      'load', 'insert', 'delete',
+      'dump' /* dump is a special command for streaming SPOG export */
+    ),
+    'endpoint_timeout' => 60, /* not implemented in ARC2 preview */
+    'endpoint_read_key' => '', /* optional */
+    'endpoint_write_key' => 'somekey', /* optional */
+    'endpoint_max_limit' => 500, /* optional */
+  );
+
+  /* instantiation */
+  if ($type == SPARQL_ENDPOINT) {
+    $store = ARC2::getStoreEndpoint($config);
+  }
+  else {
+    $store = ARC2::getStore($config);
+  }
+  if (!$store->isSetUp()) {
+    $store->setUp();
+  }
+  return $store;
+}
+
+/**
+ * Runs a query against an endpoint.
+ *
+ * @param $query
+ *   The SPARQL query to execute.
+ * @param $endpoint
+ *   The endpoint to try the query against.
+ * @options
+ *   Options to use with the remote or local store, as passed to
+ *   sparql_request.
+ */
+function _sparql_request($query, $endpoint) {
+  // Initialize connection with the endpoint.
+  $store = _sparql_init_remote_store($endpoint);
+
+  // Execute the query.
+  $rs = $store->query($query);
+  if ($errors = $store->getErrors()) {
+    // Log errors.
+    foreach ($errors as $error) {
+      trigger_error($error, E_USER_ERROR);
+    }
+    return NULL;
+  }
+  else {
+    // Success!
+    return $rs;
+  }
+}
+
+/**
+ * Sets up an ARC2 RDF local repository.
+ *
+ * @param $name
+ *   The name of the local repository.
+ * @param $endpoint
+ *   Set to TRUE if this store should also be setup as a SPARQL endpoint.
+ * @return
+ *   An ARC2 store object.
+ */
+function _sparql_init_store($name, $endpoint = FALSE) {
+  // @todo fix this. Error reporting is off because ARC2 throws strict warnings.
+  error_reporting(0);
+
+  $db_spec = $GLOBALS['databases']['default']['default'];
+
+  $config = array(
+    /* db */
+    'db_name' => $db_spec['database'],
+    'db_user' => $db_spec['username'],
+    'db_pwd' => isset($db_spec['password']) ? $db_spec['password'] : '',
+    /* store */
+    'store_name' => $name,
+
+    /* endpoint */
+    'endpoint_features' => array(
+      'select', 'construct', 'ask', 'describe',
+      //'load', 'insert', 'delete',
+      'dump' /* dump is a special command for streaming SPOG export */
+    ),
+    'endpoint_timeout' => 60, /* not implemented in ARC2 preview */
+    'endpoint_read_key' => '', /* optional */
+    'endpoint_write_key' => '', /* optional */
+    'endpoint_max_limit' => 500, /* optional */
+  );
+
+  // If this site is exposing a SPARQL endpoint, instantiate the endpoint with
+  // the endpoint class which can be used for HTTP-based data access.
+  if ($endpoint) {
+    $store = ARC2::getStoreEndpoint($config);
+  }
+  // Otherwise, instantiate a locally accessible store.
+  else {
+    $store = ARC2::getStore($config);
+  }
+  if (!$store->isSetUp()) {
+    $store->setUp();
+  }
+
+  return $store;
+}
+
+/**
+ * Sets up an ARC2 RDF remote store.
+ *
+ * @param $endpoint
+ *   The remote SPARQL endpoint.
+ * @return
+ *   An ARC2 store object.
+ */
+function _sparql_init_remote_store($endpoint) {
+  $endpoint_url = $endpoint->uri;
+
+  // If there are query parameters that need to be added before ARC2 processing,
+  // add them here. Filter the array to remove empty values.
+  if (isset($endpoint->options['query_parameters'])) {
+    $endpoint_url = url($endpoint_url, array('query' => array_filter($endpoint->options['query_parameters'])));
+  }
+
+  $config = array(
+    /* remote endpoint */
+    'remote_store_endpoint' => $endpoint_url,
+  );
+
+  /* instantiation */
+  $store = ARC2::getRemoteStore($config);
+
+  return $store;
+}

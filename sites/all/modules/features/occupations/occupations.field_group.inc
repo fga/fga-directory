@@ -260,7 +260,7 @@ function occupations_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Administration',
-    'weight' => '4',
+    'weight' => '5',
     'children' => array(
       0 => 'field_occupation_notes_legacy',
       1 => 'field_occupation_notes',
@@ -289,7 +289,7 @@ function occupations_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Comment Counts',
-    'weight' => '7',
+    'weight' => '6',
     'children' => array(
       0 => 'field_comments_done',
       1 => 'field_comments_new',
@@ -383,7 +383,7 @@ function occupations_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Container',
-    'weight' => '3',
+    'weight' => '4',
     'children' => array(
       0 => 'group_occupation_contact_info',
       1 => 'group_occupation_information',

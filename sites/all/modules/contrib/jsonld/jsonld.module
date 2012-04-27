@@ -1,0 +1,63 @@
+<?php
+
+/**
+ * @file
+ * Outputs Drupal entities as JSON-LD.
+ */
+
+/**
+ * Loads the PHP JSON-LD library.
+ *
+ * @return
+ *   Boolean indicating if the library was successfully loaded.
+ */
+function jsonld_load($display_warning = TRUE) {
+  $jsonld_path = jsonld_get_path();
+
+  if (file_exists($jsonld_path . '/jsonld.php')) {
+    include_once($jsonld_path . '/jsonld.php');
+    return TRUE;
+  }
+  else {
+    drupal_set_message(t("The JSON-LD module cannot find the php-json-ld library."));
+    return FALSE;
+  }
+}
+
+/**
+ * Returns the path where jsonld() is installed.
+ */
+function jsonld_get_path() {
+  return variable_get('jsonld_path', 'sites/all/libraries/php-json-ld/php-json-ld');
+}
+
+/**
+ * Implements hook_init().
+ */
+function jsonld_init() {
+  // Loads php-json-ld library.
+  jsonld_load();
+}
+
+/**
+ * Implements hook_restws_format_info_alter().
+ */
+function jsonld_restws_format_info_alter(&$info) {
+  $info['jsonld'] = array(
+    'label' => t('JSON-LD'),
+    'class' => 'JsonldRestWSFormatJsonld',
+    'mime type' => 'application/json',
+  );
+}
+
+/**
+ * Converts an RDF graph into a JSON-LD object.
+ *
+ * @param input the RDF graph to convert in the form of an ARC2 object.
+ *
+ * @return a JSON-LD object.
+ */
+function jsonld_fromrdf($input) {
+   $p = new JsonLdDrupalProcessor();
+   return $p->fromRDF($input);
+}

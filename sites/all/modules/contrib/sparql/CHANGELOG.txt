@@ -1,0 +1,10 @@
+This log does not contain all changes. Instead, it only logs the changes that
+may require action by the user or module developer.
+
+For a full list of changes, refer to the commit log at
+http://drupal.org/node/222959/commits
+
+SPARQL 7.x-2.x-dev
+------------------
+- #1214510: Change 'endpoint' property to 'uri' on endpoint objects
+- #1211898: Change API to take endpoint object.

@@ -1,0 +1,7 @@
+name = SPARQL Endpoint
+description = Expose local RDF data in a SPARQL endpoint.
+package = RDF
+dependencies[] = rdfx
+dependencies[] = sparql
+version = VERSION
+core = 7.x

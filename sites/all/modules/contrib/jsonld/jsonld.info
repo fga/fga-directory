@@ -1,0 +1,8 @@
+name = JSON-LD
+description = Offers JSON-LD as format for exporting Drupal entities.
+version = VERSION
+core = 7.x
+dependencies[] = rdfx
+dependencies[] = restws
+files[] = jsonld.restws.formats.inc
+files[] = jsonld.class.php

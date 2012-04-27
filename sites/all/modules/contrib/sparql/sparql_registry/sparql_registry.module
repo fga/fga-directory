@@ -1,0 +1,447 @@
+<?php
+
+/**
+ * Implements hook_permission().
+ */
+function sparql_registry_permission() {
+  $perms = array(
+    'administer sparql registry' => array(
+      'title' => t('Administer SPARQL endpoints registry'),
+    ),
+  );
+
+  return $perms;
+}
+
+/**
+ * Implements hook_menu().
+ */
+function sparql_registry_menu() {
+  $items['sparql_registry/%sparql_registry'] = array(
+    'title' => 'SPARQL Endpoint',
+    'title callback' => 'sparql_registry_page_title',
+    'title arguments' => array(1),
+    'page callback' => 'sparql_registry_page',
+    'page arguments' => array(1),
+    'access arguments' => array('administer sparql registry'),
+    'type' => MENU_CALLBACK,
+  );
+  $items['sparql_registry/%sparql_registry/edit'] = array(
+    'title' => 'Edit',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('sparql_registry_form_edit', 1),
+    'access arguments' => array('administer sparql registry'),
+    'type' => MENU_LOCAL_TASK,
+    'weight' => 10,
+  );
+
+  $items['sparql_registry/%sparql_registry/delete'] = array(
+    'title' => 'Delete',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('sparql_registry_delete_confirm', 1),
+    'access arguments' => array('administer sparql registry'),
+    'weight' => 10,
+    'type' => MENU_LOCAL_TASK,
+  );
+  $items['admin/structure/sparql_registry'] = array(
+    'title' => 'SPARQL Endpoints Registry',
+    'description' => 'Manage sparql endpoint entities.',
+    'access arguments' => array('administer sparql registry'),
+    'page callback' => 'sparql_registry_page_admin',
+    'page arguments' => array('list'),
+  );
+
+  $items['admin/structure/sparql_registry/list'] = array(
+    'title' => 'List',
+    'type' => MENU_DEFAULT_LOCAL_TASK,
+  );
+
+  $items['admin/structure/sparql_registry/create'] = array(
+    'title' => 'Add SPARQL endpoint',
+    'page arguments' => array('create'),
+    'access arguments' => array('administer sparql registry'),
+    'type' => MENU_LOCAL_ACTION,
+  );
+
+  return $items;
+}
+
+/**
+ * Implements hook_entity_info().
+ */
+function sparql_registry_entity_info() {
+  $return = array(
+    'sparql_registry' => array(
+      'label' => t('SPARQL Endpoints Registry'),
+      'base table' => 'sparql_registry',
+      'uri callback' => 'sparql_registry_uri',
+      'fieldable' => FALSE,
+      'entity keys' => array(
+        'id' => 'srid',
+      ),
+      'bundles' => array(
+        'sparql_registry' => array(
+          'label' => t('SPARQL Endpoints Registry Item'),
+          'admin' => array(
+            'path' => 'admin/structure/sparql_registry',
+          ),
+        ),
+      ),
+    ),
+  );
+  return $return;
+}
+
+/**
+ * Entity uri callback.
+ */
+function sparql_registry_uri($sparql_registry) {
+  return array(
+    'path' => 'sparql_registry/' . $sparql_registry->srid,
+  );
+}
+
+/**
+ * Implements hook_admin_paths().
+ */
+function sparql_registry_admin_paths() {
+  $paths = array(
+    'sparql_registry/*/edit' => TRUE,
+    'sparql_registry/*/delete' => TRUE,
+  );
+  return $paths;
+}
+
+function sparql_registry_load($srid, $reset = FALSE) {
+  $sparql_registries = sparql_registry_load_multiple(array($srid), array(), $reset);
+  $sparql_registry = reset($sparql_registries);
+  return $sparql_registry;
+}
+
+function sparql_registry_load_by_uri($uri, $reset = FALSE) {
+  $srid = NULL;
+  $sparql_registry = NULL;
+
+  $query = new EntityFieldQuery();
+  $query
+    ->entityCondition('entity_type', 'sparql_registry', '=')
+    ->propertyCondition('uri', $uri, '=');
+  $result = $query->execute();
+
+  if (!empty($result)) {
+    // The endpoint is in a double nested array. Use reset to pull it out.
+    $endpoint = reset(reset($result));
+    $srid = $endpoint->srid;
+    $sparql_registry = sparql_registry_load_multiple(array($srid), array(), $reset);
+    return reset($sparql_registry);
+  }
+
+  return NULL;
+}
+
+function sparql_registry_load_multiple($srids = FALSE, $conditions = array(), $reset = FALSE) {
+  $sparql_registries = entity_load('sparql_registry', $srids, $conditions, $reset);
+  // Unserialize the options array.
+  foreach ($sparql_registries as $sparql_registry) {
+    if (!is_array($sparql_registry->options)) {
+      $sparql_registry->options = unserialize($sparql_registry->options);
+    }
+  }
+  return entity_load('sparql_registry', $srids, $conditions, $reset);
+}
+
+function sparql_registry_delete($srid) {
+  sparql_registry_delete_multiple(array($srid));
+}
+
+function sparql_registry_delete_multiple($srids) {
+  if (!empty($srids)) {
+    db_delete('sparql_registry')
+     ->condition('srid', $srids, 'IN')
+     ->execute();
+
+    entity_get_controller('sparql_registry')->resetCache();
+  }
+}
+
+function sparql_registry_page_title($sparql_registry) {
+  return check_plain($sparql_registry->title);
+}
+
+/**
+ * Save the SPARQL registry form values to the database.
+ */
+function sparql_registry_save(&$edit) {
+  // If there is an existing endpoint record, update the record. Otherwise,
+  // insert a new endpoint record.
+  if (!empty($edit->srid)) {
+    drupal_write_record('sparql_registry', $edit, 'srid');
+    module_invoke_all('entity_update', 'sparql_registry', $edit);
+  }
+  else {
+    drupal_write_record('sparql_registry', $edit);
+    module_invoke_all('entity_insert', 'sparql_registry', $edit);
+  }
+
+  return $edit;
+}
+
+function sparql_registry_page_admin($tab = '') {
+  switch ($tab) {
+    case 'create':
+      $build['sparql_registry_create'] = drupal_get_form('sparql_registry_form_edit');
+      break;
+    default:
+      $build['sparql_registry_list'] = drupal_get_form('sparql_registry_form_list');
+  }
+  return $build;
+}
+
+function sparql_registry_form_list() {
+  $header = array(
+    'title' => array('data' => t('Title'), 'field' => 'sr.title'),
+    'uri' => array('data' => t('Endpoint URI'), 'field' => 'uri'),
+    'dataset' => array('data' => t('Dataset'), 'field' => 'dataset'),
+    'edit' => array('data' => t('Edit')),
+    'delete' => array('data' => t('Delete')),
+  );
+  $query = db_select('sparql_registry', 'sr');
+  $count_query = clone $query;
+  $count_query->addExpression('COUNT(sr.srid)');
+
+  $query = $query->extend('PagerDefault')->extend('TableSort');
+  $query
+    ->fields('sr', array('srid', 'title', 'uri', 'dataset'))
+    ->limit(20)
+    ->orderByHeader($header)
+    ->setCountQuery($count_query);
+  $result = $query->execute();
+
+  $destination = drupal_get_destination();
+
+  $options = array();
+  foreach ($result as $row) {
+    $options[$row->srid] = array(
+      'title' => $row->title,
+      'uri' => $row->uri,
+      'dataset' => $row->dataset,
+      'edit' => array('data' => array(
+        '#type' => 'link',
+        '#title' => t('edit'),
+        '#href' => "sparql_registry/$row->srid/edit",
+        '#options' => array('query' => $destination),
+      )),
+      'delete' => array('data' => array(
+        '#type' => 'link',
+        '#title' => t('delete'),
+        '#href' => "sparql_registry/$row->srid/delete",
+        '#options' => array('query' => $destination),
+      )),
+    );
+  }
+
+  $form['sparql_registry'] = array(
+    '#type' => 'tableselect',
+    '#header' => $header,
+    '#options' => $options,
+    '#empty' => t('No entities available.'),
+  );
+  $form['pager']['#markup'] = theme('pager');
+
+  return $form;
+}
+
+function sparql_registry_form_edit($form, &$form_state, $edit = NULL) {
+  if (!isset($edit)) {
+    $edit = (object) array(
+      'title' => '',
+      'uri' => '',
+      'dataset' => '',
+      'options' => array(
+        'query_parameters' => array(),
+      ),
+    );
+  }
+
+  // Because we have many fields with the same keys, we have to set #tree to
+  // access them.
+  $form['#tree'] = TRUE;
+  $form['title'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Title'),
+    '#default_value' => $edit->title,
+    '#required' => TRUE,
+  );
+  $form['uri'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Endpoint URI'),
+    '#description' => t('The URL used to access the endpoint. For example, !dbpedia.', array('!dbpedia' => 'http://dbpedia.org/sparql')),
+    '#default_value' => $edit->uri,
+    '#required' => TRUE,
+  );
+  $form['dataset'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Dataset'),
+    '#default_value' => $edit->dataset,
+    '#required' => FALSE,
+  );
+
+  $form['options'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Advanced query options'),
+  );
+  $form['options']['query_parameters'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Query parameters'),
+    // Set up the wrapper so that AJAX will be able to replace the fieldset.
+    '#prefix' => '<div id="options-fieldset-wrapper">',
+    '#suffix' => '</div>',
+  );
+
+  // Build the fieldset with the proper number of query parameter fields.
+  if (!isset($form_state['num_query_parameters'])) {
+    if (count($edit->options['query_parameters']) > 0) {
+      $form_state['num_query_parameters'] = count($edit->options['query_parameters']);
+    }
+    else {
+      $form_state['num_query_parameters'] = 1;
+    }
+    $parameters = isset($edit->options['query_parameters']) ? $edit->options['query_parameters'] : array();
+  }
+
+  for ($i = 0; $i < $form_state['num_query_parameters']; $i++) {
+    $key = key($parameters);
+    $value = array_shift($parameters);
+
+    $form['options']['query_parameters'][$i]['key'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Key'),
+      '#default_value' => $key,
+    );
+    $form['options']['query_parameters'][$i]['value'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Value'),
+      '#default_value' => $value,
+    );
+  }
+  $form['options']['add_name'] = array(
+    '#type' => 'submit',
+    '#value' => t('Add one more'),
+    '#submit' => array('sparql_registry_add_more_add_one'),
+    // See the examples in ajax_example.module for more details on the
+    // properties of #ajax.
+    '#ajax' => array(
+      'callback' => 'sparql_registry_add_more_callback',
+      'wrapper' => 'options-fieldset-wrapper',
+    ),
+    '#limit_validation_errors' => array(),
+  );
+  if ($form_state['num_query_parameters'] > 1) {
+    $form['options']['remove_name'] = array(
+      '#type' => 'submit',
+      '#value' => t('Remove one'),
+      '#submit' => array('sparql_registry_add_more_remove_one'),
+      '#ajax' => array(
+        'callback' => 'sparql_registry_add_more_callback',
+        'wrapper' => 'options-fieldset-wrapper',
+      ),
+      '#limit_validation_errors' => array(),
+    );
+  }
+
+  // Store ID if any.
+  if (!empty($edit->srid)) {
+    $form['srid'] = array(
+      '#type' => 'value',
+      '#value' => $edit->srid,
+    );
+  }
+  $form['actions'] = array('#type' => 'actions');
+  $form['actions']['submit'] = array(
+    '#type' => 'submit',
+    '#value' => t('Save'),
+    '#weight' => 5,
+  );
+
+  return $form;
+}
+
+/**
+ * Callback for both ajax-enabled buttons.
+ *
+ * This simply selects and returns the fieldset with the names in it.
+ */
+function sparql_registry_add_more_callback($form, $form_state) {
+  return $form['options']['query_parameters'];
+}
+
+/**
+ * Submit handler for the "add-one-more" button.
+ *
+ * It just increments the max counter and causes a rebuild.
+ */
+function sparql_registry_add_more_add_one($form, &$form_state) {
+  $form_state['num_query_parameters']++;
+  $form_state['rebuild'] = TRUE;
+}
+
+/**
+ * Submit handler for the "remove one" button.
+ *
+ * Decrements the max counter and causes a form rebuild.
+ */
+function sparql_registry_add_more_remove_one($form, &$form_state) {
+  if ($form_state['num_query_parameters'] > 1) {
+    $form_state['num_query_parameters']--;
+  }
+  $form_state['rebuild'] = TRUE;
+}
+
+function sparql_registry_form_edit_validate($form, &$form_state) {
+  // Check if endpoint has a valid url.
+  if (!valid_url($form_state['values']['uri'], TRUE)) {
+    form_set_error('uri', 'Endpoint URI value is not a valid URI.');
+  }
+}
+
+function sparql_registry_form_edit_submit($form, &$form_state) {
+  $values = $form_state['values'];
+
+  // Take the parameters array structure from the form and restructure it to be
+  // easier to use in the API.
+  $parameters = array();
+  foreach ($values['options']['query_parameters'] as $parameter) {
+    $parameters[$parameter['key']] = $parameter['value'];
+  }
+  $values['options']['query_parameters'] = $parameters;
+
+  // Create an object to pass to drupal_write_record().
+  $edit = (object) $values;
+
+  // Save own data.
+  sparql_registry_save($edit);
+  $form_state['redirect'] = "admin/structure/sparql_registry";
+}
+
+function sparql_registry_delete_confirm($form, &$form_state, $sparql_registry) {
+  $form['#sparql_registry'] = $sparql_registry;
+  $form['srid'] = array('#type' => 'value', '#value' => $sparql_registry->srid);
+  return confirm_form($form,
+    t('Are you sure you want to delete %title?', array('%title' => $sparql_registry->title)),
+    'sparql_registry/' . $sparql_registry->srid,
+    t('This action cannot be undone.'),
+    t('Delete'),
+    t('Cancel')
+  );
+}
+
+function sparql_registry_delete_confirm_submit($form, &$form_state) {
+  if ($form_state['values']['confirm']) {
+    $sparql_registry = sparql_registry_load($form_state['values']['srid']);
+    sparql_registry_delete($form_state['values']['srid']);
+    watchdog('sparql_registry', 'deleted %title.', array('%title' => $sparql_registry->title));
+    drupal_set_message(t('%title has been deleted.', array('%title' => $sparql_registry->title)));
+  }
+
+  $form_state['redirect'] = "admin/structure/sparql_registry";
+}

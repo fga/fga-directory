@@ -1,0 +1,7 @@
+name = SPARQL API
+description = Enables the use of SPARQL queries.
+package = RDF
+dependencies[] = rdf
+dependencies[] = rdfx
+core = 7.x
+files[] = sparql.test

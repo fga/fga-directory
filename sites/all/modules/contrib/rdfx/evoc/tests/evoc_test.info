@@ -5,10 +5,3 @@ package = RDF
 
 files[] = evoc_test.module
 hidden = TRUE
-
-; Information added by drupal.org packaging script on 2011-10-01
-version = "7.x-2.0-alpha4"
-core = "7.x"
-project = "rdfx"
-datestamp = "1317447407"
-
