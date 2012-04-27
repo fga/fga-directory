@@ -47,24 +47,21 @@ h1, h2, h3, h4, h5, h6 {
  color: #333;
 }
 
-
-
 .site-name {
  font-size: 2.25em;
  color: white;
  background: black;
  padding: .5em .5em .25em;
 }
+
 .site-name a:link, .site-name a:visited {
  color: white;
   text-decoration: none;
 }
+
 .site-name a:hover {
  color: #d0d0d0;
 }
-
-
-
 
 nav.navigation {
  margin-top: 30px;
@@ -423,6 +420,7 @@ also, not so hot when admin menu is on, and the homepage isn't as nice.
 html, body.not-front {
  height: 100%;
 }
+
 #page {
   min-height: 100%;
   position:relative;
@@ -435,4 +433,20 @@ html, body.not-front {
  bottom: 0;
  width: 100%;
  height: 120px;
+}
+
+
+/* -----------------------------------------------------------
+	page-occupations-cards 
+----------------------------------------------------------- */
+.page-occupations-cards .views-row{
+	float: left;
+	width: 220px;
+	margin: 10px;
+	display: inline-block;
+	background: #eee;
+	min-height: 400px;
+}
+
+.page-occupations-cards .views-row:first-child{
 }
