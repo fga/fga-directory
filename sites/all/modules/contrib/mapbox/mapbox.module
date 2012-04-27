@@ -1,0 +1,104 @@
+<?php
+
+/**
+ * @file
+ * @defgroup mapbox MapBox: Provides MapBox layers to OpenLayers
+ * This module has no UI; it only implements hooks in OpenLayers 2.x
+ * and Gmap
+ */
+
+/**
+ * Implements hook_ctools_plugin_api().
+ */
+function mapbox_ctools_plugin_api($module, $api) {
+  if ($module == "openlayers") {
+    switch ($api) {
+      case 'openlayers_layers':
+        return array('version' => 1);
+      case 'openlayers_styles':
+        return array('version' => 1);
+    }
+  }
+}
+
+/**
+ * OpenLayers pre-alpha3 compatibility
+ */
+function mapbox_openlayers_styles_info() {
+  return mapbox_openlayers_styles();
+}
+
+/**
+ * Implements hook_openlayers_styles().
+ */
+function mapbox_openlayers_styles() {
+  module_load_include('inc', 'mapbox', 'includes/mapbox.styles');
+  return _mapbox_openlayers_styles();
+}
+
+/**
+ * OpenLayers pre-alpha3 compatibility
+ */
+function mapbox_openlayers_layers_info() {
+  return mapbox_openlayers_layers();
+}
+
+/**
+ * Implements hook_openlayers_layers().
+ */
+function mapbox_openlayers_layers() {
+  module_load_include('inc', 'mapbox', 'includes/mapbox.layers');
+  return _mapbox_openlayers_layers();
+}
+
+/**
+ * Implements hook_gmap().
+ */
+function mapbox_gmap($op, &$map) {
+  module_load_include('inc', 'mapbox', 'includes/mapbox.layers');
+  $info = _mapbox_layers_info();
+  $layers = array();
+  foreach ($info as $name => $layer) {
+    $layers['Mapbox'][$layer['layername']] = array(
+      'title' => $layer['name'],
+      'default' => TRUE,
+      'help' => $layer['description'],
+      'minzoom' => $layer['minzoom'],
+      'maxzoom' => $layer['maxzoom'],
+    );
+  }
+  switch ($op) {
+    case 'pre_theme_map':
+      drupal_add_js(drupal_get_path('module', 'mapbox') . '/js/gmapbox.js', array('weight' => 2));
+      drupal_add_js(array('gmapbox' => array('mapdefs' => $layers['Mapbox'])), 'setting');
+      $js = 'http://js.mapbox.com/g/2/mapbox.js';
+      $element = array(
+        '#type' => 'markup',
+        '#markup' => '<script type="text/javascript" src="' . $js . '"></script>',
+      );
+      drupal_add_html_head($element, 'mapbox_gmap');
+      break;
+    case 'baselayers':
+      $map = array_merge($map, $layers);
+      break;
+  }
+}
+
+/**
+ * Implements openlayers_layer_types().
+ */
+function mapbox_openlayers_layer_types() {
+  return array(
+    'openlayers_layer_type_mapbox' => array(
+      'title' => t('MapBox'),
+      'description' => t('MapBox Maps'),
+      'type' => 'layer',
+      'path' => drupal_get_path('module', 'mapbox') . '/includes/layer_types',
+      'file' => 'mapbox.inc',
+      'layer_type' => array(
+        'class' => 'openlayers_layer_type_mapbox',
+        'parent' => 'openlayers_layer_type',
+      ),
+    ),
+  );
+}

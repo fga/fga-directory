@@ -51,7 +51,7 @@ function occupation_directory_structure_menu_default_menu_links() {
     'menu_name' => 'menu-feeds-and-exports',
     'link_path' => 'occupations/added.atom',
     'router_path' => 'occupations/added.atom',
-    'link_title' => 'Atom (recently added)',
+    'link_title' => 'Atom (new)',
     'options' => array(
       'attributes' => array(
         'title' => '',
@@ -69,7 +69,7 @@ function occupation_directory_structure_menu_default_menu_links() {
     'menu_name' => 'menu-feeds-and-exports',
     'link_path' => 'occupations/added.rss',
     'router_path' => 'occupations/added.rss',
-    'link_title' => 'RSS (recently added)',
+    'link_title' => 'RSS (new)',
     'options' => array(
       'attributes' => array(
         'title' => '',
@@ -105,7 +105,7 @@ function occupation_directory_structure_menu_default_menu_links() {
     'menu_name' => 'menu-feeds-and-exports',
     'link_path' => 'occupations/updated.atom',
     'router_path' => 'occupations/updated.atom',
-    'link_title' => 'Atom (recently updated)',
+    'link_title' => 'Atom (updated)',
     'options' => array(
       'attributes' => array(
         'title' => '',
@@ -123,7 +123,7 @@ function occupation_directory_structure_menu_default_menu_links() {
     'menu_name' => 'menu-feeds-and-exports',
     'link_path' => 'occupations/updated.rss',
     'router_path' => 'occupations/updated.rss',
-    'link_title' => 'RSS (recently updated)',
+    'link_title' => 'RSS (updated)',
     'options' => array(
       'attributes' => array(
         'title' => '',
@@ -139,11 +139,11 @@ function occupation_directory_structure_menu_default_menu_links() {
   // Translatables
   // Included for use with string extractors like potx.
   t('+ add your occupation!');
-  t('Atom (recently added)');
-  t('Atom (recently updated)');
+  t('Atom (new)');
+  t('Atom (updated)');
   t('CSV');
-  t('RSS (recently added)');
-  t('RSS (recently updated)');
+  t('RSS (new)');
+  t('RSS (updated)');
   t('json');
 
 

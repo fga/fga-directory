@@ -10,7 +10,7 @@
 function occupation_directory_structure_context_default_contexts() {
   $export = array();
 
-  $context = new stdClass;
+  $context = new stdClass();
   $context->disabled = FALSE; /* Edit this to true to make a default context disabled initially */
   $context->api_version = 3;
   $context->name = 'front';
@@ -20,12 +20,16 @@ function occupation_directory_structure_context_default_contexts() {
     'path' => array(
       'values' => array(
         '<front>' => '<front>',
+        'world-map' => 'world-map',
       ),
     ),
   );
   $context->reactions = array(
     'delta' => array(
       'delta_template' => 'directory_fullmap',
+    ),
+    'theme_html' => array(
+      'class' => 'fullwidth-map',
     ),
   );
   $context->condition_mode = 0;
@@ -36,7 +40,7 @@ function occupation_directory_structure_context_default_contexts() {
   t('pages');
   $export['front'] = $context;
 
-  $context = new stdClass;
+  $context = new stdClass();
   $context->disabled = FALSE; /* Edit this to true to make a default context disabled initially */
   $context->api_version = 3;
   $context->name = 'sidewide_blocks';
@@ -69,6 +73,12 @@ function occupation_directory_structure_context_default_contexts() {
           'delta' => 'menu-feeds-and-exports',
           'region' => 'footer_first',
           'weight' => '-9',
+        ),
+        'block-1' => array(
+          'module' => 'block',
+          'delta' => 1,
+          'region' => 'footer_second',
+          'weight' => '-10',
         ),
       ),
     ),

@@ -1,0 +1,29 @@
+Custom Formatters 7.x-2.x-dev, xxxx-xx-xx (development release)
+--------------------------------------------------------------------------------
+
+- #1188398: Added Contextual links integration settings.
+- Added documentation.
+- Added PHP engine DPM option to preview.
+
+
+Custom Formatters 7.x-2.0-beta3, 2011-06-15
+--------------------------------------------------------------------------------
+
+- Added HTML + Token engine Drupal API export.
+- Added PHP engine Drupal API export.
+- Added Insert module integration.
+- Fixed issue with 'Save & Edit' on new formatters.
+- Fixed issue with Fieldsets states being reverted on AJAX callback.
+
+
+Custom Formatters 7.x-2.0-beta2, 2011-06-02
+--------------------------------------------------------------------------------
+
+- Fixed critical install issue.
+- Removed support for non-fieldable entities.
+
+
+Custom Formatters 7.x-2.0-beta1, 2011-06-01
+--------------------------------------------------------------------------------
+
+- Initial 7.x release.

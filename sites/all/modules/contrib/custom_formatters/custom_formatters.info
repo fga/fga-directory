@@ -1,0 +1,37 @@
+name = Custom Formatters
+description = Allows users to easily define custom CCK Formatters.
+dependencies[] = ctools
+dependencies[] = field
+package = Fields
+configure = admin/structure/formatters
+core = 7.x
+
+; Formatter engines.
+files[] = engines/php.inc
+files[] = engines/token.inc
+
+; Module integrations.
+files[] = includes/contextual.inc
+files[] = includes/ctools.inc
+files[] = includes/custom_formatters.admin.inc
+files[] = includes/custom_formatters.inc
+files[] = includes/features.inc
+files[] = includes/field.inc
+files[] = includes/help.inc
+files[] = includes/insert.inc
+files[] = includes/system.inc
+files[] = includes/token.inc
+
+; CTools plugins.
+files[] = plugins/export_ui/custom_formatters.inc
+files[] = plugins/export_ui/custom_formatters_ui.class.php
+
+; Core files.
+files[] = custom_formatters.module
+
+; Information added by drupal.org packaging script on 2011-06-30
+version = "7.x-2.0"
+core = "7.x"
+project = "custom_formatters"
+datestamp = "1309465916"
+
