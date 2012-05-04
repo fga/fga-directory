@@ -5,7 +5,6 @@ jQuery(document).ready(function($) {
 
 	wax.tilejson(url, function(tilejson) {
 	  m = new MM.Map( 'map', new wax.mm.connector(tilejson));
-		console.log( wax.mm.interaction() );
 	  wax.mm.interaction()
 	    .map(m)
 	    .tilejson(tilejson)
@@ -27,7 +26,6 @@ jQuery(document).ready(function($) {
 					if (value === undefined) {
 						alert('The search you tried did not return a result.');
 					} else {
-						console.log( value );
 						easey().map(m)
 						.to(m.locationCoordinate({ lat: value.lat, lon: value.lon })
 						.zoomTo(6))

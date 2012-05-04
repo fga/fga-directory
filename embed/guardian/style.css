@@ -136,7 +136,6 @@ input:focus {
   left: 0;
   right: 0;
   bottom: 0;
-  z-index: 1;
   width:900px;
   height:700px;
 }
@@ -222,7 +221,7 @@ input:focus {
 	.wax-tooltip{
 		top: 214px;
 		position: absolute;
-		z-index: 10000 !important;
+		z-index: 100 !important;
 		left: 50%;
 		width: 600px;
 	}
