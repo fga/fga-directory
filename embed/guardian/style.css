@@ -205,7 +205,8 @@ input:focus {
 	
 	#overlay h2{
 		float: left;
-		text-shadow: black 0.1em 0.1em 0.2em
+		color: #eee;
+		text-shadow: black 1px 1px 0.125em
 	}
 	
 	#overlay form.location input[type='text']{
@@ -214,7 +215,7 @@ input:focus {
 		background: #000;
 		line-height: 1.2;
 		float: right;
-		margin: .5em;
+		margin: .675em .5em .5em .5em;
 	}
 	
 	/* Tooltip */
