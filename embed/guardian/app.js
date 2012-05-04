@@ -4,14 +4,14 @@ jQuery(document).ready(function($) {
 	var m;
 
 	wax.tilejson(url, function(tilejson) {
-	  m = new MM.Map('map', new wax.mm.connector(tilejson));
+	  m = new MM.Map( 'map', new wax.mm.connector(tilejson));
 		console.log( wax.mm.interaction() );
 	  wax.mm.interaction()
 	    .map(m)
 	    .tilejson(tilejson)
 	    .on( wax.movetip().parent( m.parent ).events() );
 	  m.setZoomRange( 1.9, 6);
-	  m.setCenterZoom({ lat: 19, lon: 9.7 }, 3 );
+	  m.setCenterZoom({ lat: 0, lon: 0 }, 3 );
 	});
 
 	$(function() {
