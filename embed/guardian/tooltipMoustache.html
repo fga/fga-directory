@@ -1,0 +1,200 @@
+<div class='tooltip-inner' id="occupation-{{id}}">
+
+	<!-- using hCard microformat -->
+	<div class="vcard">
+
+		<ul>
+
+			<!--
+			{{#Occupation Image}}
+			<li class="occupation-image">{{{Occupation Image}}}</li>
+			{{/Occupation Image}}
+			-->
+		
+			<li>
+				{{#Title}}
+				<a title="{{{Title}}}" class="occupation-directory-url"	href="{{{Occupy Directory URL}}}">		
+				<h3 class="fn org title">{{{Title}}}</h3>
+				</a>
+				{{/Title}}
+			</li>
+		
+			<li class="uid hidden">{{id}}</li>
+
+			{{#Occupation website}}
+			<li class="website-url">
+				<a class="url" title="Occupation Website" target="_blank" href="{{{Occupation website}}}">Occupation Website</a>
+			</li>
+			{{/Occupation website}}
+
+			<li class="adr">
+		
+				{{#Location Name -- sub-premise}}
+				<span class="locality">{{{Location Name -- sub-premise}}}</span>
+				{{Location Name -- sub-premise}}
+		
+				{{#Address 1 -- thoroughfare}}
+				<span class="stret-address">{{{Address 1 -- thoroughfare}}}</span>
+				{{/Address 1 -- thoroughfare}}
+
+				{{#Address 2 -- premise}}
+				<span class="extended-address">{{{Address 2 -- premise}}}</span>
+				{{/Address 2 -- premise}}
+
+				{{#City -- locality}}
+				<span class="city">{{{City -- locality}}}</span>
+				{{/City -- locality}}
+		
+				{{#City (Sub) -- dependent-locality}}
+				<span class="citi-sub">{{{City (Sub) -- dependent-locality}}}</span>
+				{{/City (Sub) -- dependent-locality}}
+		
+				{{#State -- administrative-area}}
+				<span class="region">{{{State -- administrative-area}}}</span>
+				{{/State -- administrative-area}}
+		
+				{{#State (sub) -- sub-administrative-area}}
+				<span class="state-sub">{{{State (sub) -- sub-administrative-area}}}</span>
+				{{/State (sub) -- sub-administrative-area}}
+
+				{{#Zip -- postal-code}}}
+				<span class="postal-code">{{{Zip -- postal-code}}}</span>
+				{{/Zip -- postal-code}}}
+
+				{{#Country -- country}}
+				<span class="country-name">{{{Country -- country}}}</span>
+				{{/Country -- country}}
+
+			</li>
+
+			{{#General phone}}
+			<li class="tel general-phone">{{{General phone}}}</li>
+			{{/General phone}}
+
+			{{#Founded}}
+			<li class="bday founded YYYY-MM-DD">{{{Founded}}}</li>
+			{{/Founded}}
+
+			{{#General email address}}
+			<li class="email general-email-address">{{{General email address}}}</li>
+			{{/General email address}}
+
+			<li class="geo">		
+				{{#Latitude}}
+				<span class="latitude">{{{Latitude}}}</span>, 
+				{{/Latitude}}
+				{{#Longitude}}
+				<span class="longitude">{{{Longitude}}}</span>
+				{{/Longitude}}
+			</li>
+
+		</ul>
+
+	</div><!--end vcard -->
+
+	
+	<li class="occupation-description">{{{Occupation description}}}</li>
+	<li class="genera-assembly">{{{General Assembly}}}</li>
+	<li class="donate-information">{{{Donate Information}}}</li>
+	<li class="physical-occupation-occurring">
+		{{{Physical occupation occurring?}}}
+	</li>
+	
+
+	<table>
+		<tr>
+			<th><h4>Point of Contact Emails</h4></th>
+			<th><h4>Additional Websites</h4></th>
+			<th><h4>Twitter Hash Tags</h4></th>
+			<th><h4>Twitter Accounts</h4></th>
+		</tr>
+		<tr>
+			<td>
+				<ul class="point-of-contact-email-addresses">
+					{{#Point of contact email addresses}}
+					<li class="email">{{{Point of contact email addresses}}}</li>
+					{{/Point of contact email addresses}}
+				</ul>
+			<td>
+				<ul class="additional-websites">
+					{{#Additional Occupation websites}}
+					<li>{{{Additional Occupation websites}}}</li>
+					{{/Additional Occupation websites}}
+				</ul>
+			</td>
+			<td>
+				<ul class="twitter-hashtags">
+					{{#Twitter hashtag(s)}}
+					<li class="twitter-hashtags">{{{Twitter hashtag(s)}}}</li>
+					{{/Twitter hashtag(s)}}
+				</ul>
+			</td>
+			<td>
+				<ul class="twitter-accounts">
+					{{#Twitter account(s)}}
+					<li class="twitter-accounts">{{{Twitter account(s)}}}</li>
+					{{/Twitter account(s)}}
+				</ul>
+			</td>
+		</tr>
+		<tr>
+			<th><h4>Video Sites</h4></th>
+			<th><h4>Social Media</h4></th>
+			<th><h4>Other URLs</h4></th>
+		</tr>
+		<tr>
+
+			<td>
+				<ul class="video-sites">
+
+					{{#Youtube channel URLs}}
+					<li class="youtube-channel-urls">{{{Youtube channel URLs}}}</li>
+					{{/Youtube channel URLs}}
+
+					{{#Live video streams}}
+					<li class="live-video-streams">{{{Live video streams}}}</li>
+					{{/Live video streams}}
+
+				</ul>
+			</td>
+
+			<td>
+				<ul class="social-media-sites">
+					{{#Facebook Page(s)}}
+					<li class="facebook-pages">{{{Facebook Page(s)}}}</li>
+					{{/Facebook Page(s)}}
+					{{#Meetup URL}}
+					<li class="meetup-url">{{{Meetup URL}}}</li>
+					{{/Meetup URL}}
+					{{#Additional social media sites}}
+					<li class="additiona-social-media-sites">{{{Additional social media sites}}}</li>
+					{{/Additional social media sites}}
+				</ul>
+			</td>
+			
+			<td>
+				
+				{{#Newspaper URL?}}
+				<h5>Newspapers</h5>
+				{{/Newspaper URL?}}
+				<ul class="newspapers">
+					{{#Newspaper URL}}
+					<li class="newspaper-urls">{{{Newspaper URL}}}</li>
+					{{/Newspaper URL}}
+				</ul>
+				
+				{{#RSS feeds?}}
+				<h5>RSS Feeds</h5>
+				{{/RSS feeds?}}
+				<ul class="feeds">
+					{{#RSS feeds}}
+					<li class="rss-feeds">{{{RSS feeds}}}</li>
+					{{/RSS feeds}}
+				</ul>
+			</td>
+
+		</tr>
+				
+	</table>
+
+</div>
