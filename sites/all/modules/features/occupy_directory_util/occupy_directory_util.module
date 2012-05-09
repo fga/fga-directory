@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Occupy Directory Util feature.
+ */
+
+include_once('occupy_directory_util.features.inc');
