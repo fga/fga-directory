@@ -361,10 +361,11 @@ class LinkValidateSpecificURL extends LinkValidateTestCase {
  */
 class LinkValidateUrlLight extends DrupalWebTestCase {
 
-  //function setUp() {
-    // do we need to include something here?
-    //module_load_include('inc', 'link');
-  //}
+  function setUp() {
+    parent::setUp();
+    // Load the module file instead of enabling it to save time.
+    module_load_include('module', 'link');
+  }
 
   public static function getInfo() {
     return array(
