@@ -4,9 +4,9 @@ package = Administration
 core = 7.x
 dependencies[] = admin_menu
 
-; Information added by drupal.org packaging script on 2012-03-09
-version = "7.x-3.0-rc1+55-dev"
+; Information added by drupal.org packaging script on 2012-04-23
+version = "7.x-3.0-rc2"
 core = "7.x"
 project = "admin_menu"
-datestamp = "1331294503"
+datestamp = "1335198071"
 
