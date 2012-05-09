@@ -68,6 +68,12 @@ class backup_migrate_filter_compression extends backup_migrate_filter {
         "backup" => TRUE,
         "restore" => TRUE,
       ),
+      "bzip2" => array(
+        "extension" => "bz2",
+        "filemime" => "application/x-bzip",
+        "backup" => TRUE,
+        "restore" => TRUE,
+      ),
       "zip" => array(
         "extension" => "zip",
         "filemime" => "application/zip",
@@ -89,87 +95,78 @@ class backup_migrate_filter_compression extends backup_migrate_filter {
       $compression_options['bzip'] = t("BZip");
     }
     if (class_exists('ZipArchive')) {
-      $compression_options['zip'] = t("Zip");
+      $compression_options['zip'] = t("Zip", array(), array('context' => 'compression format'));
     }
     return $compression_options;
+  }
+
+  protected function _backup_migrate_filter_is_supported($name) {
+    $filters = stream_get_filters();
+    $conversions = array(
+      'zlib' => 'zlib.*',
+      'bzip2' => 'bzip2.*',
+      'convert' => 'convert.*',
+    );
+
+    $parts = explode('.', $name);
+    $key = strtolower($parts[0]);
+    if (isset($conversions[$key])) {
+      $name = $conversions[$key];
+    }
+
+    return in_array($name, $filters);
+  }
+
+  function _backup_migrate_filter($source, $dest, $filter, $mode = STREAM_FILTER_READ) {
+    // If no zlib support, fail fast.
+    if (!$this->_backup_migrate_filter_is_supported($filter)) {
+      drupal_set_message('Filter is not available: ' . $filter, 'error');
+      return FALSE;
+    }
+    $in = fopen($source, 'rb');
+    $out = fopen($dest, 'w+');
+
+    if (empty($in) || empty($out)) {
+      $params = array('%in' => $source, '%out' => $dest);
+      watchdog('backup_migrate', 'Could not copy %in to %out', $params, WATCHDOG_WARNING);
+      return FALSE;
+    }
+    stream_filter_prepend($in, $filter, $mode);
+    $count = stream_copy_to_stream($in, $out);
+    fclose($in);
+    fclose($out);
+    drupal_set_message(t('%bytes bytes copied.', array('%bytes' => (int) $count)), 'status');
+
+    return $count > 0;
   }
 
   /**
    * Gzip encode a file.
    */
   function _backup_migrate_gzip_encode($source, $dest, $level = 9) {
-    $success = FALSE;
-    if (@function_exists("gzopen")) {
-      if (($fp_out = gzopen($dest, 'wb'. $level)) && ($fp_in = fopen($source, 'rb'))) {
-        while (!feof($fp_in)) {
-          gzwrite($fp_out, fread($fp_in, 1024 * 512));
-        }
-        $success = TRUE;
-      }
-      @fclose($fp_in);
-      @gzclose($fp_out);
-    }
-    return $success;
+    return $this->_backup_migrate_filter($source, $dest, 'zlib.deflate', STREAM_FILTER_READ);
   }
 
   /**
    * Gzip decode a file.
    */
   function _backup_migrate_gzip_decode($source, $dest) {
-    $success = FALSE;
-    if (@function_exists("gzopen")) {
-      if (($fp_out = fopen($dest, 'wb')) && ($fp_in = gzopen($source, 'rb'))) {
-        while (!feof($fp_in)) {
-          fwrite($fp_out, gzread($fp_in, 1024 * 512));
-        }
-        $success = TRUE;
-      }
-      @gzclose($fp_in);
-      @fclose($fp_out);
-    }
-    return $success;
+    return $this->_backup_migrate_filter($source, $dest, 'zlib.inflate', STREAM_FILTER_READ);
   }
+
 
   /**
    * Bzip encode a file.
    */
   function _backup_migrate_bzip_encode($source, $dest) {
-    $success = FALSE;
-    if (@function_exists("bzopen")) {
-      if (($fp_out = bzopen($dest, 'w')) && ($fp_in = fopen($source, 'rb'))) {
-        while (!feof($fp_in)) {
-          bzwrite($fp_out, fread($fp_in, 1024 * 512));
-        }
-        $success = TRUE;
-      }
-      else {
-        $error = TRUE;
-      }
-      @fclose($fp_in);
-      @bzclose($fp_out);
-    }
-    return $success;
+    return $this->_backup_migrate_filter($source, $dest, 'bzip2.compress', STREAM_FILTER_READ);
   }
 
   /**
    * Bzip decode a file.
    */
   function _backup_migrate_bzip_decode($source, $dest) {
-    $success = FALSE;
-    if (@function_exists("bzopen")) {
-      if (($fp_out = fopen($dest, 'w')) && ($fp_in = bzopen($source, 'r'))) {
-        while (!feof($fp_in)) {
-          fwrite($fp_out, gzread($fp_in, 1024 * 512));
-        }
-        $success = TRUE;
-      }
-      else {
-        $error = TRUE;
-      }
-      @bzclose($fp_in);
-      @fclose($fp_out);
-    }
-    return $success;
+    return $this->_backup_migrate_filter($source, $dest, 'bzip2.decompress', STREAM_FILTER_READ);
   }
 
   /**
@@ -224,7 +221,7 @@ class backup_migrate_filter_compression extends backup_migrate_filter {
         break;
 
       case "bzip":
-        $from = $file->push_type('bzip');
+        $from = $file->push_type('bzip2');
         if (!$success = $this->_backup_migrate_bzip_encode($from, $file->filepath())) {
           $file = NULL;
         }
@@ -259,6 +256,7 @@ class backup_migrate_filter_compression extends backup_migrate_filter {
         break;
 
       case "bzip":
+      case "bzip2":
         $from = $file->pop_type();
         $success = $this->_backup_migrate_bzip_decode($from->filepath(), $file->filepath());
         break;
