@@ -1,6 +1,7 @@
 jQuery(document).ready(function($) {
 
-	var url = 'http://api.tiles.mapbox.com/v3/occupy.occupy-streets.jsonp';
+//	var url = 'http://api.tiles.mapbox.com/v3/occupy.occupy-streets.jsonp';
+  var url = 'http://a.tiles.mapbox.com/v3/occupy.map-7o6g1bgq,occupydirectory.map-9qnjiyrn.jsonp';
 	var m;
 
 	wax.tilejson(url, function(tilejson) {
@@ -10,7 +11,7 @@ jQuery(document).ready(function($) {
 	    .tilejson(tilejson)
 	    .on( wax.movetip().parent( m.parent ).events() );
 	  m.setZoomRange( 1.9, 6);
-	  m.setCenterZoom({ lat: 0, lon: 0 }, 3 );
+	  m.setCenterZoom({ lat: 19, lon: 9.7 }, 3 );
 	});
 
 	$(function() {
