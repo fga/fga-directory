@@ -1,0 +1,9 @@
+name = FGA Admin
+description = A subtheme of Seven.
+base theme = seven
+core = 7.x
+engine = phptemplate
+
+stylesheets[all][] = css/fga_admin.css
+
+; via citigroups
