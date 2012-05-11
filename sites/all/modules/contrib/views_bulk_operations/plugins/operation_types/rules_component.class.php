@@ -28,7 +28,7 @@ class ViewsBulkOperationsRulesComponent extends ViewsBulkOperationsBaseOperation
    * @param $form_state
    *   An array containing the current state of the form.
    * @param $context
-   *   An array of related data provided by the caller ("selection", for example).
+   *   An array of related data provided by the caller.
    */
   public function form($form, &$form_state, array $context) {
     $entity_key = $this->operationInfo['parameters']['entity_key'];
@@ -39,15 +39,36 @@ class ViewsBulkOperationsRulesComponent extends ViewsBulkOperationsBaseOperation
     $entity_type = $this->aggregate() ? $list_type : $this->entityType;
     $info = entity_get_info($this->entityType);
 
-    // The component is wrapped in an action set so that the configuration form
-    // has access to the entity's tokens.
+    // The component action is wrapped in an action set using the entity, so
+    // that the action configuration form can make use of the entity e.g. for
+    // tokens.
     $set = rules_action_set(array($entity_key => array('type' => $entity_type, 'label' => $info['label'])));
     $action = rules_action('component_' . $this->operationInfo['key'], array($entity_key . ':select' => $entity_key));
     $set->action($action);
+
+    // Embed the form of the component action, but default to "input" mode for
+    // all parameters if available.
+    foreach ($action->parameterInfo() as $name => $info) {
+      $form_state['parameter_mode'][$name] = 'input';
+    }
     $action->form($form, $form_state);
 
-    // Remove the form element for the "entity" param. It will be passed in manually.
+    // Remove the configuration form element for the "entity" param, as it
+    // should just use the passed in entity.
     unset($form['parameter'][$entity_key]);
+
+    // Tweak direct input forms to be more end-user friendly.
+    foreach ($action->parameterInfo() as $name => $info) {
+      // Remove the fieldset and move its title to the form element.
+      if (isset($form['parameter'][$name]['settings'][$name]['#title'])) {
+        $form['parameter'][$name]['#type'] = 'container';
+        $form['parameter'][$name]['settings'][$name]['#title'] = $form['parameter'][$name]['#title'];
+      }
+      // Hide the switch button if it's there.
+      if (isset($form['parameter'][$name]['switch_button'])) {
+        $form['parameter'][$name]['switch_button']['#access'] = FALSE;
+      }
+    }
 
     return $form;
   }
@@ -80,14 +101,14 @@ class ViewsBulkOperationsRulesComponent extends ViewsBulkOperationsBaseOperation
   }
 
   /**
-   * Executes the selected operation on the provided entity.
+   * Executes the selected operation on the provided data.
    *
-   * @param $entity
-   *   The selected entity.
+   * @param $data
+   *   The data to to operate on. An entity or an array of entities.
    * @param $context
-   *   An array of related data provided by the caller.
+   *   An array of related data (selected views rows, etc).
    */
-  public function execute($entity, array $context) {
+  public function execute($data, array $context) {
     // If there was a config form, there's a rules_element.
     // If not, fallback to the component key.
     if ($this->configurable()) {
@@ -96,6 +117,6 @@ class ViewsBulkOperationsRulesComponent extends ViewsBulkOperationsBaseOperation
     else {
      $element = rules_action('component_' . $this->operationInfo['parameters']['component_key']);
     }
-    $element->execute($entity);
+    $element->execute($data);
   }
 }

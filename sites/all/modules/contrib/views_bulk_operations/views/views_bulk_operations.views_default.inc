@@ -114,83 +114,83 @@ function views_bulk_operations_views_default_views() {
   $handler->display->display_options['fields']['views_bulk_operations']['empty_zero'] = 0;
   $handler->display->display_options['fields']['views_bulk_operations']['hide_alter_empty'] = 0;
   $handler->display->display_options['fields']['views_bulk_operations']['vbo']['operations'] = array(
-    'node_assign_owner_action' => array(
+    'action::node_assign_owner_action' => array(
       'selected' => 1,
       'use_queue' => 0,
       'skip_confirmation' => 0,
       'override_label' => 0,
       'label' => '',
     ),
-    'views_bulk_operations_delete_item' => array(
+    'action::views_bulk_operations_delete_item' => array(
       'selected' => 1,
       'use_queue' => 0,
       'skip_confirmation' => 0,
       'override_label' => 0,
       'label' => '',
     ),
-    'views_bulk_operations_script_action' => array(
+    'action::views_bulk_operations_script_action' => array(
       'selected' => 1,
       'use_queue' => 0,
       'skip_confirmation' => 0,
       'override_label' => 0,
       'label' => '',
     ),
-    'node_make_sticky_action' => array(
+    'action::node_make_sticky_action' => array(
       'selected' => 1,
       'use_queue' => 0,
       'skip_confirmation' => 0,
       'override_label' => 0,
       'label' => '',
     ),
-    'node_make_unsticky_action' => array(
+    'action::node_make_unsticky_action' => array(
       'selected' => 1,
       'use_queue' => 0,
       'skip_confirmation' => 0,
       'override_label' => 0,
       'label' => '',
     ),
-    'views_bulk_operations_argument_selector_action' => array(
+    'action::views_bulk_operations_argument_selector_action' => array(
       'selected' => 0,
       'skip_confirmation' => 0,
       'override_label' => 0,
       'label' => '',
     ),
-    'node_promote_action' => array(
+    'action::node_promote_action' => array(
       'selected' => 1,
       'use_queue' => 0,
       'skip_confirmation' => 0,
       'override_label' => 0,
       'label' => '',
     ),
-    'node_publish_action' => array(
+    'action::node_publish_action' => array(
       'selected' => 1,
       'use_queue' => 0,
       'skip_confirmation' => 0,
       'override_label' => 0,
       'label' => '',
     ),
-    'node_unpromote_action' => array(
+    'action::node_unpromote_action' => array(
       'selected' => 1,
       'use_queue' => 0,
       'skip_confirmation' => 0,
       'override_label' => 0,
       'label' => '',
     ),
-    'node_save_action' => array(
+    'action::node_save_action' => array(
       'selected' => 0,
       'use_queue' => 0,
       'skip_confirmation' => 0,
       'override_label' => 0,
       'label' => '',
     ),
-    'node_unpublish_action' => array(
+    'action::node_unpublish_action' => array(
       'selected' => 1,
       'use_queue' => 0,
       'skip_confirmation' => 0,
       'override_label' => 0,
       'label' => '',
     ),
-    'node_unpublish_by_keyword_action' => array(
+    'action::node_unpublish_by_keyword_action' => array(
       'selected' => 1,
       'use_queue' => 0,
       'skip_confirmation' => 0,
@@ -308,9 +308,9 @@ function views_bulk_operations_views_default_views() {
   $handler->display->display_options['fields']['status']['hide_empty'] = 0;
   $handler->display->display_options['fields']['status']['empty_zero'] = 0;
   $handler->display->display_options['fields']['status']['not'] = 0;
-  /* Field: Content: Edit link */
+  /* Field: Node: Edit link */
   $handler->display->display_options['fields']['edit_node']['id'] = 'edit_node';
-  $handler->display->display_options['fields']['edit_node']['table'] = 'node';
+  $handler->display->display_options['fields']['edit_node']['table'] = 'views_entity_node';
   $handler->display->display_options['fields']['edit_node']['field'] = 'edit_node';
   $handler->display->display_options['fields']['edit_node']['label'] = 'Edit';
   $handler->display->display_options['fields']['edit_node']['alter']['alter_text'] = 0;
@@ -386,31 +386,6 @@ function views_bulk_operations_views_default_views() {
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page');
   $handler->display->display_options['path'] = 'admin/content2';
-  $translatables['admin_content'] = array(
-    t('Master'),
-    t('Content'),
-    t('more'),
-    t('Apply'),
-    t('Reset'),
-    t('Sort by'),
-    t('Asc'),
-    t('Desc'),
-    t('Items per page'),
-    t('- All -'),
-    t('Offset'),
-    t('No content available.'),
-    t('author'),
-    t('Title'),
-    t('New?'),
-    t('Type'),
-    t('Author'),
-    t('Published'),
-    t('Edit'),
-    t('Title contains'),
-    t('Node: Type'),
-    t('Promoted'),
-    t('Page'),
-  );
   $views[$view->name] = $view;
 
   $view = new view;
@@ -509,42 +484,42 @@ function views_bulk_operations_views_default_views() {
   $handler->display->display_options['fields']['views_bulk_operations']['empty_zero'] = 0;
   $handler->display->display_options['fields']['views_bulk_operations']['hide_alter_empty'] = 0;
   $handler->display->display_options['fields']['views_bulk_operations']['vbo']['operations'] = array(
-    'system_block_ip_action' => array(
+    'action::system_block_ip_action' => array(
       'selected' => 0,
       'use_queue' => 0,
       'skip_confirmation' => 0,
       'override_label' => 0,
       'label' => '',
     ),
-    'user_block_user_action' => array(
+    'action::user_block_user_action' => array(
       'selected' => 1,
       'use_queue' => 0,
       'skip_confirmation' => 0,
       'override_label' => 0,
       'label' => '',
     ),
-    'views_bulk_operations_delete_item' => array(
+    'action::views_bulk_operations_delete_item' => array(
       'selected' => 1,
       'use_queue' => 0,
       'skip_confirmation' => 0,
       'override_label' => 0,
       'label' => '',
     ),
-    'views_bulk_operations_script_action' => array(
+    'action::views_bulk_operations_script_action' => array(
       'selected' => 1,
       'use_queue' => 0,
       'skip_confirmation' => 0,
       'override_label' => 0,
       'label' => '',
     ),
-    'views_bulk_operations_user_roles_action' => array(
+    'action::views_bulk_operations_user_roles_action' => array(
       'selected' => 1,
       'use_queue' => 0,
       'skip_confirmation' => 0,
       'override_label' => 0,
       'label' => '',
     ),
-    'views_bulk_operations_argument_selector_action' => array(
+    'action::views_bulk_operations_argument_selector_action' => array(
       'selected' => 0,
       'skip_confirmation' => 0,
       'override_label' => 0,
@@ -718,27 +693,6 @@ function views_bulk_operations_views_default_views() {
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page');
   $handler->display->display_options['path'] = 'admin/people2';
-  $translatables['admin_people'] = array(
-    t('Master'),
-    t('People'),
-    t('more'),
-    t('Apply'),
-    t('Reset'),
-    t('Sort by'),
-    t('Asc'),
-    t('Desc'),
-    t('Items per page'),
-    t('- All -'),
-    t('Offset'),
-    t('Username'),
-    t('Active'),
-    t('Member for'),
-    t('Roles'),
-    t('Last access'),
-    t('Operations'),
-    t('Role'),
-    t('Page'),
-  );
   $views[$view->name] = $view;
 
   return $views;

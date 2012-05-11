@@ -14,7 +14,14 @@ $plugin = array(
   ),
 );
 
-function views_bulk_operations_operation_rules_component_list() {
+/**
+ * Returns a prepared list of available rules components.
+ *
+ * @param $operation_id
+ *   The full, prefixed operation_id of the operation (in this case, rules
+ *   component) to return, or NULL to return an array with all operations.
+ */
+function views_bulk_operations_operation_rules_component_list($operation_id = NULL) {
   if (!module_exists('rules')) {
     return array();
   }
@@ -29,8 +36,17 @@ function views_bulk_operations_operation_rules_component_list() {
     $list_types[] = "list<$type>";
   }
 
+  $components = array();
+  if (isset($operation_id)) {
+    $id_fragments = explode('::', $operation_id);
+    $components[$id_fragments[1]] = rules_config_load($id_fragments[1]);
+  }
+  else {
+    $components = rules_get_components(FALSE, 'action');
+  }
+
   $operations = array();
-  foreach (rules_get_components(FALSE, 'action') as $component_key => $component) {
+  foreach ($components as $name => $component) {
     $parameter_info = $component->parameterInfo();
     $first_parameter = reset($parameter_info);
     $parameter_keys = array_keys($parameter_info);
@@ -51,16 +67,24 @@ function views_bulk_operations_operation_rules_component_list() {
       $aggregate = FALSE;
     }
 
-    $operations[$component_key] = array(
-      'plugin' => 'rules_component',
-      'key' => $component_key,
+    // All operations must be prefixed with the operation type.
+    $new_operation_id = 'rules_component::' . $name;
+    $operations[$new_operation_id] = array(
+      'operation_type' => 'rules_component',
+      // Keep the unprefixed key around, for use in admin labels.
+      'key' => $name,
       'label' => $component->label,
-      'parameters' => array('component_key' => $component_key, 'entity_key' => $entity_key),
+      'parameters' => array('component_key' => $name, 'entity_key' => $entity_key),
       'configurable' => count($parameter_info) > 1,
       'type' => $type,
       'aggregate' => $aggregate,
     );
   }
 
-  return $operations;
+  if (isset($operation_id)) {
+    return isset($operations[$operation_id]) ? $operations[$operation_id] : FALSE;
+  }
+  else {
+    return $operations;
+  }
 }

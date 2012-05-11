@@ -13,8 +13,11 @@ function views_bulk_operations_archive_action_info() {
     $actions['views_bulk_operations_archive_action'] = array(
       'type' => 'file',
       'label' => t('Create an archive of selected files'),
-      'configurable' => TRUE,
-      'aggregate' => FALSE,
+      // This action only works when invoked through VBO. That's why it's
+      // declared as non-configurable to prevent it from being shown in the
+      // "Create an advanced action" dropdown on admin/config/system/actions.
+      'configurable' => FALSE,
+      'vbo_configurable' => TRUE,
     );
   }
   return $actions;

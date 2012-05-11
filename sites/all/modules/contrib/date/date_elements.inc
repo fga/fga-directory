@@ -55,8 +55,13 @@ function date_field_widget_form(&$form, &$form_state, $field, $instance, $langco
   // if $items is empty, because it might have been set that way on purpose.
   // @see date_field_widget_properties_alter() where we flagged if this is a new entity.
 
+  // We check !isset($items[$delta]['value']) because entity translation may create
+  // a new translation entity for an existing entity and we don't want to clobber
+  // values that were already set in that case.
+  // @see http://drupal.org/node/1478848.
+
   $is_default = FALSE;
-  if (!empty($instance['widget']['is_new'])) {
+  if (!empty($instance['widget']['is_new']) && !isset($items[$delta]['value'])) {
     $items = date_default_value($field, $instance, $langcode);
     $is_default = TRUE;
   }
@@ -181,7 +186,7 @@ function date_default_value($field, $instance, $langcode) {
   $item[0]['timezone'] = date_get_timezone($field['settings']['tz_handling']);
   $item[0]['timezone_db'] = date_get_timezone_db($field['settings']['tz_handling']);
   $item[0]['date_type'] = $field['type'];
-  if (empty($item[0]['value2'])) {
+  if (!isset($item[0]['value2'])) {
     $item[0]['value2'] = $item[0]['value'];
   }
   return $item;
@@ -236,8 +241,13 @@ function date_default_value_part($item, $field, $instance, $langcode, $part = 'v
  * Process an individual date element.
  */
 function date_combo_element_process($element, &$form_state, $form) {
-
+    
   if (date_hidden_element($element)) {
+    // A hidden value for a new entity that had its end date set to blank
+    // will not get processed later to populate the end date, so set it here.
+    if (isset($element['#value']['value2']) && empty($element['#value']['value2'])) {
+      $element['#value']['value2'] = $element['#value']['value'];
+    }
     return $element;
   }
 
@@ -291,7 +301,7 @@ function date_combo_element_process($element, &$form_state, $form) {
     unset($element['#default_value'][$to_field]);
   }
 
-  $show_todate = !empty($form_state['values']['show_todate']) || !empty($element['#default_value'][$to_field]);
+  $show_todate = !empty($form_state['values']['show_todate']) || !empty($element['#default_value'][$to_field]) || $field['settings']['todate'] == 'required';
   $element['show_todate'] = array(
     '#title' => t('Show End Date'),
     '#type' => 'checkbox',
@@ -334,14 +344,17 @@ function date_combo_element_process($element, &$form_state, $form) {
       $element[$from_field]['#type'] = 'date_select';
       $element[$from_field]['#theme_wrappers'] = array('date_select');
       $element['#attached']['js'][] = drupal_get_path('module', 'date') . '/date.js';
+      $element[$from_field]['#ajax'] = !empty($element['#ajax']) ? $element['#ajax'] : FALSE;
       break;
     case 'date_popup':
       $element[$from_field]['#type'] = 'date_popup';
       $element[$from_field]['#theme_wrappers'] = array('date_popup');
+      $element[$from_field]['#ajax'] = !empty($element['#ajax']) ? $element['#ajax'] : FALSE;
       break;
     default:
       $element[$from_field]['#type'] = 'date_text';
       $element[$from_field]['#theme_wrappers'] = array('date_text');
+      $element[$from_field]['#ajax'] = !empty($element['#ajax']) ? $element['#ajax'] : FALSE;
       break;
   }
 
@@ -350,11 +363,13 @@ function date_combo_element_process($element, &$form_state, $form) {
   // is the 'Start' and which is the 'End' .
 
   if (!empty($field['settings']['todate'])) {
-    // Add class to allow date parts to float together on the same line.
-    $element[$from_field]['#title']  = ''; // The title is in the fieldset.
+    $element[$from_field]['#title'] = '';
     $element[$to_field] = $element[$from_field];
+    $element[$to_field]['#title'] = t('to:');
+    $element[$from_field]['#wrapper_attributes']['class'][] = 'start-date-wrapper';
+    $element[$to_field]['#wrapper_attributes']['class'][] = 'end-date-wrapper';
     $element[$to_field]['#default_value'] = isset($element['#default_value'][$to_field]) ? $element['#default_value'][$to_field] : '';
-    $element[$to_field]['#required'] = FALSE;
+    $element[$to_field]['#required'] = ($element[$from_field]['#required'] && $field['settings']['todate'] == 'required');
     $element[$to_field]['#weight'] += .2;
     $element[$to_field]['#prefix'] = '';
     // Users with JS enabled will never see initially blank values for the end
@@ -476,13 +491,13 @@ function date_combo_validate($element, &$form_state) {
   // An 'End' date without a 'Start' date is a validation error.
   if ($empty && !empty($item[$to_field])) {
     if (!is_array($item[$to_field])) {
-      form_set_error($element, t("A 'Start date' date is required if an 'end date' is supplied for field %field #%delta.", array('%delta' => $field['cardinality'] ? intval($delta + 1) : '', '%field' => $instance['label'])));
+      form_error($element, t("A 'Start date' date is required if an 'end date' is supplied for field %field #%delta.", array('%delta' => $field['cardinality'] ? intval($delta + 1) : '', '%field' => $instance['label'])));
       $empty = FALSE;
     }
     else {
       foreach ($item[$to_field] as $key => $value) {
         if (!empty($value)) {
-          form_set_error($element, t("A 'Start date' date is required if an 'End date' is supplied for field %field #%delta.", array('%delta' => $field['cardinality'] ? intval($delta + 1) : '', '%field' => $instance['label'])));
+          form_error($element, t("A 'Start date' date is required if an 'End date' is supplied for field %field #%delta.", array('%delta' => $field['cardinality'] ? intval($delta + 1) : '', '%field' => $instance['label'])));
           $empty = FALSE;
           break;
         }
@@ -584,10 +599,10 @@ function date_combo_validate($element, &$form_state) {
   }
   if (!empty($errors)) {
     if ($field['cardinality']) {
-      form_set_error($element, t('There are errors in @field_name value #@delta:', array('@field_name' => $instance['label'], '@delta' => $delta + 1)) . theme('item_list', array('items' => $errors)));
+      form_error($element, t('There are errors in @field_name value #@delta:', array('@field_name' => $instance['label'], '@delta' => $delta + 1)) . theme('item_list', array('items' => $errors)));
     }
     else {
-      form_set_error($element, t('There are errors in @field_name:', array('@field_name' => $instance['label'])) . theme('item_list', array('items' => $errors)));
+      form_error($element, t('There are errors in @field_name:', array('@field_name' => $instance['label'])) . theme('item_list', array('items' => $errors)));
     }
   }
 }

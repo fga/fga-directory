@@ -5,9 +5,10 @@
  */
 function views_bulk_operations_views_data_alter(&$data) {
   foreach (entity_get_info() as $entity_type => $info) {
-    if (isset($info['base table']) && isset($data[$info['base table']])) {
+    if (isset($info['base table']) && isset($data[$info['base table']]['table'])) {
       $data[$info['base table']]['views_bulk_operations'] = array(
-        'title' => t('Bulk operations'),
+        'title' => $data[$info['base table']]['table']['group'],
+        'group' => t('Bulk operations'),
         'help' => t('Provide a checkbox to select the row for bulk operations.'),
         'real field' => $info['entity keys']['id'],
         'field' => array(
@@ -16,9 +17,10 @@ function views_bulk_operations_views_data_alter(&$data) {
         ),
       );
     }
-    if (isset($info['revision table']) && isset($data[$info['revision table']])) {
+    if (isset($info['revision table']) && isset($data[$info['revision table']]['table'])) {
       $data[$info['revision table']]['views_bulk_operations'] = array(
-        'title' => t('Bulk operations'),
+        'title' => $data[$info['revision table']]['table']['group'],
+        'group' => t('Bulk operations'),
         'help' => t('Provide a checkbox to select the row for bulk operations.'),
         'real field' => $info['entity keys']['revision'],
         'field' => array(

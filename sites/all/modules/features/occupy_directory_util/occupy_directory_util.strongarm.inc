@@ -526,13 +526,6 @@ function occupy_directory_util_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'piwik_last_cache';
-  $strongarm->value = 1336542361;
-  $export['piwik_last_cache'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
   $strongarm->name = 'piwik_pages';
   $strongarm->value = 'admin
 admin/*

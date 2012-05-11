@@ -8,7 +8,7 @@ function actions_permissions_permission() {
   $actions = actions_list() + _actions_permissions_advanced_actions_list();
   foreach ($actions as $callback => $action) {
     $key = !empty($action['key']) ? $action['key'] : $callback;
-    $permission = actions_permissions_get_perm($action['label'], $callback);
+    $permission = actions_permissions_get_perm($action['label'], $key);
 
     $permissions[$permission] = array(
       'title' => t('Execute %label', array('%label' => $action['label'])),

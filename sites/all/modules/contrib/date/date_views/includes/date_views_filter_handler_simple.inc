@@ -119,6 +119,9 @@ class date_views_filter_handler_simple extends views_handler_filter_date {
     list($table_name, $field_name) = explode('.', $field);
     if (!empty($this->options['add_delta']) && (substr($field_name, -6) == '_value' || substr($field_name, -7) == '_value2')) {
       $this->query->add_field($table_name, 'delta');
+      $real_field_name = str_replace(array('_value', '_value2'), '', $this->real_field);
+      $this->query->add_field($table_name, 'entity_id', 'date_id_' . $real_field_name);
+      $this->query->add_field($table_name, 'delta', 'date_delta_' . $real_field_name);
     }
 
     $min_value = $this->get_filter_value('min', $this->value['min']);
@@ -146,6 +149,9 @@ class date_views_filter_handler_simple extends views_handler_filter_date {
     list($table_name, $field_name) = explode('.', $field);
     if (!empty($this->options['add_delta']) && (substr($field_name, -6) == '_value' || substr($field_name, -7) == '_value2')) {
       $this->query->add_field($table_name, 'delta');
+      $real_field_name = str_replace(array('_value', '_value2'), '', $this->real_field);
+      $this->query->add_field($table_name, 'entity_id', 'date_id_' . $real_field_name);
+      $this->query->add_field($table_name, 'delta', 'date_delta_' . $real_field_name);
     }
 
     $value = $this->get_filter_value('value', $this->value['value']);
@@ -259,6 +265,12 @@ class date_views_filter_handler_simple extends views_handler_filter_date {
     if ($which == 'all' || $which == 'minmax') {
       $form['value'] += $this->date_parts_form($form_state, 'min', $source, $which, $this->operator_values(2), $identifier, 'default_date');
       $form['value'] += $this->date_parts_form($form_state, 'max', $source, $which, $this->operator_values(2), $identifier, 'default_to_date');
+    }
+
+    // Add some extra validation for the select widget to be sure that
+    // the user inputs all parts of the date.
+    if ($this->options['form_type'] == 'date_select') {
+      $form['value']['#element_validate'] = array('date_views_select_validate');
     }
 
   }

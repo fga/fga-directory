@@ -46,7 +46,7 @@ function views_bulk_operations_rules_condition_info() {
 function views_bulk_operations_rules_action_info() {
   $actions = array();
   $actions['views_bulk_operations_action_load_list'] = array(
-    'label' => t('Load a list of entities from a VBO View.'),
+    'label' => t('Load a list of entity objects from a VBO View.'),
     'parameter' => array(
       'view' => array(
         'type' => 'text',
@@ -68,6 +68,33 @@ function views_bulk_operations_rules_action_info() {
       'entity_list' => array(
         'type' => 'list<entity>',
         'label' => t('A list of entities'),
+      ),
+    ),
+    'group' => t('Views Bulk Operations'),
+  );
+  $actions['views_bulk_operations_action_load_id_list'] = array(
+    'label' => t('Load a list of entity ids from a VBO View.'),
+    'parameter' => array(
+      'view' => array(
+        'type' => 'text',
+        'label' => t('View and display'),
+        'options list' => 'views_bulk_operations_views_list',
+        'description' => t('Select the view and display you want to use to
+          create a list.'),
+        'restriction' => 'input',
+      ),
+      'args' => array(
+        'type' => 'text',
+        'label' => t('Arguments'),
+        'description' => t('Any arguments to pass to the view, one per line.
+          You may use token replacement patterns.'),
+        'optional' => TRUE,
+      ),
+    ),
+    'provides' => array(
+      'entity_id_list' => array(
+        'type' => 'list<integer>',
+        'label' => t('A list of entity ids'),
       ),
     ),
     'group' => t('Views Bulk Operations'),
@@ -124,6 +151,9 @@ function views_bulk_operations_condition_result_count($view, $args, $minimum) {
  *   A string in the format "$view_name|$display_name".
  * @param $args
  *   Arguments that should be passed to the View.
+ * @return array
+ *   Array containing the entity_list, an array of entity objects.
+ *   - array('entity_list' => array(...))
  */
 function views_bulk_operations_action_load_list($view, $args) {
   $vbo = _views_bulk_operations_rules_get_field($view, $args);
@@ -131,11 +161,36 @@ function views_bulk_operations_action_load_list($view, $args) {
   // Get all entity ids.
   $ids = array();
   foreach ($vbo->view->result as $row_index => $result) {
-    $ids[] = $result->{$vbo->field_alias};
+    $ids[] = $vbo->get_value($result);
   }
+  // And load the entity objects.
   $entities = entity_load($vbo->get_entity_type(), $ids);
 
   return array('entity_list' => $entities);
+}
+
+/**
+ * The 'views_bulk_operations_action_views_load_id_list' action.
+ *
+ * @param $view
+ *   A string in the format "$view_name|$display_name".
+ * @param $args
+ *   Arguments that should be passed to the View.
+ * @return array
+ *   Array containing the entity_id_list, an Array of entity ids as integer
+ *   values.
+ *   - array('entity_list' => array(...))
+ */
+function views_bulk_operations_action_load_id_list($view, $args) {
+  $vbo = _views_bulk_operations_rules_get_field($view, $args);
+
+  // Get all entity ids.
+  $ids = array();
+  foreach ($vbo->view->result as $row_index => $result) {
+    $ids[] = $vbo->get_value($result);
+  }
+
+  return array('entity_id_list' => $ids);
 }
 
 /**
@@ -174,11 +229,12 @@ function _views_bulk_operations_rules_get_entity_type($view_target) {
 
   if (!isset($entity_types[$view_target])) {
     $views_settings = explode('|', $view_target);
-    $view = views_get_view($views_settings[0]);
-    $view->set_display($views_settings[1]);
-    $view->build();
+    if ($view = views_get_view($views_settings[0])) {
+      $view->set_display($views_settings[1]);
+      $view->build();
 
-    $vbo = _views_bulk_operations_get_field($view);
+      $vbo = _views_bulk_operations_get_field($view);
+    }
     $entity_type = !empty($vbo) ? $vbo->get_entity_type() : '';
     $entity_types[$view_target] = $entity_type;
   }

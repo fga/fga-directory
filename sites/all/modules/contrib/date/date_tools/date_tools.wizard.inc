@@ -105,18 +105,9 @@ function date_tools_wizard_form() {
   );
   $form['calendar'] = array(
     '#type' => 'select',
-    '#default_value' => 1,
+    '#default_value' => module_exists('calendar'),
     '#options' => array(0 => t('No'), 1 => t('Yes')),
     '#title' => t('Create a calendar for this date field'),
-    '#access' => module_exists('calendar'),
-  );
-  $current_theme = variable_get('theme_default', 'garland');
-  $options = array('' => t('None')) + system_region_list($current_theme);
-  $form['blocks'] = array(
-    '#type' => 'select',
-    '#options' => $options,
-    '#default_value' => 0,
-    '#title' => t('Add calendar blocks to a region'),
     '#access' => module_exists('calendar'),
   );
 
@@ -124,7 +115,6 @@ function date_tools_wizard_form() {
     '#type' => 'submit',
     '#value' => t('Save'),
   );
-
   return $form;
 }
 
@@ -162,7 +152,12 @@ function date_tools_wizard_form_validate(&$form, &$form_state) {
 function date_tools_wizard_form_submit(&$form, &$form_state) {
   $view_name = date_tools_wizard_build($form_state['values']);
   menu_rebuild();
-  $form_state['redirect'] = 'admin/structure/types/manage/' . str_replace('_', '-', $form_state['values']['bundle']) . '/fields';
+  if (!empty($form_state['values']['calendar']) && !empty($view_name)) {
+    $form_state['redirect'] = 'admin/structure/views/template/' . $view_name . '/add';
+  }
+  else {
+    $form_state['redirect'] = 'admin/structure/types/manage/' . str_replace('_', '-', $form_state['values']['bundle']) . '/fields';
+  }
 }
 
 /**
@@ -172,10 +167,7 @@ function date_tools_wizard_build($form_values) {
   extract($form_values);
 
   $field_name = 'field_' . $field_name;
-
-  if (!empty($repeat)) {
-    $widget_type .= '_repeat';
-  }
+  $base_table = 'node';
 
   // Create a node type if it doesn't already exist.
   // This makes it possible to add additional date fields to
@@ -272,20 +264,10 @@ function date_tools_wizard_build($form_values) {
 
   $field = field_create_field($field);
   $instance = field_create_instance($instance);
+  $view_name = 'calendar_' . $field_name;
 
   field_info_cache_clear(TRUE);
   field_cache_clear(TRUE);
-
-  $view_name = '';
-  if (!empty($calendar) && module_exists('calendar')) {
-    $view_name = date_tools_wizard_create_calendar($name, $bundle, $field, $instance);
-    if (!empty($blocks)) {
-      date_tools_wizard_create_blocks($bundle, $blocks);
-    }
-  }
-
-  // Update the menu router information.
-  menu_rebuild();
 
   drupal_set_message(t('Your date field @name has been created.', array('@name' => $label)));
 
@@ -407,99 +389,4 @@ function date_tools_wizard_create_content_type($name, $bundle, $description, $ty
   );
   field_create_instance($instance);
 
-}
-
-/**
- * @todo.
- */
-function date_tools_wizard_create_calendar($name, $bundle, $date_field, $date_instance) {
-
-  $date_name = !empty($date_field) ? $date_field['field_name'] : '';
-  $path = 'calendar-' . str_replace('field_', '', $date_name);
-
-  // Add a default calendar for this content type.
-  $calendar_options = variable_get('calendar_default_view_options', array());
-  if (array_key_exists('cal_' . $bundle, $calendar_options)) {
-    unset($calendar_options['cal_' . $bundle]);
-  }
-  // For legacy purposes, find the old, longer name.
-  if (array_key_exists('calendar_' . $bundle, $calendar_options)) {
-    unset($calendar_options['calendar_' . $bundle]);
-  }
-  $option = array(
-    'name' => 'cal_' . $bundle,
-    'description' => 'An event calendar for ' . $date_instance['label'],
-    'path' => $path,
-    'types' => array($bundle => $bundle),
-    'date_fields' => array($date_name),
-    'display_fields' => array('title' => array(), $date_name => array()),
-  );
-  $calendar_options['cal_' . $bundle] = $option;
-  variable_set('calendar_default_view_options', $calendar_options);
-
-  // Make sure menu items get rebuilt as necessary.
-  menu_rebuild();
-
-  // Clear the views cache.
-  cache_clear_all('*', 'cache_views');
-
-  // Clear the page cache.
-  cache_clear_all();
-
-  // Remove this view from cache so we can edit it properly.
-  module_load_include('inc', 'ctools', 'includes/object-cache');
-  ctools_object_cache_clear('view', 'calendar_' . $bundle);
-
-  // Force Views to empty its cache and find the new view.
-  views_get_all_views(TRUE);
-
-  return 'cal_' . $bundle;
-}
-
-/**
- * @todo.
- */
-function date_tools_wizard_create_blocks($bundle, $region) {
-  // Add calendar blocks to the default theme.
-  $current_theme = variable_get('theme_default', 'garland');
-
-  // Legend block.
-  $block = new stdClass();
-  $block->theme = $current_theme;
-  $block->status = 1;
-  $block->weight = -1;
-  $block->region = $region;
-  $block->title = '';
-  $block->module = 'calendar';
-  $block->delta = 0;
-  $block->pages = '';
-  $block->status = 1;
-  date_tools_wizard_add_block($block);
-
-  // Mini calendar block.
-  $block->module = 'views';
-  $block->delta = 'cal_' . $bundle . '-calendar_block_1';
-  date_tools_wizard_add_block($block);
-
-  // Upcoming events block.
-  $block->module = 'views';
-  $block->delta = 'cal_' . $bundle . '-block_1';
-  date_tools_wizard_add_block($block);
-  return;
-}
-
-/**
- * Add a block.
- */
-function date_tools_wizard_add_block($block) {
-  // Need 'pages'.
-  $bid = db_query("SELECT bid FROM {block} WHERE module=:module AND delta=:delta AND theme=:theme", array(':module' => $block->module, ':delta' => $block->delta, ':theme' => $block->theme))->fetchField();
-  if (empty($bid)) {
-    $block->bid = NULL;
-    drupal_write_record('block', $block);
-  }
-  else {
-    $block->bid = $bid;
-    drupal_write_record('block', $block, array('bid'));
-  }
 }
