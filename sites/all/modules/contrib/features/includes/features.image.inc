@@ -9,6 +9,7 @@ function image_features_api() {
       'name' => t('Image styles'),
       'feature_source' => TRUE,
       'default_hook' => 'image_default_styles',
+      'alter_hook' => 'image_styles',
     )
   );
 }

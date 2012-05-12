@@ -233,14 +233,21 @@ function rules_condition_data_is($data, $op, $value) {
   switch ($op) {
     default:
     case '==':
-      // In case both values evaluate to FALSE, do a type-safe comparison.
-      return (!$data && !$value) ? $data === $value : $data == $value;
+      // In case both values evaluate to FALSE, further differentiate between
+      // NULL values and values evaluating to FALSE.
+      if (!$data && !$value) {
+        return (isset($data) && isset($value)) || (!isset($data) && !isset($value));
+      }
+      return $data == $value;
     case '<':
       return $data < $value;
     case '>':
       return $data > $value;
+      // Note: This is deprecated by the text comparison condition and IN below.
     case 'contains':
       return is_string($data) && strpos($data, $value) !== FALSE || is_array($data) && in_array($value, $data);
+    case 'IN':
+      return is_array($value) && in_array($data, $value);
   }
 }
 
@@ -251,10 +258,10 @@ function rules_condition_data_is($data, $op, $value) {
  * evaluated elements can make use of this information.
  */
 function rules_condition_data_is_info_alter(&$element_info, RulesAbstractPlugin $element) {
-  $element->settings += array('data:select' => NULL);
+  $element->settings += array('data:select' => NULL, 'op' => '==');
   if ($wrapper = $element->applyDataSelector($element->settings['data:select'])) {
     $info = $wrapper->info();
-    $element_info['parameter']['value']['type'] = $wrapper->type();
+    $element_info['parameter']['value']['type'] = $element->settings['op'] == 'IN' ? 'list<' . $wrapper->type() . '>' : $wrapper->type();
     $element_info['parameter']['value']['options list']  = !empty($info['options list']) ? 'rules_data_selector_options_list' : FALSE;
   }
 }
@@ -280,6 +287,20 @@ function rules_condition_data_list_contains($list, $item, $settings, $state) {
  * Condition: Data value is empty.
  */
 function rules_condition_data_is_empty($data) {
+  // Note that some primitive variables might not be wrapped at all.
+  if ($data instanceof EntityMetadataWrapper) {
+    try {
+      // We cannot use the dataAvailable() method from the wrapper because it
+      // is protected, so we catch possible exceptions with the value() method.
+      $value = $data->value();
+      return empty($value);
+    }
+    catch (EntityMetadataWrapperException $e) {
+      // An exception means that the wrapper is somehow broken and we treat
+      // that as empty.
+      return TRUE;
+    }
+  }
   return empty($data);
 }
 
