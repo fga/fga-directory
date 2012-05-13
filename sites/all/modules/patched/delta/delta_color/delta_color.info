@@ -9,8 +9,8 @@ dependencies[] = color
 
 
 ; Information added by drupal.org packaging script on 2011-11-12
-version = "7.x-3.0-beta9"
+version = "7.x-3.x-dev"
 core = "7.x"
 project = "delta"
-datestamp = "1321062331"
+datestamp = "1321099837"
 
