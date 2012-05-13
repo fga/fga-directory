@@ -23,6 +23,12 @@ function occupation_directory_structure_context_default_contexts() {
         'world-map' => 'world-map',
       ),
     ),
+    'views' => array(
+      'values' => array(
+        'map_displays:page' => 'map_displays:page',
+        'map_displays:page_mapbox' => 'map_displays:page_mapbox',
+      ),
+    ),
   );
   $context->reactions = array(
     'delta' => array(
