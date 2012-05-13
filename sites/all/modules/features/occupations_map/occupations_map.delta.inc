@@ -16,11 +16,11 @@ function occupations_map_delta_default_templates() {
   $delta->machine_name = 'directory_fullmap';
   $delta->name = 'Full Map homepage';
   $delta->description = 'a full width map for the homepage';
-  $delta->theme = 'ows';
+  $delta->theme = 'occupy_directory';
   $delta->mode = 'preserve';
-  $delta->parent = 'occupation_directory_default';
+  $delta->parent = '';
   $delta->settings = array(
-    'theme_ows_settings' => array(
+    'theme_occupy_directory_settings' => array(
       'toggle_logo' => 1,
       'toggle_name' => 1,
       'toggle_slogan' => 1,
@@ -31,7 +31,7 @@ function occupations_map_delta_default_templates() {
       'toggle_main_menu' => 1,
       'toggle_secondary_menu' => 0,
       'default_logo' => 0,
-      'logo_path' => 'sites/all/themes/ows/directory-logo.png',
+      'logo_path' => 'sites/all/themes/occupy_directory/directory-logo.png',
       'logo_upload' => '',
       'default_favicon' => 1,
       'favicon_path' => '',
