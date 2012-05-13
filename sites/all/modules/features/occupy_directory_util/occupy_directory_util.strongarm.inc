@@ -69,13 +69,6 @@ function occupy_directory_util_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'captcha_wrong_response_counter';
-  $strongarm->value = 1;
-  $export['captcha_wrong_response_counter'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
   $strongarm->name = 'clean_url';
   $strongarm->value = '1';
   $export['clean_url'] = $strongarm;
