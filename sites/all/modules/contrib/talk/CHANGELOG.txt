@@ -1,0 +1,6 @@
+
+2012-02-10
+#1399252: dont add link when Link from the node 'links' to the 'talk' page is blank
+
+2011-12-29
+#1359924: First stab - get the "Add new comment" link to work correctly.

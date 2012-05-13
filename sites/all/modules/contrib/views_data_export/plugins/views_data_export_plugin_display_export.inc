@@ -61,7 +61,7 @@ class views_data_export_plugin_display_export extends views_plugin_display_feed 
    */
   function option_definition() {
     $options = parent::option_definition();
-    $options['use_batch'] = array('default' => $this->is_compatible());
+    $options['use_batch'] = array('default' => 'no_batch');
     $options['items_per_page'] = array('default' => '0');
     $options['style_plugin']['default'] = 'views_data_export_csv';
 
@@ -86,7 +86,7 @@ class views_data_export_plugin_display_export extends views_plugin_display_feed 
     $options['use_batch'] = array(
       'category' => 'page',
       'title' => t('Batched export'),
-      'value' => ($this->get_option('use_batch') ? t('Yes') : t('No')),
+      'value' => ($this->get_option('use_batch') == 'batch' ? t('Yes') : t('No')),
     );
 
     if (!$this->is_compatible() && $this->get_option('use_batch')) {
@@ -109,13 +109,13 @@ class views_data_export_plugin_display_export extends views_plugin_display_feed 
           '#description' => t(''),
           '#default_value' => $this->get_option('use_batch'),
           '#options' => array(
-            TRUE => t('Export data in small segments to build a complete export. Recommended for large exports sets (1000+ rows)'),
-            FALSE => t('Export data all in one segment. Possible time and memory limit issues.'),
+            'no_batch' => t('Export data all in one segment. Possible time and memory limit issues.'),
+            'batch' => t('Export data in small segments to build a complete export. Recommended for large exports sets (1000+ rows)'),
           ),
         );
         if (!$this->is_compatible()) {
           $form['use_batch']['#disabled'] = TRUE;
-          $form['use_batch']['#default_value'] = 0;
+          $form['use_batch']['#default_value'] = 'no_batch';
           $form['use_batch']['message'] = array (
             '#type' => 'markup',
             '#markup' => theme('views_data_export_message', array('message' => t('The underlying database (!db_driver) is incompatible with the batched export option and it has been disabled.', array('!db_driver' => $this->_get_database_driver())), 'type' => 'warning')),
@@ -144,7 +144,7 @@ class views_data_export_plugin_display_export extends views_plugin_display_feed 
    */
   function is_batched() {
     // The source of this option may change in the future.
-    return $this->get_option('use_batch') && empty($this->view->live_preview);
+    return ($this->get_option('use_batch') == 'batch') && empty($this->view->live_preview);
   }
 
   /**
@@ -274,7 +274,7 @@ class views_data_export_plugin_display_export extends views_plugin_display_feed 
     // We do not return, so update database sandbox now
     views_data_export_update($this->batched_execution_state);
 
-    $final_destination = $this->get_option('path');
+    $final_destination = $this->view->get_url();
 
     // Provide a way in for others at this point
     // e.g. Drush to grab this batch and yet execute it in
@@ -469,7 +469,7 @@ class views_data_export_plugin_display_export extends views_plugin_display_feed 
     );
 
     return theme('views_data_export_complete_page', array(
-      'file' => url($this->get_option('path'), array('query' => $query)),
+      'file' => url($this->view->get_url(), array('query' => $query)),
       'errors' => $this->errors,
       'return_url' => $return_path));
   }
@@ -490,8 +490,10 @@ class views_data_export_plugin_display_export extends views_plugin_display_feed 
     if (!$this->is_batched()) {
       // Can replace with return parent::preview() when views 2.12 lands.
       if (!empty($this->view->live_preview)) {
-        // Change the items per page:
+        // Change the items per page.
         $this->view->set_items_per_page(20);
+        // Force a pager to be used.
+        $this->set_option('pager', array('type' => 'some'));
         return '<p>' . t('A maximum of 20 items will be shown here, all results will be shown on export.') . '</p><pre>' . check_plain($this->view->render()) . '</pre>';
       }
       return $this->view->render();

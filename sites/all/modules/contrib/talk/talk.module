@@ -178,14 +178,16 @@ function talk_node_view($node, $view_mode, $langcode) {
     );
 
     foreach ($links as $link) {
-      if (isset($link['href']) && $link['href'] == 'node/' . $node->nid) {
-        $link['href'] .= '/talk';
+      if(talk_activated($node->type)) {
+        if (isset($link['href']) && $link['href'] == 'node/' . $node->nid) {
+          $link['href'] .= '/talk';
+        }
       }
       $node->content['links']['comment']['#links'][] = $link;
     }
   }
-  // Add the Talk link if user has access
-  if (_talk_access($node)) {
+  // Add the Talk link if user has access and it's not blank
+  if (_talk_access($node) && strlen(variable_get('talk_link', '')) > 0) {
     $node->content['links']['comment']['#links'][] = array(
       'href' => 'node/' . $node->nid . '/talk',
       'title' => talk_title($node, 'link'),
@@ -283,6 +285,13 @@ function theme_talk_comments($variables) {
   $node = clone($variables['node']);
   $node->comment = _talk_node_comment_value($node);
   comment_node_view($node, 'full');
+
+  // If comment form on same page as Talk, alter "Add new comment" link
+  if (variable_get('comment_form_location_' . $node->type, COMMENT_FORM_BELOW) == COMMENT_FORM_BELOW) {
+    $links_comments = &$node->content['links']['comment']['#links'];
+    $links_comments['comment-add']['href'] = "node/$node->nid/talk";
+  }
+
   return drupal_render($node->content);
 }
 

@@ -114,3 +114,32 @@ function views_data_export_update_7100() {
   db_drop_field('views_data_export_object_cache', 'data');
   db_add_field('views_data_export_object_cache', 'data', $new_field);
 }
+
+/**
+ * Implements hook_requirements().
+ */
+function views_data_export_requirements($phase) {
+  $requirements = array();
+
+  // Ensure translations don't break at install time
+  $t = get_t();
+
+  switch ($phase) {
+    case 'runtime':
+      // Check the max allowed packet size.
+      $max_allowed_packet = db_query('SHOW VARIABLES WHERE variable_name = :name', array(':name' => 'max_allowed_packet'))->fetchField(1);
+      if (is_numeric($max_allowed_packet)) {
+        if ($max_allowed_packet < (16 * 1024 * 1024)) {
+          $requirements['views_data_export'] = array(
+            'title' => $t('MySQL - max allowed packet'),
+            'value' => format_size($max_allowed_packet),
+            'description' => $t("Your MySQL 'max_allowed_packet' setting may be too low for Views data export to function correctly, Drupal's requirements recommend setting it to at least 16M. See: !link", array('!link' => l('http://drupal.org/requirements', 'http://drupal.org/requirements'))),
+            'severity' => REQUIREMENT_WARNING,
+          );
+        }
+      }
+      break;
+  }
+
+  return $requirements;
+}
