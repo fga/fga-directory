@@ -10,7 +10,7 @@
 function occupations_import_export_user_default_permissions() {
   $permissions = array();
 
-  // Exported permission: clear occupation_csv feeds
+  // Exported permission: clear occupation_csv feeds.
   $permissions['clear occupation_csv feeds'] = array(
     'name' => 'clear occupation_csv feeds',
     'roles' => array(
@@ -19,7 +19,7 @@ function occupations_import_export_user_default_permissions() {
     'module' => 'feeds',
   );
 
-  // Exported permission: import occupation_csv feeds
+  // Exported permission: import occupation_csv feeds.
   $permissions['import occupation_csv feeds'] = array(
     'name' => 'import occupation_csv feeds',
     'roles' => array(
@@ -28,7 +28,7 @@ function occupations_import_export_user_default_permissions() {
     'module' => 'feeds',
   );
 
-  // Exported permission: tamper occupation_csv
+  // Exported permission: tamper occupation_csv.
   $permissions['tamper occupation_csv'] = array(
     'name' => 'tamper occupation_csv',
     'roles' => array(

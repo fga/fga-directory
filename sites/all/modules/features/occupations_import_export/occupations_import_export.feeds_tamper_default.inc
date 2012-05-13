@@ -10,7 +10,7 @@
 function occupations_import_export_feeds_tamper_default() {
   $export = array();
 
-  $feeds_tamper = new stdClass;
+  $feeds_tamper = new stdClass();
   $feeds_tamper->disabled = FALSE; /* Edit this to true to make a default feeds_tamper disabled initially */
   $feeds_tamper->api_version = 2;
   $feeds_tamper->id = 'occupation_csv-additional_emails___-explode';
@@ -26,7 +26,7 @@ function occupations_import_export_feeds_tamper_default() {
   $feeds_tamper->description = 'Explode';
   $export['occupation_csv-additional_emails___-explode'] = $feeds_tamper;
 
-  $feeds_tamper = new stdClass;
+  $feeds_tamper = new stdClass();
   $feeds_tamper->disabled = FALSE; /* Edit this to true to make a default feeds_tamper disabled initially */
   $feeds_tamper->api_version = 2;
   $feeds_tamper->id = 'occupation_csv-country-convert_country_to_iso_code';
@@ -38,7 +38,7 @@ function occupations_import_export_feeds_tamper_default() {
   $feeds_tamper->description = 'Convert country to ISO code';
   $export['occupation_csv-country-convert_country_to_iso_code'] = $feeds_tamper;
 
-  $feeds_tamper = new stdClass;
+  $feeds_tamper = new stdClass();
   $feeds_tamper->disabled = FALSE; /* Edit this to true to make a default feeds_tamper disabled initially */
   $feeds_tamper->api_version = 2;
   $feeds_tamper->id = 'occupation_csv-facebook_page_s____-explode';
@@ -54,7 +54,7 @@ function occupations_import_export_feeds_tamper_default() {
   $feeds_tamper->description = 'Explode';
   $export['occupation_csv-facebook_page_s____-explode'] = $feeds_tamper;
 
-  $feeds_tamper = new stdClass;
+  $feeds_tamper = new stdClass();
   $feeds_tamper->disabled = FALSE; /* Edit this to true to make a default feeds_tamper disabled initially */
   $feeds_tamper->api_version = 2;
   $feeds_tamper->id = 'occupation_csv-facebook_pages-explode';
@@ -70,7 +70,7 @@ function occupations_import_export_feeds_tamper_default() {
   $feeds_tamper->description = 'Explode';
   $export['occupation_csv-facebook_pages-explode'] = $feeds_tamper;
 
-  $feeds_tamper = new stdClass;
+  $feeds_tamper = new stdClass();
   $feeds_tamper->disabled = FALSE; /* Edit this to true to make a default feeds_tamper disabled initially */
   $feeds_tamper->api_version = 2;
   $feeds_tamper->id = 'occupation_csv-livestream_url_s____-explode';
@@ -86,7 +86,7 @@ function occupations_import_export_feeds_tamper_default() {
   $feeds_tamper->description = 'Explode';
   $export['occupation_csv-livestream_url_s____-explode'] = $feeds_tamper;
 
-  $feeds_tamper = new stdClass;
+  $feeds_tamper = new stdClass();
   $feeds_tamper->disabled = FALSE; /* Edit this to true to make a default feeds_tamper disabled initially */
   $feeds_tamper->api_version = 2;
   $feeds_tamper->id = 'occupation_csv-other_websites___-explode';
@@ -102,7 +102,7 @@ function occupations_import_export_feeds_tamper_default() {
   $feeds_tamper->description = 'Explode';
   $export['occupation_csv-other_websites___-explode'] = $feeds_tamper;
 
-  $feeds_tamper = new stdClass;
+  $feeds_tamper = new stdClass();
   $feeds_tamper->disabled = FALSE; /* Edit this to true to make a default feeds_tamper disabled initially */
   $feeds_tamper->api_version = 2;
   $feeds_tamper->id = 'occupation_csv-rss_feed_s____-explode';
@@ -118,7 +118,7 @@ function occupations_import_export_feeds_tamper_default() {
   $feeds_tamper->description = 'Explode';
   $export['occupation_csv-rss_feed_s____-explode'] = $feeds_tamper;
 
-  $feeds_tamper = new stdClass;
+  $feeds_tamper = new stdClass();
   $feeds_tamper->disabled = FALSE; /* Edit this to true to make a default feeds_tamper disabled initially */
   $feeds_tamper->api_version = 2;
   $feeds_tamper->id = 'occupation_csv-state-convert_case';
@@ -132,7 +132,7 @@ function occupations_import_export_feeds_tamper_default() {
   $feeds_tamper->description = 'Convert case';
   $export['occupation_csv-state-convert_case'] = $feeds_tamper;
 
-  $feeds_tamper = new stdClass;
+  $feeds_tamper = new stdClass();
   $feeds_tamper->disabled = FALSE; /* Edit this to true to make a default feeds_tamper disabled initially */
   $feeds_tamper->api_version = 2;
   $feeds_tamper->id = 'occupation_csv-state-convert_case_province';
@@ -146,7 +146,7 @@ function occupations_import_export_feeds_tamper_default() {
   $feeds_tamper->description = 'Convert case';
   $export['occupation_csv-state-convert_case_province'] = $feeds_tamper;
 
-  $feeds_tamper = new stdClass;
+  $feeds_tamper = new stdClass();
   $feeds_tamper->disabled = FALSE; /* Edit this to true to make a default feeds_tamper disabled initially */
   $feeds_tamper->api_version = 2;
   $feeds_tamper->id = 'occupation_csv-twitter__hash__tags___-explode';
@@ -162,7 +162,7 @@ function occupations_import_export_feeds_tamper_default() {
   $feeds_tamper->description = 'Explode';
   $export['occupation_csv-twitter__hash__tags___-explode'] = $feeds_tamper;
 
-  $feeds_tamper = new stdClass;
+  $feeds_tamper = new stdClass();
   $feeds_tamper->disabled = FALSE; /* Edit this to true to make a default feeds_tamper disabled initially */
   $feeds_tamper->api_version = 2;
   $feeds_tamper->id = 'occupation_csv-twitter_user__account_s____-explode';
@@ -178,7 +178,7 @@ function occupations_import_export_feeds_tamper_default() {
   $feeds_tamper->description = 'Explode';
   $export['occupation_csv-twitter_user__account_s____-explode'] = $feeds_tamper;
 
-  $feeds_tamper = new stdClass;
+  $feeds_tamper = new stdClass();
   $feeds_tamper->disabled = FALSE; /* Edit this to true to make a default feeds_tamper disabled initially */
   $feeds_tamper->api_version = 2;
   $feeds_tamper->id = 'occupation_csv-youtube_channel_url_s____-explode';
