@@ -10,7 +10,7 @@
 function occupations_administration_user_default_permissions() {
   $permissions = array();
 
-  // Exported permission: access comments
+  // Exported permission: access comments.
   $permissions['access comments'] = array(
     'name' => 'access comments',
     'roles' => array(
@@ -22,7 +22,7 @@ function occupations_administration_user_default_permissions() {
     'module' => 'comment',
   );
 
-  // Exported permission: administer comments
+  // Exported permission: administer comments.
   $permissions['administer comments'] = array(
     'name' => 'administer comments',
     'roles' => array(
@@ -33,7 +33,7 @@ function occupations_administration_user_default_permissions() {
     'module' => 'comment',
   );
 
-  // Exported permission: create field_term_geographic_area
+  // Exported permission: create field_term_geographic_area.
   $permissions['create field_term_geographic_area'] = array(
     'name' => 'create field_term_geographic_area',
     'roles' => array(
@@ -44,13 +44,14 @@ function occupations_administration_user_default_permissions() {
     'module' => 'field_permissions',
   );
 
-  // Exported permission: delete terms in 4
+  // Exported permission: delete terms in 4.
   $permissions['delete terms in 4'] = array(
     'name' => 'delete terms in 4',
     'roles' => array(),
+    'module' => 'taxonomy',
   );
 
-  // Exported permission: edit field_term_geographic_area
+  // Exported permission: edit field_term_geographic_area.
   $permissions['edit field_term_geographic_area'] = array(
     'name' => 'edit field_term_geographic_area',
     'roles' => array(
@@ -61,7 +62,7 @@ function occupations_administration_user_default_permissions() {
     'module' => 'field_permissions',
   );
 
-  // Exported permission: edit own comments
+  // Exported permission: edit own comments.
   $permissions['edit own comments'] = array(
     'name' => 'edit own comments',
     'roles' => array(
@@ -71,7 +72,7 @@ function occupations_administration_user_default_permissions() {
     'module' => 'comment',
   );
 
-  // Exported permission: edit own field_term_geographic_area
+  // Exported permission: edit own field_term_geographic_area.
   $permissions['edit own field_term_geographic_area'] = array(
     'name' => 'edit own field_term_geographic_area',
     'roles' => array(
@@ -82,13 +83,14 @@ function occupations_administration_user_default_permissions() {
     'module' => 'field_permissions',
   );
 
-  // Exported permission: edit terms in 4
+  // Exported permission: edit terms in 4.
   $permissions['edit terms in 4'] = array(
     'name' => 'edit terms in 4',
     'roles' => array(),
+    'module' => 'taxonomy',
   );
 
-  // Exported permission: enter occupation revision log entry
+  // Exported permission: enter occupation revision log entry.
   $permissions['enter occupation revision log entry'] = array(
     'name' => 'enter occupation revision log entry',
     'roles' => array(
@@ -99,7 +101,7 @@ function occupations_administration_user_default_permissions() {
     'module' => 'override_node_options',
   );
 
-  // Exported permission: override occupation authored by option
+  // Exported permission: override occupation authored by option.
   $permissions['override occupation authored by option'] = array(
     'name' => 'override occupation authored by option',
     'roles' => array(
@@ -109,7 +111,7 @@ function occupations_administration_user_default_permissions() {
     'module' => 'override_node_options',
   );
 
-  // Exported permission: override occupation authored on option
+  // Exported permission: override occupation authored on option.
   $permissions['override occupation authored on option'] = array(
     'name' => 'override occupation authored on option',
     'roles' => array(
@@ -119,7 +121,7 @@ function occupations_administration_user_default_permissions() {
     'module' => 'override_node_options',
   );
 
-  // Exported permission: override occupation promote to front page option
+  // Exported permission: override occupation promote to front page option.
   $permissions['override occupation promote to front page option'] = array(
     'name' => 'override occupation promote to front page option',
     'roles' => array(
@@ -128,7 +130,7 @@ function occupations_administration_user_default_permissions() {
     'module' => 'override_node_options',
   );
 
-  // Exported permission: override occupation published option
+  // Exported permission: override occupation published option.
   $permissions['override occupation published option'] = array(
     'name' => 'override occupation published option',
     'roles' => array(
@@ -139,7 +141,7 @@ function occupations_administration_user_default_permissions() {
     'module' => 'override_node_options',
   );
 
-  // Exported permission: override occupation revision option
+  // Exported permission: override occupation revision option.
   $permissions['override occupation revision option'] = array(
     'name' => 'override occupation revision option',
     'roles' => array(
@@ -150,7 +152,7 @@ function occupations_administration_user_default_permissions() {
     'module' => 'override_node_options',
   );
 
-  // Exported permission: override occupation sticky option
+  // Exported permission: override occupation sticky option.
   $permissions['override occupation sticky option'] = array(
     'name' => 'override occupation sticky option',
     'roles' => array(
@@ -159,7 +161,7 @@ function occupations_administration_user_default_permissions() {
     'module' => 'override_node_options',
   );
 
-  // Exported permission: post comments
+  // Exported permission: post comments.
   $permissions['post comments'] = array(
     'name' => 'post comments',
     'roles' => array(
@@ -170,7 +172,7 @@ function occupations_administration_user_default_permissions() {
     'module' => 'comment',
   );
 
-  // Exported permission: skip comment approval
+  // Exported permission: skip comment approval.
   $permissions['skip comment approval'] = array(
     'name' => 'skip comment approval',
     'roles' => array(
@@ -180,7 +182,7 @@ function occupations_administration_user_default_permissions() {
     'module' => 'comment',
   );
 
-  // Exported permission: view any unpublished article content
+  // Exported permission: view any unpublished article content.
   $permissions['view any unpublished article content'] = array(
     'name' => 'view any unpublished article content',
     'roles' => array(
@@ -189,7 +191,7 @@ function occupations_administration_user_default_permissions() {
     'module' => 'view_unpublished',
   );
 
-  // Exported permission: view any unpublished content
+  // Exported permission: view any unpublished content.
   $permissions['view any unpublished content'] = array(
     'name' => 'view any unpublished content',
     'roles' => array(
@@ -198,7 +200,7 @@ function occupations_administration_user_default_permissions() {
     'module' => 'view_unpublished',
   );
 
-  // Exported permission: view any unpublished occupation content
+  // Exported permission: view any unpublished occupation content.
   $permissions['view any unpublished occupation content'] = array(
     'name' => 'view any unpublished occupation content',
     'roles' => array(
@@ -208,7 +210,7 @@ function occupations_administration_user_default_permissions() {
     'module' => 'view_unpublished',
   );
 
-  // Exported permission: view any unpublished page content
+  // Exported permission: view any unpublished page content.
   $permissions['view any unpublished page content'] = array(
     'name' => 'view any unpublished page content',
     'roles' => array(
@@ -217,7 +219,7 @@ function occupations_administration_user_default_permissions() {
     'module' => 'view_unpublished',
   );
 
-  // Exported permission: view any unpublished webform content
+  // Exported permission: view any unpublished webform content.
   $permissions['view any unpublished webform content'] = array(
     'name' => 'view any unpublished webform content',
     'roles' => array(
@@ -226,7 +228,7 @@ function occupations_administration_user_default_permissions() {
     'module' => 'view_unpublished',
   );
 
-  // Exported permission: view field_term_geographic_area
+  // Exported permission: view field_term_geographic_area.
   $permissions['view field_term_geographic_area'] = array(
     'name' => 'view field_term_geographic_area',
     'roles' => array(
@@ -237,7 +239,7 @@ function occupations_administration_user_default_permissions() {
     'module' => 'field_permissions',
   );
 
-  // Exported permission: view own field_term_geographic_area
+  // Exported permission: view own field_term_geographic_area.
   $permissions['view own field_term_geographic_area'] = array(
     'name' => 'view own field_term_geographic_area',
     'roles' => array(
