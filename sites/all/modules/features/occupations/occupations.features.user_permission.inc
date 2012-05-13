@@ -10,7 +10,7 @@
 function occupations_user_default_permissions() {
   $permissions = array();
 
-  // Exported permission: create field_occupation_needs_fixing
+  // Exported permission: create field_occupation_needs_fixing.
   $permissions['create field_occupation_needs_fixing'] = array(
     'name' => 'create field_occupation_needs_fixing',
     'roles' => array(
@@ -21,7 +21,7 @@ function occupations_user_default_permissions() {
     'module' => 'field_permissions',
   );
 
-  // Exported permission: create field_occupation_notes
+  // Exported permission: create field_occupation_notes.
   $permissions['create field_occupation_notes'] = array(
     'name' => 'create field_occupation_notes',
     'roles' => array(
@@ -33,7 +33,7 @@ function occupations_user_default_permissions() {
     'module' => 'field_permissions',
   );
 
-  // Exported permission: create field_occupation_notes_legacy
+  // Exported permission: create field_occupation_notes_legacy.
   $permissions['create field_occupation_notes_legacy'] = array(
     'name' => 'create field_occupation_notes_legacy',
     'roles' => array(
@@ -42,7 +42,7 @@ function occupations_user_default_permissions() {
     'module' => 'field_permissions',
   );
 
-  // Exported permission: create field_occupation_type
+  // Exported permission: create field_occupation_type.
   $permissions['create field_occupation_type'] = array(
     'name' => 'create field_occupation_type',
     'roles' => array(
@@ -52,7 +52,7 @@ function occupations_user_default_permissions() {
     'module' => 'field_permissions',
   );
 
-  // Exported permission: delete terms in 2
+  // Exported permission: delete terms in 2.
   $permissions['delete terms in 2'] = array(
     'name' => 'delete terms in 2',
     'roles' => array(
@@ -62,13 +62,14 @@ function occupations_user_default_permissions() {
     'module' => 'taxonomy',
   );
 
-  // Exported permission: delete terms in 3
+  // Exported permission: delete terms in 3.
   $permissions['delete terms in 3'] = array(
     'name' => 'delete terms in 3',
     'roles' => array(),
+    'module' => 'taxonomy',
   );
 
-  // Exported permission: edit field_occupation_needs_fixing
+  // Exported permission: edit field_occupation_needs_fixing.
   $permissions['edit field_occupation_needs_fixing'] = array(
     'name' => 'edit field_occupation_needs_fixing',
     'roles' => array(
@@ -78,7 +79,7 @@ function occupations_user_default_permissions() {
     'module' => 'field_permissions',
   );
 
-  // Exported permission: edit field_occupation_notes
+  // Exported permission: edit field_occupation_notes.
   $permissions['edit field_occupation_notes'] = array(
     'name' => 'edit field_occupation_notes',
     'roles' => array(
@@ -89,7 +90,7 @@ function occupations_user_default_permissions() {
     'module' => 'field_permissions',
   );
 
-  // Exported permission: edit field_occupation_notes_legacy
+  // Exported permission: edit field_occupation_notes_legacy.
   $permissions['edit field_occupation_notes_legacy'] = array(
     'name' => 'edit field_occupation_notes_legacy',
     'roles' => array(
@@ -100,7 +101,7 @@ function occupations_user_default_permissions() {
     'module' => 'field_permissions',
   );
 
-  // Exported permission: edit field_occupation_type
+  // Exported permission: edit field_occupation_type.
   $permissions['edit field_occupation_type'] = array(
     'name' => 'edit field_occupation_type',
     'roles' => array(
@@ -110,7 +111,7 @@ function occupations_user_default_permissions() {
     'module' => 'field_permissions',
   );
 
-  // Exported permission: edit own field_occupation_needs_fixing
+  // Exported permission: edit own field_occupation_needs_fixing.
   $permissions['edit own field_occupation_needs_fixing'] = array(
     'name' => 'edit own field_occupation_needs_fixing',
     'roles' => array(
@@ -121,7 +122,7 @@ function occupations_user_default_permissions() {
     'module' => 'field_permissions',
   );
 
-  // Exported permission: edit own field_occupation_notes
+  // Exported permission: edit own field_occupation_notes.
   $permissions['edit own field_occupation_notes'] = array(
     'name' => 'edit own field_occupation_notes',
     'roles' => array(
@@ -132,7 +133,7 @@ function occupations_user_default_permissions() {
     'module' => 'field_permissions',
   );
 
-  // Exported permission: edit own field_occupation_notes_legacy
+  // Exported permission: edit own field_occupation_notes_legacy.
   $permissions['edit own field_occupation_notes_legacy'] = array(
     'name' => 'edit own field_occupation_notes_legacy',
     'roles' => array(
@@ -142,7 +143,7 @@ function occupations_user_default_permissions() {
     'module' => 'field_permissions',
   );
 
-  // Exported permission: edit own field_occupation_type
+  // Exported permission: edit own field_occupation_type.
   $permissions['edit own field_occupation_type'] = array(
     'name' => 'edit own field_occupation_type',
     'roles' => array(
@@ -152,7 +153,7 @@ function occupations_user_default_permissions() {
     'module' => 'field_permissions',
   );
 
-  // Exported permission: edit terms in 2
+  // Exported permission: edit terms in 2.
   $permissions['edit terms in 2'] = array(
     'name' => 'edit terms in 2',
     'roles' => array(
@@ -162,13 +163,14 @@ function occupations_user_default_permissions() {
     'module' => 'taxonomy',
   );
 
-  // Exported permission: edit terms in 3
+  // Exported permission: edit terms in 3.
   $permissions['edit terms in 3'] = array(
     'name' => 'edit terms in 3',
     'roles' => array(),
+    'module' => 'taxonomy',
   );
 
-  // Exported permission: view field_occupation_needs_fixing
+  // Exported permission: view field_occupation_needs_fixing.
   $permissions['view field_occupation_needs_fixing'] = array(
     'name' => 'view field_occupation_needs_fixing',
     'roles' => array(
@@ -178,7 +180,7 @@ function occupations_user_default_permissions() {
     'module' => 'field_permissions',
   );
 
-  // Exported permission: view field_occupation_notes
+  // Exported permission: view field_occupation_notes.
   $permissions['view field_occupation_notes'] = array(
     'name' => 'view field_occupation_notes',
     'roles' => array(
@@ -189,7 +191,7 @@ function occupations_user_default_permissions() {
     'module' => 'field_permissions',
   );
 
-  // Exported permission: view field_occupation_notes_legacy
+  // Exported permission: view field_occupation_notes_legacy.
   $permissions['view field_occupation_notes_legacy'] = array(
     'name' => 'view field_occupation_notes_legacy',
     'roles' => array(
@@ -200,7 +202,7 @@ function occupations_user_default_permissions() {
     'module' => 'field_permissions',
   );
 
-  // Exported permission: view field_occupation_type
+  // Exported permission: view field_occupation_type.
   $permissions['view field_occupation_type'] = array(
     'name' => 'view field_occupation_type',
     'roles' => array(
@@ -210,7 +212,7 @@ function occupations_user_default_permissions() {
     'module' => 'field_permissions',
   );
 
-  // Exported permission: view own field_occupation_needs_fixing
+  // Exported permission: view own field_occupation_needs_fixing.
   $permissions['view own field_occupation_needs_fixing'] = array(
     'name' => 'view own field_occupation_needs_fixing',
     'roles' => array(
@@ -221,7 +223,7 @@ function occupations_user_default_permissions() {
     'module' => 'field_permissions',
   );
 
-  // Exported permission: view own field_occupation_notes
+  // Exported permission: view own field_occupation_notes.
   $permissions['view own field_occupation_notes'] = array(
     'name' => 'view own field_occupation_notes',
     'roles' => array(
@@ -233,7 +235,7 @@ function occupations_user_default_permissions() {
     'module' => 'field_permissions',
   );
 
-  // Exported permission: view own field_occupation_notes_legacy
+  // Exported permission: view own field_occupation_notes_legacy.
   $permissions['view own field_occupation_notes_legacy'] = array(
     'name' => 'view own field_occupation_notes_legacy',
     'roles' => array(
@@ -243,7 +245,7 @@ function occupations_user_default_permissions() {
     'module' => 'field_permissions',
   );
 
-  // Exported permission: view own field_occupation_type
+  // Exported permission: view own field_occupation_type.
   $permissions['view own field_occupation_type'] = array(
     'name' => 'view own field_occupation_type',
     'roles' => array(
