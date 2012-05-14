@@ -1,119 +1,105 @@
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-
-	<title>Occupation Tooltip</title>
-	
-</head>
-
-<link rel='stylesheet' href='tooltip.css' type='text/css' media='all' />
-
-<body>
-
-					<div class="wax-tooltip">
-						
-						<div class='tooltip-inner' id="occupation-{{id}}">
+			<div class='tooltip-inner' id='occupation'>
 
 							<!-- using hCard microformat -->
-							<div class="vcard">
+							<div class='vcard'>
 
+								{{#Title}}
+								<a title='{{title}}'_class='occupation_directory_url'	href='{{occupy_directory_url}}'>		
+								<h3 class='fn org title'>{{Title}}</h3>
+								</a>
+								{{/Title}}
 								<ul>
 
 									<!--
-									{{#Occupation Image}}
-									<li class="occupation-image">{{{Occupation Image}}}</li>
-									{{/Occupation Image}}
-									-->
+									{{#occupation_image}}
+									<li class='occupation-image'>{{occupation_image}}</li>
+									{{/occupation_image}}
+									--!>
 
-									<li>
-										{{#Title}}
-										<a title="{{{Title}}}" class="occupation-directory-url"	href="{{{Occupy Directory URL}}}">		
-										<h3 class="fn org title">{{{Title}}}</h3>
-										</a>
-										{{/Title}}
+									{{#occupation_website}}
+									<li class='website-url'>
+										<h6 class='label'>Website URL</h6>
+										<a class='url' title='Occupation Website' target='_blank' href='{{occupation_website}}'>Occupation Website</a>
 									</li>
+									{{/occupation_website}}
 
-									{{#Occupation website}}
-									<li class="website-url">
-										<h6 class="label">Website URL</h6>
-										<a class="url" title="Occupation Website" target="_blank" href="{{{Occupation website}}}">Occupation Website</a>
+									{{#general_email_address}}
+									<li class='general-email-address'>
+										<h6 class='label'>General Email</h6>
+										<a class='email' href='mailto:{{general_email_address}}'>{{general_email_address}}</a>
 									</li>
-									{{/Occupation website}}
+									{{/general_email_address}}
 
-									{{#General email address}}
-									<li class="general-email-address">
-										<h6 class="label">General Email</h6>
-										<a class="email" href="mailto:{{{General email address}}}">{{{General email address}}}</a>
-									</li>
-									{{/General email address}}
+									<li class='adr'>
 
-									<li class="adr">
+										<h6 class='label'>Address</h6>
 
-										<h6 class="label">Address</h6>
+										{{#location_name_sub_premise}}
+										<span class='locality'>{{location_name_sub_premise}}</span>
+										{{/location_name_sub_premise}}
 
-										{{#Location Name -- sub-premise}}
-										<span class="locality">{{{Location Name -- sub-premise}}}</span>
-										{{Location Name -- sub-premise}}
+										{{#address_1_thoroughfare}}
+										<span class='stret-address'>{{address_1_thoroughfare}}</span>
+										{{/address_1_thoroughfare}}
 
-										{{#Address 1 -- thoroughfare}}
-										<span class="stret-address">{{{Address 1 -- thoroughfare}}}</span>
-										{{/Address 1 -- thoroughfare}}
+										{{#address_2_premise}}
+										<span class='extended-address'>{{address_2_premise}}</span>
+										{{/address_2_premise}}
 
-										{{#Address 2 -- premise}}
-										<span class="extended-address">{{{Address 2 -- premise}}}</span>
-										{{/Address 2 -- premise}}
+										<span class='loc'>
 
-										{{#City -- locality}}
-										<span class="city">{{{City -- locality}}}</span>
-										{{/City -- locality}}
+											{{#city_locality}}
+											<span class='city'>{{city_locality}}</span>
+											{{/city_locality}}
 
-										{{#City (Sub) -- dependent-locality}}
-										<span class="citi-sub">{{{City (Sub) -- dependent-locality}}}</span>
-										{{/City (Sub) -- dependent-locality}}
+											{{#city_(sub)_dependent_locality}}
+											<span class='citi-sub'>{{city_(sub)_dependent_locality}}</span>
+											{{/city_(sub)_dependent_locality}}
 
-										{{#State -- administrative-area}}
-										<span class="region">{{{State -- administrative-area}}}</span>
-										{{/State -- administrative-area}}
+											{{#state_administrative_area}}
+											<span class='region'>{{state_administrative_area}}</span>
+											{{/state_administrative_area}}
 
-										{{#State (sub) -- sub-administrative-area}}
-										<span class="state-sub">{{{State (sub) -- sub-administrative-area}}}</span>
-										{{/State (sub) -- sub-administrative-area}}
+											{{#state_(sub)_sub_administrative_area}}
+											<span class='state-sub'>{{state_(sub)_sub_administrative_area}}</span>
+											{{/state_(sub)_sub_administrative_area}}
 
-										{{#Zip -- postal-code}}}
-										<span class="postal-code">{{{Zip -- postal-code}}}</span>
-										{{/Zip -- postal-code}}}
+											{{#zip_postal_code}}
+											<span class='postal-code'>{{zip_postal_code}}</span>
+											{{/zip_postal_code}}
 
-										{{#Country -- country}}
-										<span class="country-name">{{{Country -- country}}}</span>
-										{{/Country -- country}}
+											{{#country_country}}
+											<span class='country-name'>{{country_country}}</span>
+											{{/country_country}}
+
+										</span>
 
 									</li>
 
-									{{#General phone}}
-									<li class="tel general-phone">
-										<h6 class="label">General Phone</h6>
-										{{{General phone}}}
+									{{#general_phone}}
+									<li class='tel general-phone'>
+										<h6 class='label'>General Phone</h6>
+										{{general_phone}}
 									</li>
-									{{/General phone}}
+									{{/general_phone}}
 
 									{{#Founded}}
-									<li class="bday founded YYYY-MM-DD">
-										<h6 class="label">Founded</h6>
-										{{{Founded}}}
+									<li class='bday founded YYYY-MM-DD'>
+										<h6 class='label'>Founded</h6>
+										{{Founded}}
 									</li>
 									{{/Founded}}
 
-									<li class="geo">
+									<li class='geo'>
 										Geo: 
 										{{#Latitude?}}
-										<span class="latitude">{{{Latitude}}}</span>, 
+										<span class='latitude'>{{Latitude}}</span>
 										{{/Latitude?}}
 										{{^Latitude}}
 										--
 										{{/Latitude}}
 										{{#Longitude?}}
-										<span class="longitude">{{{Longitude}}}</span>
+										<span class='longitude'>{{Longitude}}</span>
 										{{/Longitude?}}
 										{{^Longitude}}
 										--
@@ -124,19 +110,19 @@
 
 							</div><!--end vcard -->
 
-							<div class="info">
-								{{#Occupation description}}
-								<p class="occupation-description">{{{Occupation description}}}</p>
-								{{/Occupation description}}
-								{{#General Assembly}}
-								<p class="genera-assembly">{{{General Assembly}}}</p>
-								{{/General Assembly}}
-								{{#Donate Information}}
-								<p class="donate-information">{{{Donate Information}}}</p>
-								{{/Donate Information}}
-								{{#Physical occupation occurring}}
-								<p class="physical-occupation-occurring">{{{Physical occupation occurring?}}}</p>
-								{{/Physical occupation occurring}}
+							<div class='info'>
+								{{#occupation_description}}
+								<p class='occupation-description'>{{occupation_description}}</p>
+								{{/occupation_description}}
+								{{#general_assembly}}
+								<p class='genera-assembly'>{{general_assembly}}</p>
+								{{/general_assembly}}
+								{{#donate_information}}
+								<p class='donate-information'>{{donate_information}}</p>
+								{{/donate_information}}
+								{{#physical_occupation_occurring}}
+								<p class='physical-occupation-occurring'>{{physical_occupation_occurring}}</p>
+								{{/physical_occupation_occurring}}
 							</div><!-- end info -->
 
 							<table>
@@ -148,31 +134,31 @@
 								</tr>
 								<tr>
 									<td>
-										<ul class="point-of-contact-email-addresses">
-											{{#Point of contact email addresses}}
-											<li class="email">{{{Point of contact email addresses}}}</li>
-											{{/Point of contact email addresses}}
+										<ul class='point-of-contact-email-addresses'>
+											{{#point_of_contact_email_addresses}}
+											<li class='email'>{{point_of_contact_email_addresses}}</li>
+											{{/point_of_contact_email_addresses}}
 										</ul>
 									</td>
 									<td>
-										<ul class="additional-websites">
-											{{#Additional Occupation websites}}
-											<li>{{{Additional Occupation websites}}}</li>
-											{{/Additional Occupation websites}}
+										<ul class='additional-websites'>
+											{{#additional_occupation_websites}}
+											<li>{{additional_occupation_websites}}</li>
+											{{/additional_occupation_websites}}
 										</ul>
 									</td>
 									<td>
-										<ul class="twitter-hashtags">
-											{{#Twitter hashtag(s)}}
-											<li class="twitter-hashtags">{{{Twitter hashtag(s)}}}</li>
-											{{/Twitter hashtag(s)}}
+										<ul class='twitter-hashtags'>
+											{{#twitter_hashtag(s)}}
+											<li class='twitter-hashtags'>{{twitter_hashtag(s)}}</li>
+											{{/twitter_hashtag(s)}}
 										</ul>
 									</td>
 									<td>
-										<ul class="twitter-accounts">
-											{{#Twitter account(s)}}
-											<li class="twitter-accounts">{{{Twitter account(s)}}}</li>
-											{{/Twitter account(s)}}
+										<ul class='twitter-accounts'>
+											{{#twitter_account(s)}}
+											<li class='twitter-accounts'>{{twitter_account(s)}}</li>
+											{{/twitter_account(s)}}
 										</ul>
 									</td>
 								</tr>
@@ -185,49 +171,49 @@
 								<tr>
 
 									<td>
-										<ul class="video-sites">
+										<ul class='video-sites'>
 
-											{{#Youtube channel URLs}}
-											<li class="youtube-channel-urls">{{{Youtube channel URLs}}}</li>
-											{{/Youtube channel URLs}}
+											{{#youtube_channel_urls}}
+											<li class='youtube-channel-urls'>{{youtube_channel_urls}}</li>
+											{{/youtube_channel_urls}}
 
-											{{#Live video streams}}
-											<li class="live-video-streams">{{{Live video streams}}}</li>
-											{{/Live video streams}}
+											{{#live_video_streams}}
+											<li class='live-video-streams'>{{live_video_streams}}</li>
+											{{/live_video_streams}}
 
 										</ul>
 									</td>
 
 									<td>
-										<ul class="social-media-sites">
-											{{#Facebook Page(s)}}
-											<li class="facebook-pages">{{{Facebook Page(s)}}}</li>
-											{{/Facebook Page(s)}}
-											{{#Meetup URL}}
-											<li class="meetup-url">{{{Meetup URL}}}</li>
-											{{/Meetup URL}}
-											{{#Additional social media sites}}
-											<li class="additiona-social-media-sites">{{{Additional social media sites}}}</li>
-											{{/Additional social media sites}}
+										<ul class='social-media-sites'>
+											{{#facebook_page(s)}}
+											<li class='facebook-pages'>{{facebook_page(s)}}</li>
+											{{/facebook_page(s)}}
+											{{#meetup_url}}
+											<li class='meetup-url'>{{meetup_url}}</li>
+											{{/meetup_url}}
+											{{#additional_social_media_sites}}
+											<li class='additiona-social-media-sites'>{{additional_social_media_sites}}</li>
+											{{/additional_social_media_sites}}
 										</ul>
 									</td>
 
 									<td>
 
-										<ul class="newspapers">
-											{{#Newspaper URL}}
-											<li class="newspaper-urls">{{{Newspaper URL}}}</li>
-											{{/Newspaper URL}}
+										<ul class='newspapers'>
+											{{#newspaper_url}}
+											<li class='newspaper-urls'>{{newspaper_url}}</li>
+											{{/newspaper_url}}
 										</ul>
 									
 									</td>
 									
 									<td>
 
-										<ul class="feeds">
-											{{#RSS feeds}}
-											<li class="rss-feeds">{{{RSS feeds}}}</li>
-											{{/RSS feeds}}
+										<ul class='feeds'>
+											{{#rss_feeds}}
+											<li class='rss-feeds'>{{rss_feeds}}</li>
+											{{/rss_feeds}}
 										</ul>
 									</td>
 									
@@ -236,9 +222,3 @@
 							</table>
 
 						</div><!-- end tooltip-inner -->
-
-					</div><!-- end wax-tooltip -->
-</body>
-</html>
-
-
