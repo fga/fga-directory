@@ -314,16 +314,6 @@ div.view-display-id-occupations_list table img {
 
 
 
-
-
-
-/* Apologies for this hack. Talk messes up the $node->content['links']['comment']['#links']
-   array and override the comment_forbidden key. CSS to the rescue for now. */
-.node-occupation .node-links .first {
-  display: none;
-}
-
-
 #zone-content {
   padding-top:3em;
 /*  min-height: 100%;*/
@@ -373,9 +363,7 @@ div.view-display-id-occupations_list table img {
 .block .view ul.pager {
   margin-top:.5em;
 }
-.pager li.pager-previous a {
-    width: 68px;
-}
+
 
 .block-social-media p {
   padding:0; /*0 0 10px*/
@@ -520,4 +508,28 @@ ul.tweets-pulled-listing  div.tweet-divider {
 }
 
 .page-occupations-cards .views-row:first-child {
+}
+
+
+
+
+
+
+/* HACKS */
+
+/* Talk messes up the $node->content['links']['comment']['#links']
+   array and override the comment_forbidden key. CSS to the rescue for now. */
+.node-occupation .node-links .first {
+  display: none;
+}
+
+/* new views pager renders "previous" instead of "prev" */
+.pager li.pager-previous a {
+    width: 68px;
+}
+
+/* Country is renedered outside the wrapper div, so clearing gives us a big
+   space when there's an image*/
+.addressfield-container-inline:after {
+  clear:none;
 }
