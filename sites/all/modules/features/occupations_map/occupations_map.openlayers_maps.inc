@@ -101,9 +101,9 @@ function occupations_map_openlayers_maps() {
   $openlayers_maps = new stdClass();
   $openlayers_maps->disabled = FALSE; /* Edit this to true to make a default openlayers_maps disabled initially */
   $openlayers_maps->api_version = 1;
-  $openlayers_maps->name = 'occupation_mapbox';
-  $openlayers_maps->title = 'Occupation Mapbox';
-  $openlayers_maps->description = 'Occupation Map leveraging Mapbox tiles as a baselayer for the world view and geojson for the data';
+  $openlayers_maps->name = 'occupations_mapbox';
+  $openlayers_maps->title = 'Occupations Mapbox';
+  $openlayers_maps->description = 'All Occupations Map leveraging Mapbox tiles as a baselayer for the world view and geojson for the data';
   $openlayers_maps->data = array(
     'width' => 'auto',
     'height' => '500px',
@@ -186,7 +186,7 @@ function occupations_map_openlayers_maps() {
       'temporary' => 'default',
     ),
   );
-  $export['occupation_mapbox'] = $openlayers_maps;
+  $export['occupations_mapbox'] = $openlayers_maps;
 
   return $export;
 }

@@ -69,12 +69,12 @@ function occupations_map_views_default_views() {
   $handler = $view->new_display('page', 'Occupation Map Page', 'page');
   $handler->display->display_options['path'] = 'map';
 
-  /* Display: Occupation Mapbox Page */
-  $handler = $view->new_display('page', 'Occupation Mapbox Page', 'page_mapbox');
-  $handler->display->display_options['display_description'] = 'leveraging mapbox';
+  /* Display: Occupations Mapbox Page */
+  $handler = $view->new_display('page', 'Occupations Mapbox Page', 'page_mapbox');
+  $handler->display->display_options['display_description'] = 'map of the world leveraging mapbox';
   $handler->display->display_options['defaults']['style_plugin'] = FALSE;
   $handler->display->display_options['style_plugin'] = 'openlayers_map';
-  $handler->display->display_options['style_options']['map'] = 'occupation_mapbox';
+  $handler->display->display_options['style_options']['map'] = 'occupations_mapbox';
   $handler->display->display_options['defaults']['style_options'] = FALSE;
   $handler->display->display_options['defaults']['row_plugin'] = FALSE;
   $handler->display->display_options['defaults']['row_options'] = FALSE;
