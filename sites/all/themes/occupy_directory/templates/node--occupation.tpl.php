@@ -1,13 +1,14 @@
 <article<?php print $attributes; ?>>
   <?php print $user_picture; ?>
+  <?php print render($title_prefix); ?>
   
   <?php if (!$page && $title): ?>
   <header>
-    <?php print render($title_prefix); ?>
     <h2<?php print $title_attributes; ?>><a href="<?php print $node_url ?>" title="<?php print $title ?>"><?php print $title ?></a></h2>
-    <?php print render($title_suffix); ?>
     <?php //print render($content['field_occupation_origin_date']); ?>
   </header>
+  <?php print render($title_suffix); ?>
+  
   <?php endif; ?>
   
   <?php if ($display_submitted): ?>
