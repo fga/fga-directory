@@ -511,8 +511,13 @@ ul.tweets-pulled-listing  div.tweet-divider {
 }
 
 
-
-
+#zone-navbar.container-12 {
+  width:100%;
+}
+#region-navbar.grid-12 {
+  width:100%;
+  margin: 0;
+}
 
 
 /* HACKS */
