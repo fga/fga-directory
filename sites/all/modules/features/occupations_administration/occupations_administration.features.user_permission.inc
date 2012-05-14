@@ -47,7 +47,9 @@ function occupations_administration_user_default_permissions() {
   // Exported permission: delete terms in 4.
   $permissions['delete terms in 4'] = array(
     'name' => 'delete terms in 4',
-    'roles' => array(),
+    'roles' => array(
+      0 => 'site developer',
+    ),
     'module' => 'taxonomy',
   );
 
@@ -86,7 +88,10 @@ function occupations_administration_user_default_permissions() {
   // Exported permission: edit terms in 4.
   $permissions['edit terms in 4'] = array(
     'name' => 'edit terms in 4',
-    'roles' => array(),
+    'roles' => array(
+      0 => 'site administrator',
+      1 => 'site developer',
+    ),
     'module' => 'taxonomy',
   );
 
