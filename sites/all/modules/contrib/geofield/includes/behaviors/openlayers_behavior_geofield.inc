@@ -16,7 +16,7 @@ class openlayers_behavior_geofield extends openlayers_behavior {
   function options_init() {
     return array(
       'feature_types' => array(),
-      'wkt' => '',
+      'allow_edit' => 1,
     );
   }
 
@@ -35,6 +35,12 @@ class openlayers_behavior_geofield extends openlayers_behavior {
         '#description' => t('Select what features are available to draw.'),
         '#default_value' => isset($defaults['feature_types']) ? $defaults['feature_types'] : array(),
       ),
+      'allow_edit' => array(
+        '#title' => t('Allow shape modification'),
+        '#type' => 'checkbox',
+        '#description' => t('Can you edit and delete shapes.'),
+        '#default_value' => isset($defaults['allow_edit']) ? $defaults['allow_edit'] : 1,
+      ),
     );
   }
 
@@ -43,7 +49,6 @@ class openlayers_behavior_geofield extends openlayers_behavior {
    */
   function render(&$map) {
     $geopath = drupal_get_path('module', 'geofield');
-    drupal_add_css($geopath . '/includes/behaviors/css/openlayers_behavior_geofield.css');
     drupal_add_js($geopath . '/includes/behaviors/js/openlayers_behavior_geofield.js');
     return $this->options;
   }

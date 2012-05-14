@@ -13,42 +13,42 @@ function geofield_field_formatter_info() {
     'geofield_wkt' => array(
       'label' => t('Well Known Text (WKT)'),
       'field types' => array('geofield'),
-      'settings' => array('data' => ''),
+      'settings' => array('data' => 'full'),
     ),
     'geofield_geojson' => array(
       'label' => t('GeoJSON'),
       'field types' => array('geofield'),
-      'settings' => array('data' => ''),
+      'settings' => array('data' => 'full'),
     ),
     'geofield_kml' => array(
       'label' => t('KML'),
       'field types' => array('geofield'),
-      'settings' => array('data' => ''),
+      'settings' => array('data' => 'full'),
     ),
     'geofield_gpx' => array(
       'label' => t('GPX'),
       'field types' => array('geofield'),
-      'settings' => array('data' => ''),
+      'settings' => array('data' => 'full'),
     ),
     'geofield_latlon' => array(
       'label' => t('Latitude/Longitude'),
       'field types' => array('geofield'),
-      'settings' => array('data' => '', 'format' => ''),
+      'settings' => array('data' => 'full', 'format' => 'decimal_degrees', 'labels' => 1),
     ),
     'geofield_lat' => array(
       'label' => t('Latitude Only'),
       'field types' => array('geofield'),
-      'settings' => array('data' => '', 'format' => ''),
+      'settings' => array('data' => 'full', 'format' => 'decimal_degrees'),
     ),
     'geofield_lon' => array(
       'label' => t('Longitude Only'),
       'field types' => array('geofield'),
-      'settings' => array('data' => '', 'format' => ''),
+      'settings' => array('data' => 'full', 'format' => 'decimal_degrees'),
     ),
     'geofield_geo_type' => array(
       'label' => t('Geometry Type'),
       'field types' => array('geofield'),
-      'settings' => array('data' => '', 'format' => ''),
+      'settings' => array('data' => 'full'),
     ),
   );
 
@@ -56,7 +56,7 @@ function geofield_field_formatter_info() {
     $formatters['geofield_openlayers'] = array(
       'label' => t('OpenLayers'),
       'field types' => array('geofield'),
-      'settings' => array('map_preset' => '', 'data' => ''),
+      'settings' => array('data' => 'full', 'map_preset' => 'geofield_formatter_map'),
     );
   }
   
@@ -145,11 +145,19 @@ function geofield_field_formatter_settings_form($field, $instance, $view_mode, $
     );
   }
   
+  if ($display['type'] == 'geofield_latlon') {
+    $element['labels'] = array(
+      '#title' => t('Display Labels'),
+      '#type' => 'checkbox',
+      '#default_value' => $settings['labels'],
+    );
+  }
+  
   if ($display['type'] == 'geofield_def_list' || $display['type'] == 'geofield_description') {
     $element['address'] = array(
       '#title' => t('Include reverse-geocoded address'),
       '#type' => 'checkbox',
-      '#default_value' => $settings['address'] ? $settings['address'] : 0,
+      '#default_value' => $settings['address'],
     );
   }
 
@@ -169,14 +177,14 @@ function geofield_field_formatter_settings_summary($field, $instance, $view_mode
 
   // Styles could be lost because of enabled/disabled modules that defines
   // their styles in code.
-  if (isset($data_options[$settings['data']])) {
+  if (!empty($data_options[$settings['data']])) {
     $summary[] = t('Data options: @data', array('@data' => $data_options[$settings['data']]));
   }
   else {
     $summary[] = t('No data options set');
   }
   
-  if ($display['type'] == 'geofield_openlayers' && isset($settings['map_preset'])) {
+  if ($display['type'] == 'geofield_openlayers' && !empty($settings['map_preset'])) {
     $openlayers_presets = openlayers_preset_options();
     $summary[] = t('Openlayers Map: @data', array('@data' => $openlayers_presets[$settings['map_preset']]));
   }
@@ -189,7 +197,7 @@ function geofield_field_formatter_settings_summary($field, $instance, $view_mode
     }
   }
 
-  if (isset($settings['address']) && $settings['address']) {
+  if (!empty($settings['address']) && $settings['address']) {
     $summary[] = t('Including reverse-geocoded address');
   }
 
@@ -273,7 +281,12 @@ function geofield_field_formatter_view($entity_type, $entity, $field, $instance,
       return $element;
     case 'geofield_latlon':
       foreach ($items as $delta => $item) {
-        $output = t('Latitude: !latitude <br/>Longitude: !longitude', array('!latitude' => $item['lat'], '!longitude' => $item['lon']));
+        if ($display['settings']['labels']) {
+          $output = t('Latitude: !latitude <br/>Longitude: !longitude', array('!latitude' => $item['lat'], '!longitude' => $item['lon']));
+        }
+        else {
+          $output = $item['lat'] . ', ' . $item['lon'];
+        }
         $element[$delta] = array('#markup' => $output);
       }
       return $element;
@@ -387,7 +400,7 @@ function _geofield_description_formatter($item, $settings) {
   $geometry = geoPHP::load($item['wkt'], 'wkt');
   
   // Single types
-  $single_types = array('Point', 'LineStrnig', 'Polygon');
+  $single_types = array('Point', 'LineString', 'Polygon');
   
   if (in_array($geometry->geometryType(), $single_types)) {
     $centroid = new Point($item['lon'], $item['lat']);

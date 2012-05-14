@@ -147,7 +147,7 @@ function _wkt_generate_polygon($start = FALSE, $segments = FALSE) {
   $segments = $segments ? $segments : _dd_generate(2, 4, TRUE);
   $poly = _wkt_generate_linestring($start, $segments);
   // close the polygon
-  return '('. $poly . ' , ' . $start[0] . ' ' . $start[1] . ')';
+  return '(' . $poly . ' , ' . $start[0] . ' ' . $start[1] . ')';
 }
 
 function _wkt_generate_multipolygon() {

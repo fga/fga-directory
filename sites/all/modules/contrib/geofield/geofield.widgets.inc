@@ -80,9 +80,18 @@ function geofield_field_widget_settings_form($field, $instance) {
       '#options' => $map_options,
       '#description' => t('Select which OpenLayers map you would like to use. Only maps which have the GeoField behavior may be selected. If your preferred map is not here, add the GeoField behavior to it first. The "Draw Features" bahavior is incompatible - presets with this behavior are not shown.'),
     );
-    
-  }
 
+    $form['data_storage'] = array(
+      '#type' => 'radios',
+      '#title' => t('Storage Options'),
+      '#description' => t('Should the widget only allow simple features (points, lines, or polygons), or should the widget allow for complex features? Note that changing this setting from complex to simple after data has been entered can lead to data loss.'),
+      '#options' => array(
+        'collection' => 'Store as a single collection.',
+        'single' => 'Store each simple feature as a separate field.',
+      ),
+      '#default_value' => (isset($settings['data_storage'])) ? $settings['data_storage'] : 'collection',
+    );
+  }
   return $form;
 }
 
@@ -192,24 +201,22 @@ function geofield_field_widget_form(&$form, &$form_state, $field, $instance,
   }
 
   if ($widget['type'] == 'geofield_openlayers') {
+    drupal_add_js(
+      array('geofield' => array(
+        'data_storage' => (!empty($settings['data_storage'])) ? $settings['data_storage'] : 'collection',
+        ),
+      ),
+    'setting');
+
     $field_class = '.field-name-' . str_replace('_', '-', $field['field_name']);
-    $defaults = array(
-      'wkt' => $field_class . ' .geofield_wkt',
-      'geo_type' => $field_class . ' .geofield_geo_type',
-      'lat' => $field_class . ' .geofield_lat',
-      'lon' => $field_class . ' .geofield_lon',
-      'left' => $field_class . ' .geofield_left',
-      'bottom' => $field_class . ' .geofield_bottom',
-      'right' => $field_class . ' .geofield_right',
-      'top' => $field_class . ' .geofield_top',
-    );
+    $defaults = array();
     $element['helpmap'] = array(
       '#markup' => '<div class="form-item geotaxonomy-latlon-helpmap" style="display:block">'
                       . geofield_form_latlon_map($defaults, isset($instance['widget']['settings']['openlayers_map']) ? $instance['widget']['settings']['openlayers_map'] : 'geofield_widget_map')
                       . '</div>'
     );
     $element['helpmap_desc'] = array(
-      '#markup' => t('Click the map to set a point for this location. Control-click to add lines. Alt-click to add polygons. Shift-click and drag to set bounds. Pan and zoom with arrows and the zoom bar.')
+      '#markup' => t('<div class="description geofield-help">Use the icons to select what type of feature to draw. Each map can contain one simple feature. Pan and zoom with arrows and the zoom bar.</div>')
     );
   }
 
@@ -225,16 +232,6 @@ function geofield_form_latlon_map($defaults = array(), $map_name) {
   // This map will always be projected as 4326 and use just the default map preset
   $map_data = openlayers_map_load($map_name);
   $map = $map_data->data;
-  $map['behaviors']['openlayers_behavior_geofield'] = array(
-    'wkt' => $defaults['wkt'],
-    'geo_type' => $defaults['geo_type'],
-    'lat' => $defaults['lat'],
-    'lon' => $defaults['lon'],
-    'left' => $defaults['left'],
-    'bottom' => $defaults['bottom'],
-    'right' => $defaults['right'],
-    'top' => $defaults['top'],
-  );
   return openlayers_render_map($map);
 }
 

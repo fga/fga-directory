@@ -46,13 +46,13 @@ function geofield_field_presave($entity_type, $entity, $field, $instance, $langc
         if ($widget['type'] == 'geofield_wkt') {
           $master_column = 'wkt';
         }
-        else if ($widget['type'] == 'geofield_latlon') {
+        elseif ($widget['type'] == 'geofield_latlon') {
           $master_column = 'latlon';
         }
-        else if ($widget['type'] == 'geofield_bounds') {
+        elseif ($widget['type'] == 'geofield_bounds') {
           $master_column = 'bounds';
         }
-        else if ($widget['type'] == 'geofield_geolocation') {
+        elseif ($widget['type'] == 'geofield_geolocation') {
           $master_column = 'latlon';
         }
         else {
@@ -131,7 +131,7 @@ function geofield_requirements($phase) {
     catch (Exception $e) {
       $geophp_version = 0;
     }
-    if ($geophp_version >= 0.4) {
+    if ($geophp_version >= 0.6) {
       $requirements['geofield_geophp'] = array(
         'title' => t('GeoPHP Library Installed'),
         'severity' => REQUIREMENT_OK,
@@ -170,7 +170,10 @@ function geofield_field_instance_settings_form($field, $instance) {
   $form = array();
   // Add in local solr settings
   if (module_exists('apachesolr')) {
-    $setting = $instance['settings']['solrspatial'];
+
+    if (isset($instance['settings']['solrspatial'])) $setting = $instance['settings']['solrspatial'];
+    else $setting = array();
+
     $form['solrspatial'] = array(
       '#type' => 'fieldset',
       '#title' => t('Local Solr Settings'),
@@ -245,13 +248,13 @@ function geofield_compute_values(&$values, $master_column = 'wkt') {
 
   // If only a wkt string has been passed in, then format it correctly by wrapping it in an array
   if ($master_column == 'wkt' && !is_array($values)) {
-    $values = array($values);
+    $values = array('wkt' => $values);
   }
 
   // Load up geoPHP to do the conversions
   $geophp = geofield_load_geophp();
   if (!$geophp) {
-    drupal_set_message(t("Unable to load geoPHP library. Not all values will be computer correctly"), 'error');
+    drupal_set_message(t("Unable to load geoPHP library. Not all values will be calculated correctly"), 'error');
     return;
   }
 
@@ -538,7 +541,7 @@ function geofield_data_property_info($name = NULL) {
       'label' => 'Well-known text',
       'type' => 'text',
     ),
-    'geo_type'=> array(
+    'geo_type' => array(
       'label' => 'Geo Type',
       'options list' => '_geofield_geo_types_options_callback',
       'required' => TRUE,
@@ -549,7 +552,7 @@ function geofield_data_property_info($name = NULL) {
       'required' => TRUE,
       'setter callback' => 'entity_property_verbatim_set',
     ),
-    'lon'=> array(
+    'lon' => array(
       'label' => 'Longitude',
       'type' => 'decimal',
       'required' => TRUE,
@@ -566,7 +569,7 @@ function geofield_data_property_info($name = NULL) {
       'setter callback' => 'entity_property_verbatim_set',
     ),
     'right' => array(
-      'label' =>'Right Latitude',
+      'label' => 'Right Latitude',
       'type' => 'decimal',
       'setter callback' => 'entity_property_verbatim_set',
     ),

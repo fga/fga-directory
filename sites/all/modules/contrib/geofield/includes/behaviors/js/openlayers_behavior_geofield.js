@@ -2,6 +2,80 @@
  * @file
  * JS Implementation of OpenLayers behavior.
  */
+/**
+ * Class: OpenLayers.Control.DrupalEditingToolbar
+ * The DrupalEditingToolbar is a panel controls to modify or draw polygons, lines,
+ * points, or to navigate the map by panning. You can select which tool to enable
+ * with options.tools.
+ *
+ * Inherits from:
+ *  - <OpenLayers.Control.Panel>
+ */
+OpenLayers.Control.GeofieldEditingToolbar = OpenLayers.Class(
+  OpenLayers.Control.Panel, {
+
+    /**
+     * Constructor: OpenLayers.Control.EditingToolbar
+     * Create an editing toolbar for a given layer.
+     *
+     * Parameters:
+     * layer - {<OpenLayers.Layer.Vector>}
+     * options - {Object}
+     */
+    initialize: function(layer, options) {
+        OpenLayers.Control.Panel.prototype.initialize.apply(this, [options]);
+
+        var controls = [];
+        var tools = options.tools;
+        var tool = null;
+
+        if (tools && tools.length) {
+          for (var i = 0, il = tools.length; i < il; i += 1) {
+            // capitalize first letter
+            tool = tools[i][0].toUpperCase() + tools[i].slice(1);
+            controls.push(
+              new OpenLayers.Control.DrawFeature(layer, OpenLayers.Handler[tool], {'displayClass': 'olControlDrawFeature' + tool})
+            );
+          }
+        }
+
+        if (options.allow_edit && options.allow_edit !== 0) {
+          // add an Edit feature
+          controls.push(new OpenLayers.Control.ModifyFeature(layer, {
+            deleteCodes: [46, 68, 100],
+            handleKeypress: function(evt) {
+              if (this.feature && OpenLayers.Util.indexOf(this.deleteCodes, evt.keyCode) > -1) {
+                // We must unselect the feature before we delete it
+                var feature_to_delete = this.feature;
+                this.selectControl.unselectAll();
+                this.layer.removeFeatures([feature_to_delete]);
+              }
+            }
+          }));
+        }
+
+        this.addControls(controls);
+    },
+
+    /**
+     * Method: draw
+     * calls the default draw, and then activates mouse defaults.
+     *
+     * Returns:
+     * {DOMElement}
+     */
+    draw: function() {
+        var div = OpenLayers.Control.Panel.prototype.draw.apply(this, arguments);
+        if (this.defaultControl === null) {
+            this.defaultControl = this.controls[0];
+        }
+        return div;
+    },
+
+    CLASS_NAME: "OpenLayers.Control.EditingToolbar"
+});
+
+
 (function($) {
   /**
    * Geofield Behavior
@@ -38,60 +112,69 @@
         }
       }
 
+      // keep only one features for each map input
+      function limitFeatures (features) {
+        // copy a list of features
+        var copyFeatures = features.object.features.slice();
+        // only keep the last one
+        var lastFeature = copyFeatures.pop();
+        // we remove a lot of features, don't trigger events
+        features.object.destroyFeatures(copyFeatures, {silient: true});
+      }
+
       if (behavior && !$(context).hasClass('geofield-processed')) {
         // we get the .form-item wrapper which is a slibling of our hidden input
         var $wkt = $(context).closest('.form-item').parent().find('input.geofield_wkt');
-        var dataLayer = new OpenLayers.Layer.Vector(Drupal.t('Feature Layer'), {
-              projection: dataProjection,
-              drupalID: 'openlayers_behavior_geofield'
-            });
+        // if there is no form input this shouldn't be activated
+        if ($wkt.length) {
+          var dataLayer = new OpenLayers.Layer.Vector(Drupal.t('Feature Layer'), {
+                projection: dataProjection,
+                drupalID: 'openlayers_behavior_geofield'
+              });
 
-        dataLayer.styleMap = Drupal.openlayers.getStyleMap(data.map, 'openlayers_behavior_geofield');
-        data.openlayers.addLayer(dataLayer);
+          dataLayer.styleMap = Drupal.openlayers.getStyleMap(data.map, 'openlayers_behavior_geofield');
+          data.openlayers.addLayer(dataLayer);
 
-        if ($wkt.val() != '') {
-          wktFormat = initWktFormat(data.openlayers.projection);
-          features = wktFormat.read($wkt.val());
-          dataLayer.addFeatures(features);
-        }
+          // only one feature on each map register before adding our data
+          if (Drupal.settings.geofield.data_storage == 'single') {
+            dataLayer.events.register('featureadded', $wkt, limitFeatures);
+          }
 
-        // registering events late, because adding data
-        // would result in a reprojection loop
-        dataLayer.events.register('featureadded', $wkt, updateWKTField);
-        dataLayer.events.register('featureremoved', $wkt, updateWKTField);
-        dataLayer.events.register('featuremodified', $wkt, updateWKTField);
+          if ($wkt.val() != '') {
+            wktFormat = initWktFormat(data.openlayers.projection);
+            features = wktFormat.read($wkt.val());
+            dataLayer.addFeatures(features);
+          }
 
-        // create toolbar
-        var control = new OpenLayers.Control.EditingToolbar(dataLayer);
-        data.openlayers.addControl(control);
-        control.activate();
+          // registering events late, because adding data
+          // would result in a reprojection loop
+          dataLayer.events.register('featureadded', $wkt, updateWKTField);
+          dataLayer.events.register('featureremoved', $wkt, updateWKTField);
+          dataLayer.events.register('afterfeaturemodified', $wkt, updateWKTField);
 
-        // Add modify feature tool
-        control.addControls(new OpenLayers.Control.ModifyFeature(
-          dataLayer, {
-            displayClass: 'olControlModifyFeature',
-            deleteCodes: [46, 68, 100],
-            handleKeypress: function(evt) {
-              if (this.feature && $.inArray(evt.keyCode, this.deleteCodes) > -1) {
-                // We must unselect the feature before we delete it
-                var feature_to_delete = this.feature;
-                this.selectControl.unselectAll();
-                this.layer.removeFeatures([feature_to_delete]);
-              }
+          // transform options object to array
+          behavior.tools = [];
+          // add a new 'tools' key which is an array of enabled features
+          $.each(behavior.feature_types, function (key, value) {
+            if (value) {
+              behavior.tools.push(key);
             }
-          }));
+          });
+          // create toolbar
+          var control = new OpenLayers.Control.GeofieldEditingToolbar(dataLayer, behavior);
+          data.openlayers.addControl(control);
 
-        // on submit recalculate everything to be up to date
-        var formData = {
-          'control': control, 
-          'dataLayer': dataLayer
-        };
-        function handleSubmit (e) {
-          $.map(e.data.control.controls, function(c) { c.deactivate(); });
-          dataLayer.events.triggerEvent('featuremodified');
+          // on submit recalculate everything to be up to date
+          var formData = {
+            'control': control,
+            'dataLayer': dataLayer
+          };
+          function handleSubmit (e) {
+            $.map(e.data.control.controls, function(c) { c.deactivate(); });
+            dataLayer.events.triggerEvent('featuremodified');
+          }
+          $(context).parents('form').bind('submit', formData, handleSubmit);
         }
-        $(context).parents('form').bind('submit', formData, handleSubmit);
-
         $(context).addClass('geofield-processed');
       } // if
     }

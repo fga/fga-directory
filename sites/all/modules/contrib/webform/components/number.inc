@@ -81,7 +81,7 @@ function _webform_edit_number($component) {
   );
   $form['display']['field_prefix'] = array(
     '#type' => 'textfield',
-    '#title' => t('Label placed to the left of the field'),
+    '#title' => t('Prefix text placed to the left of the field'),
     '#default_value' => $component['extra']['field_prefix'],
     '#description' => t('Examples: $, #, -.'),
     '#size' => 20,
@@ -91,7 +91,7 @@ function _webform_edit_number($component) {
   );
   $form['display']['field_suffix'] = array(
     '#type' => 'textfield',
-    '#title' => t('Label placed to the right of the field'),
+    '#title' => t('Postfix text placed to the right of the field'),
     '#default_value' => $component['extra']['field_suffix'],
     '#description' => t('Examples: lb, kg, %.'),
     '#size' => 20,
@@ -357,6 +357,7 @@ function _webform_analysis_number($component, $sids = array(), $single = FALSE) 
   $population = array();
   $submissions = 0;
   $nonzero = 0;
+  $not_empty = 0;
   $sum = 0;
 
   $result = $query->execute();
@@ -369,6 +370,10 @@ function _webform_analysis_number($component, $sids = array(), $single = FALSE) 
       $number = $value * 1.0;
     }
 
+    if ($value !== '') {
+      $not_empty++;
+    }
+
     if ($number > 0) {
       $nonzero++;
       $sum += $number;
@@ -378,40 +383,39 @@ function _webform_analysis_number($component, $sids = array(), $single = FALSE) 
   }
   sort($population, SORT_NUMERIC);
 
-  // Average and population count (if we have values).
-  if ($sum) {
-    if ($component['extra']['excludezero']) {
-      $average = $sum / $nonzero;
-      $average_title = t('Average !mu excluding zeros/blanks', array('!mu' => $advanced_stats ? '(&mu;)' : ''));
-      // Sample (sub-set of total population).
-      $population_count = $nonzero - 1;
-      $sigma = 'sd';
-      $description = t('sample');
-    }
-    else {
-      $average = $sum / $submissions;
-      $average_title = t('Average !mu including zeros/blanks', array('!mu' => $advanced_stats ? '(&mu;)' : ''));
-      // Population.
-      $population_count = $submissions;
-      $sigma = '&sigma;';
-      $description = t('population');
-    }
+  // Average and population count.
+  if ($component['extra']['excludezero']) {
+    $average = $nonzero ? ($sum / $nonzero) : 0;
+    $average_title = t('Average !mu excluding zeros/blanks', array('!mu' => $advanced_stats ? '(&mu;)' : ''));
+    // Sample (sub-set of total population).
+    $population_count = $nonzero - 1;
+    $sigma = 'sd';
+    $description = t('sample');
+  }
+  else {
+    $average = $submissions ? ($sum / $submissions) : 0;
+    $average_title = t('Average !mu including zeros/blanks', array('!mu' => $advanced_stats ? '(&mu;)' : ''));
+    // Population.
+    $population_count = $submissions;
+    $sigma = '&sigma;';
+    $description = t('population');
   }
 
   // Formatting.
-  if ($component['extra']['decimals'] != '') {
-    $average = _webform_number_format($component, $average);
-    $sum = _webform_number_format($component, $sum);
-  }
+  $average = _webform_number_format($component, $average);
+  $sum = _webform_number_format($component, $sum);
 
   $rows[0] = array(t('Zero/blank'), ($submissions - $nonzero));
-  $rows[1] = array(t('User entered value'), $submissions);
+  $rows[1] = array(t('User entered value'), $not_empty);
   $rows[2] = array(t('Sum') . ($advanced_stats ? ' (&Sigma;)' : ''), $sum);
   $rows[3] = array($average_title, $average);
-  $rows[4] = array('', l(t('More stats »'), 'node/' . $component['nid'] . '/webform-results/analysis/' . $component['cid']));
+
+  if (!$advanced_stats && $sum != 0) {
+    $rows[4] = array('', l(t('More stats »'), 'node/' . $component['nid'] . '/webform-results/analysis/' . $component['cid']));
+  }
 
   // Normal distribution information.
-  if ($advanced_stats && $population_count) {
+  if ($advanced_stats && $population_count && $sum != 0) {
     // Standard deviation.
     $stddev = 0;
     foreach($population as $value) {
@@ -433,7 +437,7 @@ function _webform_analysis_number($component, $sids = array(), $single = FALSE) 
 
     $count[] = 0;
     $limit[] = $average - ($stddev * 4);
-    foreach($population as $value) {
+    foreach ($population as $value) {
       while ($value >= $limit[$index]) {
         $percent[] = number_format($count[$index] / $population_count * 100, 2, '.', '');
         $limit[] = $limit[$index] + $stddev;
@@ -448,18 +452,11 @@ function _webform_analysis_number($component, $sids = array(), $single = FALSE) 
     $percent[] = number_format($count[$index] / $population_count * 100, 2, '.', '');
 
     // Format normal distribution table output.
-    if ($component['extra']['decimals'] != '') {
-      $stddev = _webform_number_format($component, $stddev);
-      $low = _webform_number_format($component, $population[0]);
-      $high = _webform_number_format($component, end($population));
-      foreach($limit as $key => $value) {
-        $limit[$key] = _webform_number_format($component, $value);
-      }
-    }
-    else {
-      foreach($limit as $key => $value) {
-        $limit[$key] = number_format($value, 2, '.', '');
-      }
+    $stddev = _webform_number_format($component, $stddev);
+    $low = _webform_number_format($component, $population[0]);
+    $high = _webform_number_format($component, end($population));
+    foreach($limit as $key => $value) {
+      $limit[$key] = _webform_number_format($component, $value);
     }
 
     // Column headings (override potential theme uppercase, e.g. Seven in D7).
