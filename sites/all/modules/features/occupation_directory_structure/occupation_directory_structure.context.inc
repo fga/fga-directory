@@ -95,6 +95,12 @@ function occupation_directory_structure_context_default_contexts() {
   $context->reactions = array(
     'block' => array(
       'blocks' => array(
+        'boxes-occupynet_nav' => array(
+          'module' => 'boxes',
+          'delta' => 'occupynet_nav',
+          'region' => 'navbar',
+          'weight' => '-10',
+        ),
         'system-user-menu' => array(
           'module' => 'system',
           'delta' => 'user-menu',

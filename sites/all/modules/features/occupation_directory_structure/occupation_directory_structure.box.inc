@@ -13,6 +13,22 @@ function occupation_directory_structure_default_box() {
   $box = new stdClass();
   $box->disabled = FALSE; /* Edit this to true to make a default box disabled initially */
   $box->api_version = 1;
+  $box->delta = 'occupynet_nav';
+  $box->plugin_key = 'simple';
+  $box->title = '';
+  $box->description = 'occupy.net navbar';
+  $box->options = array(
+    'body' => array(
+      'value' => ' <script type="text/javascript" src="https://nav.occupy.net/occupynet_nav.js"></script>',
+      'format' => 'full_html',
+    ),
+    'additional_classes' => '',
+  );
+  $export['occupynet_nav'] = $box;
+
+  $box = new stdClass();
+  $box->disabled = FALSE; /* Edit this to true to make a default box disabled initially */
+  $box->api_version = 1;
   $box->delta = 'social_media';
   $box->plugin_key = 'simple';
   $box->title = '';
