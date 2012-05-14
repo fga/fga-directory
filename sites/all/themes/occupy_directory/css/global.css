@@ -373,7 +373,9 @@ div.view-display-id-occupations_list table img {
 .block .view ul.pager {
   margin-top:.5em;
 }
-
+.pager li.pager-previous a {
+    width: 68px;
+}
 
 .block-social-media p {
   padding:0; /*0 0 10px*/
