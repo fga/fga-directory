@@ -58,6 +58,7 @@ function occupations_user_default_permissions() {
     'roles' => array(
       0 => 'occupation curator',
       1 => 'site administrator',
+      2 => 'site developer',
     ),
     'module' => 'taxonomy',
   );
@@ -65,7 +66,10 @@ function occupations_user_default_permissions() {
   // Exported permission: delete terms in 3.
   $permissions['delete terms in 3'] = array(
     'name' => 'delete terms in 3',
-    'roles' => array(),
+    'roles' => array(
+      0 => 'site administrator',
+      1 => 'site developer',
+    ),
     'module' => 'taxonomy',
   );
 
@@ -159,6 +163,7 @@ function occupations_user_default_permissions() {
     'roles' => array(
       0 => 'occupation curator',
       1 => 'site administrator',
+      2 => 'site developer',
     ),
     'module' => 'taxonomy',
   );
@@ -166,7 +171,10 @@ function occupations_user_default_permissions() {
   // Exported permission: edit terms in 3.
   $permissions['edit terms in 3'] = array(
     'name' => 'edit terms in 3',
-    'roles' => array(),
+    'roles' => array(
+      0 => 'site administrator',
+      1 => 'site developer',
+    ),
     'module' => 'taxonomy',
   );
 
