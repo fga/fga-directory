@@ -10,3 +10,12 @@
  * for your subtheme grows. Please read the README.txt in the /preprocess and /process subfolders
  * for more information on this topic.
  */
+ 
+/* alpha does define alpha_exclude_options($theme), 
+ * but it's more staightforward to exclude our module styles here 
+ */
+function occupy_directory_css_alter(&$css) { 
+  if(module_exists('twitter_pull')) { 
+    unset($css[drupal_get_path('module','twitter_pull').'/twitter-pull-listing.css']);
+  }
+}

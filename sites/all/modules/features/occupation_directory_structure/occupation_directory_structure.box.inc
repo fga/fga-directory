@@ -26,5 +26,23 @@ function occupation_directory_structure_default_box() {
   );
   $export['social_media'] = $box;
 
+  $box = new stdClass();
+  $box->disabled = FALSE; /* Edit this to true to make a default box disabled initially */
+  $box->api_version = 1;
+  $box->delta = 'twitter_pull';
+  $box->plugin_key = 'simple';
+  $box->title = 'Twitter feed';
+  $box->description = 'Twitter Pull';
+  $box->options = array(
+    'body' => array(
+      'value' => '<?php
+if (function_exists(\'twitter_pull_render\')) { print twitter_pull_render(\'@OWSdirectory\', false, 6); }
+?>',
+      'format' => 'php_code',
+    ),
+    'additional_classes' => 'twitter-pull',
+  );
+  $export['twitter_pull'] = $box;
+
   return $export;
 }

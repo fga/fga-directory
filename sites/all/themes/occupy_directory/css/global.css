@@ -324,9 +324,15 @@ div.view-display-id-occupations_list table img {
 }
 
 
-#region-content {
-  padding-top:1em;
+#zone-content {
+  padding-top:3em;
 /*  min-height: 100%;*/
+}
+#region-content h1.title {
+  margin-top: 0.125em;
+}
+#region-content .block .view ul.pager {
+    margin-top: 2.5em;
 }
 
 #section-footer {
@@ -382,7 +388,10 @@ div.view-display-id-occupations_list table img {
 .fullwidth-map {
  /*background:#D0D0D0;*/
 }
-.fullwidth-map .zone-content .grid-12 {
+.fullwidth-map #zone-content {
+  padding-top:0;
+}
+.fullwidth-map #zone-content .grid-12 {
   margin-left: 0;
   margin-right: 0;
 }
@@ -457,6 +466,42 @@ body.fullwidth-map {
  height: 140px;
 }
 /* /end footer hack */
+
+
+
+/* twitter pull styles */
+
+.twitter-pull h2.block-title {
+  line-height:2em;
+}
+ul.tweets-pulled-listing {
+  list-style: none;
+  font-size:.8em;
+  line-height:1.25em;
+}
+ul.tweets-pulled-listing div.tweet-authorphoto {
+  margin: 0 4px 0 0;
+  float: left;
+}
+ul.tweets-pulled-listing div.tweet-authorphoto img {
+  max-height: 40px;
+  max-width: 40px;
+}
+ul.tweets-pulled-listing .tweet-author a {
+  font-weight: bold;
+}
+ul.tweets-pulled-listing div.tweet-time {
+  text-align:right;
+}
+ul.tweets-pulled-listing .tweet-time a {
+  color: #d0d0d0;
+}
+ul.tweets-pulled-listing  div.tweet-divider {
+  clear: left;
+  border-bottom: 1px solid #efefef;
+  margin: 6px 0 7px 0;
+}
+
 
 
 

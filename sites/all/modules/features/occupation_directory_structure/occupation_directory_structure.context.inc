@@ -49,6 +49,39 @@ function occupation_directory_structure_context_default_contexts() {
   $context = new stdClass();
   $context->disabled = FALSE; /* Edit this to true to make a default context disabled initially */
   $context->api_version = 3;
+  $context->name = 'occupy_directory_about';
+  $context->description = 'about page';
+  $context->tag = 'blocks';
+  $context->conditions = array(
+    'path' => array(
+      'values' => array(
+        'about' => 'about',
+      ),
+    ),
+  );
+  $context->reactions = array(
+    'block' => array(
+      'blocks' => array(
+        'boxes-twitter_pull' => array(
+          'module' => 'boxes',
+          'delta' => 'twitter_pull',
+          'region' => 'sidebar_first',
+          'weight' => '-10',
+        ),
+      ),
+    ),
+  );
+  $context->condition_mode = 0;
+
+  // Translatables
+  // Included for use with string extractors like potx.
+  t('about page');
+  t('blocks');
+  $export['occupy_directory_about'] = $context;
+
+  $context = new stdClass();
+  $context->disabled = FALSE; /* Edit this to true to make a default context disabled initially */
+  $context->api_version = 3;
   $context->name = 'sidewide_blocks';
   $context->description = 'Blocks as they appear in a sitewide context';
   $context->tag = 'blocks';
