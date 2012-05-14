@@ -82,6 +82,41 @@ function occupation_directory_structure_context_default_contexts() {
   $context = new stdClass();
   $context->disabled = FALSE; /* Edit this to true to make a default context disabled initially */
   $context->api_version = 3;
+  $context->name = 'public';
+  $context->description = 'for non-admins, we display things differently';
+  $context->tag = 'blocks';
+  $context->conditions = array(
+    'user' => array(
+      'values' => array(
+        'anonymous user' => 'anonymous user',
+        'occupation registrant' => 'occupation registrant',
+        'unconfirmed' => 'unconfirmed',
+      ),
+    ),
+  );
+  $context->reactions = array(
+    'block' => array(
+      'blocks' => array(
+        'boxes-occupynet_nav' => array(
+          'module' => 'boxes',
+          'delta' => 'occupynet_nav',
+          'region' => 'navbar',
+          'weight' => '-10',
+        ),
+      ),
+    ),
+  );
+  $context->condition_mode = 0;
+
+  // Translatables
+  // Included for use with string extractors like potx.
+  t('blocks');
+  t('for non-admins, we display things differently');
+  $export['public'] = $context;
+
+  $context = new stdClass();
+  $context->disabled = FALSE; /* Edit this to true to make a default context disabled initially */
+  $context->api_version = 3;
   $context->name = 'sidewide_blocks';
   $context->description = 'Blocks as they appear in a sitewide context';
   $context->tag = 'blocks';
@@ -95,12 +130,6 @@ function occupation_directory_structure_context_default_contexts() {
   $context->reactions = array(
     'block' => array(
       'blocks' => array(
-        'boxes-occupynet_nav' => array(
-          'module' => 'boxes',
-          'delta' => 'occupynet_nav',
-          'region' => 'navbar',
-          'weight' => '-10',
-        ),
         'system-user-menu' => array(
           'module' => 'system',
           'delta' => 'user-menu',
