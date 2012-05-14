@@ -11,6 +11,7 @@ dependencies[] = context
 dependencies[] = features
 dependencies[] = menu
 dependencies[] = occupations
+dependencies[] = php
 dependencies[] = twitter_pull
 features[box][] = social_media
 features[box][] = twitter_pull
