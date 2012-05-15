@@ -1,0 +1,16 @@
+diff --git a/views_geojson.module b/views_geojson.module
+index 8c85eb0..57c4231 100644
+--- a/views_geojson.module
++++ b/views_geojson.module
+@@ -253,10 +253,8 @@ function _views_geojson_render_fields($view, $row, $index) {
+   foreach ($field_ids as $id) {
+     $field = $view->field[$id];
+     if (!in_array($id, $excluded_fields, TRUE)) {
+-      $value                                              = $row->{$view->field[$id]->field_alias};
+       $value_rendered                                     = $field->advanced_render($row);
+-      $feature['properties'][$id]                         = is_numeric($value) ? floatval($value) : $value;
+-      $feature['properties'][$id . "_rendered"] = is_numeric($value_rendered) ? floatval($value_rendered) : $value_rendered;
++      $feature['properties'][$id] = is_numeric($value_rendered) ? floatval($value_rendered) : $value_rendered;
+     }
+   }
+ 

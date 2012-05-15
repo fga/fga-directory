@@ -109,7 +109,7 @@ function _views_geojson_render_multiple_field($field, $values) {
  */
 function _views_geojson_render_fields($view, $row, $index) {
   $excluded_fields = array();
-  $feature         = array('type' => 'Geometry');
+  $feature         = array('type' => 'Feature');
   $data_source     = $view->style_plugin->options['data_source'];
   $field_ids       = array_keys($view->field);
 
@@ -252,11 +252,9 @@ function _views_geojson_render_fields($view, $row, $index) {
   // - Views "excluded" fields
   foreach ($field_ids as $id) {
     $field = $view->field[$id];
-    if (!in_array($id, $excluded_fields, TRUE)) {
-      $value                                              = $row->{$view->field[$id]->field_alias};
+    if (empty($field->options['exclude'])) {
       $value_rendered                                     = $field->advanced_render($row);
-      $feature['properties'][$id]                         = is_numeric($value) ? floatval($value) : $value;
-      $feature['properties'][$id . "_rendered"] = is_numeric($value_rendered) ? floatval($value_rendered) : $value_rendered;
+      $feature['properties'][$id] = is_numeric($value_rendered) ? floatval($value_rendered) : $value_rendered;
     }
   }
 
