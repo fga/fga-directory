@@ -43,7 +43,7 @@ function occupations_openlayers_maps() {
       'openlayers_behavior_zoompanel' => array(),
       'openlayers_behavior_zoomtolayer' => array(
         'zoomtolayer' => 'geofield_formatter',
-        'point_zoom_level' => '10',
+        'point_zoom_level' => '9',
       ),
     ),
     'default_layer' => 'occupations_mapbox_tms',
