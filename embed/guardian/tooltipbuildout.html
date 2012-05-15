@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+	<title>Occupation Tooltip</title>
+	
+</head>
+
+
+
+<link rel='stylesheet' href='http://tiles.mapbox.com/assets/tilestream-pro/css/all.css?1337035743208' type='text/css' media='all' />
+<link rel='stylesheet' href='tooltip.css' type='text/css' media='all' />
+
+<body>
+
+<div id="page">
+
+	<div class="wax-tooltip">
+		<a href="#close" class="close">&times;</a>
+		<div class='tooltip-inner' id="occupation-{{id}}">
+			
+			<!-- using hCard microformat -->
+			<div class="vcard">
+
+				<div class="occupation-image">
+					<img src="atllogo.jpg" width="92" height="92" alt="occupy atlanta image" />
+				</div>
+
+				<a title="{{{Title}}}" class="occupation-directory-url"	href="{{{Occupy Directory URL}}}">		
+				<h3 class="fn org title">Occupy Atlanta</h3>
+				</a>
+
+				<ul>
+
+
+					<li class="website-url taglink">
+						<a class="url" title="Occupation Website" target="_blank" href="{{{Occupation website}}}">occupyAtlanta.org</a>
+					</li>
+
+					<li class="general-email-address taglink">
+						<a class="email" href="mailto:{{{General email address}}}">welcome@occupyAtlanta.org</a>
+					</li>
+
+					<li class="adr">
+						
+						<div class="street">
+							<span class="locality">Troy Davis Park (Formerly Woodruff Park)</span>
+							<span class="street-address">91 Peachtree Street NE</span>
+							<span class="extended-address"></span>
+						</div>
+						
+						<span class="loc">
+							<span class="city">Atlanta</span> <span class="citi-sub"></span> <span class="region">GA</span> <span class="state-sub"></span>, <span class="postal-code">30303</span><br/>
+							<span class="country-name">USA</span>
+						</span>
+
+					</li>
+
+					<li class="tel general-phone taglink">
+						XXX-XXX-XXXX
+					</li>
+
+					<li class="geo">Latitude &amp; Longitude: (<span class="latitude">000</span>, <span class="longitude">000</span>)</li>
+
+				</ul>
+
+			</div><!--end vcard -->
+
+			<div class="info">
+				<div class="founded YYYY-MM-DD">
+					<h6 class="label">Founded</h6>
+					<!-- can we php format this better? -->
+					<span class="bday">7-Oct-11</span>
+				</div>
+				<p class="occupation-description">Occupy Atlanta began at Woodruff Park (that we "rechristened" Troy Davis Park) as our public forum. It has been a enduring struggle to preserve that location. We have several occupations throughout the city of Atlanta, but our main headquarters is currently above the Peachtree &amp; Pine Atlanta Task Force for the Homeless on the Fourth Floor.</p>
+				<p class="genera-assembly">General Assembly currently takes place on Wednesdays at 7PM and Saturdays at 3PM. There are also sometimes emergency GA's that are held. Refer to the <a href="http://occupyatlanta.org/events/category/general-assembly/" target="_blank">OA Website</a> to find the location of any particular GA.</p>
+
+				<!-- if we have 'donate information' set -->
+				<!-- {{#Donate Information?}} -->
+				<p class="donate-information">
+					Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip.
+					<!-- {{#Donate Link?}} -->
+					<a class="dontate-link" href="https://www.wepay.com/donate/112822?widget_type=donations&widget_donation_id=112...">Donate to Occupy Atlanta</a>
+					<!-- {{/Donate Link?}} -->
+				</p>
+				<!-- {{/Donate Information?}} -->
+
+				<!-- if we have DONT 'donate information' set -->
+				<!-- {{^Donate Information}} -->
+				<!-- but do have donate link -->
+				<!-- {{#Donate Link?}} -->
+				<p class="donate-information">									
+					<a class="dontate-link" href="https://www.wepay.com/donate/112822?widget_type=donations&widget_donation_id=112...">Donate to Occupy Atlanta</a>
+				</p>
+				<!-- {{/Donate Link?}} -->								
+				<!-- {{/Donate Information}} -->
+
+				<p class="physical-occupation-occurring">Yes, we are physically occupying this locationOccupying 24 hours a dayPower is availableFood and water are availableSanitation is on site</p>
+			</div><!-- end info -->
+
+			<ul class="listings clearfix">
+				<li>
+
+					<h6 class="label">Point of Contact Emails</h6>
+					<ul class="point-of-contact-email-addresses clearfix">
+						<li target="_blank" class="email taglink"><a target="_blank" href="#">info@occupyatlanta.org</a></li>
+						<li target="_blank" class="email taglink"><a target="_blank" href="#">press@occupyatlanta.org</a></li>
+						<li target="_blank" class="email taglink"><a target="_blank" href="#">outreach@occupyatlanta.org</a></li>
+						<li target="_blank" class="email taglink"><a target="_blank" href="#">da@occupyatlanta.org</a></li>
+						<li target="_blank" class="email taglink"><a target="_blank" href="#">tech@occupyatlanta.org</a></li>
+					</ul>
+
+					<h6 class="label">Additional Websites</h6>
+					<ul class="additional-websites clearfix">
+						<li class="taglink"><a target="_blank" href="#">OccupyPeachTree</a></li>
+						<li class="taglink"><a target="_blank" href="#">OccupyDixie</a></li>
+						<li class="taglink"><a target="_blank" href="#">OccupyOlympicVillage</a></li>
+						<li class="taglink"><a target="_blank" href="#">JustSomeExamples</a></li>
+					</ul>
+
+					<h6 class="label">Twitter Hash Tags</h6>
+					<ul class="twitter-hashtags clearfix">
+						<!-- these should link to a twitter search for that tag -->
+						<li class="twitter-hashtags taglink"><a target="_blank" href="#">#OccupyAtlanta</a></li>
+						<li class="twitter-hashtags taglink"><a target="_blank" href="#">#OWSAtlanta</a></li>
+					</ul>
+
+					<h6 class="label">Twitter Accounts</h6>
+					<!-- these should link to a twitter page for that acct -->
+					<ul class="twitter-accounts clearfix">
+						<li class="twitter-accounts taglink"><a target="_blank" href="#">@OWSAtlanta</a></li>
+						<li class="twitter-accounts taglink"><a target="_blank" href="#">@OccupyATL</a></li>
+					</ul>
+
+					<h6 class="label">Video Site</h6>
+					<ul class="video-sites clearfix">
+						<!-- {{#Youtube channel URLs}} -->
+						<li class="youtube-channel-urls taglink"><a target="_blank" href="#">OccupyATLTV</a></li>
+						<li class="youtube-channel-urls taglink"><a target="_blank" href="#">OccupyATLTV</a></li>
+						<li class="youtube-channel-urls taglink"><a target="_blank" href="#">OccupyATLTV</a></li>
+						<!-- {{/Youtube channel URLs}} -->
+						<!-- {{#Live video streams}} -->
+						<li class="live-video-streams taglink"><a target="_blank" href="#">LiveStream</a></li>
+						<li class="live-video-streams taglink"><a target="_blank" href="#">LiveStream</a></li>
+						<li class="live-video-streams taglink"><a target="_blank" href="#">LiveStream</a></li>
+						<!-- {{/Live video streams}} -->
+					</ul>
+
+					<h6 class="label">Social Media</h6>
+					<ul class="social-media-sites clearfix">
+						<!-- {{#Facebook Page(s)}} -->
+						<li class="facebook-pages taglink"><a  target="_blank" href="#">FacebookLink!</a></li>
+						<li class="facebook-pages taglink"><a  target="_blank" href="#">FacebookLink!</a></li>
+						<!-- {{/Facebook Page(s)}} -->
+						<!-- {{#Meetup URL}} -->
+						<li class="meetup-url taglink"><a  target="_blank" href="#">MeetUp</a></li>
+						<!-- {{/Meetup URL}} -->
+						<!-- {{#Additional social media sites}} -->
+						<li class="additiona-social-media-sites taglink"><a  target="_blank" href="#">OtherSocMed</a></li>
+						<!-- {{/Additional social media sites}} -->
+					</ul>
+
+					<h6 class="label">Newspapers</h6>
+					<ul class="newspapers clearfix">
+						<!-- {{#Newspaper URL}} -->
+						<li class="newspaper-urls taglink"><a target="_blank"  href="#">OccupiedAtlantaTribune</a></li>
+						<!-- {{/Newspaper URL}} -->
+					</ul>
+
+					<h6 class="label">RSS Feeds</h6>
+					<ul class="feeds clearfix">
+						<!-- {{#RSS feeds}} -->
+						<li class="rss-feeds taglink"><a target="_blank" href="#">RSS feeds</a></li>
+						<!-- {{/RSS feeds}} -->
+					</ul>
+				
+				</li>
+			</ul><!-- end listing -->
+
+		</div><!-- end tooltip-inner -->
+
+	</div><!-- end wax-tooltip -->
+	
+</div><!-- end page -->
+
+</body>
+</html>
+
+

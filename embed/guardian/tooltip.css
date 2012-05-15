@@ -1,0 +1,238 @@
+/*-----------------------------------
+  Util
+-------------------------------------*/
+
+.clearfix:before,
+.clearfix:after {
+  content: '\0020';
+  display: block;
+  overflow: hidden;
+  visibility: hidden;
+  width: 0;
+  height: 0;
+}
+
+.listing:after,
+.clearfix:after {
+  clear: both;
+}
+
+/*
+  The following zoom:1 rule is specifically for IE6 + IE7.
+  Move to separate stylesheet if invalid CSS is a problem.
+*/
+
+.listing,
+.clearfix {
+  zoom: 1;
+}
+
+
+/*-----------------------------------
+  Map
+-------------------------------------*/
+
+#page {  
+	background: url( map.png ) no-repeat;
+  width:900px;
+  height:700px;
+	/* facilitates positioning of abs elements inside #page */
+	position: relative;
+	overflow: hidden;
+	
+}
+
+.wax-tooltip{
+	position: absolute;
+	right: 0;
+	width: 290px;
+	z-index: auto;
+	height: 700px;
+	overflow: auto;
+	background: url( bg_white60.png );
+}
+
+.wax-tooltip a.close{
+	display: block;
+	position: absolute;
+	right: 1em;
+	top: 12px;
+	width: 15px;
+	height: 15px;
+	line-height: 14.75px;
+	text-align: center;
+	background: #000;
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+	border-radius: 2px;
+	color:#aaa;
+}
+
+.wax-tooltip a.close:hover{
+	background: #489;
+	color: #000;
+}
+
+
+.tooltip-inner{
+	font-family: 'Lato', sans-serif;
+	font-size: 12px;
+	line-height: 15px;
+	padding: .5em;
+}
+
+.tooltip-inner .vcard,
+.tooltip-inner .info,
+.tooltip-inner .listings{
+	padding: 1em;
+	margin-bottom: .5em;
+	background: url( 'bg_white60.png');
+}
+
+.tooltip-inner .listings ul{
+	margin-bottom: 1.5em;
+}
+
+.tooltip-inner .founded{
+	clear: both;
+	margin-bottom: .75em;
+}
+
+.tooltip-inner .founded .bday{
+	line-height: 18px;
+}
+
+.tooltip-inner .founded h6.label{
+	float: left !important;
+	display: inline-block;
+	border-right: 1px #bababa solid;
+	padding-right: .5em;
+	margin-right: .5em;
+}
+
+.tooltip-inner .occupation-description{
+	clear: both;
+}
+
+.tooltip-inner .website-url,
+.tooltip-inner .general-email-address{
+	clear: both;
+	
+}
+
+/* hide geo */
+.tooltip-inner .geo{
+	display: none;
+}
+
+.tooltip-inner .taglink a{
+	display: block;
+	text-decoration: none;
+	background: #bababa;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	padding:.25em .5em;
+	margin: .125em;
+	background: #000;
+}
+
+.tooltip-inner a{
+	text-decoration: underline;
+}
+
+.tooltip-inner .adr,
+.tooltip-inner .general-phone{
+	margin-top: 1.5em;
+}
+
+.tooltip-inner .listings ul li:hover a,
+.tooltip-inner .listings li:hover a:hover{
+	background: #489;
+	color: #000;
+}
+
+.tooltip-inner .listings ul li{
+	float: left;
+}
+
+.tooltip-inner .occupation-directory-url,
+.tooltip-inner .website-url,
+.tooltip-inner .general-email-address,
+.tooltip-inner .listings ul li a{
+	text-decoration: none;
+}
+
+.tooltip-inner .occupation-image{
+	float: left;
+	margin: 0 1em .5em 0;
+	-moz-box-shadow: 1px 1px 8px #ccc;
+	-webkit-box-shadow: 1px 1px 8px #ccc;
+	box-shadow: 1px 1px 8px #ccc;
+}
+
+.tooltip-inner .occupation-description{
+	font-size: 15px;
+	line-height: 18px;
+}
+
+.tooltip-inner h1,
+.tooltip-inner h2,
+.tooltip-inner h3,
+.tooltip-inner h4,
+.tooltip-inner h5,
+.tooltip-inner h6{
+		font-weight: 300;
+		color:#000;
+		padding: 0;	
+		margin: 0 0 .25em 0;
+	}
+
+.tooltip-inner h1{ font-size: 48px; }
+.tooltip-inner h2{ font-size: 36px; }
+.tooltip-inner h3{
+	font-size: 24px;
+	line-height: 1.2;
+	border-top: none !important;
+	border-bottom: 1px #000 solid;
+	margin-left: 106px;
+}
+.tooltip-inner h4{ font-size: 18px; }
+
+.tooltip-inner h6.label{
+	margin-top: 0;
+	font-size: 15px;
+	line-height: 18px;
+	color: #000;
+}
+
+	/* Overlay */
+	#overlay{
+		height: 70px;
+	  position: absolute;
+	  top: 0;
+	  left: 0;
+	  right: 0;
+	  bottom: 0;
+	  z-index: 2;	
+		padding: .5em 1em;
+	  position: fixed;
+	}
+	
+	#overlay h2{
+		float: left;
+		color: #eee;
+		text-shadow: black 1px 1px 0.125em
+	}
+	
+	#overlay form.location input[type='text']{
+		border: 1px #444 solid;
+		font-size: 12px;
+		background: #000;
+		line-height: 1.2;
+		float: right;
+		margin: .675em .5em .5em .5em;
+	}
+
+	
+	
