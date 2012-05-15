@@ -429,7 +429,22 @@ div.view-display-id-occupations_list table img { }
   color:#fff;
   text-transform:lowercase;
 }
-
+.olPopupCloseBox {
+  background-image: url(/sites/all/modules/contrib/openlayers/themes/default_dark/img/layer-switcher-minimize.png) !important;
+}
+.view-map-displays .olControlZoomPanel,
+.node-type-occupation .olControlZoomPanel {
+  top: 10px;
+  left: 10px;
+}
+.view-map-displays h3.o-name {
+  padding:0;
+  line-height:1em;
+}
+.view-map-displays div.o-image {
+  float:left;
+  
+}
 
 
 /* stick the footer at the bottom of the page using CSS only
@@ -511,6 +526,7 @@ ul.tweets-pulled-listing  div.tweet-divider {
 }
 
 
+/* occupy.net navbar*/
 #zone-navbar.container-12 {
   width:100%;
 }
