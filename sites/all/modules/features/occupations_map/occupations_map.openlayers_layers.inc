@@ -79,6 +79,9 @@ function occupations_map_openlayers_layers() {
       8 => 152.874056543,
       9 => 76.4370282715,
       10 => 38.2185141357,
+      11 => 19.1092570679,
+      12 => 9.55462853394,
+      13 => 4.77731426697,
     ),
     'wrapDateLine' => 1,
     'layer_type' => 'openlayers_layer_type_tms',
@@ -93,7 +96,7 @@ function occupations_map_openlayers_layers() {
   $openlayers_layers->description = 'baselayer provided by mapbox module';
   $openlayers_layers->data = array(
     'urls' => array(
-      0 => 'http://a.tiles.mapbox.com/v3/occupy/',
+      0 => 'http://a.tiles.mapbox.com/v3/',
     ),
     'layername' => 'occupy.map-7o6g1bgq',
     'layer_type' => 'openlayers_layer_type_mapbox',

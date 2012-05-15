@@ -123,11 +123,6 @@ function occupations_map_openlayers_maps() {
     ),
     'behaviors' => array(
       'openlayers_behavior_keyboarddefaults' => array(),
-      'openlayers_behavior_layerswitcher' => array(
-        'ascending' => 1,
-        'roundedCorner' => 1,
-        'roundedCornerColor' => '#222222',
-      ),
       'openlayers_behavior_navigation' => array(
         'zoomWheelEnabled' => 1,
         'zoomBoxEnabled' => 1,
@@ -136,15 +131,13 @@ function occupations_map_openlayers_maps() {
       'openlayers_behavior_popup' => array(
         'layers' => array(
           'occupations_geojson' => 'occupations_geojson',
+          'occupation_map_data_openlayers_1' => 0,
         ),
       ),
       'openlayers_behavior_zoompanel' => array(),
     ),
     'default_layer' => 'occupations_mapbox_tms',
     'layers' => array(
-      'occupy_mapbox_1' => 'occupy_mapbox_1',
-      'mapbox_world_glass' => 'mapbox_world_glass',
-      'mapbox_xyz' => 'mapbox_xyz',
       'occupations_mapbox_tms' => 'occupations_mapbox_tms',
       'occupations_geojson' => 'occupations_geojson',
     ),
@@ -157,26 +150,26 @@ function occupations_map_openlayers_maps() {
     'layer_styles' => array(
       'geofield_formatter' => '0',
       'openlayers_geojson_picture_this' => '0',
-      'occupation_map_data_openlayers_1' => 'default_marker_black_small',
       'occupations_geojson' => 'default_marker_gold',
+      'occupation_map_data_openlayers_1' => 'default_marker_black_small',
     ),
     'layer_styles_select' => array(
       'geofield_formatter' => '0',
       'openlayers_geojson_picture_this' => '0',
-      'occupation_map_data_openlayers_1' => 'default_marker_black_small',
       'occupations_geojson' => 'default_marker_gold',
+      'occupation_map_data_openlayers_1' => 'default_marker_black_small',
     ),
     'layer_activated' => array(
       'occupations_geojson' => 'occupations_geojson',
+      'occupation_map_data_openlayers_1' => 0,
       'geofield_formatter' => 0,
       'openlayers_geojson_picture_this' => 0,
-      'occupation_map_data_openlayers_1' => 0,
     ),
     'layer_switcher' => array(
       'occupations_geojson' => 0,
+      'occupation_map_data_openlayers_1' => 0,
       'geofield_formatter' => 0,
       'openlayers_geojson_picture_this' => 0,
-      'occupation_map_data_openlayers_1' => 0,
     ),
     'projection' => '900913',
     'displayProjection' => '4326',
