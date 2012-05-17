@@ -165,10 +165,15 @@
 
 .tooltip-inner .occupation-image{
 	float: left;
-	margin: 0 1em .5em 0;
+	margin: 0 1em 0 0;
 	-moz-box-shadow: 1px 1px 8px #ccc;
 	-webkit-box-shadow: 1px 1px 8px #ccc;
 	box-shadow: 1px 1px 8px #ccc;
+}
+
+.tooltip-inner .occupation-title{
+border-bottom: 1px #000 solid;
+margin-bottom: 1em;
 }
 
 .tooltip-inner .occupation-description{
@@ -191,11 +196,10 @@
 .tooltip-inner h1{ font-size: 48px; }
 .tooltip-inner h2{ font-size: 36px; }
 .tooltip-inner h3{
-	font-size: 24px;
+	word-wrap: break-word;
+	font-size: 21px;
 	line-height: 1.2;
 	border-top: none !important;
-	border-bottom: 1px #000 solid;
-	margin-left: 106px;
 }
 .tooltip-inner h4{ font-size: 18px; }
 
