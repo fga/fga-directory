@@ -1793,7 +1793,7 @@ function occupations_import_export_views_default_views() {
   $handler->display->display_options['fields']['path']['field'] = 'path';
   $handler->display->display_options['fields']['path']['label'] = 'Occupy Directory URL';
   $handler->display->display_options['fields']['path']['alter']['alter_text'] = 1;
-  $handler->display->display_options['fields']['path']['alter']['text'] = 'http://directory.occcupy.net[path]';
+  $handler->display->display_options['fields']['path']['alter']['text'] = 'http://directory.occupy.net[path]';
   $handler->display->display_options['fields']['path']['alter']['make_link'] = 0;
   $handler->display->display_options['fields']['path']['alter']['absolute'] = 0;
   $handler->display->display_options['fields']['path']['alter']['external'] = 0;
@@ -1802,6 +1802,7 @@ function occupations_import_export_views_default_views() {
   $handler->display->display_options['fields']['path']['alter']['nl2br'] = 0;
   $handler->display->display_options['fields']['path']['alter']['word_boundary'] = 1;
   $handler->display->display_options['fields']['path']['alter']['ellipsis'] = 1;
+  $handler->display->display_options['fields']['path']['alter']['more_link'] = 0;
   $handler->display->display_options['fields']['path']['alter']['strip_tags'] = 0;
   $handler->display->display_options['fields']['path']['alter']['trim'] = 0;
   $handler->display->display_options['fields']['path']['alter']['html'] = 0;
