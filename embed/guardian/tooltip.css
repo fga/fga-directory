@@ -32,7 +32,7 @@
   Map
 -------------------------------------*/
 
-#page {  
+#page {  /* for static preview only*/
 	background: url( map.png ) no-repeat;
   width:900px;
   height:700px;
@@ -49,7 +49,7 @@
 	z-index: auto;
 	height: 700px;
 	overflow: auto;
-	background: url( bg_white60.png );
+	background: url( 'http://dev.fga-directory.gotpantheon.com/embed/guardian/bg_white60.png' );
 }
 
 .wax-tooltip a.close{
@@ -86,7 +86,7 @@
 .tooltip-inner .listings{
 	padding: 1em;
 	margin-bottom: .5em;
-	background: url( 'bg_white60.png');
+	background: url( 'http://dev.fga-directory.gotpantheon.com/embed/guardian/bg_white60.png');
 }
 
 .tooltip-inner .listings ul{
@@ -139,6 +139,7 @@
 
 .tooltip-inner a{
 	text-decoration: underline;
+	color: #489;
 }
 
 .tooltip-inner .adr,
@@ -212,7 +213,7 @@ margin-bottom: 1em;
 
 	/* Overlay */
 	#overlay{
-		height: 70px;
+		height: 470px;
 	  position: absolute;
 	  top: 0;
 	  left: 0;
@@ -238,5 +239,19 @@ margin-bottom: 1em;
 		margin: .675em .5em .5em .5em;
 	}
 
-	
-	
+
+
+/*-----------------------------------
+  Footer
+-------------------------------------*/
+
+#legend {
+  position: absolute !important;
+  bottom: 0px !important;
+  left: 0px !important;
+}
+#legent h1 {
+  font-size:48px;
+}
+
+

@@ -203,8 +203,7 @@ function occupations_import_export_views_default_views() {
   $handler->display->display_options['access']['role'] = array(
     2 => '2',
   );
-  $handler->display->display_options['pager']['type'] = 'some';
-  $handler->display->display_options['pager']['options']['items_per_page'] = '55';
+  $handler->display->display_options['pager']['type'] = 'none';
   $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['style_plugin'] = 'views_data_export_csv';
   $handler->display->display_options['style_options']['provide_file'] = 1;
@@ -524,7 +523,7 @@ function occupations_import_export_views_default_views() {
   $handler->display->display_options['fields']['field_occupation_address_8']['id'] = 'field_occupation_address_8';
   $handler->display->display_options['fields']['field_occupation_address_8']['table'] = 'field_data_field_occupation_address';
   $handler->display->display_options['fields']['field_occupation_address_8']['field'] = 'field_occupation_address';
-  $handler->display->display_options['fields']['field_occupation_address_8']['label'] = 'City_Sub';
+  $handler->display->display_options['fields']['field_occupation_address_8']['label'] = 'City_sub';
   $handler->display->display_options['fields']['field_occupation_address_8']['alter']['alter_text'] = 0;
   $handler->display->display_options['fields']['field_occupation_address_8']['alter']['text'] = '[field_occupation_address_8]';
   $handler->display->display_options['fields']['field_occupation_address_8']['alter']['make_link'] = 0;
@@ -840,7 +839,7 @@ function occupations_import_export_views_default_views() {
   $handler->display->display_options['fields']['field_occupation_other_websites']['id'] = 'field_occupation_other_websites';
   $handler->display->display_options['fields']['field_occupation_other_websites']['table'] = 'field_data_field_occupation_other_websites';
   $handler->display->display_options['fields']['field_occupation_other_websites']['field'] = 'field_occupation_other_websites';
-  $handler->display->display_options['fields']['field_occupation_other_websites']['label'] = 'Additional Occupation websites 1';
+  $handler->display->display_options['fields']['field_occupation_other_websites']['label'] = 'occupation_websites_extra1';
   $handler->display->display_options['fields']['field_occupation_other_websites']['alter']['alter_text'] = 0;
   $handler->display->display_options['fields']['field_occupation_other_websites']['alter']['make_link'] = 0;
   $handler->display->display_options['fields']['field_occupation_other_websites']['alter']['absolute'] = 0;
@@ -871,7 +870,7 @@ function occupations_import_export_views_default_views() {
   $handler->display->display_options['fields']['field_occupation_other_websites_1']['id'] = 'field_occupation_other_websites_1';
   $handler->display->display_options['fields']['field_occupation_other_websites_1']['table'] = 'field_data_field_occupation_other_websites';
   $handler->display->display_options['fields']['field_occupation_other_websites_1']['field'] = 'field_occupation_other_websites';
-  $handler->display->display_options['fields']['field_occupation_other_websites_1']['label'] = 'Additional Occupation websites 2';
+  $handler->display->display_options['fields']['field_occupation_other_websites_1']['label'] = 'occupation_websites_extra2';
   $handler->display->display_options['fields']['field_occupation_other_websites_1']['alter']['alter_text'] = 0;
   $handler->display->display_options['fields']['field_occupation_other_websites_1']['alter']['make_link'] = 0;
   $handler->display->display_options['fields']['field_occupation_other_websites_1']['alter']['absolute'] = 0;
@@ -902,7 +901,7 @@ function occupations_import_export_views_default_views() {
   $handler->display->display_options['fields']['field_occupation_other_websites_2']['id'] = 'field_occupation_other_websites_2';
   $handler->display->display_options['fields']['field_occupation_other_websites_2']['table'] = 'field_data_field_occupation_other_websites';
   $handler->display->display_options['fields']['field_occupation_other_websites_2']['field'] = 'field_occupation_other_websites';
-  $handler->display->display_options['fields']['field_occupation_other_websites_2']['label'] = 'Additional Occupation websites 3';
+  $handler->display->display_options['fields']['field_occupation_other_websites_2']['label'] = 'occupation_websites_extra3';
   $handler->display->display_options['fields']['field_occupation_other_websites_2']['alter']['alter_text'] = 0;
   $handler->display->display_options['fields']['field_occupation_other_websites_2']['alter']['make_link'] = 0;
   $handler->display->display_options['fields']['field_occupation_other_websites_2']['alter']['absolute'] = 0;
@@ -933,7 +932,7 @@ function occupations_import_export_views_default_views() {
   $handler->display->display_options['fields']['field_occupation_other_websites_3']['id'] = 'field_occupation_other_websites_3';
   $handler->display->display_options['fields']['field_occupation_other_websites_3']['table'] = 'field_data_field_occupation_other_websites';
   $handler->display->display_options['fields']['field_occupation_other_websites_3']['field'] = 'field_occupation_other_websites';
-  $handler->display->display_options['fields']['field_occupation_other_websites_3']['label'] = 'Additional Occupation websites - other';
+  $handler->display->display_options['fields']['field_occupation_other_websites_3']['label'] = 'occupation_websites_extra-other';
   $handler->display->display_options['fields']['field_occupation_other_websites_3']['alter']['alter_text'] = 0;
   $handler->display->display_options['fields']['field_occupation_other_websites_3']['alter']['make_link'] = 0;
   $handler->display->display_options['fields']['field_occupation_other_websites_3']['alter']['absolute'] = 0;
@@ -1314,7 +1313,7 @@ function occupations_import_export_views_default_views() {
   $handler->display->display_options['fields']['field_occupation_rss']['id'] = 'field_occupation_rss';
   $handler->display->display_options['fields']['field_occupation_rss']['table'] = 'field_data_field_occupation_rss';
   $handler->display->display_options['fields']['field_occupation_rss']['field'] = 'field_occupation_rss';
-  $handler->display->display_options['fields']['field_occupation_rss']['label'] = 'RSS 1';
+  $handler->display->display_options['fields']['field_occupation_rss']['label'] = 'RSS1';
   $handler->display->display_options['fields']['field_occupation_rss']['alter']['alter_text'] = 0;
   $handler->display->display_options['fields']['field_occupation_rss']['alter']['make_link'] = 0;
   $handler->display->display_options['fields']['field_occupation_rss']['alter']['absolute'] = 0;
@@ -1345,7 +1344,7 @@ function occupations_import_export_views_default_views() {
   $handler->display->display_options['fields']['field_occupation_rss_1']['id'] = 'field_occupation_rss_1';
   $handler->display->display_options['fields']['field_occupation_rss_1']['table'] = 'field_data_field_occupation_rss';
   $handler->display->display_options['fields']['field_occupation_rss_1']['field'] = 'field_occupation_rss';
-  $handler->display->display_options['fields']['field_occupation_rss_1']['label'] = 'RSS 2';
+  $handler->display->display_options['fields']['field_occupation_rss_1']['label'] = 'RSS2';
   $handler->display->display_options['fields']['field_occupation_rss_1']['alter']['alter_text'] = 0;
   $handler->display->display_options['fields']['field_occupation_rss_1']['alter']['make_link'] = 0;
   $handler->display->display_options['fields']['field_occupation_rss_1']['alter']['absolute'] = 0;
@@ -1376,7 +1375,7 @@ function occupations_import_export_views_default_views() {
   $handler->display->display_options['fields']['field_occupation_rss_2']['id'] = 'field_occupation_rss_2';
   $handler->display->display_options['fields']['field_occupation_rss_2']['table'] = 'field_data_field_occupation_rss';
   $handler->display->display_options['fields']['field_occupation_rss_2']['field'] = 'field_occupation_rss';
-  $handler->display->display_options['fields']['field_occupation_rss_2']['label'] = 'RSS other';
+  $handler->display->display_options['fields']['field_occupation_rss_2']['label'] = 'RSS-other';
   $handler->display->display_options['fields']['field_occupation_rss_2']['alter']['alter_text'] = 0;
   $handler->display->display_options['fields']['field_occupation_rss_2']['alter']['make_link'] = 0;
   $handler->display->display_options['fields']['field_occupation_rss_2']['alter']['absolute'] = 0;
@@ -1430,7 +1429,7 @@ function occupations_import_export_views_default_views() {
   $handler->display->display_options['fields']['field_occupation_youtube_chan']['id'] = 'field_occupation_youtube_chan';
   $handler->display->display_options['fields']['field_occupation_youtube_chan']['table'] = 'field_data_field_occupation_youtube_chan';
   $handler->display->display_options['fields']['field_occupation_youtube_chan']['field'] = 'field_occupation_youtube_chan';
-  $handler->display->display_options['fields']['field_occupation_youtube_chan']['label'] = 'Youtube channel 1';
+  $handler->display->display_options['fields']['field_occupation_youtube_chan']['label'] = 'Youtube1';
   $handler->display->display_options['fields']['field_occupation_youtube_chan']['alter']['alter_text'] = 0;
   $handler->display->display_options['fields']['field_occupation_youtube_chan']['alter']['make_link'] = 0;
   $handler->display->display_options['fields']['field_occupation_youtube_chan']['alter']['absolute'] = 0;
@@ -1461,7 +1460,7 @@ function occupations_import_export_views_default_views() {
   $handler->display->display_options['fields']['field_occupation_youtube_chan_1']['id'] = 'field_occupation_youtube_chan_1';
   $handler->display->display_options['fields']['field_occupation_youtube_chan_1']['table'] = 'field_data_field_occupation_youtube_chan';
   $handler->display->display_options['fields']['field_occupation_youtube_chan_1']['field'] = 'field_occupation_youtube_chan';
-  $handler->display->display_options['fields']['field_occupation_youtube_chan_1']['label'] = 'Youtube channel URL 2';
+  $handler->display->display_options['fields']['field_occupation_youtube_chan_1']['label'] = 'Youtube2';
   $handler->display->display_options['fields']['field_occupation_youtube_chan_1']['alter']['alter_text'] = 0;
   $handler->display->display_options['fields']['field_occupation_youtube_chan_1']['alter']['make_link'] = 0;
   $handler->display->display_options['fields']['field_occupation_youtube_chan_1']['alter']['absolute'] = 0;
@@ -1492,7 +1491,7 @@ function occupations_import_export_views_default_views() {
   $handler->display->display_options['fields']['field_occupation_youtube_chan_2']['id'] = 'field_occupation_youtube_chan_2';
   $handler->display->display_options['fields']['field_occupation_youtube_chan_2']['table'] = 'field_data_field_occupation_youtube_chan';
   $handler->display->display_options['fields']['field_occupation_youtube_chan_2']['field'] = 'field_occupation_youtube_chan';
-  $handler->display->display_options['fields']['field_occupation_youtube_chan_2']['label'] = 'Youtube channel URL - other';
+  $handler->display->display_options['fields']['field_occupation_youtube_chan_2']['label'] = 'Youtube-other';
   $handler->display->display_options['fields']['field_occupation_youtube_chan_2']['alter']['alter_text'] = 0;
   $handler->display->display_options['fields']['field_occupation_youtube_chan_2']['alter']['make_link'] = 0;
   $handler->display->display_options['fields']['field_occupation_youtube_chan_2']['alter']['absolute'] = 0;
@@ -1522,7 +1521,7 @@ function occupations_import_export_views_default_views() {
   $handler->display->display_options['fields']['field_occupation_live_video']['id'] = 'field_occupation_live_video';
   $handler->display->display_options['fields']['field_occupation_live_video']['table'] = 'field_data_field_occupation_live_video';
   $handler->display->display_options['fields']['field_occupation_live_video']['field'] = 'field_occupation_live_video';
-  $handler->display->display_options['fields']['field_occupation_live_video']['label'] = 'Live video stream 1';
+  $handler->display->display_options['fields']['field_occupation_live_video']['label'] = 'live_video1';
   $handler->display->display_options['fields']['field_occupation_live_video']['alter']['alter_text'] = 0;
   $handler->display->display_options['fields']['field_occupation_live_video']['alter']['make_link'] = 0;
   $handler->display->display_options['fields']['field_occupation_live_video']['alter']['absolute'] = 0;
@@ -1553,7 +1552,7 @@ function occupations_import_export_views_default_views() {
   $handler->display->display_options['fields']['field_occupation_live_video_1']['id'] = 'field_occupation_live_video_1';
   $handler->display->display_options['fields']['field_occupation_live_video_1']['table'] = 'field_data_field_occupation_live_video';
   $handler->display->display_options['fields']['field_occupation_live_video_1']['field'] = 'field_occupation_live_video';
-  $handler->display->display_options['fields']['field_occupation_live_video_1']['label'] = 'Live video stream 2';
+  $handler->display->display_options['fields']['field_occupation_live_video_1']['label'] = 'live_video2';
   $handler->display->display_options['fields']['field_occupation_live_video_1']['alter']['alter_text'] = 0;
   $handler->display->display_options['fields']['field_occupation_live_video_1']['alter']['make_link'] = 0;
   $handler->display->display_options['fields']['field_occupation_live_video_1']['alter']['absolute'] = 0;
@@ -1584,7 +1583,7 @@ function occupations_import_export_views_default_views() {
   $handler->display->display_options['fields']['field_occupation_live_video_2']['id'] = 'field_occupation_live_video_2';
   $handler->display->display_options['fields']['field_occupation_live_video_2']['table'] = 'field_data_field_occupation_live_video';
   $handler->display->display_options['fields']['field_occupation_live_video_2']['field'] = 'field_occupation_live_video';
-  $handler->display->display_options['fields']['field_occupation_live_video_2']['label'] = 'Live video stream other';
+  $handler->display->display_options['fields']['field_occupation_live_video_2']['label'] = 'live_video-other';
   $handler->display->display_options['fields']['field_occupation_live_video_2']['alter']['alter_text'] = 0;
   $handler->display->display_options['fields']['field_occupation_live_video_2']['alter']['make_link'] = 0;
   $handler->display->display_options['fields']['field_occupation_live_video_2']['alter']['absolute'] = 0;
@@ -1614,7 +1613,7 @@ function occupations_import_export_views_default_views() {
   $handler->display->display_options['fields']['field_occupation_social_sites']['id'] = 'field_occupation_social_sites';
   $handler->display->display_options['fields']['field_occupation_social_sites']['table'] = 'field_data_field_occupation_social_sites';
   $handler->display->display_options['fields']['field_occupation_social_sites']['field'] = 'field_occupation_social_sites';
-  $handler->display->display_options['fields']['field_occupation_social_sites']['label'] = 'Additional social media sites 1';
+  $handler->display->display_options['fields']['field_occupation_social_sites']['label'] = 'social_media_extra1';
   $handler->display->display_options['fields']['field_occupation_social_sites']['alter']['alter_text'] = 0;
   $handler->display->display_options['fields']['field_occupation_social_sites']['alter']['make_link'] = 0;
   $handler->display->display_options['fields']['field_occupation_social_sites']['alter']['absolute'] = 0;
@@ -1645,7 +1644,7 @@ function occupations_import_export_views_default_views() {
   $handler->display->display_options['fields']['field_occupation_social_sites_1']['id'] = 'field_occupation_social_sites_1';
   $handler->display->display_options['fields']['field_occupation_social_sites_1']['table'] = 'field_data_field_occupation_social_sites';
   $handler->display->display_options['fields']['field_occupation_social_sites_1']['field'] = 'field_occupation_social_sites';
-  $handler->display->display_options['fields']['field_occupation_social_sites_1']['label'] = 'Additional social media sites 2';
+  $handler->display->display_options['fields']['field_occupation_social_sites_1']['label'] = 'social_media_extra2';
   $handler->display->display_options['fields']['field_occupation_social_sites_1']['alter']['alter_text'] = 0;
   $handler->display->display_options['fields']['field_occupation_social_sites_1']['alter']['make_link'] = 0;
   $handler->display->display_options['fields']['field_occupation_social_sites_1']['alter']['absolute'] = 0;
@@ -1676,7 +1675,7 @@ function occupations_import_export_views_default_views() {
   $handler->display->display_options['fields']['field_occupation_social_sites_2']['id'] = 'field_occupation_social_sites_2';
   $handler->display->display_options['fields']['field_occupation_social_sites_2']['table'] = 'field_data_field_occupation_social_sites';
   $handler->display->display_options['fields']['field_occupation_social_sites_2']['field'] = 'field_occupation_social_sites';
-  $handler->display->display_options['fields']['field_occupation_social_sites_2']['label'] = 'Additional social media sites 3';
+  $handler->display->display_options['fields']['field_occupation_social_sites_2']['label'] = 'social_media_extra3';
   $handler->display->display_options['fields']['field_occupation_social_sites_2']['alter']['alter_text'] = 0;
   $handler->display->display_options['fields']['field_occupation_social_sites_2']['alter']['make_link'] = 0;
   $handler->display->display_options['fields']['field_occupation_social_sites_2']['alter']['absolute'] = 0;
@@ -1707,7 +1706,7 @@ function occupations_import_export_views_default_views() {
   $handler->display->display_options['fields']['field_occupation_social_sites_3']['id'] = 'field_occupation_social_sites_3';
   $handler->display->display_options['fields']['field_occupation_social_sites_3']['table'] = 'field_data_field_occupation_social_sites';
   $handler->display->display_options['fields']['field_occupation_social_sites_3']['field'] = 'field_occupation_social_sites';
-  $handler->display->display_options['fields']['field_occupation_social_sites_3']['label'] = 'Additional social media sites - other';
+  $handler->display->display_options['fields']['field_occupation_social_sites_3']['label'] = 'social_media_extra-other';
   $handler->display->display_options['fields']['field_occupation_social_sites_3']['alter']['alter_text'] = 0;
   $handler->display->display_options['fields']['field_occupation_social_sites_3']['alter']['make_link'] = 0;
   $handler->display->display_options['fields']['field_occupation_social_sites_3']['alter']['absolute'] = 0;
@@ -1818,7 +1817,7 @@ function occupations_import_export_views_default_views() {
   $handler->display->display_options['fields']['uri_1']['field'] = 'uri';
   $handler->display->display_options['fields']['uri_1']['relationship'] = 'node_to_file';
   $handler->display->display_options['fields']['uri_1']['ui_name'] = 'Occupation Image';
-  $handler->display->display_options['fields']['uri_1']['label'] = 'Occupation image - orig';
+  $handler->display->display_options['fields']['uri_1']['label'] = 'Occupation_image-orig';
   $handler->display->display_options['fields']['uri_1']['alter']['alter_text'] = 0;
   $handler->display->display_options['fields']['uri_1']['alter']['make_link'] = 0;
   $handler->display->display_options['fields']['uri_1']['alter']['absolute'] = 0;
@@ -1845,7 +1844,7 @@ function occupations_import_export_views_default_views() {
   $handler->display->display_options['fields']['filename']['field'] = 'filename';
   $handler->display->display_options['fields']['filename']['relationship'] = 'node_to_file';
   $handler->display->display_options['fields']['filename']['ui_name'] = 'Occupation Image';
-  $handler->display->display_options['fields']['filename']['label'] = 'Occupation image - thumb';
+  $handler->display->display_options['fields']['filename']['label'] = 'Occupation_image-thumb';
   $handler->display->display_options['fields']['filename']['alter']['alter_text'] = 1;
   $handler->display->display_options['fields']['filename']['alter']['text'] = 'http://directory.occupy.net/sites/default/files/styles/occupation_thumb_med/public/images/occupations/icons/[filename]';
   $handler->display->display_options['fields']['filename']['alter']['make_link'] = 0;
