@@ -203,7 +203,8 @@ function occupations_import_export_views_default_views() {
   $handler->display->display_options['access']['role'] = array(
     2 => '2',
   );
-  $handler->display->display_options['pager']['type'] = 'none';
+  $handler->display->display_options['pager']['type'] = 'some';
+  $handler->display->display_options['pager']['options']['items_per_page'] = '55';
   $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['style_plugin'] = 'views_data_export_csv';
   $handler->display->display_options['style_options']['provide_file'] = 1;
@@ -424,7 +425,7 @@ function occupations_import_export_views_default_views() {
   $handler->display->display_options['fields']['field_occupation_address_1']['id'] = 'field_occupation_address_1';
   $handler->display->display_options['fields']['field_occupation_address_1']['table'] = 'field_data_field_occupation_address';
   $handler->display->display_options['fields']['field_occupation_address_1']['field'] = 'field_occupation_address';
-  $handler->display->display_options['fields']['field_occupation_address_1']['label'] = 'Address 1 -- thoroughfare';
+  $handler->display->display_options['fields']['field_occupation_address_1']['label'] = 'Address 1';
   $handler->display->display_options['fields']['field_occupation_address_1']['alter']['alter_text'] = 0;
   $handler->display->display_options['fields']['field_occupation_address_1']['alter']['text'] = '[field_occupation_address_1]';
   $handler->display->display_options['fields']['field_occupation_address_1']['alter']['make_link'] = 0;
@@ -435,6 +436,7 @@ function occupations_import_export_views_default_views() {
   $handler->display->display_options['fields']['field_occupation_address_1']['alter']['nl2br'] = 0;
   $handler->display->display_options['fields']['field_occupation_address_1']['alter']['word_boundary'] = 1;
   $handler->display->display_options['fields']['field_occupation_address_1']['alter']['ellipsis'] = 1;
+  $handler->display->display_options['fields']['field_occupation_address_1']['alter']['more_link'] = 0;
   $handler->display->display_options['fields']['field_occupation_address_1']['alter']['strip_tags'] = 0;
   $handler->display->display_options['fields']['field_occupation_address_1']['alter']['trim'] = 0;
   $handler->display->display_options['fields']['field_occupation_address_1']['alter']['html'] = 0;
@@ -456,7 +458,7 @@ function occupations_import_export_views_default_views() {
   $handler->display->display_options['fields']['field_occupation_address_2']['id'] = 'field_occupation_address_2';
   $handler->display->display_options['fields']['field_occupation_address_2']['table'] = 'field_data_field_occupation_address';
   $handler->display->display_options['fields']['field_occupation_address_2']['field'] = 'field_occupation_address';
-  $handler->display->display_options['fields']['field_occupation_address_2']['label'] = 'Address 2 -- premise';
+  $handler->display->display_options['fields']['field_occupation_address_2']['label'] = 'Address 2';
   $handler->display->display_options['fields']['field_occupation_address_2']['alter']['alter_text'] = 0;
   $handler->display->display_options['fields']['field_occupation_address_2']['alter']['text'] = '[field_occupation_address_2]';
   $handler->display->display_options['fields']['field_occupation_address_2']['alter']['make_link'] = 0;
@@ -467,6 +469,7 @@ function occupations_import_export_views_default_views() {
   $handler->display->display_options['fields']['field_occupation_address_2']['alter']['nl2br'] = 0;
   $handler->display->display_options['fields']['field_occupation_address_2']['alter']['word_boundary'] = 1;
   $handler->display->display_options['fields']['field_occupation_address_2']['alter']['ellipsis'] = 1;
+  $handler->display->display_options['fields']['field_occupation_address_2']['alter']['more_link'] = 0;
   $handler->display->display_options['fields']['field_occupation_address_2']['alter']['strip_tags'] = 0;
   $handler->display->display_options['fields']['field_occupation_address_2']['alter']['trim'] = 0;
   $handler->display->display_options['fields']['field_occupation_address_2']['alter']['html'] = 0;
@@ -488,7 +491,7 @@ function occupations_import_export_views_default_views() {
   $handler->display->display_options['fields']['field_occupation_address_3']['id'] = 'field_occupation_address_3';
   $handler->display->display_options['fields']['field_occupation_address_3']['table'] = 'field_data_field_occupation_address';
   $handler->display->display_options['fields']['field_occupation_address_3']['field'] = 'field_occupation_address';
-  $handler->display->display_options['fields']['field_occupation_address_3']['label'] = 'City -- locality';
+  $handler->display->display_options['fields']['field_occupation_address_3']['label'] = 'City';
   $handler->display->display_options['fields']['field_occupation_address_3']['alter']['alter_text'] = 0;
   $handler->display->display_options['fields']['field_occupation_address_3']['alter']['text'] = '[field_occupation_address_3]';
   $handler->display->display_options['fields']['field_occupation_address_3']['alter']['make_link'] = 0;
@@ -499,6 +502,7 @@ function occupations_import_export_views_default_views() {
   $handler->display->display_options['fields']['field_occupation_address_3']['alter']['nl2br'] = 0;
   $handler->display->display_options['fields']['field_occupation_address_3']['alter']['word_boundary'] = 1;
   $handler->display->display_options['fields']['field_occupation_address_3']['alter']['ellipsis'] = 1;
+  $handler->display->display_options['fields']['field_occupation_address_3']['alter']['more_link'] = 0;
   $handler->display->display_options['fields']['field_occupation_address_3']['alter']['strip_tags'] = 0;
   $handler->display->display_options['fields']['field_occupation_address_3']['alter']['trim'] = 0;
   $handler->display->display_options['fields']['field_occupation_address_3']['alter']['html'] = 0;
@@ -520,7 +524,7 @@ function occupations_import_export_views_default_views() {
   $handler->display->display_options['fields']['field_occupation_address_8']['id'] = 'field_occupation_address_8';
   $handler->display->display_options['fields']['field_occupation_address_8']['table'] = 'field_data_field_occupation_address';
   $handler->display->display_options['fields']['field_occupation_address_8']['field'] = 'field_occupation_address';
-  $handler->display->display_options['fields']['field_occupation_address_8']['label'] = 'City_Sub -- dependent-locality';
+  $handler->display->display_options['fields']['field_occupation_address_8']['label'] = 'City_Sub';
   $handler->display->display_options['fields']['field_occupation_address_8']['alter']['alter_text'] = 0;
   $handler->display->display_options['fields']['field_occupation_address_8']['alter']['text'] = '[field_occupation_address_8]';
   $handler->display->display_options['fields']['field_occupation_address_8']['alter']['make_link'] = 0;
@@ -553,7 +557,7 @@ function occupations_import_export_views_default_views() {
   $handler->display->display_options['fields']['field_occupation_address_4']['id'] = 'field_occupation_address_4';
   $handler->display->display_options['fields']['field_occupation_address_4']['table'] = 'field_data_field_occupation_address';
   $handler->display->display_options['fields']['field_occupation_address_4']['field'] = 'field_occupation_address';
-  $handler->display->display_options['fields']['field_occupation_address_4']['label'] = 'State -- administrative-area';
+  $handler->display->display_options['fields']['field_occupation_address_4']['label'] = 'State';
   $handler->display->display_options['fields']['field_occupation_address_4']['alter']['alter_text'] = 0;
   $handler->display->display_options['fields']['field_occupation_address_4']['alter']['text'] = '[field_occupation_address_4]';
   $handler->display->display_options['fields']['field_occupation_address_4']['alter']['make_link'] = 0;
@@ -564,6 +568,7 @@ function occupations_import_export_views_default_views() {
   $handler->display->display_options['fields']['field_occupation_address_4']['alter']['nl2br'] = 0;
   $handler->display->display_options['fields']['field_occupation_address_4']['alter']['word_boundary'] = 1;
   $handler->display->display_options['fields']['field_occupation_address_4']['alter']['ellipsis'] = 1;
+  $handler->display->display_options['fields']['field_occupation_address_4']['alter']['more_link'] = 0;
   $handler->display->display_options['fields']['field_occupation_address_4']['alter']['strip_tags'] = 0;
   $handler->display->display_options['fields']['field_occupation_address_4']['alter']['trim'] = 0;
   $handler->display->display_options['fields']['field_occupation_address_4']['alter']['html'] = 0;
@@ -585,7 +590,7 @@ function occupations_import_export_views_default_views() {
   $handler->display->display_options['fields']['field_occupation_address_7']['id'] = 'field_occupation_address_7';
   $handler->display->display_options['fields']['field_occupation_address_7']['table'] = 'field_data_field_occupation_address';
   $handler->display->display_options['fields']['field_occupation_address_7']['field'] = 'field_occupation_address';
-  $handler->display->display_options['fields']['field_occupation_address_7']['label'] = 'State -- sub-administrative-area';
+  $handler->display->display_options['fields']['field_occupation_address_7']['label'] = 'State_sub';
   $handler->display->display_options['fields']['field_occupation_address_7']['alter']['alter_text'] = 0;
   $handler->display->display_options['fields']['field_occupation_address_7']['alter']['text'] = '[field_occupation_address_7]';
   $handler->display->display_options['fields']['field_occupation_address_7']['alter']['make_link'] = 0;
@@ -618,7 +623,7 @@ function occupations_import_export_views_default_views() {
   $handler->display->display_options['fields']['field_occupation_address_6']['id'] = 'field_occupation_address_6';
   $handler->display->display_options['fields']['field_occupation_address_6']['table'] = 'field_data_field_occupation_address';
   $handler->display->display_options['fields']['field_occupation_address_6']['field'] = 'field_occupation_address';
-  $handler->display->display_options['fields']['field_occupation_address_6']['label'] = 'Country -- country';
+  $handler->display->display_options['fields']['field_occupation_address_6']['label'] = 'Country';
   $handler->display->display_options['fields']['field_occupation_address_6']['alter']['alter_text'] = 0;
   $handler->display->display_options['fields']['field_occupation_address_6']['alter']['text'] = '[field_occupation_address_6]';
   $handler->display->display_options['fields']['field_occupation_address_6']['alter']['make_link'] = 0;
@@ -629,6 +634,7 @@ function occupations_import_export_views_default_views() {
   $handler->display->display_options['fields']['field_occupation_address_6']['alter']['nl2br'] = 0;
   $handler->display->display_options['fields']['field_occupation_address_6']['alter']['word_boundary'] = 1;
   $handler->display->display_options['fields']['field_occupation_address_6']['alter']['ellipsis'] = 1;
+  $handler->display->display_options['fields']['field_occupation_address_6']['alter']['more_link'] = 0;
   $handler->display->display_options['fields']['field_occupation_address_6']['alter']['strip_tags'] = 0;
   $handler->display->display_options['fields']['field_occupation_address_6']['alter']['trim'] = 0;
   $handler->display->display_options['fields']['field_occupation_address_6']['alter']['html'] = 0;
@@ -650,7 +656,7 @@ function occupations_import_export_views_default_views() {
   $handler->display->display_options['fields']['field_occupation_address_5']['id'] = 'field_occupation_address_5';
   $handler->display->display_options['fields']['field_occupation_address_5']['table'] = 'field_data_field_occupation_address';
   $handler->display->display_options['fields']['field_occupation_address_5']['field'] = 'field_occupation_address';
-  $handler->display->display_options['fields']['field_occupation_address_5']['label'] = 'zip-postal-code';
+  $handler->display->display_options['fields']['field_occupation_address_5']['label'] = 'zip-postal';
   $handler->display->display_options['fields']['field_occupation_address_5']['alter']['alter_text'] = 0;
   $handler->display->display_options['fields']['field_occupation_address_5']['alter']['text'] = '[field_occupation_address_5]';
   $handler->display->display_options['fields']['field_occupation_address_5']['alter']['make_link'] = 0;
@@ -1782,31 +1788,6 @@ function occupations_import_export_views_default_views() {
   $handler->display->display_options['fields']['field_occupation_emails_other']['delta_reversed'] = 0;
   $handler->display->display_options['fields']['field_occupation_emails_other']['delta_first_last'] = 0;
   $handler->display->display_options['fields']['field_occupation_emails_other']['field_api_classes'] = 0;
-  /* Field: File: Path */
-  $handler->display->display_options['fields']['uri']['id'] = 'uri';
-  $handler->display->display_options['fields']['uri']['table'] = 'file_managed';
-  $handler->display->display_options['fields']['uri']['field'] = 'uri';
-  $handler->display->display_options['fields']['uri']['relationship'] = 'node_to_file';
-  $handler->display->display_options['fields']['uri']['label'] = 'Occupation Image';
-  $handler->display->display_options['fields']['uri']['alter']['alter_text'] = 0;
-  $handler->display->display_options['fields']['uri']['alter']['make_link'] = 0;
-  $handler->display->display_options['fields']['uri']['alter']['absolute'] = 0;
-  $handler->display->display_options['fields']['uri']['alter']['external'] = 0;
-  $handler->display->display_options['fields']['uri']['alter']['replace_spaces'] = 0;
-  $handler->display->display_options['fields']['uri']['alter']['trim_whitespace'] = 0;
-  $handler->display->display_options['fields']['uri']['alter']['nl2br'] = 0;
-  $handler->display->display_options['fields']['uri']['alter']['word_boundary'] = 1;
-  $handler->display->display_options['fields']['uri']['alter']['ellipsis'] = 1;
-  $handler->display->display_options['fields']['uri']['alter']['strip_tags'] = 0;
-  $handler->display->display_options['fields']['uri']['alter']['trim'] = 0;
-  $handler->display->display_options['fields']['uri']['alter']['html'] = 0;
-  $handler->display->display_options['fields']['uri']['element_label_colon'] = 1;
-  $handler->display->display_options['fields']['uri']['element_default_classes'] = 1;
-  $handler->display->display_options['fields']['uri']['hide_empty'] = 0;
-  $handler->display->display_options['fields']['uri']['empty_zero'] = 0;
-  $handler->display->display_options['fields']['uri']['hide_alter_empty'] = 1;
-  $handler->display->display_options['fields']['uri']['link_to_file'] = 0;
-  $handler->display->display_options['fields']['uri']['file_download_path'] = 1;
   /* Field: Content: Path */
   $handler->display->display_options['fields']['path']['id'] = 'path';
   $handler->display->display_options['fields']['path']['table'] = 'node';
@@ -1831,6 +1812,60 @@ function occupations_import_export_views_default_views() {
   $handler->display->display_options['fields']['path']['empty_zero'] = 0;
   $handler->display->display_options['fields']['path']['hide_alter_empty'] = 1;
   $handler->display->display_options['fields']['path']['absolute'] = 0;
+  /* Field: Occupation Image */
+  $handler->display->display_options['fields']['uri_1']['id'] = 'uri_1';
+  $handler->display->display_options['fields']['uri_1']['table'] = 'file_managed';
+  $handler->display->display_options['fields']['uri_1']['field'] = 'uri';
+  $handler->display->display_options['fields']['uri_1']['relationship'] = 'node_to_file';
+  $handler->display->display_options['fields']['uri_1']['ui_name'] = 'Occupation Image';
+  $handler->display->display_options['fields']['uri_1']['label'] = 'Occupation image - orig';
+  $handler->display->display_options['fields']['uri_1']['alter']['alter_text'] = 0;
+  $handler->display->display_options['fields']['uri_1']['alter']['make_link'] = 0;
+  $handler->display->display_options['fields']['uri_1']['alter']['absolute'] = 0;
+  $handler->display->display_options['fields']['uri_1']['alter']['external'] = 0;
+  $handler->display->display_options['fields']['uri_1']['alter']['replace_spaces'] = 0;
+  $handler->display->display_options['fields']['uri_1']['alter']['trim_whitespace'] = 0;
+  $handler->display->display_options['fields']['uri_1']['alter']['nl2br'] = 0;
+  $handler->display->display_options['fields']['uri_1']['alter']['word_boundary'] = 1;
+  $handler->display->display_options['fields']['uri_1']['alter']['ellipsis'] = 1;
+  $handler->display->display_options['fields']['uri_1']['alter']['more_link'] = 0;
+  $handler->display->display_options['fields']['uri_1']['alter']['strip_tags'] = 0;
+  $handler->display->display_options['fields']['uri_1']['alter']['trim'] = 0;
+  $handler->display->display_options['fields']['uri_1']['alter']['html'] = 0;
+  $handler->display->display_options['fields']['uri_1']['element_label_colon'] = 0;
+  $handler->display->display_options['fields']['uri_1']['element_default_classes'] = 0;
+  $handler->display->display_options['fields']['uri_1']['hide_empty'] = 0;
+  $handler->display->display_options['fields']['uri_1']['empty_zero'] = 0;
+  $handler->display->display_options['fields']['uri_1']['hide_alter_empty'] = 1;
+  $handler->display->display_options['fields']['uri_1']['link_to_file'] = 0;
+  $handler->display->display_options['fields']['uri_1']['file_download_path'] = 1;
+  /* Field: Occupation Image */
+  $handler->display->display_options['fields']['filename']['id'] = 'filename';
+  $handler->display->display_options['fields']['filename']['table'] = 'file_managed';
+  $handler->display->display_options['fields']['filename']['field'] = 'filename';
+  $handler->display->display_options['fields']['filename']['relationship'] = 'node_to_file';
+  $handler->display->display_options['fields']['filename']['ui_name'] = 'Occupation Image';
+  $handler->display->display_options['fields']['filename']['label'] = 'Occupation image - thumb';
+  $handler->display->display_options['fields']['filename']['alter']['alter_text'] = 1;
+  $handler->display->display_options['fields']['filename']['alter']['text'] = 'http://directory.occupy.net/sites/default/files/styles/occupation_thumb_med/public/images/occupations/icons/[filename]';
+  $handler->display->display_options['fields']['filename']['alter']['make_link'] = 0;
+  $handler->display->display_options['fields']['filename']['alter']['absolute'] = 0;
+  $handler->display->display_options['fields']['filename']['alter']['external'] = 0;
+  $handler->display->display_options['fields']['filename']['alter']['replace_spaces'] = 0;
+  $handler->display->display_options['fields']['filename']['alter']['trim_whitespace'] = 0;
+  $handler->display->display_options['fields']['filename']['alter']['nl2br'] = 0;
+  $handler->display->display_options['fields']['filename']['alter']['word_boundary'] = 1;
+  $handler->display->display_options['fields']['filename']['alter']['ellipsis'] = 1;
+  $handler->display->display_options['fields']['filename']['alter']['more_link'] = 0;
+  $handler->display->display_options['fields']['filename']['alter']['strip_tags'] = 0;
+  $handler->display->display_options['fields']['filename']['alter']['trim'] = 0;
+  $handler->display->display_options['fields']['filename']['alter']['html'] = 0;
+  $handler->display->display_options['fields']['filename']['element_label_colon'] = 0;
+  $handler->display->display_options['fields']['filename']['element_default_classes'] = 0;
+  $handler->display->display_options['fields']['filename']['hide_empty'] = 1;
+  $handler->display->display_options['fields']['filename']['empty_zero'] = 0;
+  $handler->display->display_options['fields']['filename']['hide_alter_empty'] = 1;
+  $handler->display->display_options['fields']['filename']['link_to_file'] = 0;
   $handler->display->display_options['defaults']['sorts'] = FALSE;
   /* Sort criterion: Content: Node UUID */
   $handler->display->display_options['sorts']['uuid']['id'] = 'uuid';
