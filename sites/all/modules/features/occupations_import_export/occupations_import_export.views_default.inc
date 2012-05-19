@@ -266,6 +266,7 @@ function occupations_import_export_views_default_views() {
   $handler->display->display_options['fields']['field_occupation_origin_date']['alter']['nl2br'] = 0;
   $handler->display->display_options['fields']['field_occupation_origin_date']['alter']['word_boundary'] = 1;
   $handler->display->display_options['fields']['field_occupation_origin_date']['alter']['ellipsis'] = 1;
+  $handler->display->display_options['fields']['field_occupation_origin_date']['alter']['more_link'] = 0;
   $handler->display->display_options['fields']['field_occupation_origin_date']['alter']['strip_tags'] = 0;
   $handler->display->display_options['fields']['field_occupation_origin_date']['alter']['trim'] = 0;
   $handler->display->display_options['fields']['field_occupation_origin_date']['alter']['html'] = 0;
@@ -275,13 +276,44 @@ function occupations_import_export_views_default_views() {
   $handler->display->display_options['fields']['field_occupation_origin_date']['empty_zero'] = 0;
   $handler->display->display_options['fields']['field_occupation_origin_date']['hide_alter_empty'] = 1;
   $handler->display->display_options['fields']['field_occupation_origin_date']['settings'] = array(
-    'format_type' => 'date_long',
+    'format_type' => 'date_short',
     'fromto' => 'both',
     'multiple_number' => '',
     'multiple_from' => '',
     'multiple_to' => '',
   );
   $handler->display->display_options['fields']['field_occupation_origin_date']['field_api_classes'] = 0;
+  /* Field: Content: Founded */
+  $handler->display->display_options['fields']['field_occupation_origin_date_1']['id'] = 'field_occupation_origin_date_1';
+  $handler->display->display_options['fields']['field_occupation_origin_date_1']['table'] = 'field_data_field_occupation_origin_date';
+  $handler->display->display_options['fields']['field_occupation_origin_date_1']['field'] = 'field_occupation_origin_date';
+  $handler->display->display_options['fields']['field_occupation_origin_date_1']['label'] = 'Founded (long)';
+  $handler->display->display_options['fields']['field_occupation_origin_date_1']['alter']['alter_text'] = 0;
+  $handler->display->display_options['fields']['field_occupation_origin_date_1']['alter']['make_link'] = 0;
+  $handler->display->display_options['fields']['field_occupation_origin_date_1']['alter']['absolute'] = 0;
+  $handler->display->display_options['fields']['field_occupation_origin_date_1']['alter']['external'] = 0;
+  $handler->display->display_options['fields']['field_occupation_origin_date_1']['alter']['replace_spaces'] = 0;
+  $handler->display->display_options['fields']['field_occupation_origin_date_1']['alter']['trim_whitespace'] = 0;
+  $handler->display->display_options['fields']['field_occupation_origin_date_1']['alter']['nl2br'] = 0;
+  $handler->display->display_options['fields']['field_occupation_origin_date_1']['alter']['word_boundary'] = 1;
+  $handler->display->display_options['fields']['field_occupation_origin_date_1']['alter']['ellipsis'] = 1;
+  $handler->display->display_options['fields']['field_occupation_origin_date_1']['alter']['more_link'] = 0;
+  $handler->display->display_options['fields']['field_occupation_origin_date_1']['alter']['strip_tags'] = 0;
+  $handler->display->display_options['fields']['field_occupation_origin_date_1']['alter']['trim'] = 0;
+  $handler->display->display_options['fields']['field_occupation_origin_date_1']['alter']['html'] = 0;
+  $handler->display->display_options['fields']['field_occupation_origin_date_1']['element_label_colon'] = 1;
+  $handler->display->display_options['fields']['field_occupation_origin_date_1']['element_default_classes'] = 1;
+  $handler->display->display_options['fields']['field_occupation_origin_date_1']['hide_empty'] = 0;
+  $handler->display->display_options['fields']['field_occupation_origin_date_1']['empty_zero'] = 0;
+  $handler->display->display_options['fields']['field_occupation_origin_date_1']['hide_alter_empty'] = 1;
+  $handler->display->display_options['fields']['field_occupation_origin_date_1']['settings'] = array(
+    'format_type' => 'date_long',
+    'fromto' => 'both',
+    'multiple_number' => '',
+    'multiple_from' => '',
+    'multiple_to' => '',
+  );
+  $handler->display->display_options['fields']['field_occupation_origin_date_1']['field_api_classes'] = 0;
   /* Field: Content: General email address */
   $handler->display->display_options['fields']['field_occupation_email_general']['id'] = 'field_occupation_email_general';
   $handler->display->display_options['fields']['field_occupation_email_general']['table'] = 'field_data_field_occupation_email_general';
@@ -1056,6 +1088,7 @@ function occupations_import_export_views_default_views() {
   $handler->display->display_options['fields']['field_occupation_physical']['id'] = 'field_occupation_physical';
   $handler->display->display_options['fields']['field_occupation_physical']['table'] = 'field_data_field_occupation_physical';
   $handler->display->display_options['fields']['field_occupation_physical']['field'] = 'field_occupation_physical';
+  $handler->display->display_options['fields']['field_occupation_physical']['label'] = 'Physical occupation occurring';
   $handler->display->display_options['fields']['field_occupation_physical']['alter']['alter_text'] = 0;
   $handler->display->display_options['fields']['field_occupation_physical']['alter']['make_link'] = 0;
   $handler->display->display_options['fields']['field_occupation_physical']['alter']['absolute'] = 0;
@@ -1065,6 +1098,7 @@ function occupations_import_export_views_default_views() {
   $handler->display->display_options['fields']['field_occupation_physical']['alter']['nl2br'] = 0;
   $handler->display->display_options['fields']['field_occupation_physical']['alter']['word_boundary'] = 1;
   $handler->display->display_options['fields']['field_occupation_physical']['alter']['ellipsis'] = 1;
+  $handler->display->display_options['fields']['field_occupation_physical']['alter']['more_link'] = 0;
   $handler->display->display_options['fields']['field_occupation_physical']['alter']['strip_tags'] = 0;
   $handler->display->display_options['fields']['field_occupation_physical']['alter']['trim'] = 0;
   $handler->display->display_options['fields']['field_occupation_physical']['alter']['html'] = 0;
