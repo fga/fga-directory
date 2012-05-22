@@ -15,11 +15,11 @@ jQuery(document).ready(function($) {
 	  m.setCenterZoom({ lat: 19, lon: 9.7 }, 2 );
 	  
 	  // Add zoom controls [?]
-   // wax.mm.zoomer(map, tilejson).appendTo(map.parent);
+   wax.mm.zoomer(map, tilejson).appendTo(map.parent);
 
     // Add interactivity (tooltips)
-  //  var interaction = wax.mm.interaction().map(map).tilejson(tilejson)
-   //     .on(wax.tooltip().parent(map.parent).events());
+   var interaction = wax.mm.interaction().map(map).tilejson(tilejson)
+       .on(wax.tooltip().parent(map.parent).events());
     
 	});
 
