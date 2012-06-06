@@ -14,12 +14,19 @@
 class WKB extends GeoAdapter
 {
 
+  private $dimension = 2;
+  private $z = FALSE;
+  private $m = FALSE;
+
   /**
    * Read WKB into geometry objects
    *
-   * @param string $wkb Well-known-binary string
-   * @param bool $is_hex_string If this is a hexedecimal string that is in need of packing
-   * @return Geometry|GeometryCollection
+   * @param string $wkb 
+   *   Well-known-binary string
+   * @param bool $is_hex_string
+   *   If this is a hexedecimal string that is in need of packing
+   * 
+   * @return Geometry
    */
   public function read($wkb, $is_hex_string = FALSE) {
     if ($is_hex_string) {
@@ -36,10 +43,25 @@ class WKB extends GeoAdapter
   }
   
   function getGeometry(&$mem) {
-    $base_info = unpack("corder/Ltype", fread($mem, 5));
+    $base_info = unpack("corder/ctype/cz/cm/cs", fread($mem, 5));
     if ($base_info['order'] !== 1) {
       throw new Exception('Only NDR (little endian) SKB format is supported at the moment');
     }
+    
+    if ($base_info['z']) {
+      $this->dimension++;
+      $this->z = TRUE;
+    }
+    if ($base_info['m']) {
+      $this->dimension++;
+      $this->m = TRUE;
+    }
+    
+    // If there is SRID information, ignore it - use EWKB Adapter to get SRID support
+    if ($base_info['s']) {
+      fread($mem, 4);
+    }
+    
     switch ($base_info['type']) {
       case 1:
         return $this->getPoint($mem);
@@ -59,7 +81,7 @@ class WKB extends GeoAdapter
   }
   
   function getPoint(&$mem) {
-    $point_coords = unpack("d*", fread($mem,16));
+    $point_coords = unpack("d*", fread($mem,$this->dimension*8));
     return new Point($point_coords[1],$point_coords[2]);
   }
   
@@ -67,9 +89,12 @@ class WKB extends GeoAdapter
     // Get the number of points expected in this string out of the first 4 bytes
     $line_length = unpack('L',fread($mem,4));
       
+    // Return an empty linestring if there is no line-length
+    if (!$line_length[1]) return new LineString();
+    
     // Read the nubmer of points x2 (each point is two coords) into decimal-floats
-    $line_coords = unpack('d'.$line_length[1]*2, fread($mem,$line_length[1]*16));
-      
+    $line_coords = unpack('d*', fread($mem,$line_length[1]*$this->dimension*8));
+    
     // We have our coords, build up the linestring
     $components = array();
     $i = 1;
@@ -97,9 +122,6 @@ class WKB extends GeoAdapter
   function getMulti(&$mem, $type) {
     // Get the number of items expected in this multi out of the first 4 bytes
     $multi_length = unpack('L',fread($mem,4));
-    
-    //@@TODO: create an EMPTY geometry instead of returning null
-    if (!$multi_length[1]) return NULL;
     
     $components = array();
     $i = 1;
@@ -172,14 +194,14 @@ class WKB extends GeoAdapter
   
   function writePoint($point) {
     // Set the coords
-    $wkb .= pack('dd',$point->x(), $point->y());
+    $wkb = pack('dd',$point->x(), $point->y());
     
     return $wkb;
   }
   
   function writeLineString($line) {
     // Set the number of points in this line
-    $wkb .= pack('L',$line->numPoints());
+    $wkb = pack('L',$line->numPoints());
     
     // Set the coords
     foreach ($line->getComponents() as $point) {
@@ -191,7 +213,7 @@ class WKB extends GeoAdapter
   
   function writePolygon($poly) {
     // Set the number of lines in this poly
-    $wkb .= pack('L',$poly->numGeometries());
+    $wkb = pack('L',$poly->numGeometries());
     
     // Write the lines
     foreach ($poly->getComponents() as $line) {
@@ -203,7 +225,7 @@ class WKB extends GeoAdapter
   
   function writeMulti($geometry) {
     // Set the number of components
-    $wkb .= pack('L',$geometry->numGeometries());
+    $wkb = pack('L',$geometry->numGeometries());
     
     // Write the components
     foreach ($geometry->getComponents() as $component) {

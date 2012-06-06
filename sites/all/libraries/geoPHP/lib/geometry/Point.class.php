@@ -1,65 +1,78 @@
 <?php
-/*
- * (c) Camptocamp <info@camptocamp.com>
- * (c) Patrick Hayes
- *
- * This code is open-source and licenced under the Modified BSD License.
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 
 /**
- * Point : a Point geometry.
- *
+ * Point: The most basic geometry type. All other geometries
+ * are built out of Points.
  */
 class Point extends Geometry
 {
-  private $position = array(2);
+  public $coords = array(2);
   protected $geom_type = 'Point';
+  protected $dimention = 2;
   
   /**
    * Constructor
    *
-   * @param float $x The x coordinate (or longitude)
-   * @param float $y The y coordinate (or latitude)
+   * @param numeric $x The x coordinate (or longitude)
+   * @param numeric $y The y coordinate (or latitude)
+   * @param numeric $z The z coordinate (or altitude) - optional
    */
-  public function __construct($x, $y) {
+  public function __construct($x, $y, $z = NULL) {
+    // Basic validation on x and y
     if (!is_numeric($x) || !is_numeric($y)) {
-      throw new Exception("Bad coordinates: x and y should be numeric");
+      throw new Exception("Cannot construct Point. x and y should be numeric");
+    }
+    
+    // Check to see if this is a 3D point
+    if ($z !== NULL) {
+      if (!is_numeric($z)) {
+       throw new Exception("Cannot construct Point. z should be numeric");
+      }
+      $this->dimention = 3;
     }
     
     // Convert to floatval in case they are passed in as a string or integer etc.
     $x = floatval($x);
     $y = floatval($y);
+    $z = floatval($z);
     
-    $this->position = array($x, $y);
+    // Add poitional elements
+    if ($this->dimention == 2) {
+      $this->coords = array($x, $y);
+    }
+    if ($this->dimention == 3) {
+      $this->coords = array($x, $y, $z);
+    }
   }
   
   /**
-   * An accessor method which returns the coordinates array
+   * Get X (longitude) coordinate
    *
-   * @return array The coordinates array
-   */
-  public function getCoordinates() {
-    return $this->position;
-  }
-  
-  /**
-   * Returns X coordinate of the point
-   *
-   * @return integer The X coordinate
+   * @return float The X coordinate
    */
   public function x() {
-    return $this->position[0];
+    return $this->coords[0];
   }
 
   /**
-   * Returns X coordinate of the point
+   * Returns Y (latitude) coordinate
    *
-   * @return integer The X coordinate
+   * @return float The Y coordinate
    */
   public function y() {
-    return $this->position[1];
+    return $this->coords[1];
+  }
+  
+  /**
+   * Returns Z (altitude) coordinate
+   *
+   * @return float The Z coordinate or NULL is not a 3D point
+   */
+  public function z() {
+    if ($this->dimention == 3) {
+      return $this->coords[2];
+    }
+    else return NULL;
   }
   
   // A point's centroid is itself
@@ -74,6 +87,10 @@ class Point extends Geometry
       'maxx' => $this->getX(),
       'minx' => $this->getX(),
     );
+  }
+  
+  public function asArray($assoc = FALSE) {
+    return $this->coords;
   }
   
   public function area() {
@@ -93,6 +110,26 @@ class Point extends Geometry
     return 0;
   }
   
+  public function isEmpty() {
+    return FALSE;
+  }
+
+  public function numPoints() {
+    return 1;
+  }
+    
+  public function getPoints() {
+    return array($this);
+  }
+
+  public function equals($geometry) {
+    return ($this->x() == $geometry->x() && $this->y() == $geometry->y());
+  }
+  
+  public function isSimple() {
+    return TRUE;
+  }
+  
   // Not valid for this geometry type
   public function numGeometries()    { return NULL; }
   public function geometryN($n)      { return NULL; }
@@ -100,12 +137,11 @@ class Point extends Geometry
   public function endPoint()         { return NULL; }
   public function isRing()           { return NULL; }
   public function isClosed()         { return NULL; }
-  public function numPoints()        { return NULL; }
   public function pointN($n)         { return NULL; }
   public function exteriorRing()     { return NULL; }
   public function numInteriorRings() { return NULL; }
   public function interiorRingN($n)  { return NULL; }
   public function pointOnSurface()   { return NULL; }
-
+  public function explode()          { return NULL; }
 }
 

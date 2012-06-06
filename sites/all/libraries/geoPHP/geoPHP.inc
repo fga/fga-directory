@@ -11,9 +11,12 @@
 include_once("lib/adapters/GeoAdapter.class.php"); // Abtract class
 include_once("lib/adapters/GeoJSON.class.php");
 include_once("lib/adapters/WKT.class.php");
+include_once("lib/adapters/EWKT.class.php");
 include_once("lib/adapters/WKB.class.php");
+include_once("lib/adapters/EWKB.class.php");
 include_once("lib/adapters/KML.class.php");
 include_once("lib/adapters/GPX.class.php");
+include_once("lib/adapters/GeoRSS.class.php");
 include_once("lib/adapters/GoogleGeocode.class.php");
 
 // Geometries
@@ -31,12 +34,12 @@ class geoPHP
 {
   
   static function version() {
-    return '0.4';
+    return '1.0';
   }
   
   // geoPHP::load($data, $type, $other_args);
+  // if $data is an array, all passed in values will be combined into a single geometry
   static function load() {
-    
     $args = func_get_args();
     
     $data = array_shift($args);
@@ -45,28 +48,40 @@ class geoPHP
     $type_map = geoPHP::getAdapterMap();
     
     $processor_type = $type_map[$type];
+    
+    if (!$processor_type) {
+      throw new exception('geoPHP could not find an adapter of type '.htmlentities($type));
+      exit;
+    }
+    
     $processor = new $processor_type();
     
-    // @@TODO: Hack alert!
-    // There has got to be a better way to do this...
-    // Is there an equivilent to call_user_func for objects???
-    if (count($args) == 0) $result = $processor->read($data);
-    if (count($args) == 1) $result = $processor->read($data, $args[0]);
-    if (count($args) == 2) $result = $processor->read($data, $args[0],$args[1]);
-    if (count($args) == 3) $result = $processor->read($data, $args[0],$args[1],$args[2]);
-    if (count($args) == 4) $result = $processor->read($data, $args[0],$args[1],$args[2], $args[3]);
-    if (count($args) == 5) $result = $processor->read($data, $args[0],$args[1],$args[2], $args[3], $args[4]);
+    // Data is not an array, just pass it normally
+    if (!is_array($data)) {
+      $result = call_user_func_array(array($processor, "read"), array_merge(array($data), $args));
+    }
+    // Data is an array, combine all passed in items into a single geomtetry
+    else {
+      $geoms = array();
+      foreach ($data as $item) {
+        $geoms[] = call_user_func_array(array($processor, "read"), array_merge(array($data), $args));
+      }
+      $result = geoPHP::geometryReduce($geoms);
+    }
     
     return $result;
   }
   
   static function getAdapterMap() {
     return array (
-      'wkt' => 'WKT',
-      'wkb' => 'WKB',
+      'wkt' =>  'WKT',
+      'ewkt' => 'EWKT',
+      'wkb' =>  'WKB',
+      'ewkb' => 'EWKB',
       'json' => 'GeoJSON',
-      'kml' => 'KML',
-      'gpx' => 'GPX',
+      'kml' =>  'KML',
+      'gpx' =>  'GPX',
+      'georss' => 'GeoRSS',
       'google_geocode' => 'GoogleGeocode',
     );
   }
@@ -83,9 +98,10 @@ class geoPHP
     );
   }
   
-  static function geosInstalled() {
-    static $geos_intalled = NULL;
-    if ($geos_intalled !== NULL) {
+  static function geosInstalled($force = NULL) {
+    static $geos_installed = NULL;
+    if ($force !== NULL) $geos_installed = $force;
+    if ($geos_installed !== NULL) {
       return $geos_installed; 
     }
     $geos_installed = class_exists('GEOSGeometry');
@@ -98,8 +114,7 @@ class geoPHP
     }
     $wkb_writer = new GEOSWKBWriter();
     $wkb = $wkb_writer->writeHEX($geos);
-    $geometry = geoPHP::load($wkb,'wkb',TRUE);
-    //@@TODO: We no longer need to check this once we have Empty geometries
+    $geometry = geoPHP::load($wkb, 'wkb', TRUE);
     if ($geometry) {
       $geometry->setGeos($geos);
       return $geometry;

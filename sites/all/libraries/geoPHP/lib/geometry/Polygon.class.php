@@ -1,40 +1,16 @@
 <?php
-/*
- * (c) Camptocamp <info@camptocamp.com>
- * (c) Patrick Hayes
- *
- * This code is open-source and licenced under the Modified BSD License.
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 
 /**
- * Polygon : a Polygon geometry.
- *
+ * Polygon: A polygon is a plane figure that is bounded by a closed path, 
+ * composed of a finite sequence of straight line segments
  */
-class Polygon extends Collection 
+class Polygon extends Collection
 {
   protected $geom_type = 'Polygon';
   
-  /**
-   * Constructor
-   *
-   * The first linestring is the outer ring
-   * The subsequent ones are holes
-   * All linestrings should be a closed LineString
-   *
-   * @param array $linestrings The LineString array
-   */
-  public function __construct(array $linestrings) {
-    if (count($linestrings) > 0) {
-      parent::__construct($linestrings);
-    }
-    else {
-      throw new Exception("Polygon without an exterior ring");
-    }
-  }
-  
-  public function area($exterior_only = FALSE) {
+  public function area($exterior_only = FALSE, $signed = FALSE) {
+    if ($this->isEmpty()) return 0;
+    
     if ($this->geos() && $exterior_only == FALSE) {
       return $this->geos()->area();
     }
@@ -50,7 +26,9 @@ class Polygon extends Collection
       $a = $a + ($p->getX() * $pts[$j]->getY()) - ($p->getY() * $pts[$j]->getX());
     }
     
-    $area = abs(($a / 2));
+    if ($signed) $area = ($a / 2);
+    else $area = abs(($a / 2));
+    
     if ($exterior_only == TRUE) {
       return $area;
     }
@@ -64,6 +42,8 @@ class Polygon extends Collection
   }
   
   public function centroid() {
+    if ($this->isEmpty()) return NULL;
+    
     if ($this->geos()) {
       return geoPHP::geosToGeometry($this->geos()->centroid());
     }
@@ -74,7 +54,7 @@ class Polygon extends Collection
     $c = count($pts);
     if((int)$c == '0') return NULL;
     $cn = array('x' => '0', 'y' => '0');
-    $a = $this->area(TRUE);
+    $a = $this->area(TRUE, TRUE);
     
     // If this is a polygon with no area. Just return the first point.
     if ($a == 0) {
@@ -90,25 +70,47 @@ class Polygon extends Collection
     
     $cn['x'] = $cn['x'] / ( 6 * $a);
     $cn['y'] = $cn['y'] / ( 6 * $a);
-        
+    
     $centroid = new Point($cn['x'], $cn['y']);
     return $centroid;
   }
 
   public function exteriorRing() {
+    if ($this->isEmpty()) return new LineString();
     return $this->components[0];
   }
   
   public function numInteriorRings() {
+    if ($this->isEmpty()) return 0;
     return $this->numGeometries()-1;
   }
   
   public function interiorRingN($n) {
     return $this->geometryN($n+1);
   }
-
+  
   public function dimension() {
+    if ($this->isEmpty()) return 0;
     return 2;
+  }
+
+  public function isSimple() {
+    if ($this->geos()) {
+      return $this->geos()->isSimple();
+    }
+    
+    $segments = $this->explode();
+    
+    foreach ($segments as $i => $segment) {
+      foreach ($segments as $j => $check_segment) {
+        if ($i != $j) {
+          if ($segment->lineSegmentIntersect($check_segment)) {
+            return FALSE;
+          }
+        }
+      }
+    }
+    return TRUE;
   }
 
   // Not valid for this geometry type

@@ -1,27 +1,13 @@
 <?php
-/*
- * (c) Camptocamp <info@camptocamp.com>
- * (c) Patrick Hayes
- *
- * This code is open-source and licenced under the Modified BSD License.
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 
 /**
- * Geometry : abstract class which represents a geometry.
- *
- * @package    sfMapFishPlugin
- * @subpackage GeoJSON
- * @author     Camptocamp <info@camptocamp.com>
- * @version    
+ * Geometry abstract class
  */
-abstract class Geometry 
+abstract class Geometry
 {
   private   $geos = NULL;
+  protected $srid = NULL;
   protected $geom_type;
-  protected $srid;
-  
   
   // Abtract: Standard
   // -----------------
@@ -33,7 +19,7 @@ abstract class Geometry
   abstract public function x();
   abstract public function numGeometries();
   abstract public function geometryN($n);
-  abstract public function startPoint(); 
+  abstract public function startPoint();
   abstract public function endPoint();
   abstract public function isRing();            // Mssing dependancy
   abstract public function isClosed();          // Missing dependancy
@@ -43,12 +29,16 @@ abstract class Geometry
   abstract public function numInteriorRings();
   abstract public function interiorRingN($n);
   abstract public function dimension();
-  
+  abstract public function equals($geom);
+  abstract public function isEmpty();
+  abstract public function isSimple();
   
   // Abtract: Non-Standard
   // ---------------------
-  abstract public function getCoordinates();
   abstract public function getBBox();
+  abstract public function asArray();
+  abstract public function getPoints();
+  abstract public function explode();
   
   
   // Public: Standard -- Common to all geometries
@@ -65,6 +55,8 @@ abstract class Geometry
   }
   
   public function envelope() {
+    if ($this->isEmpty()) return new Polygon();
+    
     if ($this->geos()) {
       return geoPHP::geosToGeometry($this->geos()->envelope());
     }
@@ -88,12 +80,6 @@ abstract class Geometry
   
   // Public: Non-Standard -- Common to all geometries
   // ------------------------------------------------
-  public function getGeoInterface() {
-    return array(
-      'type'=> $this->getGeomType(),
-      'coordinates'=> $this->getCoordinates()
-    );
-  }
   
   // $this->out($format, $other_args);
   public function out() {
@@ -104,15 +90,8 @@ abstract class Geometry
     $processor_type = $type_map[$format];
     $processor = new $processor_type();
 
-    // @@TODO: Hack alert!
-    // There has got to be a better way to do this...
-    // Is there an equivilent to call_user_func for objects???
-    if (count($args) == 0) $result = $processor->write($this);
-    if (count($args) == 1) $result = $processor->write($this, $args[0]);
-    if (count($args) == 2) $result = $processor->write($this, $args[0],$args[1]);
-    if (count($args) == 3) $result = $processor->write($this, $args[0],$args[1],$args[2]);
-    if (count($args) == 4) $result = $processor->write($this, $args[0],$args[1],$args[2], $args[3]);
-    if (count($args) == 5) $result = $processor->write($this, $args[0],$args[1],$args[2], $args[3], $args[4]);
+    array_unshift($args, $this);
+    $result = call_user_func_array(array($processor, 'write'), $args);
 
     return $result;
   }
@@ -152,7 +131,7 @@ abstract class Geometry
     return $this->out('wkt');
   }
  
-   public function asBinary() {
+  public function asBinary() {
     return $this->out('wkb');
   }
   
@@ -160,7 +139,7 @@ abstract class Geometry
   // ---------------------------
   public function geos() {
     // If it's already been set, just return it
-    if ($this->geos !== NULL) {
+    if ($this->geos && geoPHP::geosInstalled()) {
       return $this->geos;
     }
     // It hasn't been set yet, generate it
@@ -184,34 +163,26 @@ abstract class Geometry
     }
   }
   
-  public function equals($geometry) {
-    if ($this->geos()) {
-      return $this->geos()->equals($geometry->geos());
-    }
-  }
-  
   public function equalsExact($geometry) {
     if ($this->geos()) {
       return $this->geos()->equalsExact($geometry->geos());
     }
   }
   
-  public function relate($geometry) {
-    //@@TODO: Deal with second "pattern" parameter
+  public function relate($geometry, $pattern = NULL) {
     if ($this->geos()) {
-      return $this->geos()->relate($geometry->geos());
+      if ($pattern) {
+        return $this->geos()->relate($geometry->geos(), $pattern);
+      }
+      else {
+        return $this->geos()->relate($geometry->geos());
+      }
     }
   }
   
   public function checkValidity() {
     if ($this->geos()) {
       return $this->geos()->checkValidity();
-    }
-  }
-
-  public function isSimple() {
-    if ($this->geos()) {
-      return $this->geos()->isSimple();
     }
   }
   
@@ -245,10 +216,19 @@ abstract class Geometry
     }
   }
   
+  // Can pass in a geometry or an array of geometries
   public function union($geometry) {
-    //@@TODO: also does union cascade
     if ($this->geos()) {
-      return geoPHP::geosToGeometry($this->geos()->union($geometry->geos()));
+      if (is_array($geometry)) {
+        $geom = $this->geos();
+        foreach ($geometry as $item) {
+          $geom = $geom->union($item->geos());
+        }
+        return geoPHP::geosToGeometry($geos);
+      }
+      else {
+        return geoPHP::geosToGeometry($this->geos()->union($geometry->geos()));
+      }
     }
   }
   
@@ -339,11 +319,6 @@ abstract class Geometry
   
   public function isMeasured() {
     // geoPHP does not yet support M values
-    return FALSE;
-  }
-  
-  public function isEmpty() {
-    // geoPHP does not yet support empty geometries
     return FALSE;
   }
   
