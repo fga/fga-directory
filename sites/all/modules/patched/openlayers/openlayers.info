@@ -1,0 +1,9 @@
+name = "OpenLayers"
+description = "OpenLayers base API module"
+core = 7.x
+package = "OpenLayers"
+php = 5.2
+dependencies[] = ctools
+
+; Core files
+files[] = openlayers.module

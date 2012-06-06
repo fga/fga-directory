@@ -1,0 +1,15 @@
+name = OpenLayers Views
+description = Provides OpenLayers Views plugins.
+core = 7.x
+package = OpenLayers
+dependencies[] = openlayers
+dependencies[] = views
+; Core files
+files[] = openlayers_views.module
+files[] = views/openlayers_views.views.inc
+files[] = views/openlayers_views_style_map.inc
+files[] = views/openlayers_views_style_data.inc
+files[] = views/openlayers_views_plugin_display_openlayers.inc
+files[] = views/openlayers_views_plugin_row_point.inc
+files[] = views/openlayers_views_plugin_row_bounding_box.inc
+files[] = views/openlayers_views_plugin_row_geometry.inc

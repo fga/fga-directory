@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>Occupy Directory</title>
+    <link rel="stylesheet" href="fonts/fonts.css" type="text/css" />
+    <link rel="stylesheet" href="css/style.css" type="text/css" />
+    <link rel='stylesheet' href='tooltip.css' type='text/css' media='all' />
+    <link rel='stylesheet' href='style.css' type='text/css' media='all' />
+
+</head>
+<body>
+
+    <div id="map" class="map">
+        </div>
+   </div>
+     <div data-control='geocode' id="search">
+        <form class="geocode">
+          <input placeholder='Search for an Occupation' type="text">
+          <input type='submit' />
+          <div id='geocode-error'></div>
+        </form>
+    </div>
+    
+    <!-- External libraries and site script -->
+    <script src="ext/jquery.min.js"></script>
+    <script src="ext/modestmaps.min.js"></script>
+    <script src="ext/wax/wax.mm.js"></script>
+    <script src="ext/wax/wax.ext.js"></script>
+    <script src="ext/easey.js"></script>
+    <script src="ext/mmg.js"></script>
+    <script src="script.js"></script>
+    
+    <!-- Site configuration -->
+    <script type="text/javascript">
+    
+        // Make a new map in the #map element
+        var main = Map('map', {
+            // Specify the MapBox API url
+            //api:'http://a.tiles.mapbox.com/v3/occupy.map-7o6g1bgq,occupydirectory.water-base-3-to-8,occupydirectory.countries-3-8,occupydirectory.occupy-streets-points-3-11,occupydirectory.occupy-streets-points-1-3.jsonp',
+            
+            api:'http://a.tiles.mapbox.com/v3/occupydirectory.map-lzygvfea.jsonp',
+            center: {
+                lat: 15.9090033656251,      // Intial center point and zoom level.
+                lon: -14.014396158891,      // To find coordinates and zoom levels
+                zoom: 3                    // try: http://www.getlatlon.com
+            },
+            zoomRange: [3, 11],             // Limit zooming on the map to these levels
+            features: [                     // Map features (see readme.md)
+                'zoomwheel',
+                'tooltips',
+                'zoombox',
+                'zoompan',
+                'legend'
+            ]
+        });
+        
+    </script>
+</body>
+</html>
