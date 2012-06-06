@@ -35,11 +35,13 @@ Drupal.behaviors.adminMenu = {
     if (!$adminMenu.length && settings.admin_menu.hash) {
       Drupal.admin.getCache(settings.admin_menu.hash, function (response) {
           if (typeof response == 'string' && response.length > 0) {
-            $('body', context).prepend(response);
+            $('body', context).append(response);
           }
           var $adminMenu = $('#admin-menu:not(.admin-menu-processed)', context);
           // Apply our behaviors.
           Drupal.admin.attachBehaviors(context, settings, $adminMenu);
+          // Allow resize event handlers to recalculate sizes/positions.
+          $(window).triggerHandler('resize');
       });
     }
     // If the menu is in the output already, this means there is a new version.
@@ -137,11 +139,12 @@ Drupal.admin.getCache = function (hash, onSuccess) {
  * @see toolbar.js
  */
 Drupal.admin.height = function() {
-  var height = $('#admin-menu').outerHeight();
+  var $adminMenu = $('#admin-menu');
+  var height = $adminMenu.outerHeight();
   // In IE, Shadow filter adds some extra height, so we need to remove it from
   // the returned height.
-  if ($('#admin-menu').css('filter') && $('#admin-menu').css('filter').match(/DXImageTransform\.Microsoft\.Shadow/)) {
-    height -= $('#admin-menu').get(0).filters.item("DXImageTransform.Microsoft.Shadow").strength;
+  if ($adminMenu.css('filter') && $adminMenu.css('filter').match(/DXImageTransform\.Microsoft\.Shadow/)) {
+    height -= $adminMenu.get(0).filters.item("DXImageTransform.Microsoft.Shadow").strength;
   }
   return height;
 };
@@ -178,9 +181,13 @@ Drupal.admin.behaviors.positionFixed = function (context, settings, $adminMenu) 
  */
 Drupal.admin.behaviors.pageTabs = function (context, settings, $adminMenu) {
   if (settings.admin_menu.tweak_tabs) {
-    $('ul.tabs.primary li', context).addClass('admin-menu-tab').appendTo('#admin-menu-wrapper > ul');
-    $('ul.tabs.secondary', context).appendTo('#admin-menu-wrapper > ul > li.admin-menu-tab.active').removeClass('secondary');
-    $('ul.tabs.primary', context).remove();
+    var $tabs = $(context).find('ul.tabs.primary');
+    $adminMenu.find('#admin-menu-wrapper > ul').eq(1)
+      .append($tabs.find('li').addClass('admin-menu-tab'));
+    $(context).find('ul.tabs.secondary')
+      .appendTo('#admin-menu-wrapper > ul > li.admin-menu-tab.active')
+      .removeClass('secondary');
+    $tabs.remove();
   }
 };
 

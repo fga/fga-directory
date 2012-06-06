@@ -147,10 +147,8 @@ function views_ui_admin_menu_map() {
     return;
   }
   $views = array();
-  foreach (views_get_all_views() as $name => $view) {
-    if (!$view->disabled) {
-      $views[] = $name;
-    }
+  foreach (views_get_enabled_views() as $name => $view) {
+    $views[] = $name;
   }
   if (empty($views)) {
     return;

@@ -65,6 +65,7 @@ function admin_menu_menu() {
   // @see http://drupal.org/project/js
   $items['js/admin_menu/cache'] = array(
     'page callback' => 'admin_menu_js_cache',
+    'delivery callback' => 'admin_menu_deliver',
     'access arguments' => array('access administration menu'),
     'type' => MENU_CALLBACK,
   );
@@ -134,6 +135,21 @@ function admin_menu_menu_link_delete($link) {
 }
 
 /**
+ * Implements hook_system_info_alter().
+ *
+ * Indicate that the 'page_bottom' region (in which the administration menu
+ * is displayed) is an overlay supplemental region that should be refreshed
+ * whenever its content is updated.
+ *
+ * @see toolbar_system_info_alter()
+ */
+function admin_menu_system_info_alter(&$info, $file, $type) {
+  if ($type == 'theme') {
+    $info['overlay_supplemental_regions'][] = 'page_bottom';
+  }
+}
+
+/**
  * Implements hook_page_build().
  */
 function admin_menu_page_build(&$page) {
@@ -148,25 +164,26 @@ function admin_menu_page_build(&$page) {
   $path = drupal_get_path('module', 'admin_menu');
 
   $page['page_bottom']['admin_menu'] = array(
-    '#markup' => admin_menu_output(),
     '#attached' => array(),
   );
   $attached = &$page['page_bottom']['admin_menu']['#attached'];
+  $options = array('every_page' => TRUE);
 
-  $attached['css'][] = $path . '/admin_menu.css';
+  $attached['css'][$path . '/admin_menu.css'] = $options;
   if ($user->uid == 1) {
-    $attached['css'][] = $path . '/admin_menu.uid1.css';
+    $attached['css'][$path . '/admin_menu.uid1.css'] = $options;
   }
   // Previous versions used the 'defer' attribute to increase browser rendering
   // performance. At least starting with Firefox 3.6, deferred .js files are
   // loaded, but Drupal.behaviors are not contained in the DOM when drupal.js
   // executes Drupal.attachBehaviors().
-  $attached['js'][] = $path . '/admin_menu.js';
+  $attached['js'][$path . '/admin_menu.js'] = $options;
 
   // Destination query strings are applied via JS.
   $settings['destination'] = drupal_http_build_query(drupal_get_destination());
 
-  // Hash for client-side HTTP/AJAX caching.
+  // If the client supports JavaScript and we have a cached menu for the current
+  // user, only output the hash for the client-side HTTP cache callback URL.
   $cid = 'admin_menu:' . $user->uid . ':' . session_id() . ':' . $language->language;
   if (!empty($_COOKIE['has_js']) && ($hash = admin_menu_cache_get($cid))) {
     $settings['hash'] = $hash;
@@ -178,6 +195,10 @@ function admin_menu_page_build(&$page) {
     // those components, and since url('') returns only base_path() when clean
     // URLs are disabled, we need to use a replacement token as path.  Yuck.
     $settings['basePath'] = url('admin_menu');
+  }
+  // Otherwise, add the full menu to the page.
+  else {
+    $page['page_bottom']['admin_menu']['#markup'] = admin_menu_output();
   }
 
   $replacements = module_invoke_all('admin_menu_replacements');
@@ -299,48 +320,65 @@ function admin_menu_cache_set($cid, $data) {
 
 /**
  * Menu callback; Output administration menu for HTTP caching via AJAX request.
+ *
+ * @see admin_menu_deliver()
  */
-function admin_menu_js_cache($hash = NULL) {
-  // Get the rendered menu.
-  $content = admin_menu_output();
+function admin_menu_js_cache() {
+  global $conf;
 
-  // @todo According to http://www.mnot.net/blog/2006/05/11/browser_caching,
-  //   IE will only cache the content when it is compressed.
-  // Determine if the client accepts gzipped data.
-  if (isset($_SERVER['HTTP_ACCEPT_ENCODING'])) {
-    if (strpos($_SERVER['HTTP_ACCEPT_ENCODING'], 'x-gzip') !== FALSE) {
-      $encoding = 'x-gzip';
-    }
-    elseif (strpos($_SERVER['HTTP_ACCEPT_ENCODING'], 'gzip') !== FALSE) {
-      $encoding = 'gzip';
-    }
-    // Perform gzip compression when:
-    // 1) the user agent supports gzip compression.
-    // 2) Drupal page compression is enabled. Sites may wish to perform the
-    //    compression at the web server level (e.g. using mod_deflate).
-    // 3) PHP's zlib extension is loaded, but zlib compression is disabled.
-    if (isset($encoding) && variable_get('page_compression', TRUE) && extension_loaded('zlib') && zlib_get_coding_type() === FALSE) {
-      // Use Vary header to tell caches to keep separate versions of the menu
-      // based on user agent capabilities.
-      header('Vary: Accept-Encoding');
-      // Since we manually perform compression, we are also responsible to
-      // send a proper encoding header.
-      header('Content-Encoding: ' . $encoding);
-      $content = gzencode($content, 9, FORCE_GZIP);
-    }
+  // Enforce page caching.
+  $conf['cache'] = 1;
+  drupal_page_is_cacheable(TRUE);
+
+  // If we have a cache, serve it.
+  // @see _drupal_bootstrap_page_cache()
+  $cache = drupal_page_get_cache();
+  if (is_object($cache)) {
+    header('X-Drupal-Cache: HIT');
+    // Restore the metadata cached with the page.
+    $_GET['q'] = $cache->data['path'];
+    date_default_timezone_set(drupal_get_user_timezone());
+
+    drupal_serve_page_from_cache($cache);
+
+    // We are done.
+    exit;
   }
 
-  $max_age = 3600 * 24 * 365;
-  header('Expires: ' . gmdate(DATE_RFC1123, REQUEST_TIME + $max_age));
-  header('Last-Modified: ' . gmdate(DATE_RFC1123, REQUEST_TIME));
-  header('Cache-Control: max-age=' . $max_age . ', private');
-  header('Content-Length: ' . drupal_strlen($content));
-  header('Content-Type: text/html; charset=utf-8');
+  // Otherwise, create a new page response (that will be cached).
+  header('X-Drupal-Cache: MISS');
 
-  // Suppress Devel module.
-  $GLOBALS['devel_shutdown'] = FALSE;
-  echo $content;
-  exit;
+  // The Expires HTTP header is the heart of the client-side HTTP caching. The
+  // additional server-side page cache only takes effect when the client
+  // accesses the callback URL again (e.g., after clearing the browser cache or
+  // when force-reloading a Drupal page).
+  $max_age = 3600 * 24 * 365;
+  drupal_add_http_header('Expires', gmdate(DATE_RFC1123, REQUEST_TIME + $max_age));
+  drupal_add_http_header('Cache-Control', 'private, max-age=' . $max_age);
+
+  // Retrieve and return the rendered menu.
+  return admin_menu_output();
+}
+
+/**
+ * Delivery callback for client-side HTTP caching.
+ *
+ * @see admin_menu_js_cache()
+ */
+function admin_menu_deliver($page_callback_result) {
+  drupal_add_http_header('Content-Type', 'text/html; charset=utf-8');
+
+  // Send appropriate language header for browsers.
+  global $language;
+  drupal_add_http_header('Content-Language', $language->language);
+
+  // The page callback is always admin_menu_js_cache(), which always returns a
+  // string, and is only accessed when the user actually has access to it.
+  // Therefore, we do not care for the other possible page callback results.
+  print $page_callback_result;
+
+  // Perform end-of-request tasks. The page cache is created here.
+  drupal_page_footer();
 }
 
 /**
@@ -398,27 +436,19 @@ function admin_menu_session_count($timestamp = 0, $anonymous = TRUE) {
  * Build the administration menu output.
  */
 function admin_menu_output() {
-  if (!user_access('access administration menu') || admin_menu_suppress(FALSE)) {
-    return;
-  }
   global $user, $language;
 
   $cache_server_enabled = variable_get('admin_menu_cache_server', TRUE);
   $cid = 'admin_menu:' . $user->uid . ':' . session_id() . ':' . $language->language;
 
-  // Do nothing at all here if the client supports client-side caching, the user
-  // has a hash, and is NOT requesting the cache update path. Consult the hash
-  // cache last, since it requires a DB request.
-  // @todo Implement a sanity-check to prevent permanent double requests; i.e.
-  //   what if the client-side cache fails for any reason and performs a second
-  //   request on every page?
-  if (!empty($_COOKIE['has_js']) && strpos($_GET['q'], 'js/admin_menu/cache') !== 0) {
-    if (admin_menu_cache_get($cid)) {
-      return;
-    }
-  }
-
   // Try to load and output administration menu from server-side cache.
+  // @todo Duplicates the page cache? Page cache ID contains the hash that is
+  //   generated at the bottom of this function, which is based on $content,
+  //   but logically identical to the $cid. Investigate whether not only the
+  //   cache_menu but also the cache_admin_menu could be dropped; the
+  //   client-side HTTP cache hash check could be based on a cid lookup in
+  //   cache_page instead? (i.e., one cache to rule them all) However,
+  //   cache_page is cleared very often.
   if ($cache_server_enabled) {
     $cache = cache_get($cid, 'cache_menu');
     if ($cache && isset($cache->data)) {
@@ -431,10 +461,16 @@ function admin_menu_output() {
     // Add site name as CSS class for development/staging theming purposes. We
     // leverage the cookie domain instead of HTTP_HOST to account for many (but
     // not all) multi-domain setups (e.g. language-based sub-domains).
-    $class_site = 'admin-menu-site' . drupal_strtolower(preg_replace('/[^a-zA-Z0-9-]/', '-', $GLOBALS['cookie_domain']));
+    $classes = 'admin-menu-site' . drupal_strtolower(preg_replace('/[^a-zA-Z0-9-]/', '-', $GLOBALS['cookie_domain']));
+    // Displace overlay.
+    // @see Drupal.overlay.create
+    // @see toolbar_preprocess_toolbar()
+    if (module_exists('overlay')) {
+      $classes .= ' overlay-displace-top';
+    }
     // @todo Always output container to harden JS-less support.
-    $content['#prefix'] = '<div id="admin-menu" class="' . $class_site . '"><div id="admin-menu-wrapper"><ul>';
-    $content['#suffix'] = '</ul></div></div>';
+    $content['#prefix'] = '<div id="admin-menu" class="' . $classes . '"><div id="admin-menu-wrapper">';
+    $content['#suffix'] = '</div></div>';
 
     // Load menu builder functions.
     module_load_include('inc', 'admin_menu');
@@ -483,7 +519,7 @@ function admin_menu_output() {
 function admin_menu_admin_menu_output_build(&$content) {
   // Unassign weights for categories below Configuration.
   // An alphabetical order is more natural for a dropdown menu.
-  if ($content['menu']['admin/config']) {
+  if (isset($content['menu']['admin/config'])) {
     foreach (element_children($content['menu']['admin/config']) as $key) {
       $content['menu']['admin/config'][$key]['#weight_original'] = $content['menu']['admin/config'][$key]['#weight'];
       unset($content['menu']['admin/config'][$key]['#weight']);
@@ -544,12 +580,10 @@ function admin_menu_admin_menu_output_alter(&$content) {
  *     - #description: Optional alternative text for the link, passed to l().
  *     - #options: Optional alternative text for the link, passed to l().
  *     The array key of each child element itself is passed as path for l().
- *   - depth: Current recursion level; internal use only.
  */
 function theme_admin_menu_links($variables) {
   $destination = &drupal_static('admin_menu_destination');
   $elements = $variables['elements'];
-  $depth = (isset($variables['depth']) ? $variables['depth'] : 0);
 
   if (!isset($destination)) {
     $destination = drupal_get_destination();
@@ -565,7 +599,6 @@ function theme_admin_menu_links($variables) {
   $elements['#sorted'] = TRUE;
 
   $output = '';
-  $depth_child = $depth + 1;
   foreach (element_children($elements) as $path) {
     // Early-return nothing if user does not have access.
     if (isset($elements[$path]['#access']) && !$elements[$path]['#access']) {
@@ -576,12 +609,11 @@ function theme_admin_menu_links($variables) {
       '#options' => array(),
     );
     // Render children to determine whether this link is expandable.
-    if (isset($elements[$path]['#type']) || isset($elements[$path]['#theme'])) {
-      $elements[$path]['#admin_menu_depth'] = $depth_child;
+    if (isset($elements[$path]['#type']) || isset($elements[$path]['#theme']) || isset($elements[$path]['#pre_render'])) {
       $elements[$path]['#children'] = drupal_render($elements[$path]);
     }
     else {
-      $elements[$path]['#children'] = theme('admin_menu_links', array('elements' => $elements[$path], 'depth' => $depth_child));
+      $elements[$path]['#children'] = theme('admin_menu_links', array('elements' => $elements[$path]));
       if (!empty($elements[$path]['#children'])) {
         $elements[$path]['#attributes']['class'][] = 'expandable';
       }
@@ -622,8 +654,8 @@ function theme_admin_menu_links($variables) {
   }
   // @todo #attributes probably required for UL, but already used for LI.
   // @todo Use $element['#children'] here instead.
-  if ($output && $depth > 0) {
-    $output = "\n<ul>" . $output . '</ul>';
+  if ($output) {
+    $output = "\n" . '<ul class="dropdown">' . $output . '</ul>';
   }
   return $output;
 }

@@ -16,9 +16,16 @@ function admin_menu_toolbar_page_build(&$page) {
   }
   $path = drupal_get_path('module', 'admin_menu_toolbar');
   $attached = &$page['page_bottom']['admin_menu']['#attached'];
+  $options = array('every_page' => TRUE);
 
-  $attached['css'][] = $path . '/admin_menu_toolbar.css';
-  $attached['js'][] = $path . '/admin_menu_toolbar.js';
+  $attached['css'][$path . '/admin_menu_toolbar.css'] = $options;
+  $attached['js'][$path . '/admin_menu_toolbar.js'] = $options;
+
+  // @todo Stop-gap fix until cached rendering is resolved.
+  // @see http://drupal.org/node/1567622
+  if (module_exists('shortcut')) {
+    $attached['css'][drupal_get_path('module', 'shortcut') . '/shortcut.css'] = $options;
+  }
 
   $settings = array();
   // Add current path to support menu item highlighting.
@@ -41,29 +48,32 @@ function admin_menu_toolbar_page_build(&$page) {
  * Implements hook_admin_menu_output_build().
  */
 function admin_menu_toolbar_admin_menu_output_build(&$content) {
-  // Add shortcuts menu.
-  $content['shortcuts'] = array(
-    '#theme' => 'admin_menu_links',
+  // Add shortcuts toggle.
+  $content['shortcut-toggle'] = array(
+    '#access' => module_exists('shortcut'),
     '#weight' => -200,
-  );
-  $content['shortcuts']['shortcuts'] = array(
+    '#type' => 'link',
     '#title' => t('Show shortcuts'),
-    // @todo How do we want to trigger/store state?
-    '#attributes' => array('class' => array('admin-menu-shortcuts')),
-    //'#attributes' => array('class' => array('admin-menu-shortcuts', 'admin-menu-shortcuts-active')),
+    '#href' => '',
     '#options' => array(
-      'attributes' => array('class' => 'toggle'),
+      'attributes' => array('class' => 'shortcut-toggle'),
     ),
   );
-  // @todo Copy this from $content['menu'] instead.
-  $content['shortcuts']['shortcuts']['node-add'] = array(
-    '#title' => t('Add content'),
-    '#href' => 'node/add',
+
+  // Add shortcuts bar.
+  $content['shortcut'] = array(
+    '#access' => module_exists('shortcut'),
+    '#weight' => 200,
+    '#prefix' => '<div class="shortcut-toolbar">',
+    '#suffix' => '</div>',
   );
-  $content['shortcuts']['shortcuts']['admin-content-node'] = array(
-    '#title' => t('Find content'),
-    '#href' => 'admin/content/node',
-    '#access' => user_access('administer nodes'),
+  $content['shortcut']['shortcuts'] = array(
+    // Shortcut module's CSS relies on Toolbar module's markup.
+    // @see http://drupal.org/node/1217038
+    '#prefix' => '<div id="toolbar">',
+    '#suffix' => '</div>',
+    // @todo Links may contain .active-trail classes.
+    '#pre_render' => array('shortcut_toolbar_pre_render'),
   );
 }
 

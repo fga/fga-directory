@@ -13,6 +13,9 @@
 html body.admin-menu {
   margin-top: 29px !important;
 }
+html body.admin-menu-with-shortcuts {
+  margin-top: 65px !important;
+}
 body div#toolbar {
   top: 30px;
 }
@@ -25,7 +28,6 @@ body div#toolbar {
  */
 #admin-menu {
   font: normal small "Lucida Grande", Verdana, sans-serif;
-  position: fixed;
   margin: 0 -20px;
   padding: 0 20px;
   -moz-box-shadow: 0 3px 20px #000;
@@ -39,22 +41,22 @@ body div#toolbar {
   padding: 5px 10px 0;
 }
 
-#admin-menu ul a {
+#admin-menu .dropdown a {
   color: #fafafa;
 }
 
 /* Remove border from all lists and actions */
-#admin-menu li.admin-menu-action a {
+#admin-menu .dropdown .admin-menu-action a {
   border-left: 0;
 }
-#admin-menu li.admin-menu-icon > a {
+#admin-menu .dropdown .admin-menu-icon > a {
   padding: 2px 10px 3px;
 }
 
 /**
  * Administration menu.
  */
-#admin-menu li.admin-menu-icon > a span {
+#admin-menu .dropdown .admin-menu-icon > a span {
   vertical-align: text-bottom;
   width: 11px;
   height: 14px;
@@ -62,92 +64,83 @@ body div#toolbar {
   background: url(toolbar.png) no-repeat 0 -45px;
   text-indent: -9999px;
 }
-#admin-menu > div > ul > li > a {
+#admin-menu > div > .dropdown > li > a {
   border-right: 0;
   margin-bottom: 4px;
   padding: 2px 10px 3px;
 }
-#admin-menu ul li.admin-menu-toolbar-category > a,
-#admin-menu ul li.admin-menu-action > a {
+#admin-menu .dropdown .admin-menu-toolbar-category > a,
+#admin-menu .dropdown .admin-menu-action > a {
   border-radius: 10px;
   -moz-border-radius: 10px;
   -webkit-border-radius: 10px;
 }
-#admin-menu ul li.admin-menu-toolbar-category > a.active-trail {
+#admin-menu .dropdown .admin-menu-toolbar-category > a.active-trail {
   text-shadow: #333 0 1px 0;
   background: url(toolbar.png) 0 0 repeat-x;
 }
-#admin-menu ul li.admin-menu-toolbar-category > a:hover {
+#admin-menu .dropdown .admin-menu-toolbar-category > a:hover {
   background-color: #444;
 }
-#admin-menu ul li.admin-menu-tab a {
+#admin-menu .dropdown .admin-menu-tab a {
   border-right: 0;
 }
-#admin-menu li li.expandable ul {
+#admin-menu .dropdown li li.expandable ul {
   margin: -22px 0 0 160px;
 }
 
 /**
  * Shortcuts toggle.
  */
-#admin-menu li.admin-menu-shortcuts {
-  float: right;
-}
-#admin-menu li.admin-menu-shortcuts span.toggle {
+#admin-menu .shortcut-toggle {
   cursor: pointer;
   background: url(toolbar.png) 0 -20px no-repeat;
   display: block;
+  float: right;
   margin: 0 0 0 1.3em;
   text-indent: -9999px;
   overflow: hidden;
   width: 25px;
   height: 25px;
 }
-#admin-menu li.admin-menu-shortcuts span.toggle:focus,
-#admin-menu li.admin-menu-shortcuts span.toggle:hover {
+#admin-menu .shortcut-toggle:focus,
+#admin-menu .shortcut-toggle:hover {
   background-position: -50px -20px;
 }
-#admin-menu li.admin-menu-shortcuts-active span.toggle {
+#admin-menu .shortcut-toggle.active {
   background-position: -25px -20px;
 }
-#admin-menu li.admin-menu-shortcuts-active span.toggle:focus,
-#admin-menu li.admin-menu-shortcuts-active span.toggle:hover {
+#admin-menu .shortcut-toggle.active:focus,
+#admin-menu .shortcut-toggle.active:hover {
   background-position: -75px -20px;
 }
 
 /**
  * Shortcuts widget.
  */
-#admin-menu li.admin-menu-shortcuts-active ul {
-  display: block !important;
-  left: 20px !important;
-  right: 20px;
-  width: auto;
-}
-#admin-menu li.admin-menu-shortcuts ul {
+#admin-menu .shortcut-toolbar {
   background-color: #666;
-  left: 20px !important;
-  padding: 5px 10px;
-  right: 20px;
-  width: auto;
+  clear: both;
+  display: none;
+  margin: 0 -10px;
+  overflow: hidden;
+  /* Align with icon; @see shortcut.css */
+  padding-left: 5px;
 }
-#admin-menu li.admin-menu-shortcuts ul li {
-  background: transparent none;
-  opacity: 1;
-  width: auto;
+#admin-menu .shortcut-toolbar.active {
+  display: block;
 }
-#admin-menu li.admin-menu-shortcuts ul li a {
-  border-radius: 5px;
-  -moz-border-radius: 5px;
-  -webkit-border-radius: 5px;
-  border-top: 0;
-  padding: 5px 10px 5px 5px;
-  margin-right: 5px;
+/* Override theme list style; @see shortcut.css */
+#admin-menu .shortcut-toolbar ul {
+  margin: 0;
 }
-#admin-menu li.admin-menu-shortcuts ul li a:hover {
-  background: #555;
+/* @see toolbar.css */
+#admin-menu .shortcut-toolbar li {
+  float: left;
+  list-style-image: none;
+  list-style-type: none;
 }
-#admin-menu li.admin-menu-shortcuts ul li a.active:hover,
-#admin-menu li.admin-menu-shortcuts ul li a.active {
-  background: url(toolbar.png) 0 -20px repeat-x;
+#admin-menu .shortcut-toolbar a {
+  display: block;
 }
+
