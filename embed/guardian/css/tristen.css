@@ -1,0 +1,625 @@
+/* ------------------------------------------
+ *  Reset ♥
+ *  http://meyerweb.com/eric/tools/css/reset/
+ *  v2.0 | 20110126
+ *  License: none (public domain)
+ * ---------------------------------------------*/
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+margin: 0;
+padding: 0;
+border: 0;
+font-size: 100%;
+font: inherit;
+vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+display: block;
+}
+body { line-height: 1; }
+ol, ul { list-style: none;  }
+blockquote, q { quotes: none; }
+blockquote:before, blockquote:after,
+q:before, q:after { content: ''; content: none; }
+/* tables still need 'cellspacing='0'' in the markup */
+table { border-collapse: collapse; border-spacing: 0; }
+/* remember to define focus styles. Hee Haw */
+:focus { outline: 0; }
+
+html, body{
+	height: 100%;
+}
+
+body {
+  font: 15px/24px 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  background: #fff;
+  color: #404040;
+  font-weight: normal;
+  margin: 0 10px;
+ }
+
+/*-----------------------------------
+  Typography
+-------------------------------------*/
+h1,h2,h3,h4,h5,h6 {
+  margin: 0;
+  font-weight: bold;
+}
+
+h1 a,h2 a,h3 a,h4 a,h5 a,h6 a {
+  color: #404040;
+  border-bottom: none!important;
+  }
+h1 { font-size: 33px; line-height: 38px; }
+h2 { font-size: 23px; line-height: 34px; margin-bottom: 5px; padding-top: 10px; }
+h3 { font-size: 17px; line-height: 26px; }
+h4 { font-size: 15px; line-height: 22px; margin: 10px 0; }
+h5 { font-size: 18px; line-height: 22px; margin: 10px 0; }
+h6 { font-size: 11px; line-height: 18px; margin: 10px 0; }
+p {
+  font-size: 15px;
+  line-height: 24px;
+  color: #6D746D;
+  margin: 10px 0;
+  word-wrap: break-word;
+  }
+strong {
+  font-weight: bold;
+  }
+a {
+  color: #0085BD;
+  text-decoration: none;
+  line-height: inherit;
+  font-weight: inherit;
+  }
+input {
+  font: normal 13px/18px 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  margin: 0;
+  font-size: 100%;
+  vertical-align: middle;
+  *overflow: visible;
+  line-height: normal;
+  -webkit-appearance: textfield;
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+  -webkit-appearance: none;
+  display: inline-block;
+  width: 210px;
+  height: 18px;
+  padding: 4px;
+  color: #555555;
+  border: 1px solid #303030;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  -webkit-transition: border linear 0.2s, box-shadow linear 0.2s;
+  -moz-transition: border linear 0.2s, box-shadow linear 0.2s;
+  -ms-transition: border linear 0.2s, box-shadow linear 0.2s;
+  -o-transition: border linear 0.2s, box-shadow linear 0.2s;
+  transition: border linear 0.2s, box-shadow linear 0.2s;
+  }
+input:focus {
+  border-color: rgb(0,0,0);
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075), 0 0 8px rgba(0,0,0,0.6);
+  -moz-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075), 0 0 8px rgba(0,0,0,0.6);
+  box-shadow: inset 0 1px 1px rgba(0,0,0,0.075), 0 0 8px rgba(0,0,0,0.6);
+  outline: 0;
+  outline: thin dotted \9;
+  }
+
+/*-----------------------------------
+  Map
+-------------------------------------*/
+
+#page {  
+  width:900px;
+  height:700px;
+}
+
+#map {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width:900px;
+  height:700px;
+}
+
+	body{
+		font-family: 'Lato', sans-serif;
+		font-size: 14px;
+		background: #424242;
+	}
+
+	h1, h2, h3, h4{
+		font-weight: 300;
+		color:#aaa;
+		text-decoration: italic;
+		padding: 0;	
+		margin: 0 0 .5em 0;
+	}
+
+	h1{ font-size: 48px; }
+	h2{ font-size: 36px; }
+	h3{ font-size: 24px; }
+	h4{ font-size: 18px; }
+
+
+
+	/* Overlay */
+	#overlay {
+		height: 70px;
+	  position: absolute;
+	  top: 0;
+	  left: 0;
+	  right: 0;
+	  bottom: 0;
+	  z-index: 2;	
+		padding: .5em 1em;
+	  position: fixed;
+	}
+	
+	#overlay h1{
+		position: abosolute;
+		bottom: 10px;
+		left: 10px;
+		color: #eee;
+		text-shadow: black 1px 1px 0.125em
+		font-size: 17px;
+		line-height: 26px;
+	}
+	
+	#overlay form.location input[type='text']{
+		border: 1px #444 solid;
+		font-size: 12px;
+		background: #000;
+		line-height: 1.2;
+		float: left;
+		margin: .675em .5em .5em .5em;
+	}
+	
+/* Tooltip */
+
+/*
+  .wax-tooltip{
+    top: 214px;
+    position: absolute;
+    z-index: 100 !important;
+    left: 50%;
+    width: 600px;
+  }
+
+  .wax-tooltip h3.listTitle{
+  }
+
+  .tooltip-inner{
+    width: 600px;
+    position: relative;
+    overflow: hidden;
+    height: 280px;
+    background: ##e6e6e6;
+    box-shadow: rgb(136, 136, 136) 2px 2px 10px;
+    border-radius: 6px;
+    position: relative; 
+    left: -300px;
+  }
+
+  .wax-tooltip .listTitle,
+  .wax-tooltip .icon.cancel{
+    display: inline-block;
+    position: relative;
+    margin: 0;
+  }
+
+  .wax-tooltip .listTitle{
+    margin-top: .5em;
+    padding: 0em 0 .25em 1em;
+    font-weight: normal;
+    color: #666;
+  }
+
+  .wax-tooltip .icon.cancel{
+    float: right;
+    margin: 1em .5em 0 0;
+    text-decoration: none;
+    background: #dedede;
+    color: #666;
+    display: block;
+    padding: .125em;
+    width: 15px;
+    height: 15px;
+    line-height: 13px;
+    text-align: center;
+    border-radius: 8px;
+  }
+
+  .wax-tooltip div.tipContent{
+    height: 190px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    list-style: none;
+    border-top: 1px #dedede solid;
+    background: #eee;
+    padding: 1em 1.5em 1em 1.5em;
+  }
+
+*/
+
+
+/* Thiago ///////////////////////////*/
+
+
+/* LEGEND */
+
+.wax-legends,
+.wax-legend {
+  margin: 0px !important;
+  padding: 0px !important;
+  border: none !important;
+  background: none !important;
+}
+
+.wax-legends {
+  left: 15px;
+}
+
+.wax-legend {
+  height: 36px !important;
+  width: 400px !important;
+  box-shadow:none !important;
+  -webkit-box-shadow:none !important;
+  -moz-box-shadow:none !important;
+}
+
+
+#legend h1 {
+  font: 26px/26px Lato, Arial, sans-serif !important;
+  text-shadow: 1px 1px 1px #333 !important;
+}
+#legend h1 a {
+  color: #fff;
+}
+#legend h1 a:hover {
+  color:#489;
+}
+
+
+/* TEASER */
+.tooltip-teaser {
+  font-family: 12px/15px 'Lato', sans-serif !important;
+  padding: 1em !important;
+}
+
+.tooltip-teaser h3,
+.tooltip-teaser h6{
+  font-weight: 300;
+  color:#000;
+  padding: 0;  
+}
+
+.tooltip-teaser h3{
+  word-wrap: break-word;
+  font-size: 20px;
+  line-height: 1.25em;
+  padding: 0 0 .25em;
+}
+
+
+.tooltip-teaser .occupation-title {
+  border-bottom: 1px #666 solid;
+  margin-bottom: 1em;
+}
+
+.tooltip-teaser div.founded {
+  float:right;
+  clear: both;
+  margin-bottom: .75em;
+}
+
+.tooltip-teaser .founded .bday{
+}
+
+.tooltip-teaser .founded h6.label{
+  float: left !important;
+  display: inline-block;
+  border-right: 1px #bababa solid;
+  padding-right: .5em;
+  margin: 0 .5em 0 0;
+  color: #bababa;
+}
+
+
+/* FULL */
+
+/*-----------------------------------
+  Util
+-------------------------------------*/
+
+.clearfix:before,
+.clearfix:after {
+  content: '\0020';
+  display: block;
+  overflow: hidden;
+  visibility: hidden;
+  width: 0;
+  height: 0;
+}
+
+.listing:after,
+.clearfix:after {
+  clear: both;
+}
+
+/*
+  The following zoom:1 rule is specifically for IE6 + IE7.
+  Move to separate stylesheet if invalid CSS is a problem.
+*/
+
+.listing,
+.clearfix {
+  zoom: 1;
+}
+
+
+/*-----------------------------------
+  Map
+-------------------------------------*/
+
+
+.wax-tooltip{
+  position: absolute;
+  right: 0 !important;
+  top:0 !important;
+  -webkit-border-radius: 0 !important;
+  -moz-border-radius:  0 !important;
+  border-radius:  0 !important;
+  box-shadow:none !important;
+  -webkit-box-shadow:none !important;
+  -moz-box-shadow:none !important;
+  border:0 !important;
+  padding: 0 !important;
+  width: 290px;
+  z-index: auto;
+  height: 700px !important;
+  overflow: auto;
+  background: url( 'http://dev.fga-directory.gotpantheon.com/embed/guardian/bg_white60.png' );
+  
+}
+
+.wax-tooltip a.close{
+  display: block;
+  position: absolute !important;
+  top: 10px !important;
+  right: 10px !important;
+  /*
+  right: 1em;
+  width: 15px;
+  height: 15px;
+  line-height: 14.75px;
+  text-align: center;
+  background: #000;
+  */
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
+  color:#aaa;
+}
+
+.wax-tooltip a.close:hover{
+  background: #489;
+  color: #000;
+}
+
+.tooltip-inner {
+  font-family: 12px/15px 'Lato', sans-serif !important;
+  padding: .5em;
+}
+
+.tooltip-inner .vcard,
+.tooltip-inner .info,
+.tooltip-inner .listings{
+  padding: 1em;
+  margin-bottom: .5em;
+  background: url( 'http://dev.fga-directory.gotpantheon.com/embed/guardian/bg_white60.png');
+}
+.tooltip-inner .vcard {
+  padding: 2em 1em 1em;
+}
+
+.tooltip-inner .listings ul{
+  margin-bottom: 1.5em;
+}
+
+.tooltip-inner .founded{
+  clear: both;
+  margin-bottom: .75em;
+}
+
+.tooltip-inner .founded .bday{
+  line-height: 18px;
+}
+
+.tooltip-inner .founded h6.label{
+  float: left !important;
+  display: inline-block;
+  border-right: 1px #bababa solid;
+  padding-right: .5em;
+  margin-right: .5em;
+}
+
+.tooltip-inner .occupation-description{
+  clear: both;
+}
+
+.tooltip-inner .website-url,
+.tooltip-inner .general-email-address{
+  clear: both;
+  
+}
+
+/* hide geo */
+.tooltip-inner .geo{
+  display: none;
+}
+
+.tooltip-inner .taglink a{
+  display: block;
+  text-decoration: none;
+  background: #bababa;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  padding:.25em .5em;
+  margin: .125em;
+  background: #000;
+}
+
+.tooltip-inner a{
+  text-decoration: underline;
+  color: #489;
+}
+
+.tooltip-inner .adr,
+.tooltip-inner .general-phone{
+  margin-top: 1.5em;
+}
+
+.tooltip-inner .listings ul li:hover a,
+.tooltip-inner .listings li:hover a:hover{
+  background: #489;
+  color: #000;
+}
+
+.tooltip-inner .listings ul li{
+  float: left;
+}
+
+.tooltip-inner .occupation-directory-url,
+.tooltip-inner .website-url,
+.tooltip-inner .general-email-address,
+.tooltip-inner .listings ul li a{
+  text-decoration: none;
+}
+
+.tooltip-inner .occupation-image{
+  float: left;
+  margin: 0 1em 0 0;
+  -moz-box-shadow: 1px 1px 8px #ccc;
+  -webkit-box-shadow: 1px 1px 8px #ccc;
+  box-shadow: 1px 1px 8px #ccc;
+}
+
+.tooltip-inner .occupation-title{
+border-bottom: 1px #000 solid;
+margin-bottom: 1em;
+}
+
+.tooltip-inner .occupation-description{
+  font-size: 15px;
+  line-height: 18px;
+}
+
+.tooltip-inner h1,
+.tooltip-inner h2,
+.tooltip-inner h3,
+.tooltip-inner h4,
+.tooltip-inner h5,
+.tooltip-inner h6{
+    font-weight: 300;
+    color:#000;
+    padding: 0;  
+    margin: 0 0 .25em 0;
+  }
+
+.tooltip-inner h1{ font-size: 48px; }
+.tooltip-inner h2{ font-size: 36px; }
+.tooltip-inner h3{
+  word-wrap: break-word;
+  font-size: 21px;
+  line-height: 1.2;
+  border-top: none !important;
+}
+.tooltip-inner h4{ font-size: 18px; }
+
+.tooltip-inner h6.label{
+  margin-top: 0;
+  font-size: 15px;
+  line-height: 18px;
+  color: #000;
+}
+
+  /* Overlay */
+  #overlay{
+    height: 40px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 2;  
+    padding: .5em 1em;
+    position: fixed;
+  }
+  
+  #overlay h2{
+    float: left;
+    color: #eee;
+    text-shadow: black 1px 1px 0.125em
+  }
+  
+  #overlay form.location input[type='text']{
+    border: 1px #444 solid;
+    font-size: 12px;
+    background: #000;
+    line-height: 1.2;
+    float: right;
+    margin: .675em .5em .5em .5em;
+  }
+  
+  
+  
+/*  
+  .wax-tooltip a.close {
+    background: #fff url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAN1wAADdcBQiibeAAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAACNSURBVBiVjZDBDcMwCEWfPUUHyMFLVMJjZARPlBEyBpG6RA8ZwFvQy3fk9BRO6POAD8nMCrABq7t3pqi1voAdaFmQAa7CDLlqWzKzIRTgC1SxNy1FxNxdgFPgMiB37yki5lUfAajhPXxnHkb+M75o0qn8OvDxMVl/ugR37/JVpRVgz0ADjgENTxN8AO0Hd4JA8B6QADMAAAAASUVORK5CYII=) no-repeat center center;
+    color: #000;
+    text-shadow: 0 1px 0 white;
+    opacity: 0.2;
+    filter: alpha(opacity=20);
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    font-weight: bold;
+    text-decoration: none;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    border: 1px solid #404040;
+    display: block;
+    width: 40px;
+    height: 20px;
+    font-size: 20px;
+    line-height: 15px;
+    text-align: center;
+    text-indent: -999em;
+    }
+
+    .wax-tooltip a.close:hover,
+    .wax-tooltip a.close:active {
+      opacity: 0.4;
+      filter: alpha(opacity=40);
+    }*/
