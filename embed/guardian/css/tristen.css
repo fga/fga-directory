@@ -381,7 +381,7 @@ input:focus {
 -------------------------------------*/
 
 
-.wax-tooltip{
+.wax-tooltip {
   position: absolute;
   right: 0 !important;
   top:0 !important;
@@ -397,7 +397,7 @@ input:focus {
   z-index: auto;
   height: 700px !important;
   overflow: auto;
-  background: url( 'http://dev.fga-directory.gotpantheon.com/embed/guardian/bg_white60.png' );
+  background: url( 'img/bg_white60.png' );
   
 }
 
@@ -593,7 +593,7 @@ margin-bottom: 1em;
   
   
   
-/*  
+
   .wax-tooltip a.close {
     background: #fff url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAN1wAADdcBQiibeAAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAACNSURBVBiVjZDBDcMwCEWfPUUHyMFLVMJjZARPlBEyBpG6RA8ZwFvQy3fk9BRO6POAD8nMCrABq7t3pqi1voAdaFmQAa7CDLlqWzKzIRTgC1SxNy1FxNxdgFPgMiB37yki5lUfAajhPXxnHkb+M75o0qn8OvDxMVl/ugR37/JVpRVgz0ADjgENTxN8AO0Hd4JA8B6QADMAAAAASUVORK5CYII=) no-repeat center center;
     color: #000;
@@ -622,4 +622,4 @@ margin-bottom: 1em;
     .wax-tooltip a.close:active {
       opacity: 0.4;
       filter: alpha(opacity=40);
-    }*/
+    }
