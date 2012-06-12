@@ -1,31 +1,41 @@
+<!-- iframe for the Guardian embed -->
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="UTF-8" />
+  <head>
+    <meta charset=utf-8 />
     <title>#occupy directory world map</title>
     <link href='http://fonts.googleapis.com/css?family=Lato:100,300,100italic,300italic' rel='stylesheet' type='text/css'>
-    <!-- <link rel="stylesheet" href="fonts/fonts.css" type="text/css" /> -->
-    <link rel="stylesheet" href="css/chris.css" type="text/css" />
+  </head>
+  <body>
+
+    <link rel='stylesheet' href='css/chris.css' type='text/css' media='all' />
     <link rel='stylesheet' href='css/tooltip.css' type='text/css' media='all' />
-    <link rel='stylesheet' href='css/tristen.css' type='text/css' media='all' />
+    <link rel="stylesheet" href="css/tristen.css" type="text/css" />
+    
+    <!-- TODO: untangle above CSS into a single stylesheet below -->
+    
+    <link rel="stylesheet" href="css/guardian.css" type="text/css" />
+    
+
 </head>
 <body>
-
+  
   <!-- template based on http://mapbox.com/map-sites/ -->
   <div id="header">
-    <h1>#occupy directory</h1>
+    <!-- <h1><a href='http://directory.occupy.net' target='_blank'>#occupy directory</a></h1> -->
   </div>
+     
+   <div id="map" class="map"></div>
 
-   <div data-control='geocode' id="search">
-      <form class="geocode">
-        <input placeholder='Search for an Occupation' type="text">
-        <input type='submit' />
-        <div id='geocode-error'></div>
-      </form>
-  </div>
-
-  <div id="map" class="map"></div>
-
+    <div data-control='geocode' id="search">
+       <form class="geocode">
+         <input placeholder='Search for an Occupation' type="text">
+         <input type='submit' />
+         <div id='geocode-error'></div>
+       </form>
+   </div>
+  
+    
   <!-- External libraries and site script -->
   <script src="ext/jquery.min.js"></script>
   <script src="ext/modestmaps.min.js"></script>
@@ -33,7 +43,7 @@
   <script src="ext/wax/wax.ext.js"></script>
   <script src="ext/easey.js"></script>
   <script src="ext/mmg.js"></script>
-  <script src="chris.js"></script>
+  <script src="guardian.js"></script>
 
 
   <!-- Site configuration -->
@@ -43,14 +53,14 @@
       var main = Map('map', {
           // Specify the MapBox API url
           //api:'http://a.tiles.mapbox.com/v3/occupy.map-7o6g1bgq,occupydirectory.water-base-3-to-8,occupydirectory.countries-3-8,occupydirectory.occupy-streets-points-3-11,occupydirectory.occupy-streets-points-1-3.jsonp',
-
+        
           api:'http://a.tiles.mapbox.com/v3/occupydirectory.map-lzygvfea.jsonp',
           center: {
-              lat: 15.9090033656251,      // Intial center point and zoom level.
-              lon: -14.014396158891,      // To find coordinates and zoom levels
-              zoom: 3                    // try: http://www.getlatlon.com
+              lat: 19,                   // Intial center point and zoom level.
+              lon: 9.7,                  // To find coordinates and zoom levels
+              zoom: 2                    // try: http://www.getlatlon.com
           },
-          zoomRange: [3, 11],             // Limit zooming on the map to these levels
+          zoomRange: [1.9, 11],             // Limit zooming on the map to these levels
           features: [                     // Map features (see readme.md)
               'zoomwheel',
               'tooltips',
@@ -59,8 +69,8 @@
               'legend'
           ]
       });
-
+    
   </script>
-
+  
 </body>
 </html>
