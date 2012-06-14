@@ -472,6 +472,10 @@ body.fullwidth-map {
 }
 /* /end footer hack */
 
+/* MORE HACKS */
+
+#admin-menu { margin:0 !important; }
+
 
 
 /* twitter pull styles */
