@@ -51,10 +51,12 @@
                         MM_map.interaction = wax.mm.interaction()
                             .map(MM_map)
                             .tilejson(t)
-                            .on(wax.tooltip()
-                                .parent(MM_map.parent)
-                                .events()
-                            );
+                            .on(
+															wax.tooltip()
+															.animate(true)
+															.parent(MM_map.parent)
+															.events()
+														)
                         break;
                     case 'movetips':
                         MM_map.interaction = wax.mm.interaction()
