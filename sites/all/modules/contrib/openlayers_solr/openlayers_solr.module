@@ -1,0 +1,190 @@
+<?php
+
+/**
+ * Implementation of hook_ctools_plugin_api().
+ * Required to provide layers
+ */
+function openlayers_solr_ctools_plugin_api() {
+  list($module, $api) = func_get_args();
+  if ($module == "openlayers" && $api == "openlayers_maps") {
+    return array("version" => 1);
+  }
+  if ($module == "openlayers" && $api == "openlayers_layers") {
+    return array("version" => 1);
+  }
+}
+
+/**
+ * One can have the 'features' => element point to a function
+ * or be built on the fly within the _layers method. However,
+ * close attention must be paid to ctools caching in order to
+ * insure that dynamic data stays dynamic
+ */
+function openlayers_solr_openlayers_layers() {
+
+  $layers = array();
+  /*
+  $layer->data = array(
+    'layer_type' => 'openlayers_layer_type_raw',
+    'projection' => array('900913'),
+    'features' => array(
+      array(
+      "wkt"=> "POINT(65 33)",
+      "projection"=> "4326",
+      "attributes"=>
+        array(
+          "name"=> "Afghanistan",
+          "description"=> "248"
+        )
+      )
+    )
+  );*/
+  $layer = new stdClass();
+  $layer->api_version = 1;
+  $layer->name = 'openlayers_solr';
+  $layer->title = 'Apachesolr Integration';
+  $layer->description = 'Default Layer for Apachesolr Integration with Openlayers';
+  $layer->data = array(
+    'layer_type' => 'openlayers_solr_type',
+    'projection' => array('900913'),
+    'features' => array(),
+  );
+  $layers[$layer->name] = $layer;
+
+
+  return $layers;
+}
+
+/**
+ * Implements hook_openlayers_layer_types()
+ */
+function openlayers_solr_openlayers_layer_types() {
+  return array(
+    'openlayers_solr_type' => array(
+      'title' => t('Apache Solr Integration'),
+      'description' => t('Apache Solr Integration'),
+      'layer_type' => array(
+        'path' => drupal_get_path('module', 'openlayers_solr') ,
+        'file' => 'openlayers_solr.layer.inc',
+        'class' => 'openlayers_solr_type',
+        'parent' => 'openlayers_layer_type_raw',
+      ),
+    ),
+  );
+}
+
+/**
+ * Implements hook_block_info().
+ */
+function openlayers_solr_block_info() {
+  return array(
+    'openlayer_solr_map' => array(
+      'info' => t('Open Layers Search Block'),
+    ),
+  );
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function openlayers_solr_block_view($delta = '') {
+  $block = array();
+
+  switch($delta) {
+    case 'openlayer_solr_map':
+      $block['content'] = openlayers_solr_map_block();
+      break;
+  }
+
+  return $block;
+}
+
+/**
+ * Display map for search
+ */
+function openlayers_solr_map_block() {
+  $map = variable_get('openlayers_solr_map', 'openlayers_solr');
+  return openlayers_render_map($map);
+}
+
+/**
+ * Implements hook_openlayers_maps().
+ */
+function openlayers_solr_openlayers_maps() {
+  $items = array();
+  $openlayers_maps = new stdClass;
+  $openlayers_maps->disabled = FALSE; /* Edit this to true to make a default openlayers_maps disabled initially */
+  $openlayers_maps->api_version = 1;
+  $openlayers_maps->name = 'openlayers_solr';
+  $openlayers_maps->title = 'Apachesolr Map';
+  $openlayers_maps->description = 'Map used in to display Apache Solr results';
+  $openlayers_maps->data = array(
+    'width' => 'auto',
+    'height' => '400px',
+    'image_path' => '',
+    'css_path' => '',
+    'proxy_host' => '',
+    'hide_empty_map' => 0,
+    'center' => array(
+      'initial' => array(
+        'centerpoint' => '0,0',
+        'zoom' => '2',
+      ),
+      'restrict' => array(
+        'restrictextent' => 0,
+        'restrictedExtent' => '',
+      ),
+    ),
+    'behaviors' => array(
+      'openlayers_behavior_attribution' => array(),
+      'openlayers_behavior_popup' => array(
+        'layers' => array(
+          'openlayers_solr' => 'openlayers_solr'
+        ),
+      ),
+      'openlayers_behavior_keyboarddefaults' => array(),
+      'openlayers_behavior_navigation' => array(
+        'zoomWheelEnabled' => 1,
+        'documentDrag' => 0,
+      ),
+      'openlayers_behavior_dragpan' => array(),
+      'openlayers_behavior_panzoombar' => array(),
+    ),
+    'openlayers_behavior_zoomtolayer' => array(
+      'zoomtolayer' => 'openlayers_solr',
+      'point_zoom_level' => '5',
+    ),
+    'default_layer' => 'osm_mapnik',
+    'layers' => array(
+      'osm_mapnik' => 'osm_mapnik',
+      'openlayers_solr' => 'openlayers_solr',
+    ),
+    'layer_weight' => array(
+      'openlayers_solr' => '0',
+      'geofield_formatter' => '0',
+    ),
+    'layer_styles' => array(
+      'geofield_formatter' => '0',
+      'openlayers_solr' => '0',
+    ),
+    'layer_activated' => array(
+      'openlayers_solr' => 'openlayers_solr',
+      'geofield_formatter' => 0,
+    ),
+    'layer_switcher' => array(
+      'geofield_formatter' => 0,
+      'openlayers_solr' => 0,
+    ),
+    'projection' => '900913',
+    'displayProjection' => '4326',
+    'styles' => array(
+      'default' => 'default',
+      'select' => 'default',
+      'temporary' => 'default',
+    ),
+    'map_name' => 'openlayers_solr',
+  );
+  $items["openlayers_solr"] = $openlayers_maps;
+
+  return $items;
+}
