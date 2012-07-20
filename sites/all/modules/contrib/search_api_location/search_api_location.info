@@ -1,0 +1,14 @@
+name = Search API location
+description = adds location based search to the Search API module
+package = Search
+core = 7.x
+
+files[] = includes/processor_location.inc
+files[] = views/handler_filter_location.inc
+
+; Information added by drupal.org packaging script on 2012-01-17
+version = "7.x-2.x-dev"
+core = "7.x"
+project = "search_api_location"
+datestamp = "1326761154"
+
