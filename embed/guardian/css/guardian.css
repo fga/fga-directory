@@ -52,7 +52,8 @@ q{
 
 blockquote:before,
 blockquote:after,
-q:before, q:after {
+q:before,
+q:after {
 	content: '';
 	content: none;
 }
@@ -75,29 +76,47 @@ body{
 }
 
 h1, h2, h3, h4{
-	font-family: 'Lato', sans-serif;
-	font-weight: 300;
-	color:#aaa;
+	font-family: 'Dosis', sans-serif;
+	font-weight: 400;
+	color:#222;
 	text-decoration: italic;
 	padding: 0;	
 	margin: 0 0 .5em 0;
 }
 
-h1{ font-size: 48px; }
+h1{ font-size: 24px; }
 h2{ font-size: 36px; }
 h3{ font-size: 24px; }
 h4{ font-size: 18px; }
 
+h3.title{
+	line-height: 27px;
+}
+
+#directory_title {
+	z-index: 500;
+	position: absolute;
+	bottom: 0px;
+}
+
+#header{
+	position: absolute;
+	top: 0;
+	background: #000;
+	width: 100%;
+	padding: .5em .5em;
+}
+
+h1 a{
+	color: #666;
+	text-decoration: none;
+	font-weight: 700;
+	padding-left: .25em;
+}
 
 /*-----------------------------------
   Map
 -------------------------------------*/
-
-#map {
-/*  width:900px;
-  height:700px;
-*/
-}
 
 #map {
   position: absolute;
@@ -115,9 +134,37 @@ h4{ font-size: 18px; }
 
 .wax-fade { opacity:0; }
 
-.wax-tooltip,
-.wax-legends{
-  z-index:999999;
+#map-zoombox-box{
+	position: absolute;
+	z-index: 70000;
+	top: 5em;
+	left: 1em;
+	width: 46px;
+	height: 120px;
+	background: #fff;
+}
+
+a.zoomer{
+	position: absolute;
+	z-index: 70000;
+	top: 3em;
+	left: .5em;
+	width: 18px;
+	height: 18px;
+	border-radius: 3px;
+	background: #000;
+	padding: .25em;
+	text-align: center;
+	line-height: 18px;
+	color: #ddd;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+a.zoomout{
+	position: absolute;
+	z-index: 70000;
+	top: 5em;
 }
 
 .zoombox-box,
@@ -143,36 +190,17 @@ h4{ font-size: 18px; }
   background: url(blank.gif);
   top:0;
   left:0;
+	z-index: 1000;
 }
 
 /*-----------------------------------
   Legend
 -------------------------------------*/
 
+
 .wax-legends {
-/*  left: 15px;
-*/}
-
-.wax-legend {
-/*  height: 36px !important;
-  width: 400px !important;
-*//*  box-shadow:none !important;
-  -webkit-box-shadow:none !important;
-  -moz-box-shadow:none !important;
-*/}
-
-
-/*#legend h1 {
-  font: 26px/26px Lato, Arial, sans-serif !important;
-  text-shadow: 1px 1px 1px #333 !important;
+	display: none;
 }
-#legend h1 a {
-  color: #fff;
-}
-#legend h1 a:hover {
-  color:#489;
-}
-*/
 
 /*-----------------------------------
   Util
@@ -214,8 +242,7 @@ including listing and wax-tooltip classes here to apply clearfix to them, withou
 
 .wax-tooltip{
 	position: absolute;
-/*	z-index: auto;	
-*/}
+}
 
 .wax-tooltip.wax-popup{
 	width: 290px;
@@ -225,50 +252,57 @@ including listing and wax-tooltip classes here to apply clearfix to them, withou
 	right: 0;
 }
 
+
 .wax-tooltip .tooltip-teaser{
-	background: url( ../img/bg_white80.png );
 	padding: .5em 1em .5em 1em;
 	font-size: .5;
-/*	position: absolute;
-	border: 1px #0f0 solid;
-*/
+	color: #eee;
+	position: absolute;
+	top: 1.25em;
+	left: 3em;
+	line-height: 18px;
 }
+
 
 .wax-tooltip .tooltip-teaser a{
 	text-decoration: none;
-	color: #000;
 }
 
 .wax-tooltip .tooltip-teaser h3{
+	white-space: nowrap;
 	text-decoration: none;
-	color: #000;
+	color: #eee;
+	padding: .125em;
+	margin-bottom: .25em;
+	background: url( ../img/bg_black60.png );
 }
 
-.wax-tooltip .tooltip-teaser{
-/*	margin-left: -50%;
-*/
+.wax-tooltip .tooltip-teaser .founded{
+	padding: .25em;
+	background: url( ../img/bg_black60.png );	
+	color: #aaa !important;
 }
 
 .wax-tooltip.wax-popup{
+	top: 2.5em;
 	font-size: 12px;
 	line-height: 15px;
 	padding: .5em;
 }
 
-.wax-tooltip.wax-popup .tooltip-inner a.close{
-	background: url( ../img/bg_white60.png );
-	width: 290px;
+.wax-tooltip.wax-popup a.close{
+	background: url( ../img/icon-12x12-close.png ) no-repeat;
+	width: 16px;
+	height: 16px;
+	text-indent: -1000px;	
 	padding: .5em;
-	z-index: auto;
+	z-index: 1000;
 	display: block;
 	position: absolute;
-	right: 1em;
-	top: 12px;
-	width: 15px;
-	height: 15px;
+	right: -.25em;
+	top: 1.5em;
 	line-height: 14.75px;
 	text-align: center;
-	background: #000;
 	-webkit-border-radius: 2px;
 	-moz-border-radius: 2px;
 	border-radius: 2px;
@@ -329,8 +363,8 @@ including listing and wax-tooltip classes here to apply clearfix to them, withou
 	-webkit-border-radius: 3px;
 	-moz-border-radius: 3px;
 	border-radius: 3px;
-	padding:.25em .5em;
-	margin: .125em;
+	padding: .5em .75em;
+	margin: .25em;
 	background: #000;
 }
 
@@ -370,8 +404,11 @@ including listing and wax-tooltip classes here to apply clearfix to them, withou
 }
 
 .wax-tooltip .tooltip-inner .occupation-title{
-	border-bottom: 1px #000 solid;
 	margin-bottom: 1em;
+}
+
+.wax-tooltip .tooltip-teaser .tooltip-inner .occupation-title{
+	margin-bottom: .5em;
 }
 
 .wax-tooltip .tooltip-inner .occupation-description{
@@ -386,7 +423,6 @@ including listing and wax-tooltip classes here to apply clearfix to them, withou
 .wax-tooltip .tooltip-inner h5,
 .wax-tooltip .tooltip-inner h6{
 	font-weight: 300;
-/*color:#000; */
 	padding: 0;	
 	margin: 0 0 .25em 0;
 }
@@ -406,53 +442,36 @@ including listing and wax-tooltip classes here to apply clearfix to them, withou
 	margin-top: 0;
 	font-size: 15px;
 	line-height: 18px;
-	color: #000;
 }
 
 /*-----------------------------------
   Overlay
 -------------------------------------*/
 
-	.search div {
-		height: 470px;
-	  position: absolute;
-	  top: 0;
-	  left: 0;
-	  right: 0;
-	  bottom: 0;
-	  z-index: 2;	
-		padding: .5em 1em;
-	  position: fixed;
+	#search{
+		width: auto;
+		float: right;
+		padding-right: 1em;
 	}
-
-	.geocode h2{
-		float: left;
-		color: #eee;
-		text-shadow: black 1px 1px 0.125em
+	#search form.location {
+		text-align: right;
 	}
 
 	#search form.location input[type='text']{
 		border: 1px #444 solid;
+		width: 275px;
 		font-size: 12px;
 		background: #000;
 		line-height: 1.2;
-		float: right;
 		margin: .675em .5em .5em .5em;
 	}
-
-
 
 /*-----------------------------------
   Footer
 -------------------------------------*/
 
 #legend {
-	z-index: auto;
-  position: absolute !important;
+	position: absolute !important;
   bottom: 0px !important;
   left: 0px !important;
 }
-/*#legend h1 {
-  font-size:48px;
-}
-*/
