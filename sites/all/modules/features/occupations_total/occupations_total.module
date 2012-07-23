@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Total Occupations feature.
+ */
+
+include_once 'occupations_total.features.inc';

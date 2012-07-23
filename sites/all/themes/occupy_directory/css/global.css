@@ -423,6 +423,9 @@ div.view-display-id-occupations_list table img {
   padding: 0 5px;
 }
 
+#edit-items-per-page:after {
+  content:"page";
+}
 
 
 
@@ -476,7 +479,21 @@ div.view-display-id-occupations_list table img {
 }
 
 
+/********* Total Occupations */
 
+.edit-link {
+  display: inline-block;
+  float: right;
+  margin-right: 35%;
+}
+
+.total-occupations tr {
+  height: 65px;
+  font-size: .75em;
+}
+.total-occupations tr td {
+  vertical-align: top;
+}
 
 /* full width map */
 
