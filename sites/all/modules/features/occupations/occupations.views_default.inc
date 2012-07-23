@@ -28,8 +28,14 @@ function occupations_views_default_views() {
   $handler->display->display_options['access']['type'] = 'perm';
   $handler->display->display_options['cache']['type'] = 'none';
   $handler->display->display_options['query']['type'] = 'views_query';
+  $handler->display->display_options['query']['options']['distinct'] = TRUE;
   $handler->display->display_options['query']['options']['query_comment'] = FALSE;
   $handler->display->display_options['exposed_form']['type'] = 'basic';
+  $handler->display->display_options['exposed_form']['options']['submit_button'] = 'apply';
+  $handler->display->display_options['exposed_form']['options']['reset_button'] = TRUE;
+  $handler->display->display_options['exposed_form']['options']['reset_button_label'] = 'reset';
+  $handler->display->display_options['exposed_form']['options']['autosubmit'] = 0;
+  $handler->display->display_options['exposed_form']['options']['autosubmit_hide'] = 1;
   $handler->display->display_options['pager']['type'] = 'full';
   $handler->display->display_options['pager']['options']['items_per_page'] = '25';
   $handler->display->display_options['pager']['options']['offset'] = '0';
@@ -104,6 +110,12 @@ function occupations_views_default_views() {
   $handler->display->display_options['style_options']['override'] = 1;
   $handler->display->display_options['style_options']['sticky'] = 1;
   $handler->display->display_options['style_options']['empty_table'] = 0;
+  /* Header: Global: Result summary */
+  $handler->display->display_options['header']['result']['id'] = 'result';
+  $handler->display->display_options['header']['result']['table'] = 'views';
+  $handler->display->display_options['header']['result']['field'] = 'result';
+  $handler->display->display_options['header']['result']['empty'] = FALSE;
+  $handler->display->display_options['header']['result']['content'] = '<span class="occupation-count">Displaying <span class="occupation-count-span">@start - @end</span> of <span class="occupation-count-total">@total</span> Occupations</span>';
   /* Relationship: File Usage: File */
   $handler->display->display_options['relationships']['node_to_file']['id'] = 'node_to_file';
   $handler->display->display_options['relationships']['node_to_file']['table'] = 'file_usage';
@@ -234,6 +246,9 @@ function occupations_views_default_views() {
   $handler->display->display_options['display_description'] = 'A table showing all Occupations, sorted by ___, paginated x 10';
   $handler->display->display_options['defaults']['exposed_form'] = FALSE;
   $handler->display->display_options['exposed_form']['type'] = 'basic';
+  $handler->display->display_options['exposed_form']['options']['submit_button'] = 'apply';
+  $handler->display->display_options['exposed_form']['options']['reset_button'] = TRUE;
+  $handler->display->display_options['exposed_form']['options']['reset_button_label'] = 'reset';
   $handler->display->display_options['exposed_form']['options']['autosubmit'] = 0;
   $handler->display->display_options['exposed_form']['options']['autosubmit_hide'] = 0;
   $handler->display->display_options['defaults']['pager'] = FALSE;
@@ -242,7 +257,7 @@ function occupations_views_default_views() {
   $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['pager']['options']['id'] = '0';
   $handler->display->display_options['pager']['options']['expose']['items_per_page'] = TRUE;
-  $handler->display->display_options['pager']['options']['expose']['items_per_page_label'] = 'Results per page';
+  $handler->display->display_options['pager']['options']['expose']['items_per_page_label'] = '#/page';
   $handler->display->display_options['pager']['options']['expose']['items_per_page_options'] = '10, 25, 50, 100, 250, 500, 1000';
   $handler->display->display_options['pager']['options']['expose']['items_per_page_options_all'] = 1;
   $handler->display->display_options['defaults']['style_plugin'] = FALSE;
@@ -558,13 +573,17 @@ Do you have the information? <strong><a href="/node/add/occupation">Add an Occup
   $handler->display->display_options['arguments']['field_occupation_address_administrative_area']['limit'] = '0';
   $handler->display->display_options['arguments']['field_occupation_address_administrative_area']['transform_dash'] = 0;
   $handler->display->display_options['arguments']['field_occupation_address_administrative_area']['break_phrase'] = 0;
+  $handler->display->display_options['filter_groups']['groups'] = array(
+    1 => 'AND',
+    2 => 'AND',
+  );
   $handler->display->display_options['defaults']['filters'] = FALSE;
   /* Filter criterion: Content: Published */
   $handler->display->display_options['filters']['status']['id'] = 'status';
   $handler->display->display_options['filters']['status']['table'] = 'node';
   $handler->display->display_options['filters']['status']['field'] = 'status';
   $handler->display->display_options['filters']['status']['value'] = 1;
-  $handler->display->display_options['filters']['status']['group'] = 0;
+  $handler->display->display_options['filters']['status']['group'] = 1;
   $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
   /* Filter criterion: Content: Type */
   $handler->display->display_options['filters']['type']['id'] = 'type';
@@ -573,22 +592,25 @@ Do you have the information? <strong><a href="/node/add/occupation">Add an Occup
   $handler->display->display_options['filters']['type']['value'] = array(
     'occupation' => 'occupation',
   );
-  /* Filter criterion: Content: Title */
-  $handler->display->display_options['filters']['title']['id'] = 'title';
-  $handler->display->display_options['filters']['title']['table'] = 'node';
-  $handler->display->display_options['filters']['title']['field'] = 'title';
-  $handler->display->display_options['filters']['title']['operator'] = 'word';
-  $handler->display->display_options['filters']['title']['exposed'] = TRUE;
-  $handler->display->display_options['filters']['title']['expose']['operator_id'] = 'title_op';
-  $handler->display->display_options['filters']['title']['expose']['label'] = 'Search in name';
-  $handler->display->display_options['filters']['title']['expose']['operator'] = 'title_op';
-  $handler->display->display_options['filters']['title']['expose']['identifier'] = 'title';
-  $handler->display->display_options['filters']['title']['expose']['required'] = 0;
-  $handler->display->display_options['filters']['title']['expose']['multiple'] = FALSE;
+  $handler->display->display_options['filters']['type']['group'] = 1;
+  /* Filter criterion: Content: Location (Address) (field_occupation_address:locality) */
+  $handler->display->display_options['filters']['field_occupation_address_locality']['id'] = 'field_occupation_address_locality';
+  $handler->display->display_options['filters']['field_occupation_address_locality']['table'] = 'field_data_field_occupation_address';
+  $handler->display->display_options['filters']['field_occupation_address_locality']['field'] = 'field_occupation_address_locality';
+  $handler->display->display_options['filters']['field_occupation_address_locality']['operator'] = 'contains';
+  $handler->display->display_options['filters']['field_occupation_address_locality']['group'] = 2;
+  $handler->display->display_options['filters']['field_occupation_address_locality']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_occupation_address_locality']['expose']['operator_id'] = 'field_occupation_address_locality_op';
+  $handler->display->display_options['filters']['field_occupation_address_locality']['expose']['label'] = 'City';
+  $handler->display->display_options['filters']['field_occupation_address_locality']['expose']['operator'] = 'field_occupation_address_locality_op';
+  $handler->display->display_options['filters']['field_occupation_address_locality']['expose']['identifier'] = 'city';
+  $handler->display->display_options['filters']['field_occupation_address_locality']['expose']['required'] = 0;
+  $handler->display->display_options['filters']['field_occupation_address_locality']['expose']['multiple'] = FALSE;
   /* Filter criterion: Content: Location (Address) (field_occupation_address:country) */
   $handler->display->display_options['filters']['field_occupation_address_country']['id'] = 'field_occupation_address_country';
   $handler->display->display_options['filters']['field_occupation_address_country']['table'] = 'field_data_field_occupation_address';
   $handler->display->display_options['filters']['field_occupation_address_country']['field'] = 'field_occupation_address_country';
+  $handler->display->display_options['filters']['field_occupation_address_country']['group'] = 2;
   $handler->display->display_options['filters']['field_occupation_address_country']['exposed'] = TRUE;
   $handler->display->display_options['filters']['field_occupation_address_country']['expose']['operator_id'] = 'field_occupation_address_country_op';
   $handler->display->display_options['filters']['field_occupation_address_country']['expose']['label'] = 'Country';
@@ -928,17 +950,18 @@ Do you have the information? <strong><a href="/node/add/occupation">Add an Occup
   $handler->display->display_options['title'] = 'Manage Occupations';
   $handler->display->display_options['display_comment'] = 'we expose a different filter block on the manage occupations page';
   $handler->display->display_options['defaults']['css_class'] = FALSE;
-  $handler->display->display_options['css_class'] = 'list-occupations node-list manage-occupatiions';
+  $handler->display->display_options['css_class'] = 'list-occupations node-list manage-occupations';
   $handler->display->display_options['display_description'] = 'Curators use this page to manage geograhic-area specific Occupation content via Views Bulk Operations';
   $handler->display->display_options['defaults']['access'] = FALSE;
   $handler->display->display_options['access']['type'] = 'perm';
   $handler->display->display_options['access']['perm'] = 'edit any occupation content';
   $handler->display->display_options['defaults']['pager'] = FALSE;
   $handler->display->display_options['pager']['type'] = 'full';
-  $handler->display->display_options['pager']['options']['items_per_page'] = '20';
+  $handler->display->display_options['pager']['options']['items_per_page'] = '25';
   $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['pager']['options']['id'] = '0';
   $handler->display->display_options['pager']['options']['expose']['items_per_page'] = TRUE;
+  $handler->display->display_options['pager']['options']['expose']['items_per_page_label'] = '#/page';
   $handler->display->display_options['pager']['options']['expose']['items_per_page_options'] = '10, 25, 50, 100, 250, 500, 1000';
   $handler->display->display_options['pager']['options']['expose']['items_per_page_options_all'] = 1;
   $handler->display->display_options['defaults']['style_plugin'] = FALSE;
@@ -1046,9 +1069,15 @@ Do you have the information? <strong><a href="/node/add/occupation">Add an Occup
   $handler->display->display_options['header']['area']['field'] = 'area';
   $handler->display->display_options['header']['area']['ui_name'] = 'Utility links for Curators';
   $handler->display->display_options['header']['area']['empty'] = TRUE;
-  $handler->display->display_options['header']['area']['content'] = '<strong><a href="/occupations/manage">Show all Occupations, not just my geographic area</a></strong>&nbsp;&nbsp;|&nbsp;&nbsp;<strong><a href="/node/add/occupation">Add new Occupation content</a></strong>';
-  $handler->display->display_options['header']['area']['format'] = 'filtered_html';
+  $handler->display->display_options['header']['area']['content'] = '<div class="curator-utility-links"><a href="/node/add/occupation">+ Add new Occupation</a></div>';
+  $handler->display->display_options['header']['area']['format'] = 'full_html';
   $handler->display->display_options['header']['area']['tokenize'] = 0;
+  /* Header: Global: Result summary */
+  $handler->display->display_options['header']['result']['id'] = 'result';
+  $handler->display->display_options['header']['result']['table'] = 'views';
+  $handler->display->display_options['header']['result']['field'] = 'result';
+  $handler->display->display_options['header']['result']['empty'] = FALSE;
+  $handler->display->display_options['header']['result']['content'] = '<span class="occupation-count">Displaying <span class="occupation-count-span">@start - @end</span> of <span class="occupation-count-total">@total</span> Occupations</span>';
   $handler->display->display_options['defaults']['fields'] = FALSE;
   /* Field: Bulk operations: Content */
   $handler->display->display_options['fields']['views_bulk_operations']['id'] = 'views_bulk_operations';
@@ -1064,6 +1093,7 @@ Do you have the information? <strong><a href="/node/add/occupation">Add an Occup
   $handler->display->display_options['fields']['views_bulk_operations']['alter']['nl2br'] = 0;
   $handler->display->display_options['fields']['views_bulk_operations']['alter']['word_boundary'] = 1;
   $handler->display->display_options['fields']['views_bulk_operations']['alter']['ellipsis'] = 1;
+  $handler->display->display_options['fields']['views_bulk_operations']['alter']['more_link'] = 0;
   $handler->display->display_options['fields']['views_bulk_operations']['alter']['strip_tags'] = 0;
   $handler->display->display_options['fields']['views_bulk_operations']['alter']['trim'] = 0;
   $handler->display->display_options['fields']['views_bulk_operations']['alter']['html'] = 0;
@@ -1115,6 +1145,19 @@ Do you have the information? <strong><a href="/node/add/occupation">Add an Occup
       'skip_confirmation' => 0,
       'override_label' => 0,
       'label' => '',
+    ),
+    'action::views_bulk_operations_modify_action' => array(
+      'selected' => 0,
+      'use_queue' => 0,
+      'skip_confirmation' => 0,
+      'override_label' => 0,
+      'label' => '',
+      'settings' => array(
+        'show_all_tokens' => 1,
+        'display_values' => array(
+          '_all_' => '_all_',
+        ),
+      ),
     ),
     'action::views_bulk_operations_argument_selector_action' => array(
       'selected' => 0,
@@ -1176,6 +1219,13 @@ Do you have the information? <strong><a href="/node/add/occupation">Add an Occup
     ),
     'action::node_unpublish_by_keyword_action' => array(
       'selected' => 1,
+      'use_queue' => 0,
+      'skip_confirmation' => 0,
+      'override_label' => 0,
+      'label' => '',
+    ),
+    'action::pathauto_node_update_action' => array(
+      'selected' => 0,
       'use_queue' => 0,
       'skip_confirmation' => 0,
       'override_label' => 0,
@@ -1468,20 +1518,20 @@ Do you have the information? <strong><a href="/node/add/occupation">Add an Occup
     'occupation' => 'occupation',
   );
   $handler->display->display_options['filters']['type']['group'] = 1;
-  /* Filter criterion: Content: Title */
-  $handler->display->display_options['filters']['title']['id'] = 'title';
-  $handler->display->display_options['filters']['title']['table'] = 'node';
-  $handler->display->display_options['filters']['title']['field'] = 'title';
-  $handler->display->display_options['filters']['title']['operator'] = 'word';
-  $handler->display->display_options['filters']['title']['group'] = 1;
-  $handler->display->display_options['filters']['title']['exposed'] = TRUE;
-  $handler->display->display_options['filters']['title']['expose']['operator_id'] = 'title_op';
-  $handler->display->display_options['filters']['title']['expose']['label'] = 'Search in name';
-  $handler->display->display_options['filters']['title']['expose']['operator'] = 'title_op';
-  $handler->display->display_options['filters']['title']['expose']['identifier'] = 'title';
-  $handler->display->display_options['filters']['title']['expose']['required'] = 0;
-  $handler->display->display_options['filters']['title']['expose']['remember'] = 1;
-  $handler->display->display_options['filters']['title']['expose']['multiple'] = FALSE;
+  /* Filter criterion: City */
+  $handler->display->display_options['filters']['field_occupation_address_locality']['id'] = 'field_occupation_address_locality';
+  $handler->display->display_options['filters']['field_occupation_address_locality']['table'] = 'field_data_field_occupation_address';
+  $handler->display->display_options['filters']['field_occupation_address_locality']['field'] = 'field_occupation_address_locality';
+  $handler->display->display_options['filters']['field_occupation_address_locality']['ui_name'] = 'City';
+  $handler->display->display_options['filters']['field_occupation_address_locality']['operator'] = 'contains';
+  $handler->display->display_options['filters']['field_occupation_address_locality']['group'] = 1;
+  $handler->display->display_options['filters']['field_occupation_address_locality']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_occupation_address_locality']['expose']['operator_id'] = 'field_occupation_address_locality_op';
+  $handler->display->display_options['filters']['field_occupation_address_locality']['expose']['label'] = 'City';
+  $handler->display->display_options['filters']['field_occupation_address_locality']['expose']['operator'] = 'field_occupation_address_locality_op';
+  $handler->display->display_options['filters']['field_occupation_address_locality']['expose']['identifier'] = 'city';
+  $handler->display->display_options['filters']['field_occupation_address_locality']['expose']['required'] = 0;
+  $handler->display->display_options['filters']['field_occupation_address_locality']['expose']['multiple'] = FALSE;
   /* Filter criterion: Content: Location (Address) (field_occupation_address:country) */
   $handler->display->display_options['filters']['field_occupation_address_country']['id'] = 'field_occupation_address_country';
   $handler->display->display_options['filters']['field_occupation_address_country']['table'] = 'field_data_field_occupation_address';
@@ -1494,6 +1544,16 @@ Do you have the information? <strong><a href="/node/add/occupation">Add an Occup
   $handler->display->display_options['filters']['field_occupation_address_country']['expose']['identifier'] = 'country';
   $handler->display->display_options['filters']['field_occupation_address_country']['expose']['remember'] = 1;
   $handler->display->display_options['filters']['field_occupation_address_country']['expose']['reduce'] = 0;
+  /* Filter criterion: Search: Search Terms */
+  $handler->display->display_options['filters']['keys']['id'] = 'keys';
+  $handler->display->display_options['filters']['keys']['table'] = 'search_index';
+  $handler->display->display_options['filters']['keys']['field'] = 'keys';
+  $handler->display->display_options['filters']['keys']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['keys']['expose']['operator_id'] = 'keys_op';
+  $handler->display->display_options['filters']['keys']['expose']['label'] = 'Search Terms';
+  $handler->display->display_options['filters']['keys']['expose']['operator'] = 'keys_op';
+  $handler->display->display_options['filters']['keys']['expose']['identifier'] = 'search';
+  $handler->display->display_options['filters']['keys']['expose']['multiple'] = FALSE;
   $handler->display->display_options['path'] = 'occupations/manage';
   $handler->display->display_options['menu']['type'] = 'tab';
   $handler->display->display_options['menu']['title'] = 'Manage Occupations';
@@ -1588,6 +1648,13 @@ Do you have the information? <strong><a href="/node/add/occupation">Add an Occup
   $handler->display->display_options['pager']['options']['id'] = '0';
   $handler->display->display_options['pager']['options']['expose']['items_per_page_options'] = '10, 25, 50, 100, 250, 500, 1000';
   $handler->display->display_options['pager']['options']['expose']['items_per_page_options_all'] = 1;
+  $handler->display->display_options['defaults']['header'] = FALSE;
+  /* Header: Global: Result summary */
+  $handler->display->display_options['header']['result']['id'] = 'result';
+  $handler->display->display_options['header']['result']['table'] = 'views';
+  $handler->display->display_options['header']['result']['field'] = 'result';
+  $handler->display->display_options['header']['result']['empty'] = FALSE;
+  $handler->display->display_options['header']['result']['content'] = '<span class="occupation-count">You own <span class="occupation-count-total">@total</span> Occupation(s)</span>';
   $handler->display->display_options['defaults']['empty'] = FALSE;
   /* No results behavior: Global: Text area */
   $handler->display->display_options['empty']['area']['id'] = 'area';

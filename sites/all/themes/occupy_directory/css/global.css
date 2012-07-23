@@ -127,7 +127,9 @@ article p { /* affect all node types */
   font-size:.9em;
   margin-bottom: 1em;
 }
-
+.block article h2 {
+  margin: 1.25em 0 .5em;
+}
 
 .field-group-format.grouplinks {
  margin-bottom: 1em;
@@ -269,50 +271,6 @@ div.talk-page li.comment-add:before {
 
 
 
-/**
- * VIEWS
- */
-
-/* Exposed view search form formatting */
-.zone-preface .block {
- padding: .75em 0;
-}
-
-#views-exposed-form-occupation-directory-occupations-list {
- font-size: .75em;
-}
-#views-exposed-form-occupation-directory-occupations-list label {
- display: inline;
- font-weight: normal;
- padding-left: 2em;
- padding-right: .5em;
-
-}
-#views-exposed-form-occupation-directory-occupations-list input,
-#views-exposed-form-occupation-directory-occupations-list select,
-#views-exposed-form-occupation-directory-occupations-list div {
- display: inline;
- margin: 0;
-}
-#views-exposed-form-occupation-directory-occupations-list div {
- padding: 0;
-}
-#views-exposed-form-occupation-directory-occupations-list select {
- max-width: 200px;
-}
-#views-exposed-form-occupation-directory-occupations-list input.form-submit {
- margin-left: .75em;
-}
-
-
-/* Occupation Directory Views table listing page */
-div.view-display-id-occupations_list table img {
-  padding-right: 8px;
-  vertical-align: middle;
-}
-
-
-
 
 #zone-content {
   padding-top:3em;
@@ -324,7 +282,16 @@ div.view-display-id-occupations_list table img {
 #region-content .block .view ul.pager {
     margin-top: 2.5em;
 }
+#zone-content .tabs {
+  margin-bottom: 1em;
+}
+.zone-preface .block {
+ padding: .75em 0;
+}
 
+
+
+/* footer */
 #section-footer {
  background: #d0d0d0;
 }
@@ -370,6 +337,141 @@ div.view-display-id-occupations_list table img {
   text-align:right;
   line-height:1;
 }
+
+
+
+
+/**
+ * VIEWS
+ */
+
+/* Exposed view search form formatting */
+
+#views-exposed-form-occupation-directory-occupations-list,
+#views-exposed-form-occupation-directory-occupations-manage {
+ font-size: .75em;
+}
+
+#views-exposed-form-occupation-directory-occupations-list label {
+ display: inline;
+ font-weight: normal;
+ padding-left: 2em;
+ padding-right: .5em;
+}
+#views-exposed-form-occupation-directory-occupations-list input,
+#views-exposed-form-occupation-directory-occupations-list select,
+#views-exposed-form-occupation-directory-occupations-list div {
+ display: inline;
+ margin: 0;
+}
+#views-exposed-form-occupation-directory-occupations-list div {
+ padding: 0;
+}
+#views-exposed-form-occupation-directory-occupations-list select,
+#views-exposed-form-occupation-directory-occupations-manage select {
+ max-width: 200px;
+}
+#views-exposed-form-occupation-directory-occupations-list input.form-submit {
+ margin-left: .75em;
+}
+  
+#views-exposed-form-occupation-directory-occupations-list .views-exposed-widgets,
+#views-exposed-form-occupation-directory-occupations-manage .views-exposed-widgets {
+  margin-bottom: 0;
+}
+/*#views-exposed-form-occupation-directory-occupations-list .views-submit-button,
+#views-exposed-form-occupation-directory-occupations-list .views-reset-button,
+#views-exposed-form-occupation-directory-occupations-manage .views-submit-button,
+#views-exposed-form-occupation-directory-occupations-manage .views-reset-button {
+  float:right;
+}*/
+#views-exposed-form-occupation-directory-occupations-list .views-submit-button,
+#views-exposed-form-occupation-directory-occupations-manage .views-submit-button {
+  margin-left:5em;
+}
+
+
+/********* Occupation Directory Views table listing page */
+
+
+div.view-display-id-occupations_list table img {
+  padding-right: 8px;
+  vertical-align: middle;
+}
+
+.list-occupations .view-header,
+.manage-comments .view-header {
+  margin: 0 0 1em;
+  font-size: 1.2em;
+  font-style: italic;
+}
+.list-occupations .view-header .occupation-count {}
+.list-occupations .view-header .occupation-count .occupation-count-span,
+.list-occupations .view-header .occupation-count .occupation-count-total {
+  font-size: 1.4em;
+  padding:0 0.2em;
+}
+.list-occupations .view-header .curator-utility-links {
+  margin-bottom: 0.5em;
+  float: right;
+  background: #000;
+  padding: 0 5px;
+}
+
+
+
+/********* Curator Views */
+
+#views-exposed-form-occupation-directory-occupations-manage .views-exposed-widget {
+  padding: 0 .8em 0 0;
+}
+#views-exposed-form-occupation-directory-occupations-manage label {
+ font-weight: normal;
+}
+
+#views-exposed-form-occupation-directory-occupations-manage .form-submit {
+  margin-top: 2em;
+}
+#views-exposed-form-occupation-directory-occupations-manage .form-item-search input {
+  width: 200px;
+}
+
+
+
+.manage-occupations table.views-table,
+.manage-comments table.views-table {
+  margin-top: 1em;
+  line-height:1em;
+}
+.manage-occupations #edit-select .fieldset-legend,
+.manage-comments #edit-select .fieldset-legend {
+  display: none;
+}
+.manage-occupations thead,
+.manage-comments thead {
+  border: 1px solid #000;
+  border-bottom: 4px solid #333;
+}
+.manage-occupations thead th,
+.manage-comments thead th { 
+  background: #000;
+  color:#fff;
+/*  padding: 10px 0;*/
+}
+.manage-occupations th.active,
+.manage-comments th.active {
+  border-left: 1px solid #333;
+  border-right: 1px solid #333;
+}
+.manage-occupations td,
+.manage-comments td {
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+
+
+
 
 
 /* full width map */
