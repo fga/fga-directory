@@ -22,7 +22,7 @@ function occupations_administration_views_default_views() {
 
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
-  $handler->display->display_options['title'] = 'Occupation Directory Comments';
+  $handler->display->display_options['title'] = 'Manage Comments';
   $handler->display->display_options['css_class'] = 'node-list manage-comments';
   $handler->display->display_options['use_ajax'] = TRUE;
   $handler->display->display_options['access']['type'] = 'perm';
