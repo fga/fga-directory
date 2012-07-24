@@ -20,6 +20,7 @@ function occupations_administration_context_default_contexts() {
     'views' => array(
       'values' => array(
         'occupation_directory:occupations_manage' => 'occupation_directory:occupations_manage',
+        'occupation_directory_comments:occupations_manage_comments' => 'occupation_directory_comments:occupations_manage_comments',
         'occupations_count:total_occupations' => 'occupations_count:total_occupations',
       ),
     ),
