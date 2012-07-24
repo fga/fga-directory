@@ -1,12 +1,15 @@
 name = Total Occupations
-description = Page with slim grid view of all occupations, blocks of recently updated occupations
+description = Page with slim grid view of all occupations, blocks of recently updated occupations, box with occupation count
 core = 7.x
 package = FGA
 php = 5.2.4
-version = 7.x-0.11
+version = 7.x-0.12
 project = occupations_total
+dependencies[] = boxes
 dependencies[] = ctools
 dependencies[] = views
+features[box][] = occupation_count
+features[ctools][] = boxes:box:1
 features[ctools][] = views:views_default:3.0
 features[features_api][] = api:1
 features[views_view][] = occupations_count

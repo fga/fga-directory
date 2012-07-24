@@ -502,7 +502,28 @@ div.view-display-id-occupations_list table img {
   vertical-align: top;
 }
 
-/* full width map */
+/* Occupation count block*/
+
+div.block-occupation-count {
+  position: absolute;
+  z-index:86;
+  top: 18px;
+  color: #ddd;
+  color: rgba(0, 0, 0, .2);
+  font-style: italic;
+}
+div.block-occupation-count .count-result {
+  font-size: 1.8em;
+}
+div.block-occupation-count .count-label {
+  font-size: 1.2em;
+}
+
+
+
+
+
+/********* full width map */
 
 
 .fullwidth-map {

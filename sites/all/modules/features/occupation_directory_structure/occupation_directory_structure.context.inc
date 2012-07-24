@@ -31,6 +31,16 @@ function occupation_directory_structure_context_default_contexts() {
     ),
   );
   $context->reactions = array(
+    'block' => array(
+      'blocks' => array(
+        'boxes-occupation_count' => array(
+          'module' => 'boxes',
+          'delta' => 'occupation_count',
+          'region' => 'user_first',
+          'weight' => '-10',
+        ),
+      ),
+    ),
     'delta' => array(
       'delta_template' => 'directory_fullmap',
     ),
