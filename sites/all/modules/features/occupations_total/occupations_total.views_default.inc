@@ -24,8 +24,11 @@ function occupations_total_views_default_views() {
   $handler = $view->new_display('default', 'Master', 'default');
   $handler->display->display_options['title'] = 'recently updated Occupations';
   $handler->display->display_options['css_class'] = 'list-occupations total-occupations';
+  $handler->display->display_options['use_ajax'] = TRUE;
   $handler->display->display_options['access']['type'] = 'perm';
-  $handler->display->display_options['cache']['type'] = 'none';
+  $handler->display->display_options['cache']['type'] = 'time';
+  $handler->display->display_options['cache']['results_lifespan'] = '3600';
+  $handler->display->display_options['cache']['output_lifespan'] = '3600';
   $handler->display->display_options['query']['type'] = 'views_query';
   $handler->display->display_options['query']['options']['query_comment'] = FALSE;
   $handler->display->display_options['exposed_form']['type'] = 'basic';
@@ -149,15 +152,17 @@ function occupations_total_views_default_views() {
   $handler = $view->new_display('block', 'Recently Updated  - grid', 'recently_updated_block_grid');
   $handler->display->display_options['display_description'] = 'a BLOCK showing recently updated Occupations in a  grid view';
   $handler->display->display_options['defaults']['pager'] = FALSE;
-  $handler->display->display_options['pager']['type'] = 'some';
+  $handler->display->display_options['pager']['type'] = 'mini';
   $handler->display->display_options['pager']['options']['items_per_page'] = '10';
   $handler->display->display_options['pager']['options']['offset'] = '0';
+  $handler->display->display_options['pager']['options']['id'] = '0';
+  $handler->display->display_options['pager']['options']['expose']['items_per_page_options_all'] = 0;
   $handler->display->display_options['defaults']['sorts'] = FALSE;
   /* Sort criterion: Content: Updated/commented date */
   $handler->display->display_options['sorts']['last_updated']['id'] = 'last_updated';
   $handler->display->display_options['sorts']['last_updated']['table'] = 'node_comment_statistics';
   $handler->display->display_options['sorts']['last_updated']['field'] = 'last_updated';
-  $handler->display->display_options['block_description'] = 'Total Occupations';
+  $handler->display->display_options['block_description'] = 'Recently Updated - grid';
 
   /* Display: Recently Updated - list */
   $handler = $view->new_display('block', 'Recently Updated - list', 'recently_updated_block_list');
@@ -171,7 +176,7 @@ function occupations_total_views_default_views() {
   $handler->display->display_options['sorts']['last_updated']['id'] = 'last_updated';
   $handler->display->display_options['sorts']['last_updated']['table'] = 'node_comment_statistics';
   $handler->display->display_options['sorts']['last_updated']['field'] = 'last_updated';
-  $handler->display->display_options['block_description'] = 'Total Occupations';
+  $handler->display->display_options['block_description'] = 'Recently Updated - list';
 
   /* Display: Total Occupations */
   $handler = $view->new_display('page', 'Total Occupations', 'total_occupations');

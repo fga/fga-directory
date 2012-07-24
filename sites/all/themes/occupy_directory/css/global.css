@@ -495,14 +495,45 @@ div.view-display-id-occupations_list table img {
 }
 
 .total-occupations tr {
-  height: 65px;
+  height: 60px;
   font-size: .75em;
+  line-height: 1.2em;
+  font-style: italic;
+  color:#ccc;
 }
 .total-occupations tr td {
   vertical-align: top;
 }
+.total-occupations tr.row-first td {
+  padding-top:20px;
+}
+.total-occupations tr td .title {
+  margin-bottom: .33em;
+  font-style:normal;
+}
 
-/* full width map */
+/* Occupation count block*/
+
+div.block-occupation-count {
+  position: absolute;
+  z-index:86;
+  top: 18px;
+  color: #ddd;
+  color: rgba(0, 0, 0, .2);
+  font-style: italic;
+}
+div.block-occupation-count .count-result {
+  font-size: 1.8em;
+}
+div.block-occupation-count .count-label {
+  font-size: 1.2em;
+}
+
+
+
+
+
+/********* full width map */
 
 
 .fullwidth-map {
