@@ -431,6 +431,13 @@ div.view-display-id-occupations_list table img {
 
 /********* Curator Views */
 
+
+.manage-occupations tbody,
+.manage-comments tbody {
+  font-size: .75em;
+}
+
+
 #views-exposed-form-occupation-directory-occupations-manage .views-exposed-widget {
   padding: 0 .8em 0 0;
 }
