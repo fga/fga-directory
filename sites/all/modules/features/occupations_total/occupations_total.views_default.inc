@@ -175,6 +175,8 @@ function occupations_total_views_default_views() {
 
   /* Display: Total Occupations */
   $handler = $view->new_display('page', 'Total Occupations', 'total_occupations');
+  $handler->display->display_options['defaults']['title'] = FALSE;
+  $handler->display->display_options['title'] = 'total Occupations';
   $handler->display->display_options['display_description'] = 'a PAGE with a slim grid view of all published Occupations';
   $handler->display->display_options['defaults']['pager'] = FALSE;
   $handler->display->display_options['pager']['type'] = 'full';
@@ -182,6 +184,21 @@ function occupations_total_views_default_views() {
   $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['pager']['options']['id'] = '0';
   $handler->display->display_options['pager']['options']['expose']['items_per_page_options_all'] = 0;
+  $handler->display->display_options['defaults']['style_plugin'] = FALSE;
+  $handler->display->display_options['style_plugin'] = 'grid';
+  $handler->display->display_options['style_options']['columns'] = '5';
+  $handler->display->display_options['style_options']['fill_single_line'] = 1;
+  $handler->display->display_options['style_options']['summary'] = 'total Occupations in a grid view';
+  $handler->display->display_options['defaults']['style_options'] = FALSE;
+  $handler->display->display_options['defaults']['row_plugin'] = FALSE;
+  $handler->display->display_options['row_plugin'] = 'fields';
+  $handler->display->display_options['row_options']['inline'] = array(
+    'edit_node' => 'edit_node',
+    'nid' => 'nid',
+  );
+  $handler->display->display_options['row_options']['hide_empty'] = 1;
+  $handler->display->display_options['row_options']['default_field_elements'] = 0;
+  $handler->display->display_options['defaults']['row_options'] = FALSE;
   $handler->display->display_options['path'] = 'occupations/total';
   $export['occupations_count'] = $view;
 
