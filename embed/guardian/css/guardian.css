@@ -397,6 +397,9 @@ including listing and wax-tooltip classes here to apply clearfix to them, withou
 	-webkit-box-shadow: 1px 1px 5px #aaa;
 	box-shadow: 1px 1px 8px #ccc;
 }
+.occupation-image {
+  line-height:8px;
+}
 
 .wax-tooltip .tooltip-inner .occupation-title{
 	margin-bottom: 1em;
