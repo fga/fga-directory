@@ -238,7 +238,7 @@ including listing and wax-tooltip classes here to apply clearfix to them, withou
 	Tooltip
 -------------------------------------*/
 
-.wax-tooltip.wax-popup{
+.wax-popup{
 	width: 290px;
 	height: 100%;
 	overflow: auto;
@@ -250,8 +250,8 @@ including listing and wax-tooltip classes here to apply clearfix to them, withou
 	padding: 1em 1em .5em 1em;
 	font-size: .5;
 	color: #eee;
-	position: absolute;
-	line-height: 18px;
+/*	position: absolute;
+*/	line-height: 18px;
 }
 
 .wax-tooltip .tooltip-teaser a{
@@ -280,52 +280,59 @@ including listing and wax-tooltip classes here to apply clearfix to them, withou
 	padding: .5em;
 }
 
-.wax-tooltip.wax-popup a.close{
+.close{
 	background-image: url( ../img/icon-16x16-close.png );
 	background-repeat: no-repeat;
 	background-position top left;
 	width: 16px;
 	height: 16px;
 	display: block;
-	position: absolute;
 	left: .125em;
 	top: .125em;
 	text-indent: -1000px;
 	text-align: center;
-	color:#aaa;
+	color:#aaa;	
 }
 
-.wax-tooltip.wax-popup a.close:hover{
+.wax-tooltip.wax-popup a.close{
+	position: absolute;	
+}
+
+.wax-share .close{
+	display: block;
+	margin: 0 auto;
+}
+textarea.embed{
+	font-size: 1em;
+	margin: 1em 0;
+}
+
+a.close:hover{
 	background-position: top right;
 }
 
-.wax-tooltip .tooltip-inner a.close:hover{
-	background: #489;
-	color: #000;
-}
-
-.wax-tooltip .tooltip-inner .vcard,
-.wax-tooltip .tooltip-inner .info,
-.wax-tooltip .tooltip-inner .listings{
+.wax-popup .tooltip-inner .vcard,
+.wax-popup .tooltip-inner .info,
+.wax-popup .tooltip-inner .listings{
 	padding: 1em;
 	margin-bottom: .5em;
 	background: url( '../img/bg_white60.png');
 }
 
-.wax-tooltip .tooltip-inner .listings ul{
+.wax-popup .tooltip-inner .listings ul{
 	margin-bottom: 1.5em;
 }
 
-.wax-tooltip .tooltip-inner .founded{
+.wax-popup .tooltip-inner .founded{
 	clear: both;
 	margin-bottom: .75em;
 }
 
-.wax-tooltip .tooltip-inner .founded .bday{
+.wax-popup .tooltip-inner .founded .bday{
 	line-height: 18px;
 }
 
-.wax-tooltip .tooltip-inner .founded h6.label{
+.wax-popup .tooltip-inner .founded h6.label{
 	float: left !important;
 	display: inline-block;
 	border-right: 1px #bababa solid;
@@ -333,21 +340,21 @@ including listing and wax-tooltip classes here to apply clearfix to them, withou
 	margin-right: .5em;
 }
 
-.wax-tooltip .tooltip-inner .occupation-description{
+.wax-popup .tooltip-inner .occupation-description{
 	clear: both;
 }
-.wax-tooltip .tooltip-inner .website-url,
-.wax-tooltip .tooltip-inner .general-email-address{
+.wax-popup .tooltip-inner .website-url,
+.wax-popup .tooltip-inner .general-email-address{
 	clear: both;
 
 }
 
 /* hide geo */
-.wax-tooltip .tooltip-inner .geo{
+.wax-popup .tooltip-inner .geo{
 	display: none;
 }
 
-.wax-tooltip .tooltip-inner .taglink a{
+.wax-popup .tooltip-inner .taglink a{
 	display: block;
 	font-weight: 500;
 	text-decoration: none;
@@ -360,34 +367,34 @@ including listing and wax-tooltip classes here to apply clearfix to them, withou
 }
 
 
-.wax-tooltip .tooltip-inner a{
+.wax-popup .tooltip-inner a{
 	text-decoration: underline;
 	color: #489;
 }
 
-.wax-tooltip .tooltip-inner .adr,
-.wax-tooltip .tooltip-inner .general-phone{
+.wax-popup .tooltip-inner .adr,
+.wax-popup .tooltip-inner .general-phone{
 	margin-top: 1.5em;
 }
 
-.wax-tooltip .tooltip-inner .listings ul li:hover a,
-.wax-tooltip .tooltip-inner .listings li:hover a:hover{
+.wax-popup .tooltip-inner .listings ul li:hover a,
+.wax-popup .tooltip-inner .listings li:hover a:hover{
 	background: #489;
 	color: #000;
 }
 
-.wax-tooltip .tooltip-inner .listings ul li{
+.wax-popup .tooltip-inner .listings ul li{
 	float: left;
 }
 
-.wax-tooltip .tooltip-inner .occupation-directory-url,
-.wax-tooltip .tooltip-inner .website-url,
-.wax-tooltip .tooltip-inner .general-email-address,
-.wax-tooltip .tooltip-inner .listings ul li a{
+.wax-popup .tooltip-inner .occupation-directory-url,
+.wax-popup .tooltip-inner .website-url,
+.wax-popup .tooltip-inner .general-email-address,
+.wax-popup .tooltip-inner .listings ul li a{
 	text-decoration: none;
 }
 
-.wax-tooltip .tooltip-inner .occupation-image{
+.wax-popup .tooltip-inner .occupation-image{
 	float: left;
 	margin: 0 1em 0 0;
 	-moz-box-shadow: 1px 1px 5px #aaa;
@@ -400,42 +407,42 @@ including listing and wax-tooltip classes here to apply clearfix to them, withou
 	display: none;
 }
 
-.wax-tooltip .tooltip-inner .occupation-title{
+.wax-popup .tooltip-inner .occupation-title{
 	margin-bottom: 1em;
 }
 
-.wax-tooltip .tooltip-teaser .tooltip-inner .occupation-title{
+.wax-popup .tooltip-teaser .tooltip-inner .occupation-title{
 	margin-bottom: .5em;
 }
 
-.wax-tooltip .tooltip-inner .occupation-description{
+.wax-popup .tooltip-inner .occupation-description{
 	font-size: 15px;
 	line-height: 18px;
 }
 
-.wax-tooltip .tooltip-inner h1,
-.wax-tooltip .tooltip-inner h2,
-.wax-tooltip .tooltip-inner h3,
-.wax-tooltip .tooltip-inner h4,
-.wax-tooltip .tooltip-inner h5,
-.wax-tooltip .tooltip-inner h6{
+.wax-tooltip h1,
+.wax-tooltip h2,
+.wax-tooltip h3,
+.wax-tooltip h4,
+.wax-tooltip h5,
+.wax-tooltip h6{
 	font-weight: 300;
 	padding: 0;	
 	margin: 0 0 .25em 0;
 }
 
-.wax-tooltip .tooltip-inner h1{ font-size: 48px; }
-.wax-tooltip .tooltip-inner h2{ font-size: 36px; }
-.wax-tooltip .tooltip-inner h3{
+.wax-popup .tooltip-inner h1{ font-size: 48px; }
+.wax-popup .tooltip-inner h2{ font-size: 36px; }
+.wax-popup .tooltip-inner h3{
 	word-wrap: break-word;
 	font-size: 21px;
 	line-height: 1.2;
 	border-top: none !important;
 }
 
-.wax-tooltip .tooltip-inner h4{ font-size: 18px; }
+.wax-popup .tooltip-inner h4{ font-size: 18px; }
 
-.wax-tooltip .tooltip-inner h6.label{
+.wax-popup .tooltip-inner h6.label{
 	margin-top: 0;
 	font-size: 15px;
 	line-height: 18px;
@@ -478,92 +485,75 @@ including listing and wax-tooltip classes here to apply clearfix to them, withou
 	Share
 -------------------------------------*/
 
-.wax-share {
-	background:#666;
-	background:rgba(32,32,32,0.75);
-	position:absolute;
-	width:100%;
-	height:100%;
-	top:0px; left:0px; right:0px; bottom:0px;
-}
+.ts-error,
+ .wax-share {
+  background:#666;
+  background:rgba(0,0,0,0.65);
+  position:absolute;
+  width:100%;
+  height:100%;
+  top:0; left:0px; right:0px; bottom:0px;
+  z-index:999999;
+  }
 
-	.wax-share div {
-	right:50%;
-	top:50%;
-	margin:-120px -180px 0px 0px;
-	padding:19px;
-	width:320px;
-	height:200px;
-	overflow:hidden;
-	}
+ .wax-share div {
+  right:50%;
+  top:50%;
+  margin:-120px -180px 0px 0px;
+  padding:19px;
+  width:320px;
+  overflow:hidden;
+  }
 
-	.wax-share small { color:#999; }
+ .wax-share small { color:#999; }
 
-	.wax-share textarea {
-	display:block;
-	font:normal 10px/15px Arial,sans-serif;
-	resize:none;
-	border:1px solid #ccc;
-	padding:4px;
-	width:310px;
-	}
+ .wax-share textarea {
+  display:block;
+  font:normal 10px/15px Arial,sans-serif;
+  resize:none;
+  border:1px solid #ccc;
+  padding:4px;
+  width:310px;
+	clear: both;
+ }
 
  .wax-share .twitter,
  .wax-share .facebook {
-  display:inline-block;
-  position:relative;
-  padding:2px 18px;
-  margin-right:10px;
-  background:#fff;
-  color:#fff;
-  font-weight:bold;
-  border:2px solid #ccc;
+  display:block;
+  padding:.5em 1em;
+  margin: .5em 0;
+  color:#000;
+	text-decoration: none;
+	font-family: 'Dosis', sans-serif;
+	font-weight: 300;
+	text-transform: uppercase;
   }
+
+.wax-share h3{
+	margin-bottom: 1em;
+}
+.wax-share h3,
+.wax-share strong{
+font-family: 'Dosis', sans-serif;
+font-weight: 300;
+color: #eee;
+}
 
  .wax-share .twitter {
   background:#0ac;
-  border-color:#4ce;
   }
 
  .wax-share .facebook {
   background:#359;
-  border-color:#68c;
   }
 
-/* ### Error message ### */
-.ts-error .error-message {
-  background:#fff;
-  position:absolute;
-  right:50%;
-  top:50%;
-  margin:-50px -110px 0px 0px;
-  padding:10px 0px;
-  height:80px;
-  width:220px;
-  color:#999;
-  text-align:center;
-  font-weight:bold;
-  border-radius:5px;
-  -moz-border-radius:5px;
-  -webkit-border-radius:5px;
-  box-shadow:#fff 0px 0px 40px;
-  -moz-box-shadow:#fff 0px 0px 40px;
-  -webkit-box-shadow:#fff 0px 0px 40px;
-  }
-
-#geocode-error {
-  position: absolute;
-  top: 41px;
-  color: white;
-  font-weight: bold;
-}
-
-/* Override image location */
- .zoomer,
- .close,
- .mapbox-watermark,
-.ts-error .mapbox-logo { background-image:url(../img/map.png); }
-
+	.wax-share>div{
+		margin: 6em auto;
+	}
+	
+	.small{
+		font-size: .875em;
+	}
 
 
 /* =====================================
@@ -578,7 +568,7 @@ a.zoomer,
 .wax-legends,
 .wax-share,
 .share,
-.wax-tooltip.wax-popup a.close,
+.wax-popup a.close,
 .wax-attribution{
 	position: absolute;
 }
@@ -615,6 +605,7 @@ a.zoomout{
 	z-index: 2000;
 }
 
+.button,
 .share{
 	z-index: 200;
 	background: #fc0;
@@ -644,8 +635,14 @@ a.zoomout{
 	text-align: center;
 }
 
-.wax-tooltip .tooltip-teaser{
+.tooltip-teaser{
 	z-index: 2002;
-	left: 2em;
+	display: none;
+/*	left: 2em;
 	top: 2em;
+*/}
+
+.inner .tooltip-teaser{
+	display: block;
 }
+
