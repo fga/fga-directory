@@ -287,21 +287,22 @@ including listing and wax-tooltip classes here to apply clearfix to them, withou
 
 
 .wax-tooltip.wax-popup a.close{
-	background: url( ../img/icon-12x12-close.png ) no-repeat;
+	background-image: url( ../img/icon-16x16-close.png );
+	background-repeat: no-repeat;
+	background-position top left;
 	width: 16px;
 	height: 16px;
-	text-indent: -1000px;	
-	padding: .5em;
 	display: block;
 	position: absolute;
-	right: -.25em;
-	top: 1.5em;
-	line-height: 14.75px;
+	left: 1em;
+	top: 1em;
+	text-indent: -1000px;
 	text-align: center;
-	-webkit-border-radius: 2px;
-	-moz-border-radius: 2px;
-	border-radius: 2px;
 	color:#aaa;
+}
+
+.wax-tooltip.wax-popup a.close:hover{
+	background-position: top right;
 }
 
 .wax-tooltip .tooltip-inner a.close:hover{
@@ -621,6 +622,8 @@ a.zoomout{
 	background: #fc0;
 	color: #000;
 	text-decoration: none;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
 	border-radius: 4px;
 	padding: .25em;
 	bottom: 1em;
@@ -635,6 +638,8 @@ a.zoomout{
 
 #searchButton{
 	background: #fc0;
+	-webkit-border-radius: 7px;
+	-moz-border-radius: 7px;
 	border-radius: 7px;
 	position: relative;
 	top: 3px;
@@ -643,6 +648,6 @@ a.zoomout{
 
 .wax-tooltip .tooltip-teaser{
 	z-index: 2002;
-	left: 3em;
-	top: 6em;
+	left: 2em;
+	top: 2em;
 }
