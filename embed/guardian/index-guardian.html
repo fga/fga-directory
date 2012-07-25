@@ -8,8 +8,11 @@
 		<link href='http://fonts.googleapis.com/css?family=Dosis:700,400&subset=latin,latin-ext' rel='stylesheet' type='text/css'>    <link rel="stylesheet" href="css/guardian.css" type="text/css" />
   </head>
 	
-
 <body>
+	
+	<div id="overlays">
+		
+	</div>
   
 	<!-- template based on http://mapbox.com/map-sites/ -->
 
@@ -22,7 +25,7 @@
 		<div data-control='geocode' id="search">
 			<form class="geocode">
 				<input placeholder='Search for an Occupation' size="41" type="text">
-				<input type='submit' />
+				<input id="searchButton" type="image" src="img/search.png" />
 				<div id='geocode-error'></div>
 			</form>
 		</div>
@@ -38,34 +41,29 @@
   <script src="ext/mmg.js"></script>
   <script src="guardian.js"></script>
 
-
   <!-- Site configuration -->
   <script type="text/javascript">
-
-      // Make a new map in the #map element
-      var main = Map('map', {
-          // Specify the MapBox API url
-          //api:'http://a.tiles.mapbox.com/v3/occupy.map-7o6g1bgq,occupydirectory.water-base-3-to-8,occupydirectory.countries-3-8,occupydirectory.occupy-streets-points-3-11,occupydirectory.occupy-streets-points-1-3.jsonp',
-        
-          api:'http://a.tiles.mapbox.com/v3/occupydirectory.map-lzygvfea.jsonp',
-          center: {
-              lat: 19,                   // Intial center point and zoom level.
-              lon: 9.7,                  // To find coordinates and zoom levels
-              zoom: 2                    // try: http://www.getlatlon.com
-          },
-          zoomRange: [1.9, 11],             // Limit zooming on the map to these levels
-          features: [                     // Map features (see readme.md)
-              'zoomwheel',
-              'tooltips',
-							// 'movetips',
-              'zoombox',
-              'zoompan',
-              'legend'
-          ]
-      });
-
-    
+		// Make a new map in the #map element
+		var main = Map('map', {
+		// Specify the MapBox API url			
+	//api:'http://a.tiles.mapbox.com/v3/occupy.map-7o6g1bgq,occupydirectory.water-base-3-to-8,occupydirectory.countries-3-8,occupydirectory.occupy-streets-points-3-11,occupydirectory.occupy-streets-points-1-3.jsonp',
+			api:'http://a.tiles.mapbox.com/v3/occupydirectory.map-lzygvfea.jsonp',
+			center: {
+				lat: 19,                   // Intial center point and zoom level.
+				lon: 9.7,                  // To find coordinates and zoom levels
+				zoom: 2                    // try: http://www.getlatlon.com
+			},
+			zoomRange: [1.9, 11],             // Limit zooming on the map to these levels
+			features: [                     // Map features (see readme.md)
+				// 'zoomwheel',
+				'tooltips',
+				'zoombox',
+				'share',
+				'zoompan',
+				'legend'
+			]
+		});
   </script>
-  
+
 </body>
 </html>

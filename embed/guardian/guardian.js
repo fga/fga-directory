@@ -1,6 +1,5 @@
 (function(root) {
-    var Map = {},
-        layers;
+    var Map = {}, layers;
 
     Map = function(el, l, callback) {
         wax.tilejson(l.api, function(t) {
@@ -28,24 +27,29 @@
                 MM_map.setZoomRange(t.minzoom, t.maxzoom);
             }
 
-            wax.mm.attribution(MM_map, t).appendTo(MM_map.parent);
 
             for (var i = 0; i < l.features.length; i++) {
                 switch(l.features[i]) {
+										case 'attribution':
+				            		wax.mm.attribution(MM_map, t).appendTo( $('body')[0] );
+												break;
                     case 'zoompan':
-                        wax.mm.zoomer(MM_map).appendTo(MM_map.parent);
+                        wax.mm.zoomer(MM_map).appendTo( $('body')[0] );
                         break;
                     case 'zoombox':
-                        wax.mm.zoombox(MM_map);
+                        wax.mm.zoombox( MM_map );
                         break;
                     case 'legend':
-                        MM_map.legend = wax.mm.legend(MM_map, t).appendTo(MM_map.parent);
+                        MM_map.legend = wax.mm.legend( MM_map, t).appendTo( $('body')[0] );
                         break;
+										case 'embed':
+											
+										break;
                     case 'bwdetect':
                         wax.mm.bwdetect(MM_map);
                         break;
                     case 'share':
-                        wax.mm.share(MM_map, t).appendTo($('body')[0]);
+                        wax.mm.share( MM_map, t ).appendTo( $('body')[0] );
                         break;
                     case 'tooltips':
                         MM_map.interaction = wax.mm.interaction()
@@ -54,7 +58,8 @@
                             .on(
 															wax.tooltip()
 															.animate(true)
-															.parent(MM_map.parent)
+															.parent($('body')[0])
+//															.parent(MM_map.parent)
 															.events()
 														)
                         break;
@@ -66,7 +71,7 @@
                                 .parent(MM_map.parent)
                                 .events()
                             );
-                        break;
+										break;
                 }
             }
             if (callback && typeof(callback) == 'function') callback();
