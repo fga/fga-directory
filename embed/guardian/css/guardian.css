@@ -238,8 +238,6 @@ including listing and wax-tooltip classes here to apply clearfix to them, withou
 	Tooltip
 -------------------------------------*/
 
-
-
 .wax-tooltip.wax-popup{
 	width: 290px;
 	height: 100%;
@@ -248,7 +246,6 @@ including listing and wax-tooltip classes here to apply clearfix to them, withou
 	right: 0;
 }
 
-
 .wax-tooltip .tooltip-teaser{
 	padding: 1em 1em .5em 1em;
 	font-size: .5;
@@ -256,7 +253,6 @@ including listing and wax-tooltip classes here to apply clearfix to them, withou
 	position: absolute;
 	line-height: 18px;
 }
-
 
 .wax-tooltip .tooltip-teaser a{
 	text-decoration: none;
@@ -284,8 +280,6 @@ including listing and wax-tooltip classes here to apply clearfix to them, withou
 	padding: .5em;
 }
 
-
-
 .wax-tooltip.wax-popup a.close{
 	background-image: url( ../img/icon-16x16-close.png );
 	background-repeat: no-repeat;
@@ -294,8 +288,8 @@ including listing and wax-tooltip classes here to apply clearfix to them, withou
 	height: 16px;
 	display: block;
 	position: absolute;
-	left: 1em;
-	top: 1em;
+	left: .125em;
+	top: .125em;
 	text-indent: -1000px;
 	text-align: center;
 	color:#aaa;
@@ -355,6 +349,7 @@ including listing and wax-tooltip classes here to apply clearfix to them, withou
 
 .wax-tooltip .tooltip-inner .taglink a{
 	display: block;
+	font-weight: 500;
 	text-decoration: none;
 	-webkit-border-radius: 3px;
 	-moz-border-radius: 3px;
@@ -363,6 +358,7 @@ including listing and wax-tooltip classes here to apply clearfix to them, withou
 	margin: .25em;
 	background: #000;
 }
+
 
 .wax-tooltip .tooltip-inner a{
 	text-decoration: underline;
@@ -398,8 +394,10 @@ including listing and wax-tooltip classes here to apply clearfix to them, withou
 	-webkit-box-shadow: 1px 1px 5px #aaa;
 	box-shadow: 1px 1px 8px #ccc;
 }
+
 .occupation-image {
-  line-height:8px;
+	line-height:8px;
+	display: none;
 }
 
 .wax-tooltip .tooltip-inner .occupation-title{
