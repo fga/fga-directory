@@ -549,6 +549,13 @@ including listing and wax-tooltip classes here to apply clearfix to them, withou
   -webkit-box-shadow:#fff 0px 0px 40px;
   }
 
+#geocode-error {
+  position: absolute;
+  top: 41px;
+  color: white;
+  font-weight: bold;
+}
+
 /* Override image location */
  .zoomer,
  .close,
