@@ -80,7 +80,7 @@ body{
 
 h1, h2, h3, h4{
 	font-family: 'Dosis', sans-serif;
-	font-weight: 400;
+	font-weight: 300;
 	color:#222;
 	text-decoration: italic;
 	padding: 0;	
@@ -112,7 +112,6 @@ h3.title{
 h1 a{
 	color: #666;
 	text-decoration: none;
-	font-weight: 700;
 	padding-left: .25em;
 }
 
@@ -246,7 +245,7 @@ including listing and wax-tooltip classes here to apply clearfix to them, withou
 	height: 100%;
 	overflow: auto;
 	background: url( ../img/bg_white80.png );
-	right: 0;
+	z-index: 2;
 }
 
 
@@ -255,8 +254,6 @@ including listing and wax-tooltip classes here to apply clearfix to them, withou
 	font-size: .5;
 	color: #eee;
 	position: absolute;
-	top: 1.25em;
-	right: 3em;
 	line-height: 18px;
 }
 
@@ -268,7 +265,7 @@ including listing and wax-tooltip classes here to apply clearfix to them, withou
 .wax-tooltip .tooltip-teaser h3{
 	white-space: nowrap;
 	text-decoration: none;
-	color: #eee;
+	color: #aaa;
 	padding: .125em;
 	margin-bottom: .25em;
 	background: url( ../img/bg_black60.png );
@@ -633,4 +630,10 @@ a.zoomout{
 	position: relative;
 	top: 3px;
 	text-align: center;
+}
+
+.wax-tooltip .tooltip-teaser{
+	z-index: 2002;
+	left: 3em;
+	top: 8em;
 }
