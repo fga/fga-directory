@@ -59,7 +59,6 @@
 															wax.tooltip()
 															.animate(true)
 															.parent($('body')[0])
-//															.parent(MM_map.parent)
 															.events()
 														)
                         break;

@@ -245,12 +245,12 @@ including listing and wax-tooltip classes here to apply clearfix to them, withou
 	height: 100%;
 	overflow: auto;
 	background: url( ../img/bg_white80.png );
-	z-index: 2;
+	right: 0;
 }
 
 
 .wax-tooltip .tooltip-teaser{
-	padding: .5em 1em .5em 1em;
+	padding: 1em 1em .5em 1em;
 	font-size: .5;
 	color: #eee;
 	position: absolute;
@@ -278,7 +278,7 @@ including listing and wax-tooltip classes here to apply clearfix to them, withou
 }
 
 .wax-tooltip.wax-popup{
-	top: 2.5em;
+	top: 3em;
 	font-size: 12px;
 	line-height: 15px;
 	padding: .5em;
@@ -454,7 +454,7 @@ including listing and wax-tooltip classes here to apply clearfix to them, withou
 
 	#search form.location input[type='text']{
 		border: 1px #444 solid;
-		width: 275px;
+		width: 300px;
 		font-size: 12px;
 		background: #000;
 		line-height: 1.2;
@@ -568,48 +568,52 @@ including listing and wax-tooltip classes here to apply clearfix to them, withou
  Z-INDEXES
 */
 
-#map{
+#map,
+#header,
+#directory_title,
+.wax-tooltip,
+a.zoomer,
+.wax-legends,
+.wax-share,
+.share,
+.wax-tooltip.wax-popup a.close,
+.wax-attribution{
 	position: absolute;
+}
+
+#map{
 	z-index: 5;
 }
 	
 #header{
-	position: absolute;
 	z-index: 1015;
 }
 
 #directory_title {
-	position: absolute;
 	z-index: 105;
 }
 
 .wax-tooltip{
-	position: absolute;
-	position: absolute;
 	z-index: 1014;
 }
 
 a.zoomer{
-	position: absolute;
 	z-index: 102;
 }
 
 a.zoomout{
-	position: absolute;
 	z-index: 103;	
 }
 
 .wax-legends{
-	position: absolute;
 	z-index: 14000;
 }
+
 .wax-share{
-	position: absolute;
 	z-index: 2000;
 }
 
 .share{
-	position: absolute;
 	z-index: 200;
 	background: #fc0;
 	color: #000;
@@ -620,13 +624,8 @@ a.zoomout{
 	left: 1em;
 }
 
-.wax-tooltip.wax-popup a.close{
-	position: absolute;
-}
-
 .wax-attribution{
 	display: none;
-	position: absolute;
 	bottom: 2em;
 	text-align: right;
 }
@@ -642,5 +641,5 @@ a.zoomout{
 .wax-tooltip .tooltip-teaser{
 	z-index: 2002;
 	left: 3em;
-	top: 8em;
+	top: 6em;
 }

@@ -140,16 +140,9 @@ input:focus {
   height:700px;
 }
 
-	body{
-		font-family: 'Lato', sans-serif;
-		font-size: 14px;
-		background: #424242;
-	}
-
 	h1, h2, h3, h4{
 		font-weight: 300;
 		color:#aaa;
-		text-decoration: italic;
 		padding: 0;	
 		margin: 0 0 .5em 0;
 	}
@@ -301,7 +294,7 @@ input:focus {
 
 /* TEASER */
 .tooltip-teaser {
-  font-family: 12px/15px 'Lato', sans-serif !important;
+  font: 12px/15px 'Lato', sans-serif !important;
   padding: 1em !important;
 }
 
@@ -426,8 +419,8 @@ input:focus {
 }
 
 .tooltip-inner {
-  font-family: 12px/15px 'Lato', sans-serif !important;
-  padding: .5em;
+/*  font: 12px/15px 'Lato', sans-serif !important;
+*/  padding: .5em;
 }
 
 .tooltip-inner .vcard,
