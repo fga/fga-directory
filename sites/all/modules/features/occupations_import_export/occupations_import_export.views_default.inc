@@ -24,7 +24,9 @@ function occupations_import_export_views_default_views() {
   $handler = $view->new_display('default', 'Master', 'default');
   $handler->display->display_options['title'] = 'Occupation Directory';
   $handler->display->display_options['access']['type'] = 'perm';
-  $handler->display->display_options['cache']['type'] = 'none';
+  $handler->display->display_options['cache']['type'] = 'time';
+  $handler->display->display_options['cache']['results_lifespan'] = '3600';
+  $handler->display->display_options['cache']['output_lifespan'] = '3600';
   $handler->display->display_options['query']['type'] = 'views_query';
   $handler->display->display_options['query']['options']['query_comment'] = FALSE;
   $handler->display->display_options['exposed_form']['type'] = 'basic';
@@ -197,7 +199,7 @@ function occupations_import_export_views_default_views() {
   /* Display: CSV Download */
   $handler = $view->new_display('views_data_export', 'CSV Download', 'views_data_export_csv');
   $handler->display->display_options['defaults']['title'] = FALSE;
-  $handler->display->display_options['title'] = 'Occupation Directory CSV';
+  $handler->display->display_options['title'] = 'Occupy Directory in CSV format';
   $handler->display->display_options['defaults']['access'] = FALSE;
   $handler->display->display_options['access']['type'] = 'role';
   $handler->display->display_options['access']['role'] = array(
@@ -1898,7 +1900,7 @@ function occupations_import_export_views_default_views() {
   /* Display: Recently Added RSS */
   $handler = $view->new_display('feed', 'Recently Added RSS', 'added_rss');
   $handler->display->display_options['defaults']['title'] = FALSE;
-  $handler->display->display_options['title'] = 'Occupation Directory RSS, recently added';
+  $handler->display->display_options['title'] = 'Occupy Directory RSS, recently added';
   $handler->display->display_options['pager']['type'] = 'some';
   $handler->display->display_options['pager']['options']['items_per_page'] = '50';
   $handler->display->display_options['pager']['options']['offset'] = '0';
@@ -1923,7 +1925,7 @@ function occupations_import_export_views_default_views() {
   /* Display: Recently Updated RSS */
   $handler = $view->new_display('feed', 'Recently Updated RSS', 'updated_rss');
   $handler->display->display_options['defaults']['title'] = FALSE;
-  $handler->display->display_options['title'] = 'Occupation Directory RSS, recently updated';
+  $handler->display->display_options['title'] = 'Occupy Directory RSS, recently updated';
   $handler->display->display_options['pager']['type'] = 'some';
   $handler->display->display_options['pager']['options']['items_per_page'] = '50';
   $handler->display->display_options['pager']['options']['offset'] = '0';
@@ -1946,9 +1948,9 @@ function occupations_import_export_views_default_views() {
   $handler->display->display_options['sitename_title'] = 0;
 
   /* Display: Recently Added Atom */
-  $handler = $view->new_display('page', 'Recently Added Atom', 'page_1');
+  $handler = $view->new_display('page', 'Recently Added Atom', 'atom_recent');
   $handler->display->display_options['defaults']['title'] = FALSE;
-  $handler->display->display_options['title'] = 'Occupation Directory Atom, recently added';
+  $handler->display->display_options['title'] = 'Occupy Directory Atom, recently added';
   $handler->display->display_options['defaults']['style_plugin'] = FALSE;
   $handler->display->display_options['style_plugin'] = 'views_xml_style';
   $handler->display->display_options['style_options']['schema'] = 'atom';
@@ -2684,9 +2686,9 @@ function occupations_import_export_views_default_views() {
   $handler->display->display_options['path'] = 'occupations/added.atom';
 
   /* Display: Recently Updated Atom */
-  $handler = $view->new_display('page', 'Recently Updated Atom', 'page_2');
+  $handler = $view->new_display('page', 'Recently Updated Atom', 'atom_updated');
   $handler->display->display_options['defaults']['title'] = FALSE;
-  $handler->display->display_options['title'] = 'Occupation Directory Atom, recently updated';
+  $handler->display->display_options['title'] = 'Occupy Directory Atom, recently updated';
   $handler->display->display_options['defaults']['style_plugin'] = FALSE;
   $handler->display->display_options['style_plugin'] = 'views_xml_style';
   $handler->display->display_options['style_options']['schema'] = 'atom';
@@ -3422,9 +3424,13 @@ function occupations_import_export_views_default_views() {
   $handler->display->display_options['path'] = 'occupations/updated.atom';
 
   /* Display: JSON */
-  $handler = $view->new_display('page', 'JSON', 'page_3');
+  $handler = $view->new_display('page', 'JSON', 'export_json');
   $handler->display->display_options['defaults']['title'] = FALSE;
-  $handler->display->display_options['title'] = 'Occupation Directory Atom, recently added';
+  $handler->display->display_options['title'] = 'Occupy Directory in JSON format';
+  $handler->display->display_options['display_comment'] = 'All the occupation data as a JSON string!
+Caching exceeds memory limit :(';
+  $handler->display->display_options['defaults']['cache'] = FALSE;
+  $handler->display->display_options['cache']['type'] = 'none';
   $handler->display->display_options['defaults']['pager'] = FALSE;
   $handler->display->display_options['pager']['type'] = 'none';
   $handler->display->display_options['pager']['options']['offset'] = '0';
@@ -4157,12 +4163,22 @@ function occupations_import_export_views_default_views() {
   $handler->display->display_options['sorts']['created']['table'] = 'node';
   $handler->display->display_options['sorts']['created']['field'] = 'created';
   $handler->display->display_options['sorts']['created']['order'] = 'DESC';
-  $handler->display->display_options['path'] = 'occupations/json';
+  $handler->display->display_options['path'] = 'directory.json';
+  $handler->display->display_options['menu']['type'] = 'normal';
+  $handler->display->display_options['menu']['title'] = 'json';
+  $handler->display->display_options['menu']['description'] = 'The entire directory in JSON format';
+  $handler->display->display_options['menu']['weight'] = '11';
+  $handler->display->display_options['menu']['name'] = 'menu-feeds-and-exports';
+  $handler->display->display_options['menu']['context'] = 0;
 
   /* Display: geojson */
-  $handler = $view->new_display('page', 'geojson', 'page_4');
+  $handler = $view->new_display('page', 'geojson', 'export_geojson');
   $handler->display->display_options['defaults']['title'] = FALSE;
-  $handler->display->display_options['title'] = 'Occupation Directory Atom, recently added';
+  $handler->display->display_options['title'] = 'Occupy Directory in GEOJSON format';
+  $handler->display->display_options['display_comment'] = 'Module is still unstable. Submitted a bunch of patches. needs work.
+caching exceeds memory limit :(';
+  $handler->display->display_options['defaults']['cache'] = FALSE;
+  $handler->display->display_options['cache']['type'] = 'none';
   $handler->display->display_options['defaults']['pager'] = FALSE;
   $handler->display->display_options['pager']['type'] = 'none';
   $handler->display->display_options['pager']['options']['offset'] = '0';
@@ -4904,7 +4920,7 @@ function occupations_import_export_views_default_views() {
   $handler->display->display_options['sorts']['created']['table'] = 'node';
   $handler->display->display_options['sorts']['created']['field'] = 'created';
   $handler->display->display_options['sorts']['created']['order'] = 'DESC';
-  $handler->display->display_options['path'] = 'occupations/json';
+  $handler->display->display_options['path'] = 'directory.geojson';
   $export['occupation_exports_and_data'] = $view;
 
   return $export;
