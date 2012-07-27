@@ -82,24 +82,6 @@ function occupation_directory_structure_menu_default_menu_links() {
     'expanded' => '0',
     'weight' => '-49',
   );
-  // Exported menu link: menu-feeds-and-exports:occupations/json
-  $menu_links['menu-feeds-and-exports:occupations/json'] = array(
-    'menu_name' => 'menu-feeds-and-exports',
-    'link_path' => 'occupations/json',
-    'router_path' => 'occupations/json',
-    'link_title' => 'json',
-    'options' => array(
-      'attributes' => array(
-        'title' => '',
-      ),
-    ),
-    'module' => 'menu',
-    'hidden' => '0',
-    'external' => '0',
-    'has_children' => '0',
-    'expanded' => '0',
-    'weight' => '0',
-  );
   // Exported menu link: menu-feeds-and-exports:occupations/updated.atom
   $menu_links['menu-feeds-and-exports:occupations/updated.atom'] = array(
     'menu_name' => 'menu-feeds-and-exports',
@@ -144,7 +126,6 @@ function occupation_directory_structure_menu_default_menu_links() {
   t('CSV');
   t('RSS (new)');
   t('RSS (updated)');
-  t('json');
 
 
   return $menu_links;
