@@ -191,14 +191,6 @@ a.zoomout{
 }
 
 
-/*-----------------------------------
-  Legend
--------------------------------------*/
-
-
-.wax-legends {
-	display: none;
-}
 
 /*-----------------------------------
   Util
@@ -238,7 +230,7 @@ including listing and wax-tooltip classes here to apply clearfix to them, withou
 	Tooltip
 -------------------------------------*/
 
-.wax-popup{
+.detail{
 	width: 290px;
 	height: 100%;
 	overflow: auto;
@@ -250,8 +242,8 @@ including listing and wax-tooltip classes here to apply clearfix to them, withou
 	padding: 1em 1em .5em 1em;
 	font-size: .5;
 	color: #eee;
-/*	position: absolute;
-*/	line-height: 18px;
+	position: absolute;
+	line-height: 18px;
 }
 
 .wax-tooltip .tooltip-teaser a{
@@ -273,7 +265,7 @@ including listing and wax-tooltip classes here to apply clearfix to them, withou
 	color: #aaa !important;
 }
 
-.wax-tooltip.wax-popup{
+.detail{
 	top: 3em;
 	font-size: 12px;
 	line-height: 15px;
@@ -294,7 +286,7 @@ including listing and wax-tooltip classes here to apply clearfix to them, withou
 	color:#aaa;	
 }
 
-.wax-tooltip.wax-popup a.close{
+.detail a.close{
 	position: absolute;	
 }
 
@@ -311,28 +303,28 @@ a.close:hover{
 	background-position: top right;
 }
 
-.wax-popup .tooltip-inner .vcard,
-.wax-popup .tooltip-inner .info,
-.wax-popup .tooltip-inner .listings{
+.detail .vcard,
+.detail .info,
+.detail .listings{
 	padding: 1em;
 	margin-bottom: .5em;
 	background: url( '../img/bg_white60.png');
 }
 
-.wax-popup .tooltip-inner .listings ul{
+.detail .listings ul{
 	margin-bottom: 1.5em;
 }
 
-.wax-popup .tooltip-inner .founded{
+.detail .founded{
 	clear: both;
 	margin-bottom: .75em;
 }
 
-.wax-popup .tooltip-inner .founded .bday{
+.detail .founded .bday{
 	line-height: 18px;
 }
 
-.wax-popup .tooltip-inner .founded h6.label{
+.detail .founded h6.label{
 	float: left !important;
 	display: inline-block;
 	border-right: 1px #bababa solid;
@@ -340,21 +332,21 @@ a.close:hover{
 	margin-right: .5em;
 }
 
-.wax-popup .tooltip-inner .occupation-description{
+.detail .occupation-description{
 	clear: both;
 }
-.wax-popup .tooltip-inner .website-url,
-.wax-popup .tooltip-inner .general-email-address{
+.detail .website-url,
+.detail .general-email-address{
 	clear: both;
 
 }
 
 /* hide geo */
-.wax-popup .tooltip-inner .geo{
+.detail .geo{
 	display: none;
 }
 
-.wax-popup .tooltip-inner .taglink a{
+.detail .taglink a{
 	display: block;
 	font-weight: 500;
 	text-decoration: none;
@@ -367,34 +359,34 @@ a.close:hover{
 }
 
 
-.wax-popup .tooltip-inner a{
+.detail a{
 	text-decoration: underline;
 	color: #489;
 }
 
-.wax-popup .tooltip-inner .adr,
-.wax-popup .tooltip-inner .general-phone{
+.detail .adr,
+.detail .general-phone{
 	margin-top: 1.5em;
 }
 
-.wax-popup .tooltip-inner .listings ul li:hover a,
-.wax-popup .tooltip-inner .listings li:hover a:hover{
+.detail .listings ul li:hover a,
+.detail .listings li:hover a:hover{
 	background: #489;
 	color: #000;
 }
 
-.wax-popup .tooltip-inner .listings ul li{
+.detail .listings ul li{
 	float: left;
 }
 
-.wax-popup .tooltip-inner .occupation-directory-url,
-.wax-popup .tooltip-inner .website-url,
-.wax-popup .tooltip-inner .general-email-address,
-.wax-popup .tooltip-inner .listings ul li a{
+.detail .occupation-directory-url,
+.detail .website-url,
+.detail .general-email-address,
+.detail .listings ul li a{
 	text-decoration: none;
 }
 
-.wax-popup .tooltip-inner .occupation-image{
+.detail .occupation-image{
 	float: left;
 	margin: 0 1em 0 0;
 	-moz-box-shadow: 1px 1px 5px #aaa;
@@ -407,17 +399,18 @@ a.close:hover{
 	display: none;
 }
 
-.wax-popup .tooltip-inner .occupation-title{
+.detail .occupation-title{
 	margin-bottom: 1em;
 }
 
-.wax-popup .tooltip-teaser .tooltip-inner .occupation-title{
-	margin-bottom: .5em;
-}
-
-.wax-popup .tooltip-inner .occupation-description{
+.detail .occupation-description{
 	font-size: 15px;
 	line-height: 18px;
+}
+
+
+.tooltip-teaser .occupation-title{
+	margin-bottom: .5em;
 }
 
 .wax-tooltip h1,
@@ -431,18 +424,18 @@ a.close:hover{
 	margin: 0 0 .25em 0;
 }
 
-.wax-popup .tooltip-inner h1{ font-size: 48px; }
-.wax-popup .tooltip-inner h2{ font-size: 36px; }
-.wax-popup .tooltip-inner h3{
+.detail h1{ font-size: 48px; }
+.detail h2{ font-size: 36px; }
+.detail h3{
 	word-wrap: break-word;
 	font-size: 21px;
 	line-height: 1.2;
 	border-top: none !important;
 }
 
-.wax-popup .tooltip-inner h4{ font-size: 18px; }
+.detail h4{ font-size: 18px; }
 
-.wax-popup .tooltip-inner h6.label{
+.detail h6.label{
 	margin-top: 0;
 	font-size: 15px;
 	line-height: 18px;
@@ -563,12 +556,13 @@ color: #eee;
 #map,
 #header,
 #directory_title,
-.wax-tooltip,
 a.zoomer,
 .wax-legends,
 .wax-share,
 .share,
-.wax-popup a.close,
+.detail,
+.tooltip-teaser,
+.detail a.close,
 .wax-attribution{
 	position: absolute;
 }
@@ -583,10 +577,6 @@ a.zoomer,
 
 #directory_title {
 	z-index: 105;
-}
-
-.wax-tooltip{
-	z-index: 1014;
 }
 
 a.zoomer{
@@ -637,12 +627,10 @@ a.zoomout{
 
 .tooltip-teaser{
 	z-index: 2002;
-	display: none;
-/*	left: 2em;
-	top: 2em;
-*/}
-
-.inner .tooltip-teaser{
+	position: absolute;
 	display: block;
 }
 
+.detail{
+	z-index: 2000;
+}
