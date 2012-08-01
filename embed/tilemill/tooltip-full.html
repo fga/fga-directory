@@ -4,16 +4,18 @@
   <div class="vcard">
 
     
-    {{#Occupation_image-thumb}}
     <div class="occupation-title clearfix">
+	    {{#Occupation_image-thumb}}
       <div class="occupation-image">
         <img src="{{{Occupation_image-thumb}}}" width="92" height="92" alt="{{{Title}}} image" />
       </div>
+	    {{/Occupation_image-thumb}}
+      <h3 class="fn org title">
       <a class="occupation-directory-url"  href="{{{Occupy Directory URL}}}">   
-      <h3 class="fn org title">{{{Title}}}</h3>
+      {{{Title}}}
       </a>
+      </h3>
     </div>
-    {{/Occupation_image-thumb}}
     
     <ul>
 
