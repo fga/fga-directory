@@ -199,7 +199,6 @@ a.zoomout{
 /*
 including listing and wax-tooltip classes here to apply clearfix to them, without touching markup because it's rendered in with the maptiles.
 */
-.wax-tooltip:before,
 .clearfix:before,
 .clearfix:after {
   content: '\0020';
@@ -210,7 +209,6 @@ including listing and wax-tooltip classes here to apply clearfix to them, withou
   height: 0;
 }
 
-.wax-tooltip:after,
 .listing:after,
 .clearfix:after {
   clear: both;
@@ -220,7 +218,6 @@ including listing and wax-tooltip classes here to apply clearfix to them, withou
   The following zoom:1 rule is specifically for IE6 + IE7.
   Move to separate stylesheet if invalid CSS is a problem.
 */
-.wax-tooltip,
 .listing,
 .clearfix {
   zoom: 1;
@@ -230,13 +227,23 @@ including listing and wax-tooltip classes here to apply clearfix to them, withou
 	Tooltip
 -------------------------------------*/
 
-.detail{
+.wax-tooltip{
+	position: absolute;
+}
+
+.wax-popup{
+	z-index: 2000;
+	position: absolute;
+	top: 0;
+	right: 0;
 	width: 290px;
 	height: 100%;
 	overflow: auto;
 	background: rgb( 255, 255,255 );
-	background: rgba( 255, 255,255, 80 );
-	right: 0;
+	background: rgba( 255, 255,255, .8 );
+	font-size: 12px;
+	line-height: 15px;
+	padding: .5em;
 }
 
 .wax-tooltip .tooltip-teaser{
@@ -272,17 +279,8 @@ display: none;
 	color: #aaa !important;
 }
 
-.detail{
-	top: 0;
-	font-size: 12px;
-	line-height: 15px;
-	padding: .5em;
-}
-
 .close{
-	background-image: url( ../img/icon-16x16-close.png );
-	background-repeat: no-repeat;
-	background-position top left;
+	content: "&larr;";
 	width: 16px;
 	height: 16px;
 	display: block;
@@ -295,7 +293,6 @@ display: none;
 
 .detail a.close{
 	right: 0px;
-	content: "&larr;";
 	position: absolute;	
 	display: block;
 }
@@ -430,9 +427,14 @@ a.close:hover{
 .wax-tooltip h4,
 .wax-tooltip h5,
 .wax-tooltip h6{
+	font-family: 'Dosis', helvetica, sans-serif;
 	font-weight: 300;
 	padding: 0;	
 	margin: 0 0 .25em 0;
+}
+
+.detail{
+	position: relative
 }
 
 .detail h1{ font-size: 48px; }
@@ -570,7 +572,6 @@ color: #eee;
 a.zoomer,
 .wax-share,
 .share,
-.detail,
 .tooltip-teaser,
 .detail a.close,
 .wax-attribution{
@@ -643,6 +644,3 @@ a.zoomout{
 	left: 3em;
 }
 
-.detail{
-	z-index: 2000;
-}

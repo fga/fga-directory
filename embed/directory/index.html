@@ -54,6 +54,7 @@
 					legend: true,
 					moveTips: false,
 					share: true,
+					bwDetect: true,
 					toolTips: true,
 					zoomBox: true,
 					zoomPan: true,
@@ -74,7 +75,6 @@
 
 			directory.map.container = el;
 
-			console.log( 'el', el );
 
 //			console.log( 'directory.map.container', directory.map.container );
 
@@ -109,28 +109,32 @@
 	 				}
  				
 					if( directory.map.zoomRange ){
+						console.log( 'has zoomRange' );
 						var z = directory.map.zoomRange;
-			            modestMap.setZoomRange( z.min, z.max );
-	    	        } else {
-	    	            modestMap.setZoomRange( tiles.minzoom, tiles.maxzoom);
-	    	        }
-    	        
-	    	        var toolContainer = ( directory.map.options.toolContainer )? directory.map.options.toolContainer : directory.map.container;
+						modestMap.setZoomRange( z.min, z.max );
+					} else {
+						modestMap.setZoomRange( tiles.minzoom, tiles.maxzoom);
+					}
+
+					var toolContainer = ( directory.map.options.toolContainer )? directory.map.options.toolContainer : directory.map.container;
     	        
 					if( directory.map.options.attribution ){
+						console.log( 'hasAttribution' );
 						wax.mm.attribution( modestMap, tiles ).appendTo( toolContainer );
 					}
 				
 					if( directory.map.options.zoomPan ){
+						console.log( 'hasZoomPan' );
 						wax.mm.zoomer( modestMap ).appendTo( toolContainer );					
 					}
 
 					if( directory.map.options.zoomBox ){
-	                    wax.mm.zoombox( modestMap );					
+						console.log( 'hasZoomBox');
+						wax.mm.zoombox( modestMap );					
 					}
 
 					if( directory.map.options.legend ){
-						console.log( "!!!!!!" );
+						console.log( "hasLegend" );
 						modestMap.legend = wax.mm.legend( modestMap, tiles ).appendTo( toolContainer );				
 					}
 				
@@ -155,6 +159,19 @@
 									.parent( toolContainer )
 									.events()
 								);
+						modestMap.interaction.on({
+									on: function( obj ) {
+										if( obj.e.type == 'click' ){
+											console.log( 'interaction', obj, obj.formatter, obj.data );
+											console.log( typeof( obj.formatter ) );
+											console.log( tiles.template );
+											var template = "hi {{{Title}}}";
+											obj.data.__full__ = true;
+											console.log( ":::", Mustache.to_html( tiles.template , obj.data ) );
+										}
+									}
+
+						})
 					}
                         
 					if( directory.map.options.moveTips ){
