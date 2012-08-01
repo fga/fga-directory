@@ -1,0 +1,64 @@
+<div class="tooltip-teaser">
+  
+  <div class="occupation-title clearfix">
+    <a class="occupation-directory-url"  href="{{{Occupy Directory URL}}}">    
+    <h3 class="fn org title">{{{Title}}}</h3>
+    </a>
+  </div>
+
+  {{#Founded-longdate}}
+  <div class="founded YYYY-MM-DD">
+    <h6 class="label">founded</h6>
+    <span class="bday">{{{Founded-longdate}}}</span>
+  </div>
+  {{/Founded-longdate}}
+
+</div>
+
+
+<style type='text/css'>
+
+
+.tooltip-teaser {
+  font-family: 12px/15px 'Lato', sans-serif !important;
+  padding: 1em !important;
+}
+
+.tooltip-teaser h3,
+.tooltip-teaser h6{
+  font-weight: 300;
+  color:#000;
+  padding: 0;  
+}
+
+.tooltip-teaser h3{
+  word-wrap: break-word;
+  font-size: 20px;
+  line-height: 1.25em;
+  padding: 0 0 .25em;
+}
+
+.tooltip-teaser .occupation-title {
+  border-bottom: 1px #666 solid;
+  margin-bottom: 1em;
+}
+
+.tooltip-teaser div.founded {
+  float:right;
+  clear: both;
+  margin-bottom: .75em;
+}
+
+.tooltip-teaser .founded .bday{
+}
+
+.tooltip-teaser .founded h6.label{
+  float: left !important;
+  display: inline-block;
+  border-right: 1px #bababa solid;
+  padding-right: .5em;
+  margin: 0 .5em 0 0;
+  color: #bababa;
+}
+
+</style>
