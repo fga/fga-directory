@@ -234,7 +234,8 @@ including listing and wax-tooltip classes here to apply clearfix to them, withou
 	width: 290px;
 	height: 100%;
 	overflow: auto;
-	background: url( ../img/bg_white80.png );
+	background: rgb( 255, 255,255 );
+	background: rgba( 255, 255,255, 80 );
 	right: 0;
 }
 
@@ -254,19 +255,25 @@ including listing and wax-tooltip classes here to apply clearfix to them, withou
 	white-space: nowrap;
 	text-decoration: none;
 	color: #aaa;
-	padding: .125em;
+	padding: .125em .25em .25em .25em;
+	line-height: 1.5;
 	margin-bottom: .25em;
-	background: url( ../img/bg_black60.png );
+	border-radius: 3px;
+	background: rgb( 0,0,0 );
+	background: rgba( 0, 0, 0, .6 );
 }
 
 .wax-tooltip .tooltip-teaser .founded{
-	padding: .25em;
-	background: url( ../img/bg_black60.png );	
+display: none;
+	padding: .25em .25em .25em .25em;
+	line-height: 1.5;
+	background: rgb( 0,0,0 );
+	background: rgba( 0, 0, 0, .6 );
 	color: #aaa !important;
 }
 
 .detail{
-	top: 3em;
+	top: 0;
 	font-size: 12px;
 	line-height: 15px;
 	padding: .5em;
@@ -287,11 +294,13 @@ including listing and wax-tooltip classes here to apply clearfix to them, withou
 }
 
 .detail a.close{
+	right: 0px;
+	content: "&larr;";
 	position: absolute;	
+	display: block;
 }
 
 .wax-share .close{
-	display: block;
 	margin: 0 auto;
 }
 textarea.embed{
@@ -308,7 +317,9 @@ a.close:hover{
 .detail .listings{
 	padding: 1em;
 	margin-bottom: .5em;
-	background: url( '../img/bg_white60.png');
+	background: rgb( 250, 240,240 );
+	background: rgba( 255, 255,255, 60 );
+
 }
 
 .detail .listings ul{
@@ -557,7 +568,6 @@ color: #eee;
 #header,
 #directory_title,
 a.zoomer,
-.wax-legends,
 .wax-share,
 .share,
 .detail,
@@ -587,7 +597,7 @@ a.zoomout{
 	z-index: 103;	
 }
 
-.wax-legends{
+#legend{
 	z-index: 14000;
 }
 
@@ -629,6 +639,8 @@ a.zoomout{
 	z-index: 2002;
 	position: absolute;
 	display: block;
+	top: 2.125em;
+	left: 3em;
 }
 
 .detail{
