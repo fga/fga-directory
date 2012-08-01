@@ -1,0 +1,648 @@
+html, body{
+	height: 100%;
+}
+
+/*
+	CSS Reset
+ 	http://meyerweb.com/eric/tools/css/reset/ 
+	v2.0 | 20110126
+	License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: inherit;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+
+body {
+	line-height: 1;
+	overflow: hidden;
+}
+
+ol,
+ul {
+	list-style: none;
+}
+
+blockquote,
+q{
+	quotes: none;
+}
+
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+	content: '';
+	content: none;
+}
+
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+a{
+	color: #fc0;
+}
+
+/*-----------------------------------
+  Typography
+-------------------------------------*/
+
+body{
+	font-family: helvetica, arial, sans-serif;
+	font-size: 14px;
+	line-height: 18px;
+	background: #424242;
+}
+
+h1, h2, h3, h4{
+	font-family: 'Dosis', sans-serif;
+	font-weight: 300;
+	color:#222;
+	text-decoration: italic;
+	padding: 0;	
+	margin: 0 0 .5em 0;
+}
+
+h1{ font-size: 24px; }
+h2{ font-size: 36px; }
+h3{ font-size: 24px; }
+h4{ font-size: 18px; }
+
+h3.title{
+	line-height: 27px;
+}
+
+#directory_title {
+	position: absolute;
+	bottom: 0px;
+}
+
+
+#header{
+	top: 0;
+	background: #000;
+	width: 100%;
+	padding: .5em .5em;
+}
+
+h1 a{
+	color: #666;
+	text-decoration: none;
+	padding-left: .25em;
+}
+
+/*-----------------------------------
+  Map
+-------------------------------------*/
+
+#map {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+	width: 100%;
+	height: 100%;
+}
+
+/*-----------------------------------
+	Wax General
+-------------------------------------*/
+
+.wax-fade { opacity:0; }
+
+#map-zoombox-box{
+	position: absolute;
+	top: 5em;
+	left: 1em;
+	width: 46px;
+	height: 120px;
+	background: #fff;
+}
+
+a.zoomer{
+	position: absolute;
+	top: 3em;
+	left: .5em;
+	width: 18px;
+	height: 18px;
+	border-radius: 3px;
+	background: #000;
+	padding: .25em;
+	text-align: center;
+	line-height: 18px;
+	color: #ddd;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+a.zoomout{
+	position: absolute;
+	top: 5em;
+}
+
+.zoombox-box,
+.boxselector-box {
+  margin:0;
+  padding:0;
+  border:1px dashed #888;
+  background: rgba(255,255,255,0.25);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  display: none;
+}
+
+.zoombox-box-container,
+.boxselector-box-container,
+.pointselector-box-container {
+  margin:0;
+  padding:0;
+  position:absolute;
+  background: url(blank.gif);
+  top:0;
+  left:0;
+}
+
+
+/*-----------------------------------
+  Legend
+-------------------------------------*/
+
+
+.wax-legends {
+	display: none;
+}
+
+/*-----------------------------------
+  Util
+-------------------------------------*/
+
+/*
+including listing and wax-tooltip classes here to apply clearfix to them, without touching markup because it's rendered in with the maptiles.
+*/
+.wax-tooltip:before,
+.clearfix:before,
+.clearfix:after {
+  content: '\0020';
+  display: block;
+  overflow: hidden;
+  visibility: hidden;
+  width: 0;
+  height: 0;
+}
+
+.wax-tooltip:after,
+.listing:after,
+.clearfix:after {
+  clear: both;
+}
+
+/*
+  The following zoom:1 rule is specifically for IE6 + IE7.
+  Move to separate stylesheet if invalid CSS is a problem.
+*/
+.wax-tooltip,
+.listing,
+.clearfix {
+  zoom: 1;
+}
+
+/*-----------------------------------
+	Tooltip
+-------------------------------------*/
+
+.wax-popup{
+	width: 290px;
+	height: 100%;
+	overflow: auto;
+	background: url( ../img/bg_white80.png );
+	right: 0;
+}
+
+.wax-tooltip .tooltip-teaser{
+	padding: 1em 1em .5em 1em;
+	font-size: .5;
+	color: #eee;
+/*	position: absolute;
+*/	line-height: 18px;
+}
+
+.wax-tooltip .tooltip-teaser a{
+	text-decoration: none;
+}
+
+.wax-tooltip .tooltip-teaser h3{
+	white-space: nowrap;
+	text-decoration: none;
+	color: #aaa;
+	padding: .125em;
+	margin-bottom: .25em;
+	background: url( ../img/bg_black60.png );
+}
+
+.wax-tooltip .tooltip-teaser .founded{
+	padding: .25em;
+	background: url( ../img/bg_black60.png );	
+	color: #aaa !important;
+}
+
+.wax-tooltip.wax-popup{
+	top: 3em;
+	font-size: 12px;
+	line-height: 15px;
+	padding: .5em;
+}
+
+.close{
+	background-image: url( ../img/icon-16x16-close.png );
+	background-repeat: no-repeat;
+	background-position top left;
+	width: 16px;
+	height: 16px;
+	display: block;
+	left: .125em;
+	top: .125em;
+	text-indent: -1000px;
+	text-align: center;
+	color:#aaa;	
+}
+
+.wax-tooltip.wax-popup a.close{
+	position: absolute;	
+}
+
+.wax-share .close{
+	display: block;
+	margin: 0 auto;
+}
+textarea.embed{
+	font-size: 1em;
+	margin: 1em 0;
+}
+
+a.close:hover{
+	background-position: top right;
+}
+
+.wax-popup .tooltip-inner .vcard,
+.wax-popup .tooltip-inner .info,
+.wax-popup .tooltip-inner .listings{
+	padding: 1em;
+	margin-bottom: .5em;
+	background: url( '../img/bg_white60.png');
+}
+
+.wax-popup .tooltip-inner .listings ul{
+	margin-bottom: 1.5em;
+}
+
+.wax-popup .tooltip-inner .founded{
+	clear: both;
+	margin-bottom: .75em;
+}
+
+.wax-popup .tooltip-inner .founded .bday{
+	line-height: 18px;
+}
+
+.wax-popup .tooltip-inner .founded h6.label{
+	float: left !important;
+	display: inline-block;
+	border-right: 1px #bababa solid;
+	padding-right: .5em;
+	margin-right: .5em;
+}
+
+.wax-popup .tooltip-inner .occupation-description{
+	clear: both;
+}
+.wax-popup .tooltip-inner .website-url,
+.wax-popup .tooltip-inner .general-email-address{
+	clear: both;
+
+}
+
+/* hide geo */
+.wax-popup .tooltip-inner .geo{
+	display: none;
+}
+
+.wax-popup .tooltip-inner .taglink a{
+	display: block;
+	font-weight: 500;
+	text-decoration: none;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	padding: .5em .75em;
+	margin: .25em;
+	background: #000;
+}
+
+
+.wax-popup .tooltip-inner a{
+	text-decoration: underline;
+	color: #489;
+}
+
+.wax-popup .tooltip-inner .adr,
+.wax-popup .tooltip-inner .general-phone{
+	margin-top: 1.5em;
+}
+
+.wax-popup .tooltip-inner .listings ul li:hover a,
+.wax-popup .tooltip-inner .listings li:hover a:hover{
+	background: #489;
+	color: #000;
+}
+
+.wax-popup .tooltip-inner .listings ul li{
+	float: left;
+}
+
+.wax-popup .tooltip-inner .occupation-directory-url,
+.wax-popup .tooltip-inner .website-url,
+.wax-popup .tooltip-inner .general-email-address,
+.wax-popup .tooltip-inner .listings ul li a{
+	text-decoration: none;
+}
+
+.wax-popup .tooltip-inner .occupation-image{
+	float: left;
+	margin: 0 1em 0 0;
+	-moz-box-shadow: 1px 1px 5px #aaa;
+	-webkit-box-shadow: 1px 1px 5px #aaa;
+	box-shadow: 1px 1px 8px #ccc;
+}
+
+.occupation-image {
+	line-height:8px;
+	display: none;
+}
+
+.wax-popup .tooltip-inner .occupation-title{
+	margin-bottom: 1em;
+}
+
+.wax-popup .tooltip-teaser .tooltip-inner .occupation-title{
+	margin-bottom: .5em;
+}
+
+.wax-popup .tooltip-inner .occupation-description{
+	font-size: 15px;
+	line-height: 18px;
+}
+
+.wax-tooltip h1,
+.wax-tooltip h2,
+.wax-tooltip h3,
+.wax-tooltip h4,
+.wax-tooltip h5,
+.wax-tooltip h6{
+	font-weight: 300;
+	padding: 0;	
+	margin: 0 0 .25em 0;
+}
+
+.wax-popup .tooltip-inner h1{ font-size: 48px; }
+.wax-popup .tooltip-inner h2{ font-size: 36px; }
+.wax-popup .tooltip-inner h3{
+	word-wrap: break-word;
+	font-size: 21px;
+	line-height: 1.2;
+	border-top: none !important;
+}
+
+.wax-popup .tooltip-inner h4{ font-size: 18px; }
+
+.wax-popup .tooltip-inner h6.label{
+	margin-top: 0;
+	font-size: 15px;
+	line-height: 18px;
+}
+
+/*-----------------------------------
+  Overlay
+-------------------------------------*/
+
+	#search{
+		width: auto;
+		float: right;
+		padding-right: 1em;
+	}
+	#search form.location {
+		text-align: right;
+	}
+
+	#search form.location input[type='text']{
+		border: 1px #444 solid;
+		width: 300px;
+		font-size: 12px;
+		background: #000;
+		line-height: 1.2;
+		margin: .675em .5em .5em .5em;
+	}
+
+/*-----------------------------------
+  Footer
+-------------------------------------*/
+
+#legend {
+	position: absolute !important;
+  bottom: 0px !important;
+  left: 0px !important;
+}
+
+
+/*-----------------------------------
+	Share
+-------------------------------------*/
+
+.ts-error,
+ .wax-share {
+  background:#666;
+  background:rgba(0,0,0,0.65);
+  position:absolute;
+  width:100%;
+  height:100%;
+  top:0; left:0px; right:0px; bottom:0px;
+  z-index:999999;
+  }
+
+ .wax-share div {
+  right:50%;
+  top:50%;
+  margin:-120px -180px 0px 0px;
+  padding:19px;
+  width:320px;
+  overflow:hidden;
+  }
+
+ .wax-share small { color:#999; }
+
+ .wax-share textarea {
+  display:block;
+  font:normal 10px/15px Arial,sans-serif;
+  resize:none;
+  border:1px solid #ccc;
+  padding:4px;
+  width:310px;
+	clear: both;
+ }
+
+ .wax-share .twitter,
+ .wax-share .facebook {
+  display:block;
+  padding:.5em 1em;
+  margin: .5em 0;
+  color:#000;
+	text-decoration: none;
+	font-family: 'Dosis', sans-serif;
+	font-weight: 300;
+	text-transform: uppercase;
+  }
+
+.wax-share h3{
+	margin-bottom: 1em;
+}
+.wax-share h3,
+.wax-share strong{
+font-family: 'Dosis', sans-serif;
+font-weight: 300;
+color: #eee;
+}
+
+ .wax-share .twitter {
+  background:#0ac;
+  }
+
+ .wax-share .facebook {
+  background:#359;
+  }
+
+	.wax-share>div{
+		margin: 6em auto;
+	}
+	
+	.small{
+		font-size: .875em;
+	}
+
+
+/* =====================================
+ Z-INDEXES
+*/
+
+#map,
+#header,
+#directory_title,
+.wax-tooltip,
+a.zoomer,
+.wax-legends,
+.wax-share,
+.share,
+.wax-popup a.close,
+.wax-attribution{
+	position: absolute;
+}
+
+#map{
+	z-index: 5;
+}
+	
+#header{
+	z-index: 1015;
+}
+
+#directory_title {
+	z-index: 105;
+}
+
+.wax-tooltip{
+	z-index: 1014;
+}
+
+a.zoomer{
+	z-index: 102;
+}
+
+a.zoomout{
+	z-index: 103;	
+}
+
+.wax-legends{
+	z-index: 14000;
+}
+
+.wax-share{
+	z-index: 2000;
+}
+
+.button,
+.share{
+	z-index: 200;
+	background: #fc0;
+	color: #000;
+	text-decoration: none;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+	padding: .25em;
+	bottom: 1em;
+	left: 1em;
+}
+
+.wax-attribution{
+	display: none;
+	bottom: 2em;
+	text-align: right;
+}
+
+#searchButton{
+	background: #fc0;
+	-webkit-border-radius: 7px;
+	-moz-border-radius: 7px;
+	border-radius: 7px;
+	position: relative;
+	top: 3px;
+	text-align: center;
+}
+
+.tooltip-teaser{
+	z-index: 2002;
+	display: none;
+/*	left: 2em;
+	top: 2em;
+*/}
+
+.inner .tooltip-teaser{
+	display: block;
+}
+

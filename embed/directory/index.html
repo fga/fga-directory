@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset=utf-8 />
+    <title>#Occupy Directory World Map</title>
+	<link href='http://fonts.googleapis.com/css?family=Dosis:500,300&subset=latin-ext,latin' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="css/map.css" type="text/css" />
+  </head>
+	
+<body>
+  
+	<div id="map" class="map"></div>
+	
+	<div id="header">
+		
+		<h1 id="directory_title"><a href='http://directory.occupy.net' target='_blank'>#Occupy Directory</a></h1>
+
+		<div data-control='geocode' id="search">
+			<form class="geocode">
+				<input placeholder='Search for City' size="49" type="text">
+				<input id="searchButton" type="image" src="img/search.png" />
+				<div id='geocode-error'></div>
+			</form>
+		</div>
+	
+	</div>
+    
+  <!-- External libraries and site script -->
+  <script src="js/ext/jquery.min.js"></script>
+  <script src="js/ext/modestmaps.js"></script>
+  <script src="js/ext/wax/wax.mm.js"></script>
+  <script src="js/ext/markers.js"></script>
+
+  <!-- Site configuration -->
+  <script type="text/javascript">
+
+		directory = {
+
+			map: {
+
+				api: 'http://a.tiles.mapbox.com/v3/occupydirectory.map-ftbke77j.jsonp',
+
+				center: {
+					lat: 19,
+					lon: 9.7,
+					zoom: 2				
+				},
+
+				options: {
+					toolContainer: $('body')[0],
+					legend: true,
+					moveTips: true,
+					share: true,
+					toolTips: true,
+					zoomBox: true,
+					zoomPan: true,
+					zoomWheel: false,
+					callback: function(){ console.log( "a callback function!" ) }
+				},
+
+				zoomRange: {
+					min: 2,
+					max: 11
+				}
+
+			}
+
+		};
+		
+		directory.initMap = function( el ){
+
+			directory.map.container = el;
+
+			console.log( 'el', el );
+
+//			console.log( 'directory.map.container', directory.map.container );
+
+			directory.map.instance = wax.tilejson(
+		
+				directory.map.api,
+
+				function( tiles ) {
+
+//					console.log( "tiles", tiles );
+					console.log( 'container', directory.map.container, el );
+//					console.log( 'arguments', arguments );
+
+		            var handlers = [
+		                new MM.DragHandler(),
+		                new MM.DoubleClickHandler(),
+		                new MM.TouchHandler()
+		            ];
+	            
+	            	if ( directory.map.options.zoomWheel ) handlers.push( new MM.MouseWheelHandler() );
+	            
+		            directory.modestMap = new MM.Map( directory.map.container, new wax.mm.connector( tiles ), null, handlers);
+
+	 				var modestMap = directory.modestMap;
+ 				
+	 				if( directory.map.center ){
+	 					var c = directory.map.center;
+	 			        modestMap.setCenterZoom({
+			                lat: ( c.lat ) ? c.lat : tiles.center[1],
+			                lon: ( c.lon) ? c.lon : tiles.center[0]
+			            }, ( c.zoom ) ? c.zoom : c.center[2]);
+	 				}
+ 				
+					if( directory.map.zoomRange ){
+						var z = directory.map.zoomRange;
+			            modestMap.setZoomRange( z.min, z.max );
+	    	        } else {
+	    	            modestMap.setZoomRange( tiles.minzoom, tiles.maxzoom);
+	    	        }
+    	        
+	    	        var toolContainer = ( directory.map.options.toolContainer )? directory.map.options.toolContainer : directory.map.container;
+    	        
+					if( directory.map.options.attribution ){
+						wax.mm.attribution( modestMap, tiles ).appendTo( toolContainer );
+					}
+				
+					if( directory.map.options.zoomPan ){
+						wax.mm.zoomer( modestMap ).appendTo( toolContainer );					
+					}
+
+					if( directory.map.options.zoomBox ){
+	                    wax.mm.zoombox( modestMap );					
+					}
+
+					if( directory.map.options.legend ){
+						modestMap.legend = wax.mm.legend( modestMap, tiles ).appendTo( toolContainer );				
+					}
+				
+					if( directory.map.options.bwDetect ){
+						wax.mm.bwdetect(modestMap);
+					}
+
+					if( directory.map.options.share ){
+						//wax.mm.share( modestMap, tiles ).appendTo( toolContainer );
+					}
+
+					console.log( directory.map.options.toolTips );
+					
+					if( directory.map.options.toolTips ){
+						console.log("hasTooltips");
+						modestMap.interaction = wax.mm.interaction()
+							.map(modestMap)
+	                    	.tilejson( tiles )
+	                            .on(
+									wax.tooltip()
+									.animate(true)
+									.parent( toolContainer )
+									.events()
+								);
+					}
+                        
+					if( directory.map.options.moveTips ){
+						console.log("hasMoveTips");
+						modestMap.interaction = wax.mm.interaction()
+							.map(modestMap)
+							.tilejson( tiles )
+							.on(wax.movetip()
+							.parent( toolContainer )
+							.events()
+						);
+					}
+
+				}); // end tilejson call
+		}
+		
+		$( function(){
+			directory.initMap( $('#map')[0] );
+		});
+
+  </script>
+
+</body>
+</html>
