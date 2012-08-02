@@ -11,7 +11,8 @@
 <body>
   	
 	<div id="map" class="map"></div>
-	
+
+	<div id="sideBar"></div>	
 <!--
 	<div id="header">
 		
@@ -37,6 +38,17 @@
   <!-- Site configuration -->
   <script type="text/javascript">
 
+		/*
+			Function: buildConsoleObject
+			Quick hack to prevent browsers w/o a console, or firebug from generating errors when console functions are called. Gets called immediately
+		*/
+		if (!window.console ){
+  	  var names = ["log", "debug", "info", "warn", "error", "assert", "dir", "dirxml", "group", "groupEnd", "time", "timeEnd", "count", "trace", "profile", "profileEnd"];
+  	  window.console = {};
+  	  for (var i = 0; i < names.length; ++i){ window.console[names[i]] = function() {}; }
+			names = null;
+		}
+
 		directory = {
 
 			map: {
@@ -52,14 +64,14 @@
 				options: {
 					toolContainer: null,
 					legend: true,
-					moveTips: false,
+					moveTips: true,
 					share: true,
 					bwDetect: true,
 					toolTips: true,
 					zoomBox: true,
 					zoomPan: true,
 					zoomWheel: false,
-					callback: function(){ console.log( "a callback function!" ); }
+					hash: true
 				},
 
 				zoomRange: {
@@ -90,13 +102,13 @@
 
 		            var handlers = [
 		                new MM.DragHandler(),
-		                new MM.DoubleClickHandler(),
-		                new MM.TouchHandler()
-		            ];
+//		                new MM.DoubleClickHandler(),
+		             		new MM.TouchHandler()
+					];
 	            
-	            	if ( directory.map.options.zoomWheel ) handlers.push( new MM.MouseWheelHandler() );
+					if ( directory.map.options.zoomWheel ) handlers.push( new MM.MouseWheelHandler() );
 	            
-		            directory.modestMap = new MM.Map( directory.map.container, new wax.mm.connector( tiles ), null, handlers);
+					directory.modestMap = new MM.Map( directory.map.container, new wax.mm.connector( tiles ), null, handlers);
 
 	 				var modestMap = directory.modestMap;
  				
@@ -150,41 +162,50 @@
 					
 					if( directory.map.options.toolTips ){
 						console.log("hasTooltips");
-						modestMap.interaction = wax.mm.interaction()
-							.map(modestMap)
-	                    	.tilejson( tiles )
-	                            .on(
-									wax.tooltip()
-									.animate(true)
-									.parent( toolContainer )
-									.events()
-								);
-						modestMap.interaction.on({
-									on: function( obj ) {
-										if( obj.e.type == 'click' ){
-											console.log( 'interaction', obj, obj.formatter, obj.data );
-											console.log( typeof( obj.formatter ) );
-											console.log( tiles.template );
-											var template = "hi {{{Title}}}";
-											obj.data.__full__ = true;
-											console.log( ":::", Mustache.to_html( tiles.template , obj.data ) );
-										}
-									}
+						modestMap.toolTipInteraction = wax.mm.interaction().map(modestMap).tilejson( tiles ).on( wax.tooltip().animate( true ).parent( toolContainer ).events() );
+/*						modestMap.toolTipInteraction.on({
+							on: function( obj ) {
+								if( obj.e.type == 'click' ){
+//									obj.e.preventDefault();
+									obj.data.__full__ = true;
+									var sidebarContent = Mustache.to_html( tiles.template , obj.data );
+									$('#sideBar').html( sidebarContent );
+								}
+							}
+						});
+*/				}
 
-						})
-					}
-                        
 					if( directory.map.options.moveTips ){
 						console.log("hasMoveTips");
-						modestMap.interaction = wax.mm.interaction()
-							.map(modestMap)
+						modestMap.moveTipInteraction = wax.mm.interaction()
+							.map( modestMap )
 							.tilejson( tiles )
 							.on(wax.movetip()
 							.parent( toolContainer )
 							.events()
-						);
+						)
+						modestMap.moveTipInteraction.on({
+							on: function( obj ) {
+								if( obj.e.type == 'click' ){
+//									obj.e.preventDefault();
+									obj.data.__full__ = true;
+									var sidebarContent = Mustache.to_html( tiles.template , obj.data );
+									$('#sideBar').html( sidebarContent );
+									console.log('hello', sidebarContent );
+								}
+							}
+						});
 					}
-
+						
+					if( directory.map.options.hash ){
+						console.log('hasHash');
+						wax.mm.hash( modestMap, tiles, {
+							defaultCenter: new MM.Location(39, -98),
+  						defaultZoom: 4,
+  						manager: wax.mm.pushState
+						});
+					}
+				
 				}); // end tilejson call
 		}
 		

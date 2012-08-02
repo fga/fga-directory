@@ -231,7 +231,8 @@ including listing and wax-tooltip classes here to apply clearfix to them, withou
 	position: absolute;
 }
 
-.wax-popup{
+
+#sideBar{
 	z-index: 2000;
 	position: absolute;
 	top: 0;
@@ -291,7 +292,7 @@ display: none;
 	color:#aaa;	
 }
 
-.detail a.close{
+#sideBar a.close{
 	right: 0px;
 	position: absolute;	
 	display: block;
@@ -309,9 +310,9 @@ a.close:hover{
 	background-position: top right;
 }
 
-.detail .vcard,
-.detail .info,
-.detail .listings{
+#sideBar .vcard,
+#sideBar .info,
+#sideBar .listings{
 	padding: 1em;
 	margin-bottom: .5em;
 	background: rgb( 250, 240,240 );
@@ -319,20 +320,20 @@ a.close:hover{
 
 }
 
-.detail .listings ul{
+#sideBar .listings ul{
 	margin-bottom: 1.5em;
 }
 
-.detail .founded{
+#sideBar .founded{
 	clear: both;
 	margin-bottom: .75em;
 }
 
-.detail .founded .bday{
+#sideBar .founded .bday{
 	line-height: 18px;
 }
 
-.detail .founded h6.label{
+#sideBar .founded h6.label{
 	float: left !important;
 	display: inline-block;
 	border-right: 1px #bababa solid;
@@ -340,21 +341,21 @@ a.close:hover{
 	margin-right: .5em;
 }
 
-.detail .occupation-description{
+#sideBar .occupation-description{
 	clear: both;
 }
-.detail .website-url,
-.detail .general-email-address{
+#sideBar .website-url,
+#sideBar .general-email-address{
 	clear: both;
 
 }
 
 /* hide geo */
-.detail .geo{
+#sideBar .geo{
 	display: none;
 }
 
-.detail .taglink a{
+#sideBar .taglink a{
 	display: block;
 	font-weight: 500;
 	text-decoration: none;
@@ -367,34 +368,34 @@ a.close:hover{
 }
 
 
-.detail a{
+#sideBar a{
 	text-decoration: underline;
 	color: #489;
 }
 
-.detail .adr,
-.detail .general-phone{
+#sideBar .adr,
+#sideBar .general-phone{
 	margin-top: 1.5em;
 }
 
-.detail .listings ul li:hover a,
-.detail .listings li:hover a:hover{
+#sideBar .listings ul li:hover a,
+#sideBar .listings li:hover a:hover{
 	background: #489;
 	color: #000;
 }
 
-.detail .listings ul li{
+#sideBar .listings ul li{
 	float: left;
 }
 
-.detail .occupation-directory-url,
-.detail .website-url,
-.detail .general-email-address,
-.detail .listings ul li a{
+#sideBar .occupation-directory-url,
+#sideBar .website-url,
+#sideBar .general-email-address,
+#sideBar .listings ul li a{
 	text-decoration: none;
 }
 
-.detail .occupation-image{
+#sideBar .occupation-image{
 	float: left;
 	margin: 0 1em 0 0;
 	-moz-box-shadow: 1px 1px 5px #aaa;
@@ -407,11 +408,11 @@ a.close:hover{
 	display: none;
 }
 
-.detail .occupation-title{
+#sideBar .occupation-title{
 	margin-bottom: 1em;
 }
 
-.detail .occupation-description{
+#sideBar .occupation-description{
 	font-size: 15px;
 	line-height: 18px;
 }
@@ -433,22 +434,22 @@ a.close:hover{
 	margin: 0 0 .25em 0;
 }
 
-.detail{
-	position: relative
+#sideBar .detail{
+	position: relative;
 }
 
-.detail h1{ font-size: 48px; }
-.detail h2{ font-size: 36px; }
-.detail h3{
+#sideBar h1{ font-size: 48px; }
+#sideBar h2{ font-size: 36px; }
+#sideBar h3{
 	word-wrap: break-word;
 	font-size: 21px;
 	line-height: 1.2;
 	border-top: none !important;
 }
 
-.detail h4{ font-size: 18px; }
+#sideBar h4{ font-size: 18px; }
 
-.detail h6.label{
+#sideBar h6.label{
 	margin-top: 0;
 	font-size: 15px;
 	line-height: 18px;
@@ -573,7 +574,7 @@ a.zoomer,
 .wax-share,
 .share,
 .tooltip-teaser,
-.detail a.close,
+#sideBar a.close,
 .wax-attribution{
 	position: absolute;
 }
