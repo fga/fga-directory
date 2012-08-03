@@ -196,8 +196,10 @@ a.zoomout{
   Util
 -------------------------------------*/
 
+.hidden{ display: none }
+
 /*
-including listing and wax-tooltip classes here to apply clearfix to them, without touching markup because it's rendered in with the maptiles.
+including listing and map-tooltip classes here to apply clearfix to them, without touching markup because it's rendered in with the maptiles.
 */
 .clearfix:before,
 .clearfix:after {
@@ -227,10 +229,9 @@ including listing and wax-tooltip classes here to apply clearfix to them, withou
 	Tooltip
 -------------------------------------*/
 
-.wax-tooltip{
+.map-tooltip{
 	position: absolute;
 }
-
 
 #sideBar{
 	z-index: 2000;
@@ -247,7 +248,7 @@ including listing and wax-tooltip classes here to apply clearfix to them, withou
 	padding: .5em;
 }
 
-.wax-tooltip .tooltip-teaser{
+.map-tooltip .tooltip-teaser{
 	padding: 1em 1em .5em 1em;
 	font-size: .5;
 	color: #eee;
@@ -255,11 +256,11 @@ including listing and wax-tooltip classes here to apply clearfix to them, withou
 	line-height: 18px;
 }
 
-.wax-tooltip .tooltip-teaser a{
+.map-tooltip .tooltip-teaser a{
 	text-decoration: none;
 }
 
-.wax-tooltip .tooltip-teaser h3{
+.map-tooltip .tooltip-teaser h3{
 	white-space: nowrap;
 	text-decoration: none;
 	color: #aaa;
@@ -271,7 +272,7 @@ including listing and wax-tooltip classes here to apply clearfix to them, withou
 	background: rgba( 0, 0, 0, .6 );
 }
 
-.wax-tooltip .tooltip-teaser .founded{
+.map-tooltip .tooltip-teaser .founded{
 display: none;
 	padding: .25em .25em .25em .25em;
 	line-height: 1.5;
@@ -280,34 +281,33 @@ display: none;
 	color: #aaa !important;
 }
 
-.close{
-	content: "&larr;";
-	width: 16px;
-	height: 16px;
-	display: block;
-	left: .125em;
-	top: .125em;
-	text-indent: -1000px;
+a.close{
 	text-align: center;
-	color:#aaa;	
+	color: #666;	
+	font-size: 1.375em;
+}
+
+a.close:hover{
+	color:#000
+}
+
+#sideBar .methods{
+	position: relative;
 }
 
 #sideBar a.close{
-	right: 0px;
-	position: absolute;	
-	display: block;
+	position: absolute;
+	top: 1.25em;
+	text-decoration: none;
 }
 
 .wax-share .close{
 	margin: 0 auto;
 }
+
 textarea.embed{
 	font-size: 1em;
 	margin: 1em 0;
-}
-
-a.close:hover{
-	background-position: top right;
 }
 
 #sideBar .vcard,
@@ -368,7 +368,7 @@ a.close:hover{
 }
 
 
-#sideBar a{
+#sideBar .content a{
 	text-decoration: underline;
 	color: #489;
 }
@@ -422,21 +422,18 @@ a.close:hover{
 	margin-bottom: .5em;
 }
 
-.wax-tooltip h1,
-.wax-tooltip h2,
-.wax-tooltip h3,
-.wax-tooltip h4,
-.wax-tooltip h5,
-.wax-tooltip h6{
+.map-tooltip h1,
+.map-tooltip h2,
+.map-tooltip h3,
+.map-tooltip h4,
+.map-tooltip h5,
+.map-tooltip h6{
 	font-family: 'Dosis', helvetica, sans-serif;
 	font-weight: 300;
 	padding: 0;	
 	margin: 0 0 .25em 0;
 }
 
-#sideBar .detail{
-	position: relative;
-}
 
 #sideBar h1{ font-size: 48px; }
 #sideBar h2{ font-size: 36px; }
@@ -574,7 +571,6 @@ a.zoomer,
 .wax-share,
 .share,
 .tooltip-teaser,
-#sideBar a.close,
 .wax-attribution{
 	position: absolute;
 }
@@ -599,7 +595,7 @@ a.zoomout{
 	z-index: 103;	
 }
 
-#legend{
+.map-legend{
 	z-index: 14000;
 }
 
