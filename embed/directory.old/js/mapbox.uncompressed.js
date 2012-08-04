@@ -5948,7 +5948,6 @@ wax.location = function() {
     return t;
 
 };
-
 var wax = wax || {};
 wax.movetip = {};
 

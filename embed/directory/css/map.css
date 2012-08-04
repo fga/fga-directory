@@ -1,4 +1,4 @@
-html, body{
+html, body, #od{
 	height: 100%;
 }
 
@@ -67,6 +67,8 @@ a{
 	color: #fc0;
 }
 
+.map-fade { opacity:0; }
+
 /*-----------------------------------
   Typography
 -------------------------------------*/
@@ -78,24 +80,44 @@ body{
 	background: #424242;
 }
 
-h1, h2, h3, h4{
-	font-family: 'Dosis', sans-serif;
-	font-weight: 300;
-	color:#222;
-	text-decoration: italic;
-	padding: 0;	
-	margin: 0 0 .5em 0;
-}
 
-h1{ font-size: 24px; }
+h1{ font-size: 48px; }
 h2{ font-size: 36px; }
-h3{ font-size: 24px; }
-h4{ font-size: 18px; }
+h3{ font-size: 27px; line-height: 30px }
+h4{ font-size: 18px; line-height: 21px }
+h5{ font-size: 15px; line-height: 18px }
 
-h3.title{
-	line-height: 27px;
+h1,
+h2,
+h3,
+h4,
+h5,
+.tooltip-teaser{
+	font-family: 'Dosis', helvetica, arial, sans-serif;
+	font-weight: 300;
+	padding: 0;	
+	margin: 0 0 .25em 0;
 }
 
+#od #sidebar h3{
+	word-wrap: break-word;
+	margin-bottom: 1em;
+}
+
+h1 a,
+h2 a,
+h3 a,
+h4 a{
+	text-decoration: none;
+}
+
+/*h1 a:hover,
+h2 a:hover,
+h3 a:hover,
+h4 a:hover{
+	text-decoration: underline;
+}
+*/
 #directory_title {
 	position: absolute;
 	bottom: 0px;
@@ -111,7 +133,6 @@ h3.title{
 
 h1 a{
 	color: #666;
-	text-decoration: none;
 	padding-left: .25em;
 }
 
@@ -225,6 +246,170 @@ including listing and map-tooltip classes here to apply clearfix to them, withou
   zoom: 1;
 }
 
+/*----------------------------
+	Sidebar
+------------------------------*/
+
+.map-tooltip .tooltip-teaser{
+	z-index: 2002;
+	top: 2em;
+	left: 2em;
+	position: absolute;
+	padding: 1em 1em .5em 1em;
+	font-size: .5;
+	line-height: 18px;
+	color: #eee;
+	margin-bottom: .25em;
+	border-radius: 3px;
+	background: rgb( 0,0,0 );
+	background: rgba( 0, 0, 0, .8 );
+}
+
+.tooltip-teaser a{
+	white-space: nowrap;
+	text-decoration: none;
+}
+
+#sidebar a.close{
+	text-align: center;
+	color: #222;	
+	font-size: 1.25em;
+	background: rgb( 255,255,255 );
+	background: rgba( 255, 255, 255, .8 );
+	padding: 0 .25em .125em .25em;
+	line-height: 1;
+	text-decoration: none;
+}
+
+#sidebar a.close:hover{
+	color:#000
+}
+
+#sidebar{
+	z-index: 2000;
+	position: absolute;
+	top: 0;
+	right: 0;
+	font-size: 12px;
+	line-height: 15px;
+	padding: 0 .5em .5em .5em;
+	background: rgb( 255, 255,255 );
+	background: rgba( 255, 255,255, .8 );
+	height: 100%;
+}
+
+#sidebar .content{
+	width: 290px;
+	height: 100%;
+	overflow: auto;
+}
+
+#sidebar .methods{
+	position: absolute;
+	left: -1.25em;
+	top: 0;
+}
+
+#sidebar .vcard,
+#sidebar .info,
+#sidebar .listings{
+	padding: 1em;
+	margin-bottom: .5em;
+	background: rgb( 250, 240,240 );
+	background: rgba( 255, 255,255, 60 );
+}
+
+#sidebar .vcard{
+	padding-top: 0;
+}
+
+#sidebar .listings ul{
+	margin-bottom: 1em;
+}
+
+#sidebar .founded{
+	clear: both;
+	margin-bottom: .75em;
+}
+
+#sidebar .founded .bday{
+	line-height: 18px;
+}
+
+#sidebar .founded h5.label{
+	float: left !important;
+	display: inline-block;
+	border-right: 1px #bababa solid;
+	padding-right: .5em;
+	margin-right: .5em;
+}
+
+#sidebar .occupation-description{
+	clear: both;
+}
+#sidebar .website-url,
+#sidebar .general-email-address{
+	clear: both;
+
+}
+/* hide geo */
+#sidebar .geo{
+	display: none;
+}
+
+#sidebar a{
+	color: #489;
+}
+
+#sidebar .taglink a{
+	display: block;
+	font-weight: 700;
+	text-decoration: none;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	padding: .5em .75em;
+	margin: 0 .5em .5em 0 ;
+	background: #000;
+}
+
+#sidebar .adr,
+#sidebar .general-phone{
+	margin-top: 1.5em;
+}
+
+#sidebar .listings ul li:hover a,
+#sidebar .listings li:hover a:hover{
+	background: #489;
+	color: #000;
+}
+
+#sidebar .listings ul li{
+	float: left;
+}
+
+#sidebar .occupation-image{
+	float: left;
+	margin: 0 1em 0 0;
+	-moz-box-shadow: 1px 1px 5px #aaa;
+	-webkit-box-shadow: 1px 1px 5px #aaa;
+	box-shadow: 1px 1px 8px #ccc;
+}
+
+#sidebar .occupation-image {
+	line-height:8px;
+}
+
+#sidebar .occupation-title{
+	margin: 0 0 1em 0;
+	padding: .5em 0 0 0;
+}
+
+#sidebar .occupation-description{
+	font-size: 15px;
+	line-height: 18px;
+}
+
 /*-----------------------------------
 	Tooltip
 -------------------------------------*/
@@ -233,224 +418,6 @@ including listing and map-tooltip classes here to apply clearfix to them, withou
 	position: absolute;
 }
 
-#sideBar{
-	z-index: 2000;
-	position: absolute;
-	top: 0;
-	right: 0;
-	width: 290px;
-	height: 100%;
-	overflow: auto;
-	background: rgb( 255, 255,255 );
-	background: rgba( 255, 255,255, .8 );
-	font-size: 12px;
-	line-height: 15px;
-	padding: .5em;
-}
-
-.map-tooltip .tooltip-teaser{
-	padding: 1em 1em .5em 1em;
-	font-size: .5;
-	color: #eee;
-	position: absolute;
-	line-height: 18px;
-}
-
-.map-tooltip .tooltip-teaser a{
-	text-decoration: none;
-}
-
-.map-tooltip .tooltip-teaser h3{
-	white-space: nowrap;
-	text-decoration: none;
-	color: #aaa;
-	padding: .125em .25em .25em .25em;
-	line-height: 1.5;
-	margin-bottom: .25em;
-	border-radius: 3px;
-	background: rgb( 0,0,0 );
-	background: rgba( 0, 0, 0, .6 );
-}
-
-.map-tooltip .tooltip-teaser .founded{
-display: none;
-	padding: .25em .25em .25em .25em;
-	line-height: 1.5;
-	background: rgb( 0,0,0 );
-	background: rgba( 0, 0, 0, .6 );
-	color: #aaa !important;
-}
-
-a.close{
-	text-align: center;
-	color: #666;	
-	font-size: 1.375em;
-}
-
-a.close:hover{
-	color:#000
-}
-
-#sideBar .methods{
-	position: relative;
-}
-
-#sideBar a.close{
-	position: absolute;
-	top: 1.25em;
-	text-decoration: none;
-}
-
-.wax-share .close{
-	margin: 0 auto;
-}
-
-textarea.embed{
-	font-size: 1em;
-	margin: 1em 0;
-}
-
-#sideBar .vcard,
-#sideBar .info,
-#sideBar .listings{
-	padding: 1em;
-	margin-bottom: .5em;
-	background: rgb( 250, 240,240 );
-	background: rgba( 255, 255,255, 60 );
-
-}
-
-#sideBar .listings ul{
-	margin-bottom: 1.5em;
-}
-
-#sideBar .founded{
-	clear: both;
-	margin-bottom: .75em;
-}
-
-#sideBar .founded .bday{
-	line-height: 18px;
-}
-
-#sideBar .founded h6.label{
-	float: left !important;
-	display: inline-block;
-	border-right: 1px #bababa solid;
-	padding-right: .5em;
-	margin-right: .5em;
-}
-
-#sideBar .occupation-description{
-	clear: both;
-}
-#sideBar .website-url,
-#sideBar .general-email-address{
-	clear: both;
-
-}
-
-/* hide geo */
-#sideBar .geo{
-	display: none;
-}
-
-#sideBar .taglink a{
-	display: block;
-	font-weight: 500;
-	text-decoration: none;
-	-webkit-border-radius: 3px;
-	-moz-border-radius: 3px;
-	border-radius: 3px;
-	padding: .5em .75em;
-	margin: .25em;
-	background: #000;
-}
-
-
-#sideBar .content a{
-	text-decoration: underline;
-	color: #489;
-}
-
-#sideBar .adr,
-#sideBar .general-phone{
-	margin-top: 1.5em;
-}
-
-#sideBar .listings ul li:hover a,
-#sideBar .listings li:hover a:hover{
-	background: #489;
-	color: #000;
-}
-
-#sideBar .listings ul li{
-	float: left;
-}
-
-#sideBar .occupation-directory-url,
-#sideBar .website-url,
-#sideBar .general-email-address,
-#sideBar .listings ul li a{
-	text-decoration: none;
-}
-
-#sideBar .occupation-image{
-	float: left;
-	margin: 0 1em 0 0;
-	-moz-box-shadow: 1px 1px 5px #aaa;
-	-webkit-box-shadow: 1px 1px 5px #aaa;
-	box-shadow: 1px 1px 8px #ccc;
-}
-
-.occupation-image {
-	line-height:8px;
-	display: none;
-}
-
-#sideBar .occupation-title{
-	margin-bottom: 1em;
-}
-
-#sideBar .occupation-description{
-	font-size: 15px;
-	line-height: 18px;
-}
-
-
-.tooltip-teaser .occupation-title{
-	margin-bottom: .5em;
-}
-
-.map-tooltip h1,
-.map-tooltip h2,
-.map-tooltip h3,
-.map-tooltip h4,
-.map-tooltip h5,
-.map-tooltip h6{
-	font-family: 'Dosis', helvetica, sans-serif;
-	font-weight: 300;
-	padding: 0;	
-	margin: 0 0 .25em 0;
-}
-
-
-#sideBar h1{ font-size: 48px; }
-#sideBar h2{ font-size: 36px; }
-#sideBar h3{
-	word-wrap: break-word;
-	font-size: 21px;
-	line-height: 1.2;
-	border-top: none !important;
-}
-
-#sideBar h4{ font-size: 18px; }
-
-#sideBar h6.label{
-	margin-top: 0;
-	font-size: 15px;
-	line-height: 18px;
-}
 
 /*-----------------------------------
   Overlay
@@ -509,57 +476,6 @@ textarea.embed{
   overflow:hidden;
   }
 
- .wax-share small { color:#999; }
-
- .wax-share textarea {
-  display:block;
-  font:normal 10px/15px Arial,sans-serif;
-  resize:none;
-  border:1px solid #ccc;
-  padding:4px;
-  width:310px;
-	clear: both;
- }
-
- .wax-share .twitter,
- .wax-share .facebook {
-  display:block;
-  padding:.5em 1em;
-  margin: .5em 0;
-  color:#000;
-	text-decoration: none;
-	font-family: 'Dosis', sans-serif;
-	font-weight: 300;
-	text-transform: uppercase;
-  }
-
-.wax-share h3{
-	margin-bottom: 1em;
-}
-.wax-share h3,
-.wax-share strong{
-font-family: 'Dosis', sans-serif;
-font-weight: 300;
-color: #eee;
-}
-
- .wax-share .twitter {
-  background:#0ac;
-  }
-
- .wax-share .facebook {
-  background:#359;
-  }
-
-	.wax-share>div{
-		margin: 6em auto;
-	}
-	
-	.small{
-		font-size: .875em;
-	}
-
-
 /* =====================================
  Z-INDEXES
 */
@@ -570,7 +486,6 @@ color: #eee;
 a.zoomer,
 .wax-share,
 .share,
-.tooltip-teaser,
 .wax-attribution{
 	position: absolute;
 }
@@ -633,11 +548,8 @@ a.zoomout{
 	text-align: center;
 }
 
-.tooltip-teaser{
-	z-index: 2002;
-	position: absolute;
-	display: block;
-	top: 2.125em;
-	left: 3em;
-}
 
+textarea.embed{
+	font-size: 1em;
+	margin: 1em 0;
+}
