@@ -232,7 +232,7 @@ including listing and map-tooltip classes here to apply clearfix to them, withou
 	top: 2em;
 	left: 2em;
 	position: absolute;
-	padding: 1em 1em .5em 1em;
+	padding: .25em 1em .5em 1em;
 	color: #eee;
 	margin-bottom: .25em;
 	border-radius: 3px;

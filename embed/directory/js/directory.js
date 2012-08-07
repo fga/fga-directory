@@ -162,9 +162,12 @@ if (!window.console ){
 
 			mapbox.load( directory.map.id, function( o ){
 
-				var map;
-				map = directory.map.instance = mapbox.map('map');
+				var map  = mapbox.map('map');
 				map.addLayer( o.layer ).zoom( directory.map.zoom ).center( directory.map.center );				
+
+				var extent = new MM.Extent( 75.6722, -80, -81.9, 180 );
+				console.log( map.setPanLimits );
+				map.setPanLimits(extent);
 				
 				map.interaction.auto();
 				map.interaction.on({
@@ -182,6 +185,7 @@ if (!window.console ){
 				});
 				map.ui.refresh();
 			});
+			
 		}
 		
 
