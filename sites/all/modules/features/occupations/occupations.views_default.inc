@@ -245,6 +245,10 @@ function occupations_views_default_views() {
   /* Display: Directory landing page */
   $handler = $view->new_display('page', 'Directory landing page', 'occupations_list');
   $handler->display->display_options['display_description'] = 'A table showing all Occupations, sorted by ___, paginated x 10';
+  $handler->display->display_options['defaults']['cache'] = FALSE;
+  $handler->display->display_options['cache']['type'] = 'time';
+  $handler->display->display_options['cache']['results_lifespan'] = '3600';
+  $handler->display->display_options['cache']['output_lifespan'] = '3600';
   $handler->display->display_options['defaults']['exposed_form'] = FALSE;
   $handler->display->display_options['exposed_form']['type'] = 'basic';
   $handler->display->display_options['exposed_form']['options']['submit_button'] = 'apply';
@@ -354,11 +358,12 @@ Do you have the information? <strong><a href="/node/add/occupation">Add an Occup
   $handler->display->display_options['fields']['field_occupation_image']['alter']['nl2br'] = 0;
   $handler->display->display_options['fields']['field_occupation_image']['alter']['word_boundary'] = 1;
   $handler->display->display_options['fields']['field_occupation_image']['alter']['ellipsis'] = 1;
+  $handler->display->display_options['fields']['field_occupation_image']['alter']['more_link'] = 0;
   $handler->display->display_options['fields']['field_occupation_image']['alter']['strip_tags'] = 0;
   $handler->display->display_options['fields']['field_occupation_image']['alter']['trim'] = 0;
   $handler->display->display_options['fields']['field_occupation_image']['alter']['html'] = 0;
   $handler->display->display_options['fields']['field_occupation_image']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['field_occupation_image']['element_default_classes'] = 1;
+  $handler->display->display_options['fields']['field_occupation_image']['element_default_classes'] = 0;
   $handler->display->display_options['fields']['field_occupation_image']['hide_empty'] = 1;
   $handler->display->display_options['fields']['field_occupation_image']['empty_zero'] = 1;
   $handler->display->display_options['fields']['field_occupation_image']['hide_alter_empty'] = 1;
