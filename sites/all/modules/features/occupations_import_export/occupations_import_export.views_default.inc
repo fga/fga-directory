@@ -28,6 +28,7 @@ function occupations_import_export_views_default_views() {
   $handler->display->display_options['cache']['results_lifespan'] = '3600';
   $handler->display->display_options['cache']['output_lifespan'] = '3600';
   $handler->display->display_options['query']['type'] = 'views_query';
+  $handler->display->display_options['query']['options']['distinct'] = TRUE;
   $handler->display->display_options['query']['options']['query_comment'] = FALSE;
   $handler->display->display_options['exposed_form']['type'] = 'basic';
   $handler->display->display_options['pager']['type'] = 'full';
@@ -212,8 +213,9 @@ function occupations_import_export_views_default_views() {
   $handler->display->display_options['style_options']['filename'] = 'directory_%timestamp-yyyy-%timestamp-mm-%timestamp-dd.csv';
   $handler->display->display_options['style_options']['parent_sort'] = 0;
   $handler->display->display_options['style_options']['quote'] = 1;
-  $handler->display->display_options['style_options']['trim'] = 0;
-  $handler->display->display_options['style_options']['replace_newlines'] = 0;
+  $handler->display->display_options['style_options']['trim'] = 1;
+  $handler->display->display_options['style_options']['replace_newlines'] = 1;
+  $handler->display->display_options['style_options']['newline_replacement'] = '<br>';
   $handler->display->display_options['style_options']['header'] = 1;
   $handler->display->display_options['defaults']['fields'] = FALSE;
   /* Field: Content: Node UUID */
