@@ -296,9 +296,6 @@ function occupations_map_views_default_views() {
   /* Display: Occupations OpenLayers Data Overlay */
   $handler = $view->new_display('openlayers', 'Occupations OpenLayers Data Overlay', 'openlayers_1');
   $handler->display->display_options['display_description'] = 'Occupations generated in OL Data format';
-  $handler->display->display_options['pager']['type'] = 'some';
-  $handler->display->display_options['pager']['options']['items_per_page'] = '0';
-  $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['defaults']['row_plugin'] = FALSE;
   $handler->display->display_options['row_plugin'] = 'fields';
 

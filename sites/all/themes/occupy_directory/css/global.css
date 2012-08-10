@@ -313,6 +313,7 @@ div.talk-page li.comment-add:before {
   font-style: italic;
   margin-top:0px;
   font-size:1.2em;
+  padding:0;
 }
 #block-menu-menu-add-your-occupation li a:link, #block-menu-menu-add-your-occupation li a:visited {
   color:#FFF;
@@ -331,7 +332,14 @@ div.talk-page li.comment-add:before {
   margin-top:.5em;
 }
 
-
+.block-social-media {
+  float:right;
+  width: 200px;
+  margin: 68px 0 0;
+}
+.logged-in .block-social-media {
+  margin: 30px 0 0;
+}
 .block-social-media p {
   padding:0; /*0 0 10px*/
   text-align:right;
@@ -536,8 +544,25 @@ div.block-occupation-count .count-label {
 .fullwidth-map {
  /*background:#D0D0D0;*/
 }
+
+.fullwidth-map #zone-preface,
+.fullwidth-map #zone-user,
+.fullwidth-map #zone-branding {
+  margin-left: auto;
+  margin-right: auto;
+  width: 960px;
+}
+.fullwidth-map #region-branding,
+.fullwidth-map #region-menu {
+	float: left;
+	width: 460px;
+}
 .fullwidth-map #zone-content {
   padding-top:0;
+}
+.fullwidth-map  #zone-content .tabs,
+.fullwidth-map  #zone-content .tabs ul {
+  margin:0;
 }
 .fullwidth-map #zone-content .grid-12 {
   margin-left: 0;
@@ -561,10 +586,17 @@ div.block-occupation-count .count-label {
 .fullwidth-map .zone-footer-wrapper {
 	margin-top: 0;
 }
-.fullwidth-map .grid-6 {
-	width: 45%;
-	float: left;
+.fullwidth-map #region-footer-first {
+  float:left;
 }
+.fullwidth-map #region-footer-second {
+  float:right;
+  width:300px;
+}
+
+
+
+
 
 .block h2 {margin:0;}
 
@@ -620,13 +652,13 @@ body.fullwidth-map {
   position:relative;
 }
 #section-content {
-  padding-bottom: 140px; /* height of the footer */
+  padding-bottom: 120px; /* height of the footer */
 }
 #section-footer {
  position:absolute;
  bottom: 0;
  width: 100%;
- height: 140px;
+ height: 120px;
 }
 /* /end footer hack */
 
