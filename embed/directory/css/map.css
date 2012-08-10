@@ -421,7 +421,7 @@ including listing and map-tooltip classes here to apply clearfix to them, withou
 
 .map-legend {
 	position: absolute;
-	bottom: 3em;
+	bottom: .65em;
 	left: .5em;
 }
 
