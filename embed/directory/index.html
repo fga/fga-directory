@@ -10,19 +10,21 @@
 
   <!-- External libraries and site script -->
   <script src="js/jquery.min.js"></script>
-	<script src='http://api.tiles.mapbox.com/mapbox.js/v0.6.3/mapbox.js'></script>
+
+	<!-- <script src='http://api.tiles.mapbox.com/mapbox.js/v0.6.3/mapbox.js'></script> -->
+	<script src="js/mapbox.uncompressed.js"></script>
+	
 	<script src="js/directory.js"></script>
 	<script>
 		var directory = directory || {};
 		directory.map = {
-		//id: 'occupydirectory.map-ftbke77j',
 			id: 'occupydirectory.map-1tyybpog',
 			center: {
 				lat: 19,
 				lon: 9.7
 			},
 			// bounds are described as [ N, W, S, E ]
-			bounds: [ 75.6722, -80, -81.9, 180 ],
+			bounds: [ { lat: 75.6722, lon: -80 } , { lat: -81.9, lon: 180 } ],
 			zoom: { init:2,  min: 2 , max: 11 },
 			options: [ 'legend', 'zoomer', 'zoombox', 'hash' ]
 		};
