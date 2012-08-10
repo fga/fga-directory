@@ -93,7 +93,7 @@ h5,
 	margin: 0 0;
 }
 
-h1{ font-size: 42px; }
+h1{ font-size: 42px; line-height: 50px;}
 h2{ font-size: 36px; }
 h3{ font-size: 27px; line-height: 30px }
 h4{ font-size: 18px; line-height: 21px }
@@ -138,9 +138,12 @@ h4 a{
 	padding: .5em .5em;
 }
 
-h1 a{
+#legend h1 a {
 	color: #666;
 	padding-left: .25em;
+}
+#legend h1 a:hover {
+  color: #efefef;
 }
 
 /*-----------------------------------
