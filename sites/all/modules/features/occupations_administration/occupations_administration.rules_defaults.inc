@@ -10,11 +10,14 @@
 function occupations_administration_default_rules_configuration() {
   $items = array();
   $items['rules_comment_notification'] = entity_import('rules_config', '{ "rules_comment_notification" : {
-      "LABEL" : "Comment notification",
+      "LABEL" : "Comment notification [admin]",
       "PLUGIN" : "reaction rule",
       "TAGS" : [ "notifications" ],
       "REQUIRES" : [ "rules", "comment" ],
       "ON" : [ "comment_insert" ],
+      "IF" : [
+        { "data_is" : { "data" : [ "site:url" ], "value" : "http:\\/\\/directory.occupy.net\\/" } }
+      ],
       "DO" : [
         { "mail_to_users_of_role" : {
             "roles" : { "value" : { "5" : "5" } },
