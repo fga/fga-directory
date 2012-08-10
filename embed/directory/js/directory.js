@@ -161,8 +161,14 @@ if (!window.console ){
 			});
 
 			mapbox.load( directory.map.id, function( o ){
+				
+				var eventHandlers = [
+					easey_handlers.TouchHandler(),
+        	easey_handlers.DragHandler(),
+        	easey_handlers.DoubleClickHandler()
+        ]
 
-				var map  = mapbox.map('map');
+				var map  = mapbox.map('map', null, null, eventHandlers );
 				map.addLayer( o.layer ).zoom( directory.map.zoom.init ).center( directory.map.center );				
 
 				map.interaction.auto();
@@ -179,12 +185,11 @@ if (!window.console ){
 					console.log( this );
 					map.ui[this].add();
 				});
-				map.ui.refresh();
-			console.log( ">>>", map, directory.map.bounds, directory.map.zoom.min, directory.map.zoom.max  );
-				console.log( '\t\t', map.setZoomRange );
+//				map.ui.refresh();
 				map.setPanLimits( directory.map.bounds );
 				map.setZoomRange( directory.map.zoom.min, directory.map.zoom.max );
-		
+				
+				map.refresh();
 			});
 
 			
