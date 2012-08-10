@@ -416,9 +416,9 @@ including listing and map-tooltip classes here to apply clearfix to them, withou
   Footer
 -------------------------------------*/
 
-#legend {
+.map-legend {
 	position: absolute;
-	bottom: .5em;
+	bottom: 3em;
 	left: .5em;
 }
 
