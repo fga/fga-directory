@@ -4927,10 +4927,15 @@ caching exceeds memory limit :(';
   $handler->display->display_options['defaults']['title'] = FALSE;
   $handler->display->display_options['title'] = 'Occupy Directory RSS, founded';
   $handler->display->display_options['display_description'] = 'Occupations that have a founded date, for inclusion on the S17 site.';
+  $handler->display->display_options['defaults']['access'] = FALSE;
+  $handler->display->display_options['access']['type'] = 'role';
+  $handler->display->display_options['access']['role'] = array(
+    2 => '2',
+  );
   $handler->display->display_options['pager']['type'] = 'none';
   $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['style_plugin'] = 'rss';
-  $handler->display->display_options['style_options']['description'] = 'Most recently added occupations';
+  $handler->display->display_options['style_options']['description'] = 'Occupations with a founded date';
   $handler->display->display_options['row_plugin'] = 'node_rss';
   $handler->display->display_options['row_options']['item_length'] = 'rss';
   $handler->display->display_options['row_options']['links'] = 1;
