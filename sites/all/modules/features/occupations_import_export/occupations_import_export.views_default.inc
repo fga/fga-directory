@@ -24,9 +24,7 @@ function occupations_import_export_views_default_views() {
   $handler = $view->new_display('default', 'Master', 'default');
   $handler->display->display_options['title'] = 'Occupation Directory';
   $handler->display->display_options['access']['type'] = 'perm';
-  $handler->display->display_options['cache']['type'] = 'time';
-  $handler->display->display_options['cache']['results_lifespan'] = '3600';
-  $handler->display->display_options['cache']['output_lifespan'] = '3600';
+  $handler->display->display_options['cache']['type'] = 'none';
   $handler->display->display_options['query']['type'] = 'views_query';
   $handler->display->display_options['query']['options']['distinct'] = TRUE;
   $handler->display->display_options['query']['options']['query_comment'] = FALSE;
@@ -4923,6 +4921,53 @@ caching exceeds memory limit :(';
   $handler->display->display_options['sorts']['created']['field'] = 'created';
   $handler->display->display_options['sorts']['created']['order'] = 'DESC';
   $handler->display->display_options['path'] = 'directory.geojson';
+
+  /* Display: Founded Date RSS */
+  $handler = $view->new_display('feed', 'Founded Date RSS', 'founded_rss');
+  $handler->display->display_options['defaults']['title'] = FALSE;
+  $handler->display->display_options['title'] = 'Occupy Directory RSS, founded';
+  $handler->display->display_options['display_description'] = 'Occupations that have a founded date, for inclusion on the S17 site.';
+  $handler->display->display_options['pager']['type'] = 'none';
+  $handler->display->display_options['pager']['options']['offset'] = '0';
+  $handler->display->display_options['style_plugin'] = 'rss';
+  $handler->display->display_options['style_options']['description'] = 'Most recently added occupations';
+  $handler->display->display_options['row_plugin'] = 'node_rss';
+  $handler->display->display_options['row_options']['item_length'] = 'rss';
+  $handler->display->display_options['row_options']['links'] = 1;
+  $handler->display->display_options['defaults']['relationships'] = FALSE;
+  $handler->display->display_options['defaults']['sorts'] = FALSE;
+  /* Sort criterion: Content: Founded (field_occupation_origin_date) */
+  $handler->display->display_options['sorts']['field_occupation_origin_date_value']['id'] = 'field_occupation_origin_date_value';
+  $handler->display->display_options['sorts']['field_occupation_origin_date_value']['table'] = 'field_data_field_occupation_origin_date';
+  $handler->display->display_options['sorts']['field_occupation_origin_date_value']['field'] = 'field_occupation_origin_date_value';
+  $handler->display->display_options['sorts']['field_occupation_origin_date_value']['order'] = 'DESC';
+  $handler->display->display_options['defaults']['filters'] = FALSE;
+  /* Filter criterion: Content: Published */
+  $handler->display->display_options['filters']['status']['id'] = 'status';
+  $handler->display->display_options['filters']['status']['table'] = 'node';
+  $handler->display->display_options['filters']['status']['field'] = 'status';
+  $handler->display->display_options['filters']['status']['value'] = 1;
+  $handler->display->display_options['filters']['status']['group'] = 0;
+  $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
+  /* Filter criterion: Content: Type */
+  $handler->display->display_options['filters']['type']['id'] = 'type';
+  $handler->display->display_options['filters']['type']['table'] = 'node';
+  $handler->display->display_options['filters']['type']['field'] = 'type';
+  $handler->display->display_options['filters']['type']['value'] = array(
+    'occupation' => 'occupation',
+  );
+  /* Filter criterion: has a Founded Date */
+  $handler->display->display_options['filters']['field_occupation_origin_date_value']['id'] = 'field_occupation_origin_date_value';
+  $handler->display->display_options['filters']['field_occupation_origin_date_value']['table'] = 'field_data_field_occupation_origin_date';
+  $handler->display->display_options['filters']['field_occupation_origin_date_value']['field'] = 'field_occupation_origin_date_value';
+  $handler->display->display_options['filters']['field_occupation_origin_date_value']['ui_name'] = 'has a Founded Date';
+  $handler->display->display_options['filters']['field_occupation_origin_date_value']['operator'] = 'not empty';
+  $handler->display->display_options['path'] = 'occupations/founded.rss';
+  $handler->display->display_options['displays'] = array(
+    'page' => 'page',
+    'default' => 0,
+  );
+  $handler->display->display_options['sitename_title'] = 0;
   $export['occupation_exports_and_data'] = $view;
 
   return $export;
