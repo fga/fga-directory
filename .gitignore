@@ -51,7 +51,6 @@ Thumbs.db
 
 
 sites/.gitignore
-sites/directory.occupy.lan
-sites/fga-directory.loc
-sites/directory.occupy.lan
 sites/all/modules/contrib/devel_themer
+
+directory-daily.csv
