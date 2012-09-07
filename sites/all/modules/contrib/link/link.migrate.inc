@@ -24,7 +24,7 @@ class MigrateLinkFieldHandler extends MigrateFieldHandler {
     return $arguments;
   }
 
-  public function prepare(stdClass $entity, array $field_info, array $instance, array $values) {
+  public function prepare($entity, array $field_info, array $instance, array $values) {
     if (isset($values['arguments'])) {
       $arguments = $values['arguments'];
       unset($values['arguments']);

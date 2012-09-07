@@ -14,6 +14,7 @@ class custom_formatters_ui extends ctools_export_ui {
   function list_build_row($item, &$form_state, $operations) {
     // Set up sorting
     $name = $item->{$this->plugin['export']['key']};
+    $schema = ctools_export_get_schema($this->plugin['schema']);
 
     // Load Custom Formatters engines.
     $engines = module_invoke_all('custom_formatters_engine_info');
@@ -24,7 +25,7 @@ class custom_formatters_ui extends ctools_export_ui {
       return;
     }
 
-    // Note: $item->type should have already been set up by export.inc so
+    // Note: $item->{$schema['export']['export type string']} should have already been set up by export.inc so
     // we can use it safely.
     switch ($form_state['values']['order']) {
       case 'disabled':
@@ -37,7 +38,7 @@ class custom_formatters_ui extends ctools_export_ui {
         $this->sorts[$name] = $name;
         break;
       case 'storage':
-        $this->sorts[$name] = $item->type . $name;
+        $this->sorts[$name] = $item->{$schema['export']['export type string']} . $name;
         break;
     }
 
@@ -50,8 +51,12 @@ class custom_formatters_ui extends ctools_export_ui {
     }
     $this->rows[$name]['data'][] = array('data' => check_plain($name), 'class' => array('ctools-export-ui-name'));
     $this->rows[$name]['data'][] = array('data' => check_plain($engines[$item->mode]['label']), 'class' => array('ctools-export-ui-format'));
-    $this->rows[$name]['data'][] = array('data' => check_plain($item->type), 'class' => array('ctools-export-ui-storage'));
-    $this->rows[$name]['data'][] = array('data' => theme('links', array('links' => $operations)), 'class' => array('ctools-export-ui-operations'));
+    $this->rows[$name]['data'][] = array('data' => !empty($item->fapi) && drupal_strlen($item->fapi) > 17 ? t('Yes') : t('No'), 'class' => array('ctools-export-ui-fapi'));
+    $this->rows[$name]['data'][] = array('data' => check_plain($item->{$schema['export']['export type string']}), 'class' => array('ctools-export-ui-storage'));
+
+    $ops = theme('links__ctools_dropbutton', array('links' => $operations, 'attributes' => array('class' => array('links', 'inline'))));
+
+    $this->rows[$name]['data'][] = array('data' => $ops, 'class' => array('ctools-export-ui-operations'));
 
     // Add an automatic mouseover of the description if one exists.
     if (!empty($this->plugin['export']['admin_description'])) {
@@ -73,6 +78,7 @@ class custom_formatters_ui extends ctools_export_ui {
 
     $header[] = array('data' => t('Name'), 'class' => array('ctools-export-ui-name'));
     $header[] = array('data' => t('Format'), 'class' => array('ctools-export-ui-format'));
+    $header[] = array('data' => t('Formatter settings'), 'class' => array('ctools-export-ui-fapi'));
     $header[] = array('data' => t('Storage'), 'class' => array('ctools-export-ui-storage'));
     $header[] = array('data' => t('Operations'), 'class' => array('ctools-export-ui-operations'));
 

@@ -55,6 +55,9 @@ function custom_formatters_schema() {
       'code' => array(
         'type' => 'blob'
       ),
+      'fapi' => array(
+        'type' => 'blob'
+      ),
     ),
     'primary key' => array('name'),
   );
@@ -63,20 +66,16 @@ function custom_formatters_schema() {
 }
 
 /**
- * Implements hook_install().
- */
-function custom_formatters_install() {
-  if (!module_exists('token')) {
-    module_enable(array('token'));
-    if (!module_exists('token')) {
-      drupal_set_message(t('The !token_module is required for the Custom Formatters !token format, this functionality will be unavailble until the !token_module is installed.', array('!token_module' => l(t('Token'), 'http://drupal.org/project/token') . ' ' . t('module'), '!token' => '"<strong>' . t('HTML + Tokens') . '</strong>"')), 'error');
-    }
-  }
-}
-
-/**
  * Implements hook_uninstall().
  */
 function custom_formatters_uninstall() {
   variable_del('custom_formatters_settings');
+}
+
+/**
+ * Add FAPI column to Formatters table.
+ */
+function custom_formatters_update_7200() {
+  db_add_field('formatters', 'fapi', array('type' => 'blob'));
+  return t('New FAPI column added to Formatters table.');
 }

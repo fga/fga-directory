@@ -53,13 +53,6 @@ function custom_formatters_menu() {
 }
 
 /**
- * Implements hook_menu_alter().
- */
-function custom_formatters_menu_alter(&$items) {
-  $items['admin/structure/formatters/list/%']['context'] = MENU_CONTEXT_INLINE;
-}
-
-/**
  *
  */
 function custom_formatters_formatter_is_active($formatter) {
@@ -95,7 +88,7 @@ function custom_formatters_crud_load($formatter) {
  *
  */
 function custom_formatters_crud_load_all($flush_cache = FALSE) {
-  static $formatters = array();
+  $formatters = &drupal_static(__FUNCTION__, array());
 
   if (!$formatters || $flush_cache) {
     ctools_include('export');

@@ -1,5 +1,4 @@
 <?php
-// $Id: twitter-pull-listing.tpl.php,v 1.2.2.3 2011/01/11 02:49:27 inadarei Exp $
 
 /**
  * @file
@@ -13,6 +12,7 @@
  *   $tweet->userphoto
  *   $tweet->text
  *   $tweet->timestamp
+ *   $tweet->time_ago
  *
  * 2) $twitkey string containing initial keyword.
  *
@@ -20,6 +20,10 @@
  *
  */
 ?>
+<?php if ($lazy_load): ?>
+  <?php print $lazy_load; ?>
+<?php else: ?>
+
 <div class="tweets-pulled-listing">
 
   <?php if (!empty($title)): ?>
@@ -46,3 +50,5 @@
     </ul>
   <?php endif; ?>
 </div>
+
+<?php endif; ?>
