@@ -502,13 +502,14 @@ a.zoomout{
 .button,
 .share{
 	z-index: 200;
+	border: none;
 	background: #fc0;
 	color: #000;
 	text-decoration: none;
 	-webkit-border-radius: 4px;
 	-moz-border-radius: 4px;
 	border-radius: 4px;
-	padding: .25em;
+	padding: .5em;
 	bottom: 1em;
 	left: 1em;
 }
