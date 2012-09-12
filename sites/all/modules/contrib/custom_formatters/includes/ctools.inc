@@ -29,7 +29,6 @@ function custom_formatters_ctools_plugin_api() {
   }
 }
 
-
 /**
  * Implements hook_ctools_plugin_directory().
  */

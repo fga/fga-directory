@@ -1,0 +1,88 @@
+
+Entity translation 7.x-1.x, xxxx-xx-xx
+--------------------------------------
+
+
+Entity translation 7.x-1.0-alpha2, 2012-06-16
+---------------------------------------------
+#1587108 by plach | divined: Error: The entities of type Taxonomy term do not
+  define a valid base path: it will not be possible to translate them.
+#1524210 by fabsor, plach: Expose entity translation table to views.
+#1095390 by plach | klonos: Capitalize first letters in project's name.
+#1599568 by torpy: Fixed No content is displayed if fallback is disabled and
+  entity is set to 'Language Neutral'.
+#1341314 by plach, donquixote | derhasi: Fixed Nested call of entity_get_info()
+  due to menu_get_router() in entity_translation_entity_info_alter().
+#1519912 by plach: Fixed Empty stored values may mess up the translatable switch
+  update.
+#1519906 by plach: Migrate aliases when upgrading nodes.
+#1519898 by plach: Fixed The upgrade process may freeze.
+#1519894 by plach: Fixed Entity translation upgrade migration incomplete.
+#1432206 by bforchhammer: Fixed Loss of field content during translatability
+  switch operation.
+#1279372 by getgood, loganfsmyth, evolvingweb, plach, Kristen Pol: Enable bulk
+  field language updates when switching field translatability.
+#1155134 by das-peter, GiorgosK, zambrey: Added Integrate pathauto.
+#1380380 by bojanz: Fixed Prevent notice when translation has been removed from
+  the form.
+#1367832 by floretan: Fixed Check #parents and #field_parents() for source
+  language in new translation form.
+#1174242 by djac, good_man, plach | Jerome F: Properly override the
+  node/%node/translate menu router path.
+#1293638 by das-peter: Fixed Language fallback on Taxonomy Terms (or any entity
+  type without locale support).
+#1283200 by plach: Enable content language negotiation the right way.
+#1280660 by mvc, plach: Fixed Gracefully handle module being disabled and
+  re-enabled.
+#1280544 by mvc, emarchak: Added Clarify difference between multilingual support
+  options.
+#1280506 by tarmstrong | plach: Fixed Simpletests broken after upgrading to
+  D7.7.
+#1262512 by claudiu.cristea: Fixed Clear the entity cache after translate.
+#1230858 by tarmstrong, plach | valderama: Fixed Compatibility with
+  node_clone(); entity_id() of old node is used, resulting in integrity
+  constraint violation.
+
+
+Entity translation 7.x-1.0-alpha1, 2011-09-07
+---------------------------------------------
+#1045196 by plach: Fixed Image field translation broken.
+#1003876 by plach: (follow-up) Fixed labels not replaced by Title.
+#944874 by das-peter, plach: Added basic tests for the translation creation and
+  editing workflow.
+#1031370 by joostvdl | rfay: Fixed Translation publishing status is hidden under
+  collapsed 'publishing options' fieldset (and is hidden by default).
+#1003876 by plach, good_man: (follow-up) Fixed original label translation. 
+#1003876 by good_man, plach: Introduced support for translated entity labels.
+#936646 by good_man, fietserwin, plach, klonos: Fixed Undefined index access
+  callback/arguments in entity_translation_menu().
+#1109198 by plach, Countzero: Fixed Node translation overview page broken if
+  i18n is enabled.
+#1098106 by pcambra, jelenex: Fixed Translated fields aren't validated (or
+  processed with presave and submit field_attach_() hooks).
+#1111686 by plach: Fixed API documentation wrong.
+#1095390 by plach, klonos, sun: Changed Do not capitalize first letters in
+  project's name.
+#1032846 by plach, sun, das-peter: Removed read-ony non translatable fields from
+  the translation form.
+#1082112 by fietserwin | mattwad: Fixed No argument passed to
+  _translation_tab_access()
+#1081444 by jelenex: Fixed Unable to create non-published node.
+#1083704 by jelenex: Fixed Unable to edit node when user has only the 'translate
+  node entities' permission.
+#1096008 by fietserwin, sun: Fixed URL alias not updated.
+#1060334 by plach: Completed the transition from Translation 2.
+#902760 by sun: Changed module name from translation to entity_translation.
+#1032602 by rfay: Fixed bogus 'base path' docs in hook_translation_info().
+#1032816 by das-peter: Removed superfluous method getHumanReadableId().
+#1032728 by das-peter, rfay, sun: Fixed entity info cache not cleared after
+  changing module settings.
+#1021434 by plach | sun, OnkelTem: Fixed `translation` table is not created on
+  upgrading from core translation.
+#1003320 by good_man | Berdir, pcambra, plach, sun: Fixed The etid insane field.
+#1009546 by good_man: Fixed form buttons not wrapped in #type actions.
+#990120 by das-peter: Changed view mode from 'full' to 'default' in edit form.
+#929444 by das-peter, plach, sun: Fixed coding standards.
+#920826 by das-peter, sun: Fixed various issues after initial merge.
+#673300 by plach, sun: Added initial Translatable Fields UI code.
+by sun: Added initial baseline of module files.

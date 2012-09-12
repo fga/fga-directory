@@ -229,7 +229,7 @@ function filefield_source_reference_get_files($filename, $instance = NULL) {
     }
 
     // 1 == contains, 0 == starts with.
-    $like = empty($instance['widget']['settings']['filefield_sources']['source_reference']['autocomplete']) ? ($filename . '%') : ('%' . $filename . '%');
+    $like = empty($instance['widget']['settings']['filefield_sources']['source_reference']['autocomplete']) ? (db_like($filename) . '%') : ('%' . db_like($filename) . '%');
 
     $table_info = reset($field['storage']['details']['sql']['FIELD_LOAD_CURRENT']);
     $table = key($field['storage']['details']['sql']['FIELD_LOAD_CURRENT']);

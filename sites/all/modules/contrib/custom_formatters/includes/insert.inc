@@ -1,5 +1,6 @@
 <?php
 /**
+ * @file
  * Insert module integration.
  */
 
@@ -28,16 +29,25 @@ function custom_formatters_insert_styles() {
  */
 function custom_formatters_insert_content($item, $style, $widget) {
   $menu_item = menu_get_item();
-  $form = form_get_cache(end($menu_item['page_arguments']), $form_state = array());
+  $form_build_id = end($menu_item['page_arguments']);
 
-  $obj_type = $form['#entity_type'];
-  $object = $form["#{$obj_type}"];
-  $field = field_info_field($menu_item['page_arguments'][0]);
-  $instance = field_info_instance($obj_type, $field['field_name'], $form['#bundle']);
-  $langcode = field_language($obj_type, $object, $field['field_name']);
-  $items = array((array) file_load($item['fid']));
-  $display = $instance['display']['default'];
-  $formatter = custom_formatters_crud_load(drupal_substr($style['name'], 18));
+  if (is_string($form_build_id)) {
+    $form = form_get_cache($form_build_id, $form_state = array());
 
-  return render(custom_formatters_field_formatter_view($obj_type, $object, $field, $instance, $langcode, $items, $display, $formatter));
+    $obj_type = $form['#entity_type'];
+    $object = $form["#{$obj_type}"];
+    $field = field_info_field($menu_item['page_arguments'][0]);
+    $instance = field_info_instance($obj_type, $field['field_name'], $form['#bundle']);
+    $langcode = field_language($obj_type, $object, $field['field_name']);
+    $items = array((array) file_load($item['fid']));
+    $display = $instance['display']['default'];
+    $formatter = custom_formatters_crud_load(drupal_substr($style['name'], 18));
+
+    $display['cf_options'] = array(
+      '#contextual_links' => FALSE,
+    );
+
+    return render(custom_formatters_field_formatter_view($obj_type, $object, $field, $instance, $langcode, $items, $display, $formatter));
+  }
+  return FALSE;
 }

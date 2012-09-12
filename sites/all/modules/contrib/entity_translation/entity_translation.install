@@ -1,0 +1,168 @@
+<?php
+
+/**
+ * @file
+ * Installation functions for Entity Translation module.
+ */
+
+/**
+ * Implements hook_schema().
+ */
+function entity_translation_schema() {
+  $schema['entity_translation'] = array(
+    'description' => 'Table to track entity translations',
+    'fields' => array(
+      'entity_type' => array(
+        'type' => 'varchar',
+        'length' => 128,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => 'The entity type this translation relates to',
+      ),
+      'entity_id' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'description' => 'The entity id this translation relates to',
+      ),
+      // @todo: Consider an integer field for 'language'.
+      'language' => array(
+        'type' => 'varchar',
+        'length' => 32,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => 'The target language for this translation.',
+      ),
+      'source' => array(
+        'type' => 'varchar',
+        'length' => 32,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => 'The source language from which this translation was created.',
+      ),
+      'uid' => array(
+        'description' => 'The author of this translation.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'status' => array(
+        'description' => 'Boolean indicating whether the translation is published (visible to non-administrators).',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 1,
+      ),
+      'translate' => array(
+        'description' => 'A boolean indicating whether this translation needs to be updated.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'created' => array(
+        'description' => 'The Unix timestamp when the translation was created.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'changed' => array(
+        'description' => 'The Unix timestamp when the translation was most recently saved.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+    ),
+    'primary key' => array('entity_type', 'entity_id', 'language'),
+  );
+  return $schema;
+}
+
+/**
+ * Implements hook_install().
+ */
+function entity_translation_install() {
+  // entity_translation_form_alter() needs to run after locale_form_alter() and
+  // translation_menu(); entity_translation_menu_alter() needs to run after
+  // i18n_node_menu_alter().
+  db_update('system')
+    ->fields(array('weight' => 11))
+    ->condition('name', 'entity_translation')
+    ->execute();
+
+  // Enable translation for nodes.
+  variable_set('entity_translation_entity_types', array('node' => 'node'));
+
+  // Make translation use the content language type.
+  variable_set('translation_language_type', LANGUAGE_TYPE_CONTENT);
+}
+
+/**
+ * Implements hook_enable().
+ */
+function entity_translation_enable() {
+  // Re-activate entity translation for content types which had used it when
+  // the module was last disabled (if any), unless these have since been altered
+  // by the user to use a different translation option.
+  $entity_translation_types = variable_get('entity_translation_disabled_content_types', array());
+  foreach ($entity_translation_types as $index => $type) {
+    if (variable_get("language_content_type_$type", 0) == 0) {
+      variable_set("language_content_type_$type", ENTITY_TRANSLATION_ENABLED);
+    }
+    // We should show the warning only if we actually restored at least one
+    // content type.
+    else {
+      unset($entity_translation_types[$index]);
+    }
+  }
+  if ($entity_translation_types) {
+    drupal_set_message(t('All content types previously configured to use field translation are now using it again.'), 'warning');
+  }
+  variable_del('entity_translation_disabled_content_types');
+}
+
+/**
+ * Implements hook_disable().
+ */
+function entity_translation_disable() {
+  // Store record of which types are using entity translation, and set those
+  // types to not be translated. These content types will be reset to use entity
+  // translation again if the module is later re-enabled, unless they have been
+  // changed by the user in the meantime.
+  $entity_translation_types = array();
+  $entity_translation_type_names = array();
+  foreach (node_type_get_types() as $type => $object) {
+    if (variable_get("language_content_type_$type", 0) == ENTITY_TRANSLATION_ENABLED) {
+      $entity_translation_types[] = $type;
+      variable_set("language_content_type_$type", 0);
+    }
+  }
+  if ($entity_translation_types) {
+    variable_set('entity_translation_disabled_content_types', $entity_translation_types);
+    drupal_set_message(t('All content types configured to use field translation now have multilingual support disabled. This change will be reverted if the entity translation module is enabled again.'), 'warning');
+  }
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function entity_translation_uninstall() {
+  variable_del('translation_language_type');
+  variable_del('locale_field_language_fallback');
+  variable_del('entity_translation_edit_form_info');
+  variable_del('entity_translation_entity_types');
+  variable_del('entity_translation_disabled_content_types');
+
+  foreach (node_type_get_types() as $type => $object) {
+    variable_del("entity_translation_node_metadata_$type");
+    variable_del("entity_translation_comment_filter_$type");
+  }
+}
+
+/**
+ * Implements hook_update_N().
+ */
+function entity_translation_update_7001() {
+  db_update('system')
+    ->fields(array('weight' => 11))
+    ->condition('name', 'entity_translation')
+    ->execute();
+}

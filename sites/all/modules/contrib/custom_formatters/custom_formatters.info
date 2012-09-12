@@ -15,12 +15,18 @@ files[] = includes/contextual.inc
 files[] = includes/ctools.inc
 files[] = includes/custom_formatters.admin.inc
 files[] = includes/custom_formatters.inc
+files[] = includes/devel_generate.inc
 files[] = includes/features.inc
 files[] = includes/field.inc
+files[] = includes/form_builder.inc
 files[] = includes/help.inc
 files[] = includes/insert.inc
+files[] = includes/libraries.inc
+files[] = includes/node.inc
 files[] = includes/system.inc
+files[] = includes/taxonomy.inc
 files[] = includes/token.inc
+files[] = includes/user.inc
 
 ; CTools plugins.
 files[] = plugins/export_ui/custom_formatters.inc
@@ -29,9 +35,9 @@ files[] = plugins/export_ui/custom_formatters_ui.class.php
 ; Core files.
 files[] = custom_formatters.module
 
-; Information added by drupal.org packaging script on 2011-06-30
-version = "7.x-2.0"
+; Information added by drupal.org packaging script on 2012-07-04
+version = "7.x-2.2"
 core = "7.x"
 project = "custom_formatters"
-datestamp = "1309465916"
+datestamp = "1341407783"
 

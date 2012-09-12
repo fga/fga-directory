@@ -29,4 +29,5 @@ function transliteration_install() {
 function transliteration_uninstall() {
   variable_del('transliteration_file_uploads');
   variable_del('transliteration_file_lowercase');
+  variable_del('transliteration_search');
 }

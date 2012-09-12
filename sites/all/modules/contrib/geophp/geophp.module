@@ -46,7 +46,7 @@ function geophp_load() {
 */
 function geophp_requirements($phase) {
   $requirements = array();
-  $local_geophp_version = '0.7'; // @TODO: Find more elegant way to handle this. Load from local library?
+  $local_geophp_version = '1.1'; // @TODO: Find more elegant way to handle this. Load from local library?
   
   $geophp = geophp_load();
   if ($geophp) {

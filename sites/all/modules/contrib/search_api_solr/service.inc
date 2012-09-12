@@ -230,7 +230,8 @@ class SearchApiSolrService extends SearchApiAbstractService {
       if (!class_exists('Apache_Solr_Service')) {
         throw new Exception(t('SolrPhpClient library not found! Please follow the instructions in search_api_solr/INSTALL.txt for installing the Solr search module.'));
       }
-      $this->solr = new SearchApiSolrConnection($this->options);
+      $class = variable_get('search_api_solr_connection_class', 'SearchApiSolrConnection');
+      $this->solr = new $class($this->options);
     }
   }
 
@@ -848,7 +849,8 @@ class SearchApiSolrService extends SearchApiAbstractService {
       }
       else {
         $key = trim($key);
-        $key = SearchApiSolrConnection::phrase($key);
+        $class = variable_get('search_api_solr_connection_class', 'SearchApiSolrConnection');
+        $key = call_user_func(array($class, 'phrase'), $key);
         $k[] = $key;
       }
     }
@@ -926,7 +928,8 @@ class SearchApiSolrService extends SearchApiAbstractService {
    * and operator.
    */
   protected function createFilterQuery($field, $value, $operator, $field_info) {
-    $field = SearchApiSolrConnection::escapeFieldName($field);
+    $class = variable_get('search_api_solr_connection_class', 'SearchApiSolrConnection');
+    $field = call_user_func(array($class, 'escapeFieldName'), $field);
     if ($value === NULL) {
       return ($operator == '=' ? '-' : '') . "$field:[* TO *]";
     }
@@ -965,8 +968,9 @@ class SearchApiSolrService extends SearchApiAbstractService {
         $value = format_date($value, 'custom', self::SOLR_DATE_FORMAT, 'UTC');
         break;
     }
-    return SearchApiSolrConnection::phrase($value);
-  }
+    $class = variable_get('search_api_solr_connection_class', 'SearchApiSolrConnection');
+    return call_user_func(array($class, 'phrase'), $value);
+ }
 
   /**
    * Helper method for creating the facet field parameters.
@@ -990,7 +994,8 @@ class SearchApiSolrService extends SearchApiAbstractService {
       // Check for the "or" operator.
       if (isset($info['operator']) && $info['operator'] === 'or') {
         // Remember that filters for this field should be tagged.
-        $escaped = SearchApiSolrConnection::escapeFieldName($fields[$info['field']]);
+        $class = variable_get('search_api_solr_connection_class', 'SearchApiSolrConnection');
+        $escaped = call_user_func(array($class, 'escapeFieldName'), $fields[$info['field']]);
         $taggedFields[$escaped] = "{!tag=$escaped}";
         // Add the facet field.
         $facet_params['facet.field'][] = "{!ex=$escaped}$field";
@@ -1057,7 +1062,9 @@ class SearchApiSolrService extends SearchApiAbstractService {
       $k = $keys;
       $fields = $params['qf'];
       unset($params['qf']);
-      $keys = implode(":($k) OR ", array_map(array('SearchApiSolrConnection', 'escapeFieldName'), $fields)) . ":($k)";
+      $class = variable_get('search_api_solr_connection_class', 'SearchApiSolrConnection');
+      $keys = implode(":($k) OR ", array_map(array($class, 'escapeFieldName'), $fields)) . ":($k)";
+
       return TRUE;
     }
     return FALSE;
