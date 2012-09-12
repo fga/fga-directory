@@ -93,8 +93,8 @@ h5,
 	margin: 0 0;
 }
 
-h1{ font-size: 42px; line-height: 50px;}
-h2{ font-size: 36px; }
+h1{ font-size: 36px; line-height: 42px;}
+h2{ font-size: 32px; }
 h3{ font-size: 27px; line-height: 30px }
 h4{ font-size: 18px; line-height: 21px }
 h5{ font-size: 15px; line-height: 21px; font-weight: normal; margin-bottom: .25em }
@@ -138,12 +138,17 @@ h4 a{
 	padding: .5em .5em;
 }
 
+#legend h1{
+	float: left;
+	color: #dedede;
+}
+
 #legend h1 a {
-	color: #666;
+	color: #dedede;
 	padding-left: .25em;
 }
 #legend h1 a:hover {
-  color: #efefef;
+  color: #dedede;
 }
 
 /*-----------------------------------
@@ -265,7 +270,7 @@ including listing and map-tooltip classes here to apply clearfix to them, withou
 }
 
 #sidebar{
-	z-index: 20000;
+	z-index: 1450;
 	position: absolute;
 	top: 0;
 	right: 0;
@@ -399,10 +404,10 @@ including listing and map-tooltip classes here to apply clearfix to them, withou
 
 	#embed_aux{
 		width: 100%;
-		padding: .5em;
+		padding: .25em;
 		position: fixed;
 		bottom: 0;
-		z-index: 10000;
+		z-index: 1500;
 		background: rgba( 0, 0, 0, .7 );
 	}
 
@@ -411,18 +416,14 @@ including listing and map-tooltip classes here to apply clearfix to them, withou
 		padding-right: 1em;
 	}
 
-	#search form.location {
-		text-align: right;
-	}
-
-	#search form.location input[type='text']{
+	#search form input[type='text']{
 		border: 1px #444 solid;
-		width: 300px;
-		padding: .25em .5em;
+		padding: .5em .25em;
 		font-size: 12px;
 		background: #000;
+		color: #dedede;
 		line-height: 1.2;
-		margin: .675em .5em .5em .5em;
+		margin: 1.375em .5em .5em .5em;
 	}
 
 /*-----------------------------------
@@ -494,10 +495,6 @@ a.zoomout{
 	z-index: 103;	
 }
 
-.map-legend{
-	z-index: 14000;
-}
-
 .wax-share{
 	z-index: 2000;
 }
@@ -522,16 +519,6 @@ a.zoomout{
 	text-align: right;
 }
 
-/*#searchButton{
-	background: #fc0;
-	-webkit-border-radius: 7px;
-	-moz-border-radius: 7px;
-	border-radius: 7px;
-	position: relative;
-	top: 3px;
-	text-align: center;
-}
-*/
 
 textarea.embed{
 	font-size: 1em;

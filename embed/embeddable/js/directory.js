@@ -167,14 +167,17 @@ if (!window.console ){
         	easey_handlers.DoubleClickHandler()
         ]
 				var map = mapbox.map('map', null, null, eventHandlers );
-        directory.map.map = map;
+                directory.map.map = map;
 				map.addLayer( o.layer ).zoom( directory.map.zoom.init ).center( directory.map.center );				
 				map.interaction.auto();
 				map.interaction.on({
 					on: function( obj ){
 						if( obj.e.type == 'click' ){
 							var sidebarContent = Mustache.to_html( directory.tooltipTemplate , obj.data );
-							$('#sidebar').removeClass('hidden');
+							var sidebarEl = $('#sidebar');
+                            var h = $(document).height() - directory.footerHeight;
+                            sidebarEl.removeClass('hidden');
+                            sidebarEl.height( h);
 							$('#sidebar .content').html( sidebarContent );							
 						}
 					}
@@ -210,7 +213,6 @@ directory.geocoder = function() {
     var geocode = function( query, m, callback  ) {
         query = encodeURIComponent(query);
         $('form.geocode').addClass('loading');
-        console.log( "//", query, m );
         reqwest({
             url: 'http://open.mapquestapi.com/nominatim/v1/search?format=json&json_callback=callback&&limit=1&q=' + query,
             jsonpCallback: 'json_callback',
@@ -220,10 +222,6 @@ directory.geocoder = function() {
                 var MM_map = directory.map.map,
 
                 r = r[0];
-
-                // if ( MM_map ) {
-                //     MM_map.geocodeLayer.removeAllMarkers();
-                // }
 
                 $('form.geocode').removeClass('loading');
 
@@ -242,7 +240,7 @@ directory.geocoder = function() {
                             'geometry': { 'type': 'Point','coordinates': [r.lon, r.lat] },
                             'properties': {}
                         }]};
-                        
+
                         if( easey ){
                             easey().map(m)
                             .to( m.locationCoordinate({ lat: r.lat, lon: r.lon })
@@ -265,5 +263,9 @@ directory.geocoder = function() {
 
 $( function(){
 	directory.initMap( $('#map')[0] );
+    if( $( '#embed_aux' ) ){
+        var el = $('#embed_aux');
+        directory.footerHeight = el.height() + parseInt( el.css('padding-top') ) * 2;
+    }
 });
 
