@@ -1,0 +1,527 @@
+html, body, #od{
+	height: 100%;
+}
+
+/*
+	CSS Reset
+ 	http://meyerweb.com/eric/tools/css/reset/ 
+	v2.0 | 20110126
+	License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: inherit;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+
+body {
+	line-height: 1;
+	overflow: hidden;
+}
+
+ol,
+ul {
+	list-style: none;
+}
+
+blockquote,
+q{
+	quotes: none;
+}
+
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+	content: '';
+	content: none;
+}
+
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+a{
+	color: #fc0;
+}
+
+.map-fade { opacity:0; }
+
+/*-----------------------------------
+  Typography
+-------------------------------------*/
+
+body{
+	font-family: helvetica, arial, sans-serif;
+	font-size: 14px;
+	line-height: 18px;
+	background: #424242;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+.tooltip-teaser,
+.content{
+	font-family: 'Dosis', helvetica, arial, sans-serif;
+	font-weight: 300;
+	padding: 0;	
+	margin: 0 0;
+}
+
+h1{ font-size: 36px; line-height: 42px;}
+h2{ font-size: 32px; }
+h3{ font-size: 27px; line-height: 30px }
+h4{ font-size: 18px; line-height: 21px }
+h5{ font-size: 15px; line-height: 21px; font-weight: normal; margin-bottom: .25em }
+
+.content{
+	font-weight: normal;
+	letter-spacing: .5px; 
+	line-height: 1.5em
+}
+
+.content p{
+	margin-bottom: 1em;
+}
+
+#sidebar h3{
+	word-wrap: break-word;
+	margin-bottom: 1em;
+}
+
+h1 a,
+h2 a,
+h3 a,
+h4 a{
+	text-decoration: none;
+}
+
+#sidebar h3 a{
+	color: #fc0;
+}
+
+#directory_title {
+	position: absolute;
+	bottom: 0px;
+}
+
+
+#header{
+	top: 0;
+	background: #000;
+	width: 100%;
+	padding: .5em .5em;
+}
+
+#legend h1{
+	float: left;
+	color: #dedede;
+}
+
+#legend h1 a {
+	color: #dedede;
+	padding-left: .25em;
+}
+#legend h1 a:hover {
+  color: #dedede;
+}
+
+/*-----------------------------------
+  Map
+-------------------------------------*/
+
+#map {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+	width: 100%;
+	height: 100%;
+}
+
+/*-----------------------------------
+	Wax General
+-------------------------------------*/
+
+.wax-fade { opacity:0; }
+
+a.zoomer{
+	position: absolute;
+	top: .75em;
+	left: .5em;
+	width: 18px;
+	height: 18px;
+	border-radius: 3px;
+	background: #000;
+	padding: .25em;
+	text-align: center;
+	line-height: 18px;
+	color: #ddd;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+a.zoomout{
+	position: absolute;
+	top: 2.75em;
+}
+
+
+
+/*-----------------------------------
+  Util
+-------------------------------------*/
+
+.hidden{ display: none }
+
+/*
+including listing and map-tooltip classes here to apply clearfix to them, without touching markup because it's rendered in with the maptiles.
+*/
+#sidebar .founded:before,
+#sidebar .founded:after,
+.clearfix:before,
+.clearfix:after {
+  content: '\0020';
+  display: block;
+  overflow: hidden;
+  visibility: hidden;
+  width: 0;
+  height: 0;
+}
+
+#sidebar .founded:after,
+.listing:after,
+.clearfix:after {
+  clear: both;
+}
+
+/*
+  The following zoom:1 rule is specifically for IE6 + IE7.
+  Move to separate stylesheet if invalid CSS is a problem.
+*/
+#sidebar .founded,
+.listing,
+.clearfix {
+  zoom: 1;
+}
+
+/*----------------------------
+	Sidebar
+------------------------------*/
+
+.map-tooltip .tooltip-teaser{
+	z-index: 2002;
+	top: 2em;
+	left: 2em;
+	position: absolute;
+	padding: .25em 1em .5em 1em;
+	color: #eee;
+	margin-bottom: .25em;
+	border-radius: 3px;
+	background: rgb( 0,0,0 );
+	background: rgba( 0, 0, 0, .8 );
+}
+
+.tooltip-teaser a{
+	white-space: nowrap;
+	text-decoration: none;
+}
+
+#sidebar a.close{
+	text-align: center;
+	color: #dedede;	
+	font-size: 1.25em;
+	background: rgb( 0, 0, 0 );
+	background: rgba( 0, 0, 0, .8 );
+	padding: 0 .25em .125em .25em;
+	line-height: 1;
+	text-decoration: none;
+}
+
+#sidebar a.close:hover{
+	color:#000;
+	background: #fc0
+}
+
+#sidebar{
+	z-index: 1450;
+	position: absolute;
+	top: 0;
+	right: 0;
+	padding: 0 .5em .5em .5em;
+	background: rgb( 0, 0, 0 );
+	background: rgba( 0, 0, 0, .9 );
+	height: 100%;
+}
+
+#sidebar .content{
+	width: 290px;
+	height: 100%;
+	overflow: auto;
+	color: #dedede;
+}
+
+#sidebar .methods{
+	position: absolute;
+	left: -1.25em;
+	top: 0;
+}
+
+#sidebar .vcard,
+#sidebar .info,
+#sidebar .listings{
+	padding: 1em;
+	margin-bottom: .5em;
+	background: rgb( 30, 30, 30 );
+	background: rgba( 255, 255, 255, .15 );
+}
+
+#sidebar .vcard{
+	padding-top: 0;
+}
+
+#sidebar .listings ul{
+	margin-bottom: 1em;
+}
+
+#sidebar .founded{
+	margin-bottom: .5em;
+}
+#sidebar .founded .bday{
+	line-height: 1.5;
+}
+
+#sidebar .founded h5.label{
+	float: left !important;
+	display: inline-block;
+	border-right: 1px #bababa solid;
+	padding-right: .5em;
+	margin-right: .5em;
+}
+
+/*#sidebar .occupation-description{
+	clear: both;
+}
+*/
+#sidebar .website-url,
+#sidebar .general-email-address{
+	clear: both;
+
+}
+/* hide geo */
+#sidebar .geo{
+	display: none;
+}
+
+#sidebar a{
+	color: #000;
+}
+
+#sidebar .taglink a{
+	display: block;
+	font-weight: 700;
+	text-decoration: none;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	padding: .5em .75em;
+	margin: 0 .5em .5em 0 ;
+	background: #fc0;
+}
+
+#sidebar .adr,
+#sidebar .general-phone{
+	margin-top: 1.5em;
+}
+
+#sidebar a:hover,
+#sidebar .listings ul li:hover a,
+#sidebar .listings li:hover a:hover{
+	background: #0af;
+	color: #000;
+}
+
+#sidebar .listings ul li{
+	float: left;
+}
+
+#sidebar .occupation-image{
+	float: left;
+	margin: 0 1em 0 0;
+	-moz-box-shadow: 1px 1px 5px #000;
+	-webkit-box-shadow: 1px 1px 5px #000;
+	box-shadow: 1px 1px 8px #000;
+}
+
+#sidebar .occupation-image {
+	line-height:8px;
+}
+
+#sidebar .occupation-title{
+	margin: 0 0 1em 0;
+	padding: .5em 0 0 0;
+}
+
+
+/*-----------------------------------
+	Tooltip
+-------------------------------------*/
+
+.map-tooltip{
+	position: absolute;
+}
+
+
+/*-----------------------------------
+  Overlay
+-------------------------------------*/
+
+	#embed_aux{
+		width: 100%;
+		padding: .25em;
+		position: fixed;
+		bottom: 0;
+		z-index: 1500;
+		background: rgba( 0, 0, 0, .7 );
+	}
+
+	#search	.geocode{
+		float: right;
+		padding-right: 1em;
+	}
+
+	#search form input[type='text']{
+		border: 1px #444 solid;
+		padding: .5em .25em;
+		font-size: 12px;
+		background: #000;
+		color: #dedede;
+		line-height: 1.2;
+		margin: 1.375em .5em .5em .5em;
+	}
+
+/*-----------------------------------
+  Footer
+-------------------------------------*/
+
+.map-legend {
+	position: absolute;
+	bottom: .65em;
+	left: .5em;
+}
+
+
+/*-----------------------------------
+	Share
+-------------------------------------*/
+
+.ts-error,
+ .wax-share {
+  background:#666;
+  background:rgba( 255,255, 255, 0.85 );
+  position:absolute;
+  width:100%;
+  height:100%;
+  top:0; left:0px; right:0px; bottom:0px;
+  z-index:999999;
+  }
+
+ .wax-share div {
+  right:50%;
+  top:50%;
+  margin:-120px -180px 0px 0px;
+  padding:19px;
+  width:320px;
+  overflow:hidden;
+  }
+
+/* =====================================
+ Z-INDEXES
+*/
+
+#map,
+#header,
+#directory_title,
+a.zoomer,
+.wax-share,
+.share,
+.wax-attribution{
+	position: absolute;
+}
+
+#map{
+	z-index: 5;
+}
+	
+#header{
+	z-index: 1015;
+}
+
+#directory_title {
+	z-index: 105;
+}
+
+a.zoomer{
+	z-index: 102;
+}
+
+a.zoomout{
+	z-index: 103;	
+}
+
+.wax-share{
+	z-index: 2000;
+}
+
+.button,
+.share{
+	z-index: 200;
+	border: none;
+	background: #fc0;
+	color: #000;
+	text-decoration: none;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+	padding: .5em;
+	bottom: 1em;
+	left: 1em;
+}
+
+.wax-attribution{
+	display: none;
+	bottom: 2em;
+	text-align: right;
+}
+
+
+textarea.embed{
+	font-size: 1em;
+	margin: 1em 0;
+}
