@@ -408,6 +408,7 @@ including listing and map-tooltip classes here to apply clearfix to them, withou
 		position: fixed;
 		bottom: 0;
 		z-index: 1500;
+		background: rgb( 0, 0, 0 );
 		background: rgba( 0, 0, 0, .7 );
 	}
 
