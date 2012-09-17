@@ -9,12 +9,12 @@
 	<link href='http://fonts.googleapis.com/css?family=Dosis:500,300&subset=latin-ext,latin' rel='stylesheet' type='text/css'>
 
   <!-- External libraries and site script -->
-  <script src="../v1/js/jquery.min.js"></script>
+  <script src="js/jquery.min.js"></script>
 
 	<script src='http://api.tiles.mapbox.com/mapbox.js/v0.6.3/mapbox.js'></script>
 	<!-- <script src="js/mapbox.uncompressed.js"></script> -->
 	
-	<script src="../v1/js/directory.js"></script>
+	<script src="js/directory.js"></script>
 	<script>
 		// configuration for map, keeping it here to keep things maintainable and non-intimidating
 		var directory = directory || {};
@@ -25,11 +25,11 @@
 			// bounds are described as [ N, W, S, E ]
 			bounds: [ { lat: 75.6722, lon: -180 } , { lat: -81.9, lon: 200 } ],
 			zoom: { init:2,  min: 2 , max: 11 },
-			options: [ 'zoomer', 'zoombox', 'hash' ]
+			options: [ 'legend','zoomer', 'zoombox', 'hash' ]
 		};
 		
 	</script>
-	<link href="../v1/css/map.css" rel="stylesheet" />  
+	<link href="css/map.css" rel="stylesheet" />  
 
 </head>
 	
