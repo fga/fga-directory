@@ -1,0 +1,45 @@
+
+How to embed the #occupy directory map on your website
+======================================================
+
+More detailed instructions are forthcoming.
+Please seen this google doc for more information:
+https://docs.google.com/document/d/1gzlRvXYSfyGZRoWP_stHZAzGV66jR9bBFhREeqcBPdw/edit#heading=h.bcdf9msxnwpl
+
+
+
+
+You are free to embed the #occupy directory map on your website by including the following iframe:
+
+  <iframe id="embed" src="http://directory.occupy.net/embed/v1/index.html" ></iframe>
+
+Also include the following CSS declaration in your website stylesheet, so that the map scales to fit the size of its container:
+
+  #embed{
+	  border: 0;
+	  height: 100%;
+	  width: 100%;
+	  position: absolute;
+  }
+
+To post the map in a more restrictive environment, you can post styles inline, like so:
+
+  <iframe id="embed" src="http://directory.occupy.local/embed/v1/index.html" style="border:0; height:100%; width:100%; position:absolute;"></iframe>
+
+
+
+
+Customizing the map zoom level and centerpoint
+----------------------------------------------
+
+You can optionally pass parameters for zoom-level/latitude/longitude to the URL to set the zoom level and the center point of the map so that it scales most appropriately to your website layout. The url below shows the appropriate syntax, and also the default parameters used for the embed.
+
+  <iframe id="embed" http://directory.occupy.net/embed/v1/index.html#2.00/-16.2/10.0" ></iframe>
+
+Zoom-level: a number between 2.00 - 11.00
+
+Latitude/longitude: any point in the world. 
+*Note that the map will center based on its extents, so if you set the zoom level to 2, and try and center to Australia, the centerpoint will fall back to the defaults. You can shift the bounds in index.html to customize this behavior.
+
+
+If you directly load the URL emebedded in the iframe (http://directory.occupy.net/embed/v1/index.html) into your browser, you can interactively pan and zoom the map, dynamically changing the URLs parameters, which you can then appropriate.
