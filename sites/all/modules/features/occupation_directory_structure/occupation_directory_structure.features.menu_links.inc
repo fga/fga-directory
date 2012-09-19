@@ -46,6 +46,42 @@ function occupation_directory_structure_menu_default_menu_links() {
     'expanded' => '0',
     'weight' => '-49',
   );
+  // Exported menu link: menu-feeds-and-exports:directory.json
+  $menu_links['menu-feeds-and-exports:directory.json'] = array(
+    'menu_name' => 'menu-feeds-and-exports',
+    'link_path' => 'directory.json',
+    'router_path' => 'directory.json',
+    'link_title' => 'json',
+    'options' => array(
+      'attributes' => array(
+        'title' => 'The entire directory in JSON format',
+      ),
+    ),
+    'module' => 'system',
+    'hidden' => '0',
+    'external' => '0',
+    'has_children' => '0',
+    'expanded' => '0',
+    'weight' => '-44',
+  );
+  // Exported menu link: menu-feeds-and-exports:http://directory.occupy.net/directory-daily.csv
+  $menu_links['menu-feeds-and-exports:http://directory.occupy.net/directory-daily.csv'] = array(
+    'menu_name' => 'menu-feeds-and-exports',
+    'link_path' => 'http://directory.occupy.net/directory-daily.csv',
+    'router_path' => '',
+    'link_title' => 'CSV',
+    'options' => array(
+      'attributes' => array(
+        'title' => '',
+      ),
+    ),
+    'module' => 'menu',
+    'hidden' => '0',
+    'external' => '1',
+    'has_children' => '0',
+    'expanded' => '0',
+    'weight' => '-50',
+  );
   // Exported menu link: menu-feeds-and-exports:occupations/added.atom
   $menu_links['menu-feeds-and-exports:occupations/added.atom'] = array(
     'menu_name' => 'menu-feeds-and-exports',
@@ -123,9 +159,11 @@ function occupation_directory_structure_menu_default_menu_links() {
   t('+ add your occupation!');
   t('Atom (new)');
   t('Atom (updated)');
+  t('CSV');
   t('CSV (now)');
   t('RSS (new)');
   t('RSS (updated)');
+  t('json');
 
 
   return $menu_links;
