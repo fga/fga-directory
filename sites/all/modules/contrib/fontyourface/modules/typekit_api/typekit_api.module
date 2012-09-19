@@ -62,7 +62,8 @@ function typekit_api_fontyourface_import() {
           $font->provider = 'typekit_api';
           $font->enabled = 1;
           $font->metadata = serialize($metadata);
-          $font->css_family = implode(', ', $family_info->css_names);
+          // Enclose each family name in single quotes.
+          $font->css_family = "'" . implode("', '", $family_info->css_names) . "'";
           $font->css_style = $variant->font_style;
           $font->css_weight = $variant->font_weight;
           $font->foundry = $variant->foundry->name;
@@ -90,9 +91,9 @@ function typekit_api_fontyourface_import() {
 } // typekit_api_fontyourface_import
 
 /**
- * Implements template_preprocess_page().
+ * Implements template_preprocess_html().
  */
-function typekit_api_preprocess_page(&$vars) {
+function typekit_api_preprocess_html(&$vars) {
 
   if (!empty($vars['fontyourface'])) {
 
@@ -131,7 +132,7 @@ function typekit_api_preprocess_page(&$vars) {
 
   } // if
 
-} // typekit_api_preprocess_page
+} // typekit_api_preprocess_html
 
 /**
  * Implements hook_form_alter().

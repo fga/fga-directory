@@ -32,7 +32,7 @@ function fonts_com_menu() {
     'type' => MENU_LOCAL_TASK,
     'weight' => 1,
   );
-  
+
   $items['admin/config/user-interface/fontyourface/fonts_com/project/new'] = array(
     'title' => 'Create new project',
     'page callback' => 'drupal_get_form',
@@ -40,7 +40,7 @@ function fonts_com_menu() {
     'access arguments' => array('administer @font-your-face'),
     'type' => MENU_LOCAL_TASK,
   );
-  
+
   $items['admin/config/user-interface/fontyourface/fonts_com/project/edit/%'] = array(
     'title' => 'Edit project',
     'page callback' => 'drupal_get_form',
@@ -123,9 +123,9 @@ function fonts_com_import_process(&$context) {
 
   $import_results = fonts_com_get_all_fonts($context['sandbox']['progress'], $per_page);
   $import_fonts = $import_results['fonts'];
-  
+
   foreach ($import_fonts as $import_font) {
-  
+
     $font = fonts_com_api_to_font($import_font);
     fontyourface_save_font($font);
 
@@ -157,15 +157,15 @@ function fonts_com_import_finished($success, $results, $operations) {
 function fonts_com_fontyourface_count() {
 
   module_load_include('inc', 'fonts_com', 'api');
-  
+
   return fonts_com_get_all_fonts_count();
 
 } // fonts_com_fontyourface_count
 
 /**
- * Implements template_preprocess_page().
+ * Implements template_preprocess_html().
  */
-function fonts_com_preprocess_page(&$vars) {
+function fonts_com_preprocess_html(&$vars) {
 
   if (!empty($vars['fontyourface'])) {
 
@@ -208,17 +208,17 @@ function fonts_com_preprocess_page(&$vars) {
       } // foreach
 
     } // if
-    
+
     if (count($preview_fonts) > 0) {
-    
+
       $destination = file_build_uri('fontyourface/fonts_com/preview.css');
 
       $css = '';
-    
+
       $destination_directory = dirname($destination);
-    
+
       if (file_prepare_directory($destination_directory, FILE_CREATE_DIRECTORY)) {
-        
+
         foreach ($preview_fonts as $font) {
 
           $css .= fonts_com_font_inline_css($font) . "\n\n";
@@ -233,12 +233,12 @@ function fonts_com_preprocess_page(&$vars) {
         $vars['styles'] = drupal_get_css();
 
       } // if
-    
+
     } // if
 
   } // if
 
-} // fonts_com_preprocess_page
+} // fonts_com_preprocess_html
 
 /**
  * Returns CSS for a given font.
@@ -271,7 +271,7 @@ function fonts_com_font_inline_css($font) {
   } // if
 
   $font_css .= '}' . "\n";
-  
+
   return $font_css;
 
 } // fonts_com_font_inline_css
@@ -363,7 +363,7 @@ function fonts_com_setup_form($form, &$form_state) {
       '#value' => t('Get Key'),
     ),
   );
-  
+
   $form['create'] = array(
     '#type' => 'fieldset',
     '#collapsible' => TRUE,
@@ -471,7 +471,7 @@ function fonts_com_project_form($form, &$form_state) {
         'wrapper' => 'project-info',
       ),
     );
-    
+
     if (isset($_SESSION['fonts_com_project']) && $_SESSION['fonts_com_project'] != '') {
       $form['project']['#default_value'] = $_SESSION['fonts_com_project'];
     } // if
@@ -490,7 +490,7 @@ function fonts_com_project_form($form, &$form_state) {
       '#value' => t('Edit project'),
       '#attached' => array(
         'js' => array(
-          drupal_get_path('module', 'fonts_com') . '/js/project.js', 
+          drupal_get_path('module', 'fonts_com') . '/js/project.js',
         )
       ),
     );
@@ -502,12 +502,12 @@ function fonts_com_project_form($form, &$form_state) {
     drupal_goto('admin/config/user-interface/fontyourface/fonts_com/project/new');
 
   } // else
-  
+
   $form['project_info'] = array(
     '#prefix' => '<div id="project-info">',
     '#suffix' => '</div>',
   );
-  
+
   if (!empty($form_state['values']['project'])) {
 
     $_SESSION['fonts_com_project'] = $form_state['values']['project'];
@@ -536,7 +536,7 @@ function fonts_com_project_ajax_callback($form, $form_state) {
  * Sets active project, or creates a new project.
  */
 function fonts_com_project_form_submit($form, &$form_state) {
-  
+
   if (isset($form_state['values']['project_name'])) {
 
     // Handles AJAX form submission, saves project info.
@@ -550,7 +550,7 @@ function fonts_com_project_form_submit($form, &$form_state) {
 
     $project_id = $form_state['values']['project'];
     $path_end = 'edit/' . $project_id;
-    
+
     if ($project_id == '*new*') {
       $path_end = 'new';
     } // if
@@ -566,7 +566,7 @@ function fonts_com_project_form_submit($form, &$form_state) {
  */
 function fonts_com_project_edit_form($form, &$form_state, $project_id) {
 
-  $form = fonts_com_project_info_form($project_id); 
+  $form = fonts_com_project_info_form($project_id);
 
   return $form;
 
@@ -586,7 +586,7 @@ function fonts_com_project_info_form($project_id) {
     '#title' => t('Project name'),
     '#size' => 50,
   );
-  
+
   $form['active'] = array(
     '#type' => 'checkbox',
     '#title' => t('Active'),
@@ -608,7 +608,7 @@ function fonts_com_project_info_form($project_id) {
   $domain_index = 0;
 
   if ($project_id != '') {
-  
+
     $form['project_id'] = array(
       '#type' => 'value',
       '#value' => $project_id,
@@ -621,9 +621,9 @@ function fonts_com_project_info_form($project_id) {
       $form['project_name']['#default_value'] = $project->ProjectName;
 
       $domains = fonts_com_get_domains_in_project($project->ProjectKey);
-      
+
       foreach ($domains as $domain) {
-      
+
         $form['domains']['domain[' . $domain_index . ']'] = array(
           '#type' => 'textfield',
           '#size' => 50,
@@ -650,7 +650,7 @@ function fonts_com_project_info_form($project_id) {
     $domain_index++;
 
   } // for
-  
+
   $form['save'] = array(
     '#type' => 'submit',
     '#value' => t('Save project'),
@@ -678,7 +678,7 @@ function fonts_com_project_edit_form_submit($form, &$form_state) {
 
       $project->ProjectName = $values['project_name'];
       $save_needed = TRUE;
-  
+
     } // if
 
   } // if
@@ -699,12 +699,12 @@ function fonts_com_project_edit_form_submit($form, &$form_state) {
       variable_set('fonts_com_project', $project->ProjectKey);
       fonts_com_import_from_project($project->ProjectKey);
       fonts_com_enable_from_active_project();
-  
+
     } // if
     else if ($values['active'] === 0 && $values['project'] == variable_get('fonts_com_project', '')) {
-  
+
       variable_set('fonts_com_project', '');
-  
+
     } // else if
 
     $new_domains = array();
@@ -786,9 +786,9 @@ function fonts_com_import_from_project($project_id) {
   module_load_include('inc', 'fonts_com', 'api');
 
   $import_fonts = fonts_com_get_fonts_in_project($project_id);
-  
+
   foreach ($import_fonts as $import_font) {
-  
+
     $font = fonts_com_api_to_font($import_font);
     fontyourface_save_font($font);
 
@@ -815,20 +815,20 @@ function fonts_com_enable_from_active_project() {
   $fids_to_enable = array();
   $project_id = variable_get('fonts_com_project', '');
   $selectors_by_font_id = array();
-  
+
   if ($project_id != '') {
 
     $import_fonts = fonts_com_get_fonts_in_project($project_id);
 
     foreach ($import_fonts as $import_font) {
 
-      $font = fonts_com_saved_api_font($import_font);      
+      $font = fonts_com_saved_api_font($import_font);
       $fids_to_enable[] = intval($font->fid);
 
     } // foreach
 
-    $selectors = fonts_get_selectors_in_project($project_id);
-    
+    $selectors = fonts_com_get_selectors_in_project($project_id);
+
     foreach ($selectors as $selector) {
       $selectors_by_font_id[$selector->SelectorFontID] = $selector->SelectorTag;
     } // foreach
@@ -851,7 +851,7 @@ function fonts_com_enable_from_active_project() {
        * Note: this relies on fonts_com_fontyourface_enable() saving the font
        * to save the imported selector.
        */
-       
+
       $metadata = unserialize($font_result->metadata);
       $font_id = $metadata['details']->FontID;
 
@@ -891,7 +891,7 @@ function fonts_com_fontyourface_selector_update($font) {
 function fonts_com_fontyourface_short_preview_text($font) {
 
   $metadata = unserialize($font->metadata);
-    
+
   if (strpos($metadata['details']->FontLanguage, 'Latin') === FALSE) {
 
     return drupal_substr($metadata['details']->FontPreviewTextLong, 0, 4);
@@ -912,7 +912,7 @@ function fonts_com_fontyourface_status() {
   if ($project_id) {
 
     module_load_include('inc', 'fonts_com', 'api');
-  
+
     $project = fonts_com_get_project_by_id($project_id);
     return t('Active project: @project.', array('@project' => $project->ProjectName));
 
@@ -977,11 +977,11 @@ function fonts_com_browse_form($form, &$form_state) {
   $filters = array();
 
   $filter_defaults = array();
-  
+
   foreach ($filter_map as $key => $value) {
-  
+
     $filter_defaults[$key] = '';
-  
+
     if (isset($_GET[$key]) && $_GET[$key] != '' && $_GET['op'] != t('Reset')) {
       $filter_defaults[$key] = $_GET[$key];
     } // if
@@ -991,7 +991,7 @@ function fonts_com_browse_form($form, &$form_state) {
     if ($filter_defaults[$key] != '') {
       $filters[$value] = $filter_defaults[$key];
     } // if
-  
+
   } // foreach
 
   if (count($filters) > 0) {
@@ -1030,7 +1030,7 @@ function fonts_com_browse_form($form, &$form_state) {
     '#prefix' => '<div class="views-filter">',
     '#suffix' => '</div>',
   );
-  
+
   $form['wrapper']['filters']['name'] = array(
     '#type' => 'textfield',
     '#title' => 'Name',
@@ -1038,7 +1038,7 @@ function fonts_com_browse_form($form, &$form_state) {
     '#default_value' => $filter_defaults['name'],
     '#ajax' => $ajax,
   );
-  
+
   $language_options = array(
     '' => '- Any -',
   );
@@ -1070,7 +1070,7 @@ function fonts_com_browse_form($form, &$form_state) {
     '#default_value' => $filter_defaults['designer'],
     '#ajax' => $ajax,
   );
-  
+
   $foundry_options = array(
     '' => '- Any -',
   );
@@ -1118,7 +1118,7 @@ function fonts_com_browse_form($form, &$form_state) {
     '#default_value' => $filter_defaults['alpha'],
     '#ajax' => $ajax,
   );
-  
+
   $free_options = array(
     '' => '- Any -',
   );
@@ -1170,18 +1170,18 @@ function fonts_com_browse_form($form, &$form_state) {
       '#prefix' => '<li class="' . $class . ' font">',
       '#suffix' => '</li>',
     );
-    
-    $font = fonts_com_saved_api_font($import_font);    
+
+    $font = fonts_com_saved_api_font($import_font);
     $css .= fonts_com_font_inline_css($font) . "\n\n";
 
     $enabled = 'no';
-    
+
     if ($font->enabled) {
       $enabled = 'yes';
     } // if
 
     $form['wrapper']['results']['row-' . $row]['header'] = array(
-      '#type' => 'markup', 
+      '#type' => 'markup',
       '#markup' => '<div class="fontyourface-header"><h4>' . check_plain($font->name) . '<br />' . check_plain($import_font->FontLanguage) . '</h4>' . l('<span>' . t('Edit') . '</span>', 'admin/appearance/fontyourface/edit/' . $font->fid, array('html' => TRUE, 'query' => array('destination' => 'admin/appearance/fontyourface/browse/fonts_com'))) . '</div>',
     );
 
@@ -1197,12 +1197,12 @@ function fonts_com_browse_form($form, &$form_state) {
     } // else
 
     $form['wrapper']['results']['row-' . $row]['footer'] = array(
-      '#type' => 'markup', 
+      '#type' => 'markup',
       '#markup' => '<div class="fontyourface-footer enabled-' . $enabled . '" data-fid="' . $font->fid . '">' . $enable_disable_link . '</div>',
     );
 
     $form['wrapper']['results']['row-' . $row]['preview'] = array(
-      '#type' => 'markup', 
+      '#type' => 'markup',
       '#markup' => '<div class="fontyourface-preview enabled-' . $enabled . '">' . fontyourface_preview($font, fontyourface_short_preview_text($font), 40) . '</div>',
     );
 
@@ -1221,10 +1221,10 @@ function fonts_com_browse_form($form, &$form_state) {
     /**
      * Make pager work with AJAX. This is a bit of a hack until core
      * supports AJAX pagers.
-     */ 
+     */
 
     $temp_get = $_GET;
-    $_GET = $form_state['values'];  
+    $_GET = $form_state['values'];
     $_GET['q'] = 'admin/appearance/fontyourface/browse/fonts_com';
 
   } // if
@@ -1250,7 +1250,7 @@ function fonts_com_browse_form($form, &$form_state) {
 function fonts_com_ajax_css_registry($css = FALSE) {
 
   static $css_registry;
-  
+
   if ($css !== FALSE) {
     $css_registry = $css;
   } // if
@@ -1266,19 +1266,20 @@ function fonts_com_ajax_css_registry($css = FALSE) {
 function fonts_com_ajax_render_alter(&$commands) {
 
   $css = fonts_com_ajax_css_registry();
-  
+
   $styles = array(
     '#type' => 'styles',
     '#items' => array(
       array(
         'type' => 'inline',
         'data' => $css,
+        'browsers' => array(),
         'media' => 'all',
         'preprocess' => TRUE,
       ),
     ),
   );
-  
+
   $rendered = drupal_render($styles);
 
   $commands[] = ajax_command_prepend('head', $rendered);
@@ -1312,7 +1313,7 @@ function fonts_com_api_to_font($import_font) {
   $font->url = 'http://webfonts.fonts.com/en-US/Project/ChooseFonts?ViewDetails=T&ViewFontID=' . $import_font->FontID . '&AddFontToPalette=T';
   $font->provider = 'fonts_com';
   $font->metadata = serialize($metadata);
-  $font->css_family = "'" . $import_font->FontCSSName . "'";
+  $font->css_family = $import_font->FontCSSName;
   $font->css_style = '';
   $font->css_weight = '';
 
@@ -1321,7 +1322,7 @@ function fonts_com_api_to_font($import_font) {
   } // if
 
   $font->tags = array();
-  
+
   return $font;
 
 } // fonts_com_api_to_font
@@ -1337,10 +1338,10 @@ function fonts_com_saved_api_font($import_font) {
 
   if (count($saved_fonts) > 0) {
     return $saved_fonts[0];
-  } // if 
+  } // if
 
   $font = fonts_com_api_to_font($import_font);
-  
+
   fontyourface_save_font($font);
 
   return $font;
@@ -1355,13 +1356,13 @@ function fonts_com_filter_choices($current_filters = FALSE) {
   if (!$current_filters) {
 
     $choices =  variable_get('fonts_com_filter_choices', array());
-  
+
     if (!isset($choices['updated']) || REQUEST_TIME - $choices['updated'] > 4 * 60 * 60) {
-    
+
       module_load_include('inc', 'fonts_com', 'api');
 
-      $options = fonts_get_all_filter_choices(array('wfsfreeorpaid' => '-1'));
-    
+      $options = fonts_com_get_all_filter_choices(array('wfsfreeorpaid' => '-1'));
+
       $choices['filters'] = $options + array(
         'Designer' => array(),
         'Foundry' => array(),
@@ -1372,13 +1373,13 @@ function fonts_com_filter_choices($current_filters = FALSE) {
       );
 
       $choices['updated'] = REQUEST_TIME;
-  
+
       variable_set('fonts_com_filter_choices', $choices);
-  
+
     } // if
-  
+
     return $choices['filters'];
-  
+
   } // if
   else {
 
@@ -1407,7 +1408,7 @@ function fonts_com_filter_choices($current_filters = FALSE) {
 
       module_load_include('inc', 'fonts_com', 'api');
 
-      $options = fonts_get_all_filter_choices($filters);
+      $options = fonts_com_get_all_filter_choices($filters);
 
       return $options + array(
         'Designer' => array(),

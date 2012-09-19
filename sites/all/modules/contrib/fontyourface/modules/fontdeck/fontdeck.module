@@ -26,64 +26,64 @@ function fontdeck_fontyourface_import() {
   $project = variable_get('fontdeck_project', '');
   $domain = preg_replace('#^www.#', '', $_SERVER['HTTP_HOST']);
 
-  $project_info_url = FONTDECK_BASE_URL . '/project-info?project=' . $project . '&domain=' . $domain;
+  $project_info_url = FONTDECK_BASE_URL . 'project-info?project=' . $project . '&domain=' . $domain;
 
   if ($project != '') {
 
     $response = drupal_http_request($project_info_url);
-  
+
     if ($response->code == 200) {
-  
+
       $data = json_decode($response->data);
-      
+
       if (isset($data->error)) {
         drupal_set_message(t($data->error), 'error');
         return;
       }
-  
+
       $fontdeck_css = variable_get('fontdeck_css', array());
-  
+
       if (!isset($fontdeck_css[$project])) {
         $fontdeck_css[$project] = array();
       } // if
-      
+
       $fontdeck_css[$project][$domain] = $data->css;
-  
+
       variable_set('fontdeck_css', $fontdeck_css);
-  
+
       foreach ($data->provides as $import_font) {
-      
+
         $font = new StdClass;
         $font->name = $import_font->name;
         $font->url = 'http://fontdeck.com/search?q=' . urlencode($import_font->name);
         $font->provider = 'fontdeck';
         $font->tags = array();
-        $font->css_family = "'" . $import_font->name . "'";
+        $font->css_family = $import_font->name;
         $font->css_style = $import_font->style;
         $font->css_weight = $import_font->weight;
-  
+
         fontyourface_save_font($font);
-  
+
       } // foreach
 
     } // if
     else {
-      
+
       $success = FALSE;
       drupal_set_message(t('There was an error importing font information for project @project on this domain (@domain) from Fontdeck.', array('@project' => $project, '@domain' => $domain)), 'error');
-  
+
     } // else
 
   } // if
   else {
-    
+
     $success = FALSE;
     drupal_set_message(t('Missing project number to import.'), 'error');
 
   } // else
 
   return $success;
-  
+
 } // fontdeck_fontyourface_import
 
 /**
@@ -110,7 +110,7 @@ function fontdeck_form_alter(&$form, &$form_state, $form_id) {
         '#value' => t('Save project number'),
       ),
     );
-    
+
     // Move the default update/import button to the Fontdeck fieldset
     if (isset($form['providers']['fontdeck_import'])) {
       $form['fontdeck']['fontdeck_import'] = $form['providers']['fontdeck_import'];
@@ -174,9 +174,9 @@ function fontdeck_fontyourface_preview($font, $text = NULL, $size = 18) {
 } // fontdeck_fontyourface_preview
 
 /**
- * Implements template_preprocess_page().
+ * Implements template_preprocess_html().
  */
-function fontdeck_preprocess_page(&$vars) {
+function fontdeck_preprocess_html(&$vars) {
 
   $project = variable_get('fontdeck_project', '');
   $domain = preg_replace('#^www.#', '', $_SERVER['HTTP_HOST']);
@@ -207,4 +207,4 @@ function fontdeck_preprocess_page(&$vars) {
 
   } // if
 
-} // fontdeck_preprocess_page
+} // fontdeck_preprocess_html

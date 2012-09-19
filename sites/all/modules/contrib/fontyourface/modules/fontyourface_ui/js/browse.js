@@ -15,7 +15,7 @@
   
     var link = $(this);
     var fid = link.parent().attr('data-fid');
-    var enableUrl = Drupal.settings.basePath + 'admin/appearance/fontyourface/ajax/enable/' + fid;
+    var enableUrl = Drupal.settings.basePath + '?q=admin/appearance/fontyourface/ajax/enable/' + fid;
 
     $('<span class="fontyourface-indicator"></span>').appendTo(this);
 
@@ -50,7 +50,7 @@
   
     var link = $(this);
     var fid = link.parent().attr('data-fid');
-    var disableUrl = Drupal.settings.basePath + 'admin/appearance/fontyourface/ajax/disable/';
+    var disableUrl = Drupal.settings.basePath + '?q=admin/appearance/fontyourface/ajax/disable/';
 
     $('<span class="fontyourface-indicator"></span>').appendTo(this);
     

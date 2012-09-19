@@ -53,10 +53,9 @@ function fontsquirrel_fontyourface_preview($font, $text = NULL, $size = 18) {
 } // fontsquirrel_fontyourface_preview
 
 /**
- * Implements template_preprocess_page().
+ * Implements template_preprocess_html().
  */
-function fontsquirrel_preprocess_page(&$vars) {
-
+function fontsquirrel_preprocess_html(&$vars) {
   if (!empty($vars['fontyourface'])) {
 
     $paths = array();
@@ -65,7 +64,17 @@ function fontsquirrel_preprocess_page(&$vars) {
 
       if ($used_font->provider == 'fontsquirrel') {
         $metadata = unserialize($used_font->metadata);
-        $paths[] = $metadata['path'];
+        if (module_exists('google_webfont_loader_api') && !empty($used_font->css_family)) {
+          $font_info = array(
+            'custom_families' => array($used_font->css_family),
+            'custom_style_css' => array('fontyourface/fontsquirrel/' . $metadata['path'] . '-fontfacekit/stylesheet.css'),
+          );
+          _google_webfont_loader_api_load_font($font_info);
+        }
+        else {
+          $paths[] = $metadata['path'];
+        }
+
       } // if
 
     } // foreach
@@ -82,7 +91,7 @@ function fontsquirrel_preprocess_page(&$vars) {
 
   } // if
 
-} // fontsquirrel_preprocess_page
+} // fontsquirrel_preprocess_html
 
 /**
  * Implements hook_fontyourface_enable().
@@ -102,7 +111,7 @@ function fontsquirrel_fontyourface_enable($font) {
 
       if (is_array($decoded) && is_object($decoded[0])) {
 
-        $font->css_family = "'" . $decoded[0]->{'fontface_name'} . "'";
+        $font->css_family = $decoded[0]->{'fontface_name'};
         fontyourface_save_font($font);
 
       } // if

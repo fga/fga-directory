@@ -58,7 +58,7 @@
 
       if (selector == '<none>') {
       
-        select.parent().append('<div class="font-family">font-family: ' + fontFamily + ';</div>');
+        select.parent().append('<div class="font-family">font-family: "' + fontFamily + '";</div>');
 
       } // if
 

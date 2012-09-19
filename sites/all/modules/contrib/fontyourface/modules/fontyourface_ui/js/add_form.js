@@ -7,7 +7,8 @@ var fontyourfaceSampleMarkup = '';
 
     attach:function(context, settings) {
 
-      var selector = $('#edit-css').val();
+      var input = $('#edit-css');
+      var selector = input.val();
 
       fontyourfaceSampleText = $('#edit-sample-text').val();
       fontyourfaceSampleMarkup = $('.fontyourface-view').html();
@@ -28,24 +29,25 @@ var fontyourfaceSampleMarkup = '';
 
       });
 
-      if ($('#edit-css').length > 0) {
+      if (selector.length > 0) {
 
-        $('<select id="edit-css-select"><option value="h1, h2, h3, h4, h5, h6">all headers (h1, h2, h3, h4, h5, h6)</option><option value="h1">h1</option><option value="h2">h2</option><option value="h3">h3</option><option value="p, div">standard text (p, div)</option><option value="body">everything (body)</option><option value="">other</option></select>')
+        var select = $('<select id="edit-css-select"><option value="">-- none --</option><option value="h1, h2, h3, h4, h5, h6">all headers (h1, h2, h3, h4, h5, h6)</option><option value="h1">h1</option><option value="h2">h2</option><option value="h3">h3</option><option value="p, div">standard text (p, div)</option><option value="body">everything (body)</option><option value="&lt;none&gt;">-- add selector in theme CSS --</option><option value="-- other --">other</option>')
           .change(fontyourfaceCssSelectChange)
-          .insertBefore('#edit-css');
+          .insertBefore(input);
 
-        if (
-          (selector != '') && 
-          ($('#edit-css-select option[value="' + selector + '"]').length > 0)
-        ) {
-          $('#edit-css-select option[value=' + selector + ']').attr('selected', true);
-          $('#edit-css').hide();
+        if (select.find('option[value="' + selector + '"]').length > 0) {
+
+          select.find('option[value=' + selector + ']').attr('selected', true);
+          input.hide();
+
         } // if
         else {
-          $('#edit-css-select option[value=""]').attr('selected', true);
-          $('#edit-css').show();
-        } // else
 
+          select.find('option[value="-- other --"]').attr('selected', true);
+          input.show();
+
+        } // else
+        
       } // if
 
     } // attach
