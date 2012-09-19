@@ -10,13 +10,13 @@
 function occupation_directory_structure_menu_default_menu_custom() {
   $menus = array();
 
-  // Exported menu: menu-add-your-occupation
+  // Exported menu: menu-add-your-occupation.
   $menus['menu-add-your-occupation'] = array(
     'menu_name' => 'menu-add-your-occupation',
     'title' => 'Add your Occupation',
     'description' => '',
   );
-  // Exported menu: menu-feeds-and-exports
+  // Exported menu: menu-feeds-and-exports.
   $menus['menu-feeds-and-exports'] = array(
     'menu_name' => 'menu-feeds-and-exports',
     'title' => 'Feeds and Exports',
