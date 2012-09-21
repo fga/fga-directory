@@ -33,6 +33,42 @@ function occupation_directory_structure_menu_default_menu_links() {
     'menu_name' => 'menu-feeds-and-exports',
     'link_path' => 'directory.csv',
     'router_path' => 'directory.csv',
+    'link_title' => 'CSV (now)',
+    'options' => array(
+      'attributes' => array(
+        'title' => 'a CSV that is generated on-the-fly.',
+      ),
+    ),
+    'module' => 'menu',
+    'hidden' => '0',
+    'external' => '0',
+    'has_children' => '0',
+    'expanded' => '0',
+    'weight' => '-49',
+  );
+  // Exported menu link: menu-feeds-and-exports:directory.json
+  $menu_links['menu-feeds-and-exports:directory.json'] = array(
+    'menu_name' => 'menu-feeds-and-exports',
+    'link_path' => 'directory.json',
+    'router_path' => 'directory.json',
+    'link_title' => 'json',
+    'options' => array(
+      'attributes' => array(
+        'title' => 'The entire directory in JSON format',
+      ),
+    ),
+    'module' => 'system',
+    'hidden' => '0',
+    'external' => '0',
+    'has_children' => '0',
+    'expanded' => '0',
+    'weight' => '-44',
+  );
+  // Exported menu link: menu-feeds-and-exports:http://directory.occupy.net/directory-daily.csv
+  $menu_links['menu-feeds-and-exports:http://directory.occupy.net/directory-daily.csv'] = array(
+    'menu_name' => 'menu-feeds-and-exports',
+    'link_path' => 'http://directory.occupy.net/directory-daily.csv',
+    'router_path' => '',
     'link_title' => 'CSV',
     'options' => array(
       'attributes' => array(
@@ -41,7 +77,7 @@ function occupation_directory_structure_menu_default_menu_links() {
     ),
     'module' => 'menu',
     'hidden' => '0',
-    'external' => '0',
+    'external' => '1',
     'has_children' => '0',
     'expanded' => '0',
     'weight' => '-50',
@@ -62,7 +98,7 @@ function occupation_directory_structure_menu_default_menu_links() {
     'external' => '0',
     'has_children' => '0',
     'expanded' => '0',
-    'weight' => '-47',
+    'weight' => '-46',
   );
   // Exported menu link: menu-feeds-and-exports:occupations/added.rss
   $menu_links['menu-feeds-and-exports:occupations/added.rss'] = array(
@@ -80,7 +116,7 @@ function occupation_directory_structure_menu_default_menu_links() {
     'external' => '0',
     'has_children' => '0',
     'expanded' => '0',
-    'weight' => '-49',
+    'weight' => '-48',
   );
   // Exported menu link: menu-feeds-and-exports:occupations/updated.atom
   $menu_links['menu-feeds-and-exports:occupations/updated.atom'] = array(
@@ -98,7 +134,7 @@ function occupation_directory_structure_menu_default_menu_links() {
     'external' => '0',
     'has_children' => '0',
     'expanded' => '0',
-    'weight' => '0',
+    'weight' => '-45',
   );
   // Exported menu link: menu-feeds-and-exports:occupations/updated.rss
   $menu_links['menu-feeds-and-exports:occupations/updated.rss'] = array(
@@ -116,7 +152,7 @@ function occupation_directory_structure_menu_default_menu_links() {
     'external' => '0',
     'has_children' => '0',
     'expanded' => '0',
-    'weight' => '-48',
+    'weight' => '-47',
   );
   // Translatables
   // Included for use with string extractors like potx.
@@ -124,8 +160,10 @@ function occupation_directory_structure_menu_default_menu_links() {
   t('Atom (new)');
   t('Atom (updated)');
   t('CSV');
+  t('CSV (now)');
   t('RSS (new)');
   t('RSS (updated)');
+  t('json');
 
 
   return $menu_links;
