@@ -426,6 +426,16 @@ including listing and map-tooltip classes here to apply clearfix to them, withou
 		line-height: 1.2;
 		margin: 1.375em .5em .5em .5em;
 	}
+	
+	#geocode-error {
+	  display: none;
+    position: absolute;
+    top: 1em;
+    margin-left: 3px;
+    color: #e34f4f;
+    font-size: 1em;
+    line-height: 0em;
+	}
 
 /*-----------------------------------
   Footer
