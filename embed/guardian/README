@@ -24,11 +24,11 @@ Also include the following CSS declaration in your website stylesheet, so that t
 
 To post the map in a more restrictive environment, you can post styles inline, like so:
 
-  <iframe id="embed" src="http://directory.occupy.local/embed/guardian/index.html" style="border:0; height:100%; width:100%; position:absolute;"></iframe>
+  <iframe id="embed" src="http://directory.occupy.net/embed/guardian/index.html" style="border:0; height:100%; width:100%; position:absolute;"></iframe>
 
 or, for greater IE compatibility:
 
-  <iframe id="embed" src="http://directory.occupy.local/embed/guardian/index.html" style="border:0; height:100%; width:100%; position:absolute;" marginwidth="0" marginheight="0" frameborder="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no"></iframe>
+  <iframe id="embed" src="http://directory.occupy.net/embed/guardian/index.html" style="border:0; height:100%; width:100%; position:absolute;" marginwidth="0" marginheight="0" frameborder="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no"></iframe>
 
 
 
