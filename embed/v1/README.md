@@ -15,7 +15,7 @@ You are free to embed the #occupy directory map on your website by including the
 The map will scale to fit the container it is in. To make the map an exact size, set a width and height using CSS on a wrapper element, like so:
 
 ```html
-<div id="embed-wrapper" style="width:960px; height:700px"
+<div id="embed-wrapper" style="width:960px; height:700px">
   <iframe id="embed" src="http://directory.occupy.net/embed/v1/index.html" style="border:0; height:100%; width:100%; position:absolute;" marginwidth="0" marginheight="0" frameborder="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" ></iframe>
 </div>
 ```
