@@ -586,6 +586,11 @@ a.zoomout{
 	left: 1em;
 }
 
+.button:hover{
+	background:#fc0;
+	color:#000;
+}
+
 .share{ top: .75em; line-height: 1em; left: 2.75em; height: 1.125em; background:#000; color: #dedede;}
 
 .share:hover{ background: #fc0; color:#000; }

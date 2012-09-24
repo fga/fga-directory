@@ -187,14 +187,15 @@ directory.share = function(map, tilejson) {
 
     close.innerHTML = 'Close';
     close.href = '#';
-    close.className = 'close';
+    close.className = 'close button';
     close.onclick = close.ontouchstart = function() {
         popup.style.display = popup.style.display === 'block' ? 'none' : 'block';
         $('body').toggleClass('sharing');
         return false;
     };
-    $('body').keypress(function(event) {
-        if ( event.which == 0 ) {
+    $('body').keydown(function(event) {
+        console.log( event.which );
+        if ( event.which == 27 ) {
             popup.style.display = 'none';
             $('body').removeClass('sharing');
             event.preventDefault();
