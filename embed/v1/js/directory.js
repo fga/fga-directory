@@ -193,6 +193,15 @@ directory.share = function(map, tilejson) {
         $('body').toggleClass('sharing');
         return false;
     };
+    $('body').keypress(function(event) {
+        if ( event.which == 0 ) {
+            popup.style.display = 'none';
+            $('body').removeClass('sharing');
+            event.preventDefault();
+            return false;
+        }
+    });
+
 
     embed.className = 'embed';
     embed.rows = 4;
