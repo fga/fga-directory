@@ -13,9 +13,9 @@
 
 	<script src='http://api.tiles.mapbox.com/mapbox.js/v0.6.3/mapbox.js'></script>
 	<!-- <script src="js/mapbox.uncompressed.js"></script> -->
-	
+
 	<script src="../v1/js/directory.js"></script>
-	
+
 	<script>
 		// configuration for map, keeping it here to keep things maintainable and non-intimidating
 		var directory = directory || {};
@@ -28,11 +28,11 @@
 			zoom: { init:2,  min: 2 , max: 11 },
 			options: [ 'zoomer', 'zoombox', 'hash' ]
 		};
-		
+
 	</script>
-	
+
 	<link href="../v1/css/map.css" rel="stylesheet" />
-	
+
 	<script type="text/javascript">
     var _gaq = _gaq || [];
     _gaq.push(['_setAccount', 'UA-29075652-1']);
@@ -44,9 +44,9 @@
       var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
     })();
   </script>
-  
+
 </head>
-	
+
 <body>
 
   <div id='od'>
@@ -58,7 +58,7 @@
       <div data-control='geocode' id="search">
         <form class="geocode">
           <input placeholder='Search for an address' size="32" type="text">
-          <input type='submit' class='button' />
+          <input type='submit' class='button' value='GO' />
           <div id='geocode-error'></div>
         </form>
       </div>
@@ -75,7 +75,7 @@
 
   </div>
 
-  <!-- Piwik --> 
+  <!-- Piwik -->
   <script type="text/javascript">
   var pkBaseURL = (("https:" == document.location.protocol) ? "https://analytics.occupy.net/" : "http://analytics.occupy.net/");
   document.write(unescape("%3Cscript src='" + pkBaseURL + "piwik.js' type='text/javascript'%3E%3C/script%3E"));
@@ -90,7 +90,7 @@
 		    return "";
 		  else
 		    return decodeURIComponent(results[1].replace(/\+/g, " "));
-		}	
+		}
 		try {
 			piwikTracker.setCustomVariable ( 1, 'hostname', getQueryParameter('phostname'), 'visit');
 	 		var piwikTracker = Piwik.getTracker( pkBaseURL + "piwik.php", 23 );
