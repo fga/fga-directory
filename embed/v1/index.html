@@ -7,27 +7,33 @@
 
   <!-- Dosis font for headers -->
   <link href='http://fonts.googleapis.com/css?family=Dosis:500,300&subset=latin-ext,latin' rel='stylesheet' type='text/css'>
+
   <!-- External libraries and site script -->
   <script src="../v1/js/jquery.min.js"></script>
-	<script src='http://api.tiles.mapbox.com/mapbox.js/v0.6.3/mapbox.js'></script>	
-	<script src="js/directory.js"></script>
-	<script>
-		// configuration for map, keeping it here to keep things maintainable and non-intimidating
-		var directory = directory || {};
-		directory.map = {
-			id: 'occupydirectory.map-1tyybpog',
-			// the center point can be redefined by the world bounds
-			center: { lat: 10.2, lon: 6.8 },
-			// bounds are described as [ N, W, S, E ]
-			bounds: [ { lat: 75.6722, lon: -180 } , { lat: -81.9, lon: 200 } ],
-			zoom: { init:2,  min: 2 , max: 11 },
-			options: [ 'share', 'legend','zoomer', 'zoombox', 'hash' ]
-		};
-		
-	</script>
-	<link href="css/map.css" rel="stylesheet" />
-	
-	<script type="text/javascript">
+
+  <script src='http://api.tiles.mapbox.com/mapbox.js/v0.6.3/mapbox.js'></script>
+  <!-- <script src="js/mapbox.uncompressed.js"></script> -->
+
+  <script src="../v1/js/directory.js"></script>
+
+  <script>
+    // configuration for map, keeping it here to keep things maintainable and non-intimidating
+    var directory = directory || {};
+    directory.map = {
+      id: 'occupydirectory.map-1tyybpog',
+      // the center point can be redefined by the world bounds
+      center: { lat: 10.2, lon: 6.8 },
+      // bounds are described as [ N, W, S, E ]
+      bounds: [ { lat: 75.6722, lon: -180 } , { lat: -81.9, lon: 200 } ],
+      zoom: { init:2,  min: 2 , max: 11 },
+      options: [ 'legend','zoomer', 'zoombox', 'hash' ]
+    };
+
+  </script>
+
+  <link href="../v1/css/map.css" rel="stylesheet" />
+
+  <script type="text/javascript">
     var _gaq = _gaq || [];
     _gaq.push(['_setAccount', 'UA-29075652-1']);
     _gaq.push(['_trackPageview']);
@@ -40,7 +46,7 @@
   </script>
 
 </head>
-  
+
 <body>
 
   <div id='od'>
@@ -52,7 +58,7 @@
       <div data-control='geocode' id="search">
         <form class="geocode">
           <input placeholder='Search for an address' size="32" type="text">
-          <input type='submit' class='button' />
+          <input type='submit' class='button' value='GO'/>
           <div id='geocode-error'></div>
         </form>
       </div>
@@ -68,9 +74,8 @@
     </div>
 
   </div>
-  
-	
-   <!-- Piwik --> 
+
+  <!-- Piwik -->
   <script type="text/javascript">
   var pkBaseURL = (("https:" == document.location.protocol) ? "https://analytics.occupy.net/" : "http://analytics.occupy.net/");
   document.write(unescape("%3Cscript src='" + pkBaseURL + "piwik.js' type='text/javascript'%3E%3C/script%3E"));
@@ -85,7 +90,7 @@
         return "";
       else
         return decodeURIComponent(results[1].replace(/\+/g, " "));
-    } 
+    }
     try {
       piwikTracker.setCustomVariable ( 1, 'hostname', getQueryParameter('phostname'), 'visit');
       var piwikTracker = Piwik.getTracker( pkBaseURL + "piwik.php", 23 );

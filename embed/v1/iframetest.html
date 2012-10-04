@@ -13,13 +13,21 @@
 
 <body>
 
-<div id="embed-wrapper" style="width:960px; height:700px;">
-	<iframe id="directory-embed" width="100%" height="100%" src=""></iframe>
-	<script type='text/javascript'>
-		var src = "http://directory.occupy.net/embed/occupytogether/index.html?" + "phostname=" + window.location.hostname;
-		document.getElementById('directory-embed').src = src;
-	</script>
+
+
+<!-- If required, you can set a hard width and height on the embed-wrapper in pixels. -->
+
+
+<div id="embed-wrapper" style="width:100%; height:100%;">
+    <iframe id="directory-embed" src="" style="border:0; height:100%; width:100%;" marginwidth="0" marginheight="0" frameborder="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no"></iframe>
+    <script type='text/javascript'>
+    var src = "http://directory.occupy.net/embed/v1/index.html?" + "phostname=" + window.location.hostname;
+    document.getElementById('directory-embed').src = src;
+    </script>
 </div>
+
+
+
 
 </body>
 </html>
