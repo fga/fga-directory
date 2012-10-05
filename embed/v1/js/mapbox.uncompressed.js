@@ -881,6 +881,7 @@
         hash[name].push(value)
       } else hash[name] = value
     }, arguments)
+    console.log( 'serializeHash', hash );
     return hash
   }
 
@@ -5425,12 +5426,14 @@ wax.hash = function(options) {
         lat = 90 - 1e-8;  // allowable latitude range
 
     function getState() {
+      console.log( 'getState', location.hash.substring(1) );
         return location.hash.substring(1);
     }
 
     function pushState(state) {
         var l = window.location;
-        l.replace(l.toString().replace((l.hash || /$/), '#' + state));
+        var hash = l.hash;
+        l.hash.replace(l.hash.toString().replace((l.hash || /$/), '#' + state));
     }
 
     function parseHash(s) {
@@ -6647,6 +6650,7 @@ wax.mm.hash = function() {
             ].join('/');
         },
         setCenterZoom: function setCenterZoom(args) {
+          console.log( 'setCenterZoom', args );
             map.setCenterZoom(
                 new MM.Location(args[1], args[2]),
                 args[0]);
