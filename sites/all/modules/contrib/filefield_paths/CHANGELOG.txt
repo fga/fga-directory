@@ -1,8 +1,24 @@
-FileField Paths 7.x-1.x-dev, xxxx-xx-xx (Developmental release)
+File (Field) Paths 7.x-1.x-dev, xxxx-xx-xx (development release)
+--------------------------------------------------------------------------------
+
+- #1429238 by ocanzillon: Fixed Drush command syntax error.
+- #1334448 by pianodavid, Deciphered: Fixed issue with revision flag.
+- Changed a large chunk of core functionality to simplify.
+
+
+File (Field) Paths 7.x-1.0-beta2, 2012-02-05
 --------------------------------------------------------------------------------
 
 - #1414090: Added Drush command for Retroactive updates.
 - #1335984: Removed debug code.
+- #1051736: Fixed issue with dirname().
+- Added support for URI Scheme changes via Updating.
+- Added support for Video module.
+
+
+File (Field) Paths 7.x-1.0-beta1, 2011-11-08
+--------------------------------------------------------------------------------
+
 - #1328064: Fixed/Re-enabled Retroactive updates.
 - #1326094: Fixed coder issues.
 - #1308532: Fixed issue with empty tokens not being cleared.
@@ -14,14 +30,11 @@ FileField Paths 7.x-1.x-dev, xxxx-xx-xx (Developmental release)
 - #1225752 by joelstein: Removed packaging script information.
 - #1211038 by pillarsdotnet: Fixed issue with 'active_updating' field.
 - #1188074 by h0tw1r3: Fixed issue with schema change.
-- #1051736: Fixed issue with dirname().
 - #1017830: Fixed issue with Transliteration support.
 - #578442 by szantog, mfb, deciphered: Added features support.
 - Added relevant tokens for Entity support.
 - Added Entity support.
-- Added support for URI Scheme changes via Updating.
-- Added support for Video module.
 
 
-FileField Paths 7.x-1.0-alpha1, 2011-06-12
+File (Field) Paths 7.x-1.0-alpha1, 2011-06-12
 --------------------------------------------------------------------------------

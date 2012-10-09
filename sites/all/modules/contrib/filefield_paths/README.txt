@@ -1,12 +1,12 @@
-The FileField Paths module extends the default functionality of Drupals core
+The File (Field) Paths module extends the default functionality of Drupals core
 File module, Image module and many other File upload modules, by adding the
 ability to use entity based tokens in destination paths and filenames.
 
-In simple terms, FileField Paths allows you to automatically sort and rename
+In simple terms, File (Field) Paths allows you to automatically sort and rename
 your uploaded files using token based replacement patterns to maintain a nice
 clean filesystem.
 
-FileField Paths was written and is maintained by Stuart Clark (deciphered).
+File (Field) Paths was written and is maintained by Stuart Clark (deciphered).
 - http://stuar.tc/lark
 - http://twitter.com/Decipher
 
@@ -44,8 +44,8 @@ Recommended Modules
 Usage/Configuration
 --------------------------------------------------------------------------------
 
-Once installed, FileField Paths needs to be configured for each file field you
-wish to use.
+Once installed, File (Field) Paths needs to be configured for each file field
+you wish to use.
 
 * Drupal core File/Image and other Field based supported modules
   Settings an be found on the fields configuration page.
@@ -70,7 +70,7 @@ A. A limited selection of tokens are supported in the File module.
 Q. Why aren't my files in the correct folder?
 
 A. When you are creating or updating an entity the full values for the tokens
-   may not yet be known by Drupal, so the FileField Paths module will upload
+   may not yet be known by Drupal, so the File (Field) Paths module will upload
    your files to the Fields old file path temporarily and then once you save the
    entity and Drupal is provided with the tokens values the file will be moved
    to the appropriate location.

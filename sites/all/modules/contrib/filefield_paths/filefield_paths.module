@@ -1,0 +1,383 @@
+<?php
+/**
+ * @file
+ * Contains core functions for the File (Field) Paths module.
+ */
+
+/**
+ * Include additional files.
+ */
+foreach (module_list() as $module) {
+  if (file_exists($file = dirname(__FILE__) . "/modules/{$module}.inc")) {
+    require_once $file;
+  }
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function filefield_paths_form_alter(&$form, $form_state, $form_id) {
+  $field_types = _filefield_paths_get_field_types();
+  if (isset($form['#field']) && in_array($form['#field']['type'], array_keys($field_types))) {
+    $entity_info = entity_get_info($form['#instance']['entity_type']);
+    $settings = isset($form['#instance']['settings']['filefield_paths']) ? $form['#instance']['settings']['filefield_paths'] : array();
+
+    // Hide standard File directory field.
+    $form['instance']['settings']['file_directory']['#access'] = FALSE;
+
+    // File (Field) Paths fieldset element.
+    $form['instance']['settings']['filefield_paths'] = array(
+      '#type' => 'fieldset',
+      '#title' => t('File (Field) Path settings'),
+      '#collapsible' => TRUE,
+      '#collapsed' => TRUE,
+      '#weight' => 1,
+      '#tree' => TRUE,
+    );
+
+    // Additional File (Field) Paths widget fields.
+    $fields = module_invoke_all('filefield_paths_field_settings');
+    foreach ($fields as $name => $field) {
+      // Attach widget fields.
+      $form['instance']['settings']['filefield_paths'][$name] = array(
+        '#type' => 'container',
+      );
+
+      // Attach widget field form elements.
+      if (isset($field['form']) && is_array($field['form'])) {
+        foreach (array_keys($field['form']) as $delta => $key) {
+          $form['instance']['settings']['filefield_paths'][$name][$key] = array_merge(
+            $field['form'][$key],
+            array(
+              '#element_validate' => array('token_element_validate'),
+              '#token_types' => array('file', $entity_info['token type']),
+            )
+          );
+
+          // Fetch stored value from instance.
+          if (isset($settings[$name][$key])) {
+            $form['instance']['settings']['filefield_paths'][$name][$key]['#default_value'] = $settings[$name][$key];
+          }
+        }
+
+        // Field options.
+        $form['instance']['settings']['filefield_paths'][$name]['options'] = array(
+          '#type' => 'fieldset',
+          '#title' => t('@title options', array('@title' => $field['title'])),
+          '#collapsible' => TRUE,
+          '#collapsed' => TRUE,
+          '#weight' => 1,
+          '#attributes' => array(
+            'class' => array("{$name} cleanup")
+          ),
+        );
+        // @TODO - Make this more modular.
+        // Cleanup field with Pathauto module.
+        $form['instance']['settings']['filefield_paths'][$name]['options']['pathauto'] = array(
+          '#type' => 'checkbox',
+          '#title' => t('Cleanup using Pathauto') . '.',
+          '#default_value' => isset($settings[$name]['options']['pathauto']) && module_exists('pathauto')
+            ? $settings[$name]['options']['pathauto']
+            : FALSE,
+          '#description' => t('Cleanup @title using', array('@title' => $field['title'])) . ' ' . l(t('Pathauto settings'), 'admin/config/search/path/settings'),
+          '#disabled' => !module_exists('pathauto'),
+        );
+
+        // Transliterate field with Transliteration module.
+        $form['instance']['settings']['filefield_paths'][$name]['options']['transliterate'] = array(
+          '#type' => 'checkbox',
+          '#title' => t('Transliterate') . '.',
+          '#default_value' => isset($settings[$name]['options']['transliterate']) && module_exists('transliteration')
+            ? $settings[$name]['options']['transliterate']
+            : 0,
+          '#description' => t('Transliterate @title', array('@title' => $field['title'])) . '.',
+          '#disabled' => !module_exists('transliteration'),
+        );
+
+        // Replacement patterns for field.
+        $form['instance']['settings']['filefield_paths']['token_tree'] = array(
+          '#type' => 'fieldset',
+          '#title' => t('Replacement patterns'),
+          '#collapsible' => TRUE,
+          '#collapsed' => TRUE,
+          '#description' => theme('token_tree', array('token_types' => array('file', $entity_info['token type']))),
+          '#weight' => 10,
+        );
+
+        // Retroactive updates.
+        $form['instance']['settings']['filefield_paths']['retroactive_update'] = array(
+          '#type' => 'checkbox',
+          '#title' => t('Retroactive update'),
+          '#description' => t('Move and rename previously uploaded files') . '.' .
+            '<br /> <strong style="color: #FF0000;">' . t('Warning') . ':</strong> ' .
+            t('This feature should only be used on developmental servers or with extreme caution') . '.',
+          '#weight' => 11,
+        );
+
+        // Active updating.
+        $form['instance']['settings']['filefield_paths']['active_updating'] = array(
+          '#type' => 'checkbox',
+          '#title' => t('Active updating'),
+          '#default_value' => isset($settings['active_updating']) ? $settings['active_updating'] : FALSE,
+          '#description' => t('Actively move and rename previously uploaded files as required') . '.' .
+            '<br /> <strong style="color: #FF0000;">' . t('Warning') . ':</strong> ' .
+            t('This feature should only be used on developmental servers or with extreme caution') . '.',
+          '#weight' => 12
+        );
+      }
+    }
+
+    $form['#submit'][] = 'filefield_paths_form_submit';
+  }
+}
+
+/**
+ * Submit callback for File (Field) Paths settings form.
+ */
+function filefield_paths_form_submit($form, &$form_state) {
+  // Retroactive updates.
+  if ($form_state['values']['instance']['settings']['filefield_paths']['retroactive_update']) {
+    filefield_paths_batch_update($form_state['values']['instance']);
+    batch_process($form_state['redirect']);
+  }
+}
+
+/**
+ * Set batch process to update File (Field) Paths.
+ *
+ * @param $instance
+ */
+function filefield_paths_batch_update($instance) {
+  $query = new EntityFieldQuery();
+  $result = $query->entityCondition('entity_type', $instance['entity_type'])
+    ->entityCondition('bundle', array($instance['bundle']))
+    ->fieldCondition($instance['field_name'])
+    ->execute();
+  $objects = array_keys($result[$instance['entity_type']]);
+
+  // Create batch.
+  $batch = array(
+    'title' => t('Updating File (Field) Paths'),
+    'operations' => array(
+      array('_filefield_paths_batch_update_process', array($objects, $instance))
+    ),
+  );
+  batch_set($batch);
+}
+
+/**
+ *
+ */
+function _filefield_paths_batch_update_process($objects, $instance, &$context) {
+  if (!isset($context['sandbox']['progress'])) {
+    $context['sandbox']['progress'] = 0;
+    $context['sandbox']['max'] = count($objects);
+    $context['sandbox']['objects'] = $objects;
+  }
+
+  // Process nodes by groups of 5.
+  $count = min(5, count($context['sandbox']['objects']));
+  for ($i = 1; $i <= $count; $i++) {
+    // For each oid, load the object, update the files and save it.
+    $oid = array_shift($context['sandbox']['objects']);
+    $entity = current(entity_load($instance['entity_type'], array($oid)));
+
+    // Enable active updating if it isn't already enabled.
+    $active_updating = $instance['settings']['filefield_paths']['active_updating'];
+    if (!$active_updating) {
+      $instance['settings']['filefield_paths']['active_updating'] = TRUE;
+      field_update_instance($instance);
+    }
+
+    // Invoke File (Field) Paths implementation of hook_entity_update().
+    filefield_paths_entity_update($entity, $instance['entity_type']);
+
+    // Restore active updating to it's previous state if necessary.
+    if (!$active_updating) {
+      $instance['settings']['filefield_paths']['active_updating'] = $active_updating;
+      field_update_instance($instance);
+    }
+
+    // Update our progress information.
+    $context['sandbox']['progress']++;
+  }
+
+  // Inform the batch engine that we are not finished,
+  // and provide an estimation of the completion level we reached.
+  if ($context['sandbox']['progress'] != $context['sandbox']['max']) {
+    $context['finished'] = $context['sandbox']['progress'] / $context['sandbox']['max'];
+  }
+}
+
+/**
+ * Implements hook_entity_insert().
+ */
+function filefield_paths_entity_insert($entity, $type) {
+  filefield_paths_entity_update($entity, $type);
+}
+
+/**
+ * Implements hook_entity_update().
+ */
+function filefield_paths_entity_update($entity, $type) {
+  $field_types = _filefield_paths_get_field_types();
+  $entity_info = entity_get_info($type);
+  $bundle_name = !empty($entity_info['entity keys']['bundle']) ? $entity->{$entity_info['entity keys']['bundle']} : $type;
+  if ($entity_info['fieldable']) {
+    foreach (field_info_fields($type, $bundle_name) as $field) {
+      if (in_array($field['type'], array_keys($field_types))) {
+        $files = array();
+        $instance = field_info_instance($type, $field['field_name'], $bundle_name);
+        if (isset($entity->{$field['field_name']})) {
+          foreach ($entity->{$field['field_name']} as $langcode => &$deltas) {
+            foreach ($deltas as $delta => &$file) {
+              // Prepare file.
+              if (function_exists($function = "{$field['module']}_field_load")) {
+                $items = array(array(&$file));
+                $function($type, array($entity), $field, array($instance), $langcode, $items, FIELD_LOAD_CURRENT);
+              }
+              $files[] = &$file;
+            }
+          }
+          // Invoke hook_filefield_paths_process_file().
+          foreach (module_implements('filefield_paths_process_file') as $module) {
+            if (function_exists($function = "{$module}_filefield_paths_process_file")) {
+              $function($type, $entity, $field, $instance, $langcode, $files);
+            }
+          }
+        }
+      }
+    }
+
+    if (isset($entity->revision)) {
+      // Remember revision flag.
+      $revision = $entity->revision;
+      // Remove revision flag as long as fields already processed it, and no need
+      // to create new revision for moved files.
+      $entity->revision = FALSE;
+    }
+    // Save any changes back to the database.
+    field_attach_update($type, $entity);
+    if (isset($entity->revision)) {
+      // Restore revision flag so that other modules can process it if needed.
+      $entity->revision = $revision;
+    }
+  }
+}
+
+/**
+ * Implements hook_file_presave().
+ */
+function filefield_paths_file_presave($file) {
+  // Store original filename in the database.
+  if (empty($file->origname)) {
+    $file->origname = $file->filename;
+  }
+}
+
+/**
+ * Run regular expression over all available text-based fields.
+ */
+function _filefield_paths_replace_path($old, $new, $entity) {
+  // Build regular expression.
+  $info = parse_url($old);
+  $info['path'] = !empty($info['path']) ? $info['path'] : '';
+  $absolute = str_replace("{$info['host']}{$info['path']}", '', file_create_url($old));
+  $relative = parse_url($absolute, PHP_URL_PATH);
+  $regex = str_replace('/', '\/', "({$absolute}|{$relative}|{$info['scheme']}://)(styles/.*?/{$info['scheme']}/|)({$info['host']}{$info['path']})");
+
+  // Build replacement.
+  $info = parse_url($new);
+  $info['path'] = !empty($info['path']) ? $info['path'] : '';
+  $replacement = "_filefield_paths_replace_path_uri_scheme('\\1', '{$old}', '{$new}') . '\\2{$info['host']}{$info['path']}'";
+
+  $fields = field_info_fields();
+  foreach ($fields as $name => $field) {
+    if ($field['module'] == 'text' && isset($entity->{$field['field_name']}) && is_array($entity->{$field['field_name']})) {
+      foreach ($entity->{$field['field_name']} as &$language) {
+        foreach ($language as &$item) {
+          $item['value'] = preg_replace("/$regex/e", $replacement, $item['value']);
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Helper function for File (Field) Paths URI updater regular expression.
+ *
+ * Determines what format the old URI prefix was and returns the new URI prefix
+ * in the same format.
+ */
+function _filefield_paths_replace_path_uri_scheme($prefix, $old, $new) {
+  switch (TRUE) {
+    case $prefix == file_uri_scheme($old) . '://':
+      return file_uri_scheme($new) . '://';
+
+    case $prefix == file_create_url(file_uri_scheme($old) . '://'):
+      return file_create_url(file_uri_scheme($new) . '://');
+
+    case $prefix == parse_url(file_create_url(file_uri_scheme($old) . '://'), PHP_URL_PATH):
+      return parse_url(file_create_url(file_uri_scheme($new) . '://'), PHP_URL_PATH);
+  }
+
+  return $prefix;
+}
+
+/**
+ * Process and cleanup strings.
+ */
+function filefield_paths_process_string($value, $data, $settings = array()) {
+  $transliterate = module_exists('transliteration') && isset($settings['transliterate']) && $settings['transliterate'];
+  $pathauto = module_exists('pathauto') && isset($settings['pathauto']) && $settings['pathauto'] == TRUE;
+  if ($pathauto == TRUE) {
+    module_load_include('inc', 'pathauto');
+  }
+
+  $paths = explode('/', $value);
+  foreach ($paths as &$path) {
+
+    // Process string tokens.
+    $path = token_replace($path, $data, array('clear' => TRUE));
+
+    // Cleanup with pathauto.
+    if ($pathauto == TRUE) {
+      $path_parts = explode('.', $path);
+      foreach ($path_parts as &$path_part) {
+        $path_part = pathauto_cleanstring($path_part);
+      }
+      $path = implode('.', $path_parts);
+    }
+
+    // Transliterate string.
+    if ($transliterate == TRUE) {
+      $path = transliteration_clean_filename($path);
+    }
+  }
+  $value = implode('/', $paths);
+
+  // Ensure that there are no double-slash sequences due to empty token values.
+  $value = preg_replace('/\/+/', '/', $value);
+
+  return $value;
+}
+
+/**
+ *
+ */
+function _filefield_paths_get_field_types($reset = FALSE) {
+  $field_types = &drupal_static(__FUNCTION__);
+
+  if (empty($field_types) || $reset) {
+    $field_types = module_invoke_all('filefield_paths_field_type_info');
+    $field_types = array_flip($field_types);
+    foreach (array_keys($field_types) as $type) {
+      $info = field_info_field_types($type);
+      $field_types[$type] = array(
+        'label' => $info['label']
+      );
+    }
+  }
+
+  return $field_types;
+}

@@ -11,19 +11,19 @@ function filefield_paths_drush_command() {
   $items = array();
 
   $items['ffp-update'] = array(
-    'description' => 'Retroactively updates all FileField Paths of a chosen field instance.',
+    'description' => 'Retroactively updates all File (Field) Paths of a chosen field instance.',
     'arguments' => array(
       'entity_type' => 'Entity type.',
       'bundle_name' => 'Bundle name.',
       'field_name' => 'Field name.'
     ),
     'options' => array(
-      'all' => 'Retroactively update all FileField Paths.',
+      'all' => 'Retroactively update all File (Field) Paths.',
     ),
     'examples' => array(
-      'drush ffp-update' => 'Retroactively updates the FileField Paths of the instances choosen via an interactive menu.',
-      'drush ffp-update node article field_image' => 'Retroactively updates the FileField Paths of all instances of the Article content types Image field.',
-      'drush ffp-update --all' => 'Retroactively update all FileField Paths.',
+      'drush ffp-update' => 'Retroactively updates the File (Field) Paths of the instances choosen via an interactive menu.',
+      'drush ffp-update node article field_image' => 'Retroactively updates the File (Field) Paths of all instances of the Article content types Image field.',
+      'drush ffp-update --all' => 'Retroactively update all File (Field) Paths.',
     ),
     'aliases' => array('ffpu'),
   );
@@ -32,12 +32,12 @@ function filefield_paths_drush_command() {
 }
 
 /**
- * Retroactively updates all FileField Paths of a chosen field instance.
+ * Retroactively updates all File (Field) Paths of a chosen field instance.
  */
 function drush_filefield_paths_ffp_update($entity_type = NULL, $bundle_name = NULL, $field_name = NULL) {
   // Build array of information of all entity types, bundle names and field
   // names.
-  $field_types = array_keys(module_invoke_all('filefield_paths_info'));
+  $field_types = array_keys(_filefield_paths_get_field_types());
   $info = array();
   foreach (field_info_fields() as $field) {
     if (in_array($field['type'], $field_types)) {
@@ -147,7 +147,7 @@ function drush_filefield_paths_ffp_update($entity_type = NULL, $bundle_name = NU
 }
 
 /**
- * Helper function; Invokes FileField Paths Retroactive updates.
+ * Helper function; Invokes File (Field) Paths Retroactive updates.
  */
 function _filefield_paths_drush_ffp_update($instances) {
   foreach ($instances as $instance) {
@@ -155,6 +155,6 @@ function _filefield_paths_drush_ffp_update($instances) {
     $batch =& batch_get();
     $batch['progressive'] = FALSE;
     drush_backend_batch_process();
-    drush_log(dt('!field_name FileField paths updated.', array('!field_name' => "{$instance['label']} ({$instance['entity_type']}-{$instance['bundle']}-{$instance['field_name']})")), 'success');
+    drush_log(dt('!field_name File (Field) Paths updated.', array('!field_name' => "{$instance['label']} ({$instance['entity_type']}-{$instance['bundle']}-{$instance['field_name']})")), 'success');
   }
 }
