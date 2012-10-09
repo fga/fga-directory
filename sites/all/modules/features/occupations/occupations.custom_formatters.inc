@@ -27,6 +27,7 @@ function occupations_custom_formatters_defaults() {
 }
 
 return implode(\', \', $items);';
+  $formatter->fapi = '';
   $export['twitter_account_link'] = $formatter;
 
   return $export;

@@ -71,7 +71,7 @@ function occupations_default_filefield_paths() {
 function occupations_image_default_styles() {
   $styles = array();
 
-  // Exported image style: occupation_thumb_med
+  // Exported image style: occupation_thumb_med.
   $styles['occupation_thumb_med'] = array(
     'name' => 'occupation_thumb_med',
     'effects' => array(
@@ -93,7 +93,7 @@ function occupations_image_default_styles() {
     ),
   );
 
-  // Exported image style: occupation_thumb_sm
+  // Exported image style: occupation_thumb_sm.
   $styles['occupation_thumb_sm'] = array(
     'name' => 'occupation_thumb_sm',
     'effects' => array(

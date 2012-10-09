@@ -10,7 +10,7 @@
 function occupations_field_default_fields() {
   $fields = array();
 
-  // Exported field: 'comment-comment_node_occupation-comment_body'
+  // Exported field: 'comment-comment_node_occupation-comment_body'.
   $fields['comment-comment_node_occupation-comment_body'] = array(
     'field_config' => array(
       'active' => '1',
@@ -33,6 +33,7 @@ function occupations_field_default_fields() {
           0 => 'format',
         ),
       ),
+      'locked' => '0',
       'module' => 'text',
       'settings' => array(),
       'translatable' => '0',
@@ -71,7 +72,7 @@ function occupations_field_default_fields() {
     ),
   );
 
-  // Exported field: 'comment-comment_node_occupation-field_comment_state'
+  // Exported field: 'comment-comment_node_occupation-field_comment_state'.
   $fields['comment-comment_node_occupation-field_comment_state'] = array(
     'field_config' => array(
       'active' => '1',
@@ -88,6 +89,7 @@ function occupations_field_default_fields() {
           0 => 'value',
         ),
       ),
+      'locked' => '0',
       'module' => 'list',
       'settings' => array(
         'allowed_values' => array(
@@ -136,7 +138,7 @@ function occupations_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-occupation-field_comments_done'
+  // Exported field: 'node-occupation-field_comments_done'.
   $fields['node-occupation-field_comments_done'] = array(
     'field_config' => array(
       'active' => '1',
@@ -149,6 +151,7 @@ function occupations_field_default_fields() {
       ),
       'foreign keys' => array(),
       'indexes' => array(),
+      'locked' => '0',
       'module' => 'computed_field',
       'settings' => array(
         'code' => '$entity_field[0][\'value\'] = "";',
@@ -215,7 +218,7 @@ function occupations_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-occupation-field_comments_new'
+  // Exported field: 'node-occupation-field_comments_new'.
   $fields['node-occupation-field_comments_new'] = array(
     'field_config' => array(
       'active' => '1',
@@ -228,6 +231,7 @@ function occupations_field_default_fields() {
       ),
       'foreign keys' => array(),
       'indexes' => array(),
+      'locked' => '0',
       'module' => 'computed_field',
       'settings' => array(
         'code' => '$entity_field[0][\'value\'] = "";',
@@ -294,7 +298,7 @@ function occupations_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-occupation-field_comments_rejected'
+  // Exported field: 'node-occupation-field_comments_rejected'.
   $fields['node-occupation-field_comments_rejected'] = array(
     'field_config' => array(
       'active' => '1',
@@ -307,6 +311,7 @@ function occupations_field_default_fields() {
       ),
       'foreign keys' => array(),
       'indexes' => array(),
+      'locked' => '0',
       'module' => 'computed_field',
       'settings' => array(
         'code' => '$entity_field[0][\'value\'] = "";',
@@ -373,7 +378,7 @@ function occupations_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-occupation-field_comments_willdo'
+  // Exported field: 'node-occupation-field_comments_willdo'.
   $fields['node-occupation-field_comments_willdo'] = array(
     'field_config' => array(
       'active' => '1',
@@ -386,6 +391,7 @@ function occupations_field_default_fields() {
       ),
       'foreign keys' => array(),
       'indexes' => array(),
+      'locked' => '0',
       'module' => 'computed_field',
       'settings' => array(
         'code' => '$entity_field[0][\'value\'] = "";',
@@ -452,7 +458,7 @@ function occupations_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-occupation-field_occupation_address'
+  // Exported field: 'node-occupation-field_occupation_address'.
   $fields['node-occupation-field_occupation_address'] = array(
     'field_config' => array(
       'active' => '1',
@@ -465,6 +471,7 @@ function occupations_field_default_fields() {
       ),
       'foreign keys' => array(),
       'indexes' => array(),
+      'locked' => '0',
       'module' => 'addressfield',
       'settings' => array(),
       'translatable' => '0',
@@ -554,7 +561,7 @@ function occupations_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-occupation-field_occupation_description'
+  // Exported field: 'node-occupation-field_occupation_description'.
   $fields['node-occupation-field_occupation_description'] = array(
     'field_config' => array(
       'active' => '1',
@@ -578,6 +585,7 @@ function occupations_field_default_fields() {
           0 => 'format',
         ),
       ),
+      'locked' => '0',
       'module' => 'text',
       'settings' => array(),
       'translatable' => '0',
@@ -637,7 +645,7 @@ function occupations_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-occupation-field_occupation_donate_url'
+  // Exported field: 'node-occupation-field_occupation_donate_url'.
   $fields['node-occupation-field_occupation_donate_url'] = array(
     'field_config' => array(
       'active' => '1',
@@ -650,6 +658,7 @@ function occupations_field_default_fields() {
       ),
       'foreign keys' => array(),
       'indexes' => array(),
+      'locked' => '0',
       'module' => 'link',
       'settings' => array(
         'attributes' => array(
@@ -736,7 +745,7 @@ function occupations_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-occupation-field_occupation_dontate_info'
+  // Exported field: 'node-occupation-field_occupation_dontate_info'.
   $fields['node-occupation-field_occupation_dontate_info'] = array(
     'field_config' => array(
       'active' => '1',
@@ -760,6 +769,7 @@ function occupations_field_default_fields() {
           0 => 'format',
         ),
       ),
+      'locked' => '0',
       'module' => 'text',
       'settings' => array(
         'max_length' => '128',
@@ -820,7 +830,7 @@ function occupations_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-occupation-field_occupation_email_general'
+  // Exported field: 'node-occupation-field_occupation_email_general'.
   $fields['node-occupation-field_occupation_email_general'] = array(
     'field_config' => array(
       'active' => '1',
@@ -830,6 +840,7 @@ function occupations_field_default_fields() {
       'field_name' => 'field_occupation_email_general',
       'foreign keys' => array(),
       'indexes' => array(),
+      'locked' => '0',
       'module' => 'email',
       'settings' => array(),
       'translatable' => '0',
@@ -888,7 +899,7 @@ function occupations_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-occupation-field_occupation_emails_other'
+  // Exported field: 'node-occupation-field_occupation_emails_other'.
   $fields['node-occupation-field_occupation_emails_other'] = array(
     'field_config' => array(
       'active' => '1',
@@ -898,6 +909,7 @@ function occupations_field_default_fields() {
       'field_name' => 'field_occupation_emails_other',
       'foreign keys' => array(),
       'indexes' => array(),
+      'locked' => '0',
       'module' => 'email',
       'settings' => array(),
       'translatable' => '0',
@@ -954,7 +966,7 @@ function occupations_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-occupation-field_occupation_facebook'
+  // Exported field: 'node-occupation-field_occupation_facebook'.
   $fields['node-occupation-field_occupation_facebook'] = array(
     'field_config' => array(
       'active' => '1',
@@ -967,6 +979,7 @@ function occupations_field_default_fields() {
       ),
       'foreign keys' => array(),
       'indexes' => array(),
+      'locked' => '0',
       'module' => 'link',
       'settings' => array(
         'attributes' => array(
@@ -1053,7 +1066,7 @@ function occupations_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-occupation-field_occupation_general_info'
+  // Exported field: 'node-occupation-field_occupation_general_info'.
   $fields['node-occupation-field_occupation_general_info'] = array(
     'field_config' => array(
       'active' => '1',
@@ -1077,6 +1090,7 @@ function occupations_field_default_fields() {
           0 => 'format',
         ),
       ),
+      'locked' => '0',
       'module' => 'text',
       'settings' => array(),
       'translatable' => '0',
@@ -1136,7 +1150,7 @@ function occupations_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-occupation-field_occupation_geo'
+  // Exported field: 'node-occupation-field_occupation_geo'.
   $fields['node-occupation-field_occupation_geo'] = array(
     'field_config' => array(
       'active' => '1',
@@ -1149,6 +1163,7 @@ function occupations_field_default_fields() {
       ),
       'foreign keys' => array(),
       'indexes' => array(),
+      'locked' => '0',
       'module' => 'geofield',
       'settings' => array(),
       'translatable' => '0',
@@ -1262,7 +1277,7 @@ function occupations_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-occupation-field_occupation_image'
+  // Exported field: 'node-occupation-field_occupation_image'.
   $fields['node-occupation-field_occupation_image'] = array(
     'field_config' => array(
       'active' => '1',
@@ -1286,6 +1301,7 @@ function occupations_field_default_fields() {
           0 => 'fid',
         ),
       ),
+      'locked' => '0',
       'module' => 'image',
       'settings' => array(
         'default_image' => '79',
@@ -1394,7 +1410,7 @@ function occupations_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-occupation-field_occupation_live_video'
+  // Exported field: 'node-occupation-field_occupation_live_video'.
   $fields['node-occupation-field_occupation_live_video'] = array(
     'field_config' => array(
       'active' => '1',
@@ -1407,6 +1423,7 @@ function occupations_field_default_fields() {
       ),
       'foreign keys' => array(),
       'indexes' => array(),
+      'locked' => '0',
       'module' => 'link',
       'settings' => array(
         'attributes' => array(
@@ -1493,7 +1510,7 @@ function occupations_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-occupation-field_occupation_meetup_url'
+  // Exported field: 'node-occupation-field_occupation_meetup_url'.
   $fields['node-occupation-field_occupation_meetup_url'] = array(
     'field_config' => array(
       'active' => '1',
@@ -1506,6 +1523,7 @@ function occupations_field_default_fields() {
       ),
       'foreign keys' => array(),
       'indexes' => array(),
+      'locked' => '0',
       'module' => 'link',
       'settings' => array(
         'attributes' => array(
@@ -1592,7 +1610,7 @@ function occupations_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-occupation-field_occupation_needs_fixing'
+  // Exported field: 'node-occupation-field_occupation_needs_fixing'.
   $fields['node-occupation-field_occupation_needs_fixing'] = array(
     'field_config' => array(
       'active' => '1',
@@ -1609,6 +1627,7 @@ function occupations_field_default_fields() {
           0 => 'value',
         ),
       ),
+      'locked' => '0',
       'module' => 'list',
       'settings' => array(
         'allowed_values' => array(
@@ -1674,7 +1693,7 @@ function occupations_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-occupation-field_occupation_newspaper_url'
+  // Exported field: 'node-occupation-field_occupation_newspaper_url'.
   $fields['node-occupation-field_occupation_newspaper_url'] = array(
     'field_config' => array(
       'active' => '1',
@@ -1687,6 +1706,7 @@ function occupations_field_default_fields() {
       ),
       'foreign keys' => array(),
       'indexes' => array(),
+      'locked' => '0',
       'module' => 'link',
       'settings' => array(
         'attributes' => array(
@@ -1773,7 +1793,7 @@ function occupations_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-occupation-field_occupation_notes'
+  // Exported field: 'node-occupation-field_occupation_notes'.
   $fields['node-occupation-field_occupation_notes'] = array(
     'field_config' => array(
       'active' => '1',
@@ -1797,6 +1817,7 @@ function occupations_field_default_fields() {
           0 => 'format',
         ),
       ),
+      'locked' => '0',
       'module' => 'text',
       'settings' => array(),
       'translatable' => '0',
@@ -1853,7 +1874,7 @@ function occupations_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-occupation-field_occupation_notes_legacy'
+  // Exported field: 'node-occupation-field_occupation_notes_legacy'.
   $fields['node-occupation-field_occupation_notes_legacy'] = array(
     'field_config' => array(
       'active' => '1',
@@ -1877,6 +1898,7 @@ function occupations_field_default_fields() {
           0 => 'format',
         ),
       ),
+      'locked' => '0',
       'module' => 'text',
       'settings' => array(),
       'translatable' => '0',
@@ -1934,7 +1956,7 @@ function occupations_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-occupation-field_occupation_origin_date'
+  // Exported field: 'node-occupation-field_occupation_origin_date'.
   $fields['node-occupation-field_occupation_origin_date'] = array(
     'field_config' => array(
       'active' => '1',
@@ -1947,6 +1969,7 @@ function occupations_field_default_fields() {
       ),
       'foreign keys' => array(),
       'indexes' => array(),
+      'locked' => '0',
       'module' => 'date',
       'settings' => array(
         'cache_count' => '4',
@@ -2045,7 +2068,7 @@ function occupations_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-occupation-field_occupation_other_websites'
+  // Exported field: 'node-occupation-field_occupation_other_websites'.
   $fields['node-occupation-field_occupation_other_websites'] = array(
     'field_config' => array(
       'active' => '1',
@@ -2058,6 +2081,7 @@ function occupations_field_default_fields() {
       ),
       'foreign keys' => array(),
       'indexes' => array(),
+      'locked' => '0',
       'module' => 'link',
       'settings' => array(
         'attributes' => array(
@@ -2144,7 +2168,7 @@ function occupations_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-occupation-field_occupation_phone_general'
+  // Exported field: 'node-occupation-field_occupation_phone_general'.
   $fields['node-occupation-field_occupation_phone_general'] = array(
     'field_config' => array(
       'active' => '1',
@@ -2168,6 +2192,7 @@ function occupations_field_default_fields() {
           0 => 'format',
         ),
       ),
+      'locked' => '0',
       'module' => 'text',
       'settings' => array(
         'max_length' => '255',
@@ -2229,7 +2254,7 @@ function occupations_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-occupation-field_occupation_physical'
+  // Exported field: 'node-occupation-field_occupation_physical'.
   $fields['node-occupation-field_occupation_physical'] = array(
     'field_config' => array(
       'active' => '1',
@@ -2243,6 +2268,7 @@ function occupations_field_default_fields() {
           0 => 'value',
         ),
       ),
+      'locked' => '0',
       'module' => 'list',
       'settings' => array(
         'allowed_values' => array(
@@ -2308,7 +2334,7 @@ function occupations_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-occupation-field_occupation_rss'
+  // Exported field: 'node-occupation-field_occupation_rss'.
   $fields['node-occupation-field_occupation_rss'] = array(
     'field_config' => array(
       'active' => '1',
@@ -2321,6 +2347,7 @@ function occupations_field_default_fields() {
       ),
       'foreign keys' => array(),
       'indexes' => array(),
+      'locked' => '0',
       'module' => 'link',
       'settings' => array(
         'attributes' => array(
@@ -2407,7 +2434,7 @@ function occupations_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-occupation-field_occupation_social_sites'
+  // Exported field: 'node-occupation-field_occupation_social_sites'.
   $fields['node-occupation-field_occupation_social_sites'] = array(
     'field_config' => array(
       'active' => '1',
@@ -2420,6 +2447,7 @@ function occupations_field_default_fields() {
       ),
       'foreign keys' => array(),
       'indexes' => array(),
+      'locked' => '0',
       'module' => 'link',
       'settings' => array(
         'attributes' => array(
@@ -2507,7 +2535,7 @@ URL: http address of the page.',
     ),
   );
 
-  // Exported field: 'node-occupation-field_occupation_twitter'
+  // Exported field: 'node-occupation-field_occupation_twitter'.
   $fields['node-occupation-field_occupation_twitter'] = array(
     'field_config' => array(
       'active' => '1',
@@ -2531,6 +2559,7 @@ URL: http address of the page.',
           0 => 'format',
         ),
       ),
+      'locked' => '0',
       'module' => 'text',
       'settings' => array(
         'max_length' => '255',
@@ -2592,7 +2621,7 @@ URL: http address of the page.',
     ),
   );
 
-  // Exported field: 'node-occupation-field_occupation_twitter_hash'
+  // Exported field: 'node-occupation-field_occupation_twitter_hash'.
   $fields['node-occupation-field_occupation_twitter_hash'] = array(
     'field_config' => array(
       'active' => '1',
@@ -2616,6 +2645,7 @@ URL: http address of the page.',
           0 => 'tid',
         ),
       ),
+      'locked' => '0',
       'module' => 'taxonomy',
       'settings' => array(
         'allowed_values' => array(
@@ -2682,7 +2712,7 @@ URL: http address of the page.',
     ),
   );
 
-  // Exported field: 'node-occupation-field_occupation_type'
+  // Exported field: 'node-occupation-field_occupation_type'.
   $fields['node-occupation-field_occupation_type'] = array(
     'field_config' => array(
       'active' => '1',
@@ -2706,6 +2736,7 @@ URL: http address of the page.',
           0 => 'tid',
         ),
       ),
+      'locked' => '0',
       'module' => 'taxonomy',
       'settings' => array(
         'allowed_values' => array(
@@ -2766,7 +2797,7 @@ URL: http address of the page.',
     ),
   );
 
-  // Exported field: 'node-occupation-field_occupation_website'
+  // Exported field: 'node-occupation-field_occupation_website'.
   $fields['node-occupation-field_occupation_website'] = array(
     'field_config' => array(
       'active' => '1',
@@ -2776,6 +2807,7 @@ URL: http address of the page.',
       'field_name' => 'field_occupation_website',
       'foreign keys' => array(),
       'indexes' => array(),
+      'locked' => '0',
       'module' => 'link',
       'settings' => array(
         'attributes' => array(
@@ -2862,7 +2894,7 @@ URL: http address of the page.',
     ),
   );
 
-  // Exported field: 'node-occupation-field_occupation_youtube_chan'
+  // Exported field: 'node-occupation-field_occupation_youtube_chan'.
   $fields['node-occupation-field_occupation_youtube_chan'] = array(
     'field_config' => array(
       'active' => '1',
@@ -2872,6 +2904,7 @@ URL: http address of the page.',
       'field_name' => 'field_occupation_youtube_chan',
       'foreign keys' => array(),
       'indexes' => array(),
+      'locked' => '0',
       'module' => 'link',
       'settings' => array(
         'attributes' => array(
@@ -2958,7 +2991,7 @@ URL: http address of the page.',
     ),
   );
 
-  // Exported field: 'node-occupation-field_term_geographic_area'
+  // Exported field: 'node-occupation-field_term_geographic_area'.
   $fields['node-occupation-field_term_geographic_area'] = array(
     'field_config' => array(
       'active' => '1',
@@ -2982,6 +3015,7 @@ URL: http address of the page.',
           0 => 'tid',
         ),
       ),
+      'locked' => '0',
       'module' => 'taxonomy',
       'settings' => array(
         'allowed_values' => array(

@@ -62,7 +62,7 @@ function occupation_directory_structure_menu_default_menu_links() {
     'external' => '0',
     'has_children' => '0',
     'expanded' => '0',
-    'weight' => '-44',
+    'weight' => '11',
   );
   // Exported menu link: menu-feeds-and-exports:http://directory.occupy.net/directory-daily.csv
   $menu_links['menu-feeds-and-exports:http://directory.occupy.net/directory-daily.csv'] = array(

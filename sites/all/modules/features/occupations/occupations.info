@@ -140,6 +140,7 @@ features[variable][] = comment_preview_occupation
 features[variable][] = comment_subject_field_occupation
 features[variable][] = comment_talk_occupation
 features[variable][] = enable_revisions_page_occupation
+features[variable][] = field_bundle_settings_node__occupation
 features[variable][] = menu_options_occupation
 features[variable][] = menu_parent_occupation
 features[variable][] = node_options_occupation
