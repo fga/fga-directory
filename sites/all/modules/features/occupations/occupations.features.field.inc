@@ -1352,22 +1352,6 @@ function occupations_field_default_fields() {
         ),
       ),
       'entity_type' => 'node',
-      'ffp_field_occupation_image' => array(
-        'active_updating' => 0,
-        'file_name' => '[file:ffp-name-only-original].[file:ffp-extension-original]',
-        'file_name_cleanup' => array(
-          'file_name_pathauto' => 1,
-          'file_name_tolower' => 1,
-          'file_name_transliterate' => 1,
-        ),
-        'file_path' => 'images/occupations/icons',
-        'file_path_cleanup' => array(
-          'file_path_pathauto' => 1,
-          'file_path_tolower' => 1,
-          'file_path_transliterate' => 1,
-        ),
-        'retroactive_update' => 0,
-      ),
       'field_name' => 'field_occupation_image',
       'label' => 'Occupation Image or Icon',
       'required' => 0,
@@ -1376,6 +1360,24 @@ function occupations_field_default_fields() {
         'default_image' => 0,
         'file_directory' => 'images/occupations/icons',
         'file_extensions' => 'png gif jpg jpeg',
+        'filefield_paths' => array(
+          'active_updating' => 0,
+          'file_name' => array(
+            'options' => array(
+              'pathauto' => 1,
+              'transliterate' => 1,
+            ),
+            'value' => '[file:ffp-name-only-original].[file:ffp-extension-original]',
+          ),
+          'file_path' => array(
+            'options' => array(
+              'pathauto' => 1,
+              'transliterate' => 1,
+            ),
+            'value' => 'images/occupations/icons',
+          ),
+          'retroactive_update' => 0,
+        ),
         'max_filesize' => '',
         'max_resolution' => '1600x1600',
         'min_resolution' => '60x60',
@@ -1396,6 +1398,9 @@ function occupations_field_default_fields() {
               'absolute' => '0',
               'attach_mode' => 'copy',
               'path' => 'file_attach',
+            ),
+            'source_imce' => array(
+              'imce_mode' => 0,
             ),
             'source_reference' => array(
               'autocomplete' => '0',

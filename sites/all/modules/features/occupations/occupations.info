@@ -91,7 +91,6 @@ features[field_group][] = group_occupation_description|node|occupation|full
 features[field_group][] = group_occupation_infogroup|node|occupation|form
 features[field_group][] = group_occupation_information|node|occupation|form
 features[field_group][] = group_occupation_links|node|occupation|form
-features[filefield_paths][] = node::occupation::field_occupation_image
 features[formatters][] = twitter_account_link
 features[image][] = occupation_thumb_med
 features[image][] = occupation_thumb_sm
