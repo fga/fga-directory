@@ -49,7 +49,7 @@ function occupy_directory_util_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'captcha_default_validation';
-  $strongarm->value = '1';
+  $strongarm->value = '0';
   $export['captcha_default_validation'] = $strongarm;
 
   $strongarm = new stdClass();
@@ -63,14 +63,14 @@ function occupy_directory_util_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'captcha_log_wrong_responses';
-  $strongarm->value = 0;
+  $strongarm->value = 1;
   $export['captcha_log_wrong_responses'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'captcha_persistence';
-  $strongarm->value = '1';
+  $strongarm->value = '0';
   $export['captcha_persistence'] = $strongarm;
 
   $strongarm = new stdClass();
