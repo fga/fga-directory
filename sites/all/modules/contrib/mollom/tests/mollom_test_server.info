@@ -1,0 +1,12 @@
+name = Mollom Test Server
+description = Testing Server module for Mollom functionality. Do not enable.
+core = 7.x
+package = Testing
+hidden = TRUE
+
+; Information added by drupal.org packaging script on 2012-08-08
+version = "7.x-2.2"
+core = "7.x"
+project = "mollom"
+datestamp = "1344429449"
+
