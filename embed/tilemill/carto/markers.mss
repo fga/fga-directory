@@ -5,7 +5,7 @@
 }
 .occupations {
   marker-opacity:1;
-  marker-file:url(assets/marker-mid.svg);
+  marker-file:url(http://directory.occupy.net/embed/tilemill/assets/marker-mid.svg);
   marker-transform:"scale(.25)";
   
   [zoom>=0]{     marker-transform:"scale(0.25)";  }
@@ -14,7 +14,7 @@
   [zoom=6]{      marker-transform:"scale(0.70)";  }  
   [zoom=7]{      marker-transform:"scale(0.85)";  }  
   [zoom>=8]{
-    marker-file:url(assets/marker-closeup.svg);
+    marker-file:url(http://directory.occupy.net/embed/tilemill/assets/marker-closeup.svg);
   }
   [zoom=8]{      marker-transform:"scale(0.45)";  }
   [zoom=9]{      marker-transform:"scale(0.60)";  }
