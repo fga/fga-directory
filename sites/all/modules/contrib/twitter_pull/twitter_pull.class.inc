@@ -106,7 +106,7 @@ class twitter_puller {
       foreach ($items as $item) {
         $obj = new stdClass();
         if (isset($item->retweeted_status)) {
-          $obj->id = $item->retweeted_status->id_str;
+          $obj->id = check_plain($item->retweeted_status->id_str);
           $obj->username = (isset($item->retweeted_status->user) && !empty($item->retweeted_status->user->screen_name)) ? $item->retweeted_status->user->screen_name : $item->retweeted_status->from_user;
             $obj->username = check_plain($obj->username);
           $obj->userphoto = (isset($item->retweeted_status->user) && !empty($item->retweeted_status->user->profile_image_url)) ? $item->retweeted_status->user->profile_image_url : $item->retweeted_status->profile_image_url;
@@ -116,7 +116,7 @@ class twitter_puller {
           $obj->timestamp = strtotime($item->retweeted_status->created_at);
         }
         else {
-          $obj->id = $item->id_str;
+          $obj->id = check_plain($item->id_str);
           $obj->username = (isset($item->user) && !empty($item->user->screen_name)) ? $item->user->screen_name : $item->from_user;
             $obj->username = check_plain($obj->username);
           $obj->userphoto = (isset($item->user) && !empty($item->user->profile_image_url)) ? $item->user->profile_image_url : $item->profile_image_url;

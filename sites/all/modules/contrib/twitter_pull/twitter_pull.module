@@ -191,7 +191,7 @@ function twitter_pull_add_links($text) {
   $repl = '<a href="http://twitter.com/#!/search?q=%23$1" title="#$1" rel="nofollow">#$1</a>';
   $text = preg_replace($pattern, $repl, $text);  
 
-  return $text;
+  return filter_xss($text);
 }
 
 /* 
