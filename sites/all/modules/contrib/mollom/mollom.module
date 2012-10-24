@@ -932,6 +932,7 @@ function mollom_form_info($form_id, $module, $form_list = NULL) {
     'checks' => array(),
     'enabled_fields' => array(),
     'strictness' => 'normal',
+    'unsure' => 'captcha',
     'discard' => 1,
     'moderation' => 0,
     // Meta information.
@@ -1747,14 +1748,19 @@ function mollom_validate_analysis(&$form, &$form_state) {
           'arguments' => array('%teaser' => $teaser),
         ), WATCHDOG_INFO);
 
-        // Only throw a validation error and retrieve a CAPTCHA, if we check
-        // this post for the first time. Otherwise, mollom_validate_captcha()
-        // issued the CAPTCHA and needs to validate it prior to throwing any
-        // errors.
-        if (!$form_state['mollom']['require_captcha']) {
-          $form_state['mollom']['require_captcha'] = TRUE;
-          form_set_error('mollom][captcha', t('To complete this form, please complete the word verification below.'));
-          mollom_form_add_captcha($form['mollom'], $form_state);
+        if ($form_state['mollom']['unsure'] == 'moderate') {
+          $form_state['mollom']['require_moderation'] = TRUE;
+        }
+        else {
+          // Only throw a validation error and retrieve a CAPTCHA, if we check
+          // this post for the first time. Otherwise, mollom_validate_captcha()
+          // issued the CAPTCHA and needs to validate it prior to throwing any
+          // errors.
+          if (!$form_state['mollom']['require_captcha']) {
+            $form_state['mollom']['require_captcha'] = TRUE;
+            form_set_error('mollom][captcha', t('To complete this form, please complete the word verification below.'));
+            mollom_form_add_captcha($form['mollom'], $form_state);
+          }
         }
         break;
 

@@ -3570,9 +3570,70 @@ class MollomAnalysisTestCase extends MollomWebTestCase {
   }
 
   /**
-   * Tests retaining bad posts and moderating them.
+   * Tests retaining unsure posts and moderating them.
    */
-  function testRetain() {
+  function testRetainUnsure() {
+    $this->drupalLogin($this->admin_user);
+    // Verify that mollom_basic_elements_test_form cannot be configured to put
+    // posts into moderation queue.
+    $this->setProtection('mollom_basic_elements_test_form');
+    $this->drupalGet('admin/config/content/mollom/manage/mollom_basic_elements_test_form');
+    $this->assertNoFieldByName('mollom[unsure]');
+
+    // Configure mollom_test_form to retain unsure posts.
+    $this->setProtection('mollom_test_form', MOLLOM_MODE_ANALYSIS, NULL, array(
+      'mollom[unsure]' => 'moderate',
+    ));
+    $this->drupalLogout();
+
+    // Verify that an unsure post gets unpublished.
+    $edit = array(
+      'title' => $this->randomString(),
+      'body' => 'unsure',
+    );
+    $this->drupalPost('mollom-test/form', $edit, 'Submit');
+    $mid = $this->assertTestSubmitData();
+    $data = $this->assertMollomData('mollom_test', $mid);
+    $record = mollom_test_load($mid);
+    $this->assertEqual($record->status, 0, t('Unpublished test post found.'));
+    $this->assertSame('spamScore', $data->spamScore, 0.5);
+    $this->assertSame('spamClassification', $data->spamClassification, 'unsure');
+    $this->assertSame('moderate', $data->moderate, 1);
+
+    // Verify that editing the post does neither change the session data, nor
+    // the publishing status.
+    $edit = array(
+      'title' => $this->randomString(),
+      'body' => 'unsure unsure',
+    );
+    $this->drupalPost(NULL, $edit, 'Submit');
+    $mid = $this->assertTestSubmitData($mid);
+    $data = $this->assertMollomData('mollom_test', $mid);
+    $record = mollom_test_load($mid);
+    $this->assertEqual($record->status, 0, t('Unpublished test post found.'));
+    $this->assertSame('spamScore', $data->spamScore, 0.5);
+    $this->assertSame('spamClassification', $data->spamClassification, 'unsure');
+    $this->assertSame('moderate', $data->moderate, 1);
+
+    // Verify that publishing the post changes the session data accordingly.
+    $this->drupalLogin($this->admin_user);
+    $edit = array(
+      'status' => TRUE,
+    );
+    $this->drupalPost('mollom-test/form/' . $mid, $edit, 'Submit');
+    $mid = $this->assertTestSubmitData($mid);
+    $data = $this->assertMollomData('mollom_test', $mid);
+    $record = mollom_test_load($mid);
+    $this->assertEqual($record->status, 1, t('Published test post found.'));
+    $this->assertSame('spamScore', $data->spamScore, 0.5);
+    $this->assertSame('spamClassification', $data->spamClassification, 'unsure');
+    $this->assertSame('moderate', $data->moderate, 0);
+  }
+
+  /**
+   * Tests retaining spam posts and moderating them.
+   */
+  function testRetainSpam() {
     $this->drupalLogin($this->admin_user);
     // Verify that mollom_basic_test_form cannot be configured to put posts into
     // moderation queue.
@@ -3806,7 +3867,19 @@ class MollomCaptchaTestCase extends MollomWebTestCase {
     // (without having a contentId)
     $this->drupalGet('mollom-test/form');
     $form_build_id = $this->getFieldValueByName('form_build_id');
-    $out = $this->drupalGet('mollom/captcha/audio/' . $form_build_id);
+
+    // @see drupalPost(), drupalGet()
+    $path = url('mollom/captcha/audio/' . $form_build_id, array('absolute' => TRUE));
+    $out = $this->curlExec(array(
+      CURLOPT_URL => $path,
+      CURLOPT_POST => TRUE,
+    ));
+    // Ensure that any changes to variables in the other thread are picked up.
+    $this->refreshVariables();
+    $this->verbose('POST request to: ' . $path .
+                   '<hr />Ending URL: ' . $this->getUrl() .
+                   '<hr />' . $out);
+
     $this->assertResponse(200);
     $this->assertText('mollom-captcha-player.swf');
     $response = drupal_json_decode($out);

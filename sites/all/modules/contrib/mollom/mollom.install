@@ -238,6 +238,13 @@ function mollom_schema() {
         'not null' => FALSE,
         'serialize' => TRUE,
       ),
+      'unsure' => array(
+        'description' => 'Action to perform when text analysis is unsure.',
+        'type' => 'varchar',
+        'length' => 24,
+        'not null' => TRUE,
+        'default' => 'captcha',
+      ),
       'discard' => array(
         'description' => 'Whether to discard (1) or retain (0) bad posts.',
         'type' => 'int',
@@ -1025,3 +1032,19 @@ function mollom_update_7205() {
     }
   }
 }
+
+/**
+ * Add {mollom_form}.unsure field.
+ */
+function mollom_update_7206() {
+  if (!db_field_exists('mollom_form', 'unsure')) {
+    db_add_field('mollom_form', 'unsure', array(
+      'description' => 'Action to perform when text analysis is unsure.',
+      'type' => 'varchar',
+      'length' => 24,
+      'not null' => TRUE,
+      'default' => 'captcha',
+    ));
+  }
+}
+

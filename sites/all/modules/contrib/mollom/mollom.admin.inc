@@ -49,6 +49,7 @@ function mollom_admin_form_list() {
     $row = array();
     $row[] = $mollom_form['title'];
     if ($mollom_form['mode'] == MOLLOM_MODE_ANALYSIS) {
+      // @todo Output unsure mode in summary listing.
       $row[] = t('!protection-mode (@discard)', array(
         '!protection-mode' => $modes[$mollom_form['mode']],
         '@discard' => $mollom_form['discard'] ? t('discard') : t('retain'),
@@ -294,13 +295,37 @@ function mollom_admin_configure_form($form, &$form_state, $mollom_form = NULL) {
           ),
         );
 
+        $form['mollom']['unsure'] = array(
+          '#type' => 'radios',
+          '#title' => t('When text analysis is unsure'),
+          '#default_value' => $mollom_form['unsure'],
+          // @todo Add 'accept' and 'discard' actions for unsure posts.
+          '#options' => array(
+            'captcha' => t('Show a CAPTCHA'),
+            'moderate' => t('Retain the post for manual moderation'),
+          ),
+          '#required' => $mollom_form['mode'] == MOLLOM_MODE_ANALYSIS,
+          // Only possible for forms protected via text analysis.
+          '#states' => array(
+            'visible' => array(
+              ':input[name="mollom[mode]"]' => array('value' => (string) MOLLOM_MODE_ANALYSIS),
+              ':input[name="mollom[checks][spam]"]' => array('checked' => TRUE),
+            ),
+          ),
+        );
+        // Only possible for forms supporting moderation of unpublished posts.
+        $form['mollom']['unsure']['moderate']['#access'] = !empty($mollom_form['moderation callback']);
+        // Until more options are supported, the entire field/widget only makes
+        // sense for forms that support moderation of unpublished posts.
+        $form['mollom']['unsure']['#access'] = !empty($mollom_form['moderation callback']);
+
         $form['mollom']['discard'] = array(
           '#type' => 'radios',
           '#title' => t('When text analysis identifies spam'),
           '#default_value' => $mollom_form['discard'],
           '#options' => array(
-            1 => t('Automatically discard the post'),
             0 => t('Retain the post for manual moderation'),
+            1 => t('Discard the post'),
           ),
           '#required' => $mollom_form['mode'] == MOLLOM_MODE_ANALYSIS,
           // Only possible for forms supporting moderation of unpublished posts.
@@ -309,6 +334,7 @@ function mollom_admin_configure_form($form, &$form_state, $mollom_form = NULL) {
           '#states' => array(
             'visible' => array(
               ':input[name="mollom[mode]"]' => array('value' => (string) MOLLOM_MODE_ANALYSIS),
+              ':input[name="mollom[checks][spam]"]' => array('checked' => TRUE),
             ),
           ),
         );
