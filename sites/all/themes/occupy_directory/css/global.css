@@ -253,6 +253,11 @@ article.comment nav.comment-links a {
 /*article.comment nav.comment-links li.comment_forbidden {
 	display: none;
 }*/
+/* Talk messes up the $node->content['links']['comment']['#links']
+   array and override the comment_forbidden key. CSS to the rescue for now. */
+.node-occupation .node-links .first {
+  display: none;
+}
 
 #comments h2.title {
   display: none;
@@ -268,6 +273,15 @@ div.talk-page li.comment-add {
 div.talk-page li.comment-add:before {
   content: "+ ";
 }
+
+/*#edit-comment-body .filter-guidelines,
+#edit-comment-body .filter-wrapper {
+  padding:0;
+}*/
+#edit-comment-body .filter-guidelines li {
+  line-height: 20px;
+}
+
 
 
 
@@ -382,7 +396,7 @@ div.talk-page li.comment-add:before {
 #views-exposed-form-occupation-directory-occupations-list input.form-submit {
  margin-left: .75em;
 }
-  
+
 #views-exposed-form-occupation-directory-occupations-list .views-exposed-widgets,
 #views-exposed-form-occupation-directory-occupations-manage .views-exposed-widgets {
   margin-bottom: 0;
@@ -402,7 +416,7 @@ div.talk-page li.comment-add:before {
 /********* Occupation Directory Views table listing page */
 
 
-.occupations-list h1.title { 
+.occupations-list h1.title {
   display: none;
 }
 
@@ -477,7 +491,7 @@ div.view-display-id-occupations_list table img {
   border-bottom: 4px solid #333;
 }
 .manage-occupations thead th,
-.manage-comments thead th { 
+.manage-comments thead th {
   background: #000;
   color:#fff;
 /*  padding: 10px 0;*/
@@ -569,7 +583,7 @@ div.block-occupation-count .count-label {
   margin-right: 0;
 }
 
-.fullwidth-map #section-content { 
+.fullwidth-map #section-content {
   padding-bottom: 0;
   background:#D0D0D0;
 }
@@ -604,10 +618,10 @@ footer ul.menu { padding-top: 1em;}
 
 
 div.view-display-id-occupations_list table img { }
- 
+
 
 /*****************  OPEN LAYERS ******/
-/* Map pop-ups */ 
+/* Map pop-ups */
 .openlayers-map .olPopup a:link, .openlayers-map .olPopup a:visited {
   color: #FFF;
 }
@@ -633,7 +647,7 @@ div.view-display-id-occupations_list table img { }
 }
 .view-map-displays div.o-image {
   float:left;
-  
+
 }
 
 
@@ -705,7 +719,7 @@ ul.tweets-pulled-listing  div.tweet-divider {
 
 
 /* -----------------------------------------------------------
-	page-occupations-cards 
+	page-occupations-cards
 ----------------------------------------------------------- */
 .page-occupations-cards .views-row {
 	float: left;
@@ -732,11 +746,6 @@ ul.tweets-pulled-listing  div.tweet-divider {
 
 /* HACKS */
 
-/* Talk messes up the $node->content['links']['comment']['#links']
-   array and override the comment_forbidden key. CSS to the rescue for now. */
-.node-occupation .node-links .first {
-  display: none;
-}
 
 /* new views pager renders "previous" instead of "prev" */
 .pager li.pager-previous a {
