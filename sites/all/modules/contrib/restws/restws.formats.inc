@@ -15,10 +15,10 @@ interface RestWSFormatInterface {
    *
    * @param RestWSResourceControllerInterface $resourceController
    *   The controller used to retrieve the resource.
-   * @param $id
+   * @param int|string $id
    *   The id of the resource that should be returned.
    *
-   * @return
+   * @return string
    *   The representation of the resource.
    */
   public function viewResource($resourceController, $id);
@@ -28,10 +28,10 @@ interface RestWSFormatInterface {
    *
    * @param RestWSResourceControllerInterface $resourceController
    *   The controller used to create the resource.
-   * @param $data
+   * @param string $data
    *   The representation of the resource.
    *
-   * @return
+   * @return int|string
    *   The id of the newly created resource.
    */
   public function createResource($resourceController, $data);
@@ -41,9 +41,9 @@ interface RestWSFormatInterface {
    *
    * @param RestWSResourceControllerInterface $resourceController
    *   The controller used to update the resource.
-   * @param $id
+   * @param int|string $id
    *   The id of the resource that should be updated.
-   * @param $data
+   * @param string $data
    *   The representation of the resource.
    */
   public function updateResource($resourceController, $id, $data);
@@ -53,7 +53,7 @@ interface RestWSFormatInterface {
    *
    * @param RestWSResourceControllerInterface $resourceController
    *   The controller used to update the resource.
-   * @param $id
+   * @param int|string $id
    *   The id of the resource that should be deleted.
    */
   public function deleteResource($resourceController, $id);
@@ -67,7 +67,8 @@ interface RestWSFormatInterface {
 }
 
 /**
- * A base for all simple formats that are just serializing/unserializing an array of property values.
+ * A base for all simple formats that are just serializing/unserializing an
+ * array of property values.
  */
 abstract class RestWSBaseFormat implements RestWSFormatInterface {
 
@@ -160,7 +161,7 @@ abstract class RestWSBaseFormat implements RestWSFormatInterface {
 /**
  * Filters out properties where view access is not allowed for the current user.
  *
- * @param $wrapper
+ * @param EntityMetadataWrapper $wrapper
  *   EntityMetadataWrapper that should be checked.
  *
  * @return
@@ -375,7 +376,8 @@ class RestWSFormatRDF extends RestWSBaseFormat {
   }
 
   /**
-   * Adds an RDF element for the given property of the wrapper using the RDF mapping.
+   * Adds an RDF element for the given property of the wrapper using the RDF
+   * mapping.
    */
   public function addRdfElement(DOMDOcument $doc, EntityMetadataWrapper $wrapper, $name) {
     if ($wrapper instanceof EntityDrupalWrapper) {

@@ -2,9 +2,9 @@ name = Basic authentication login
 description = User login from HTTP authorization headers.
 core = 7.x
 
-; Information added by drupal.org packaging script on 2011-10-27
-version = "7.x-1.0-beta1"
+; Information added by drupal.org packaging script on 2012-08-11
+version = "7.x-1.0"
 core = "7.x"
 project = "restws"
-datestamp = "1319729735"
+datestamp = "1344709382"
 

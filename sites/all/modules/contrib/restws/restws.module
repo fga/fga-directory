@@ -48,6 +48,7 @@ function restws_restws_resource_info() {
  * Returns a instance of a resource controller.
  *
  * @return RestWSResourceControllerInterface
+ *   A resource controller object.
  */
 function restws_resource_controller($name) {
   $static = &drupal_static(__FUNCTION__);
@@ -90,6 +91,7 @@ function restws_restws_format_info() {
  * Returns an instance of a format.
  *
  * @return RestWSFormatInterface
+ *   A resource format object.
  */
 function restws_format($name) {
   $static = &drupal_static(__FUNCTION__);
@@ -103,7 +105,7 @@ function restws_format($name) {
 /**
  * Handles a request.
  *
- * @param $op
+ * @param string $op
  *   One of 'create', 'update', 'delete' or 'view'.
  */
 function restws_handle_request($op, $format, $resource_name, $id = NULL, $payload = NULL) {
@@ -172,14 +174,21 @@ class RestWSException extends Exception {
 function restws_menu_alter(&$items) {
   foreach (restws_get_resource_info() as $resource => $info) {
     // @todo document 'menu path'
-    $menu_path = isset($info['menu_path']) ? $info['menu_path'] : $resource . '/%' . $resource;
+    $menu_path = isset($info['menu_path']) ? $info['menu_path'] . '/%' : $resource . '/%';
+    // Replace existing page callbacks with our own (e.g. node/%)
     if (isset($items[$menu_path])) {
-      // Preprend the page callback and the resource to the page arguments.
+      // Prepend the page callback and the resource to the page arguments.
+      // So we can re-use it on standard HTML page requests.
+      array_unshift($items[$menu_path]['page arguments'], $resource, $items[$menu_path]['page callback']);
+      $items[$menu_path]['page callback'] = 'restws_page_callback';
+    }
+    // Also replace wildcard loaders (e.g. node/%node)
+    elseif (isset($items[$menu_path . $resource])) {
+      $menu_path = $menu_path . $resource;
       array_unshift($items[$menu_path]['page arguments'], $resource, $items[$menu_path]['page callback']);
       $items[$menu_path]['page callback'] = 'restws_page_callback';
     }
     else {
-      $menu_path = isset($info['menu_path']) ? $info['menu_path'] : $resource . '/%';
       $items[$menu_path] = array(
         'page callback' => 'restws_page_callback',
         'page arguments' => array($resource),
@@ -191,7 +200,7 @@ function restws_menu_alter(&$items) {
     // @todo fix 'menu path'
     if (!isset($info['menu_path'])) {
       if (isset($items[$resource])) {
-        // Preprend the page callback and the resource to the page arguments.
+        // Prepend the page callback and the resource to the page arguments.
         if (!isset($items[$resource]['page arguments'])) {
           $items[$resource]['page arguments'] = array();
         }
@@ -227,20 +236,25 @@ function restws_page_callback($resource, $page_callback = NULL) {
       case 'PUT':
       case 'POST':
         // Get format MIME type form HTTP Content type header.
-        $format = restws_format_mimetype($_SERVER['CONTENT_TYPE']);
-        break;
-      case 'DELETE':
-        $parts = explode(',', $_SERVER['HTTP_ACCEPT'], 2);
+        $parts = explode(';', $_SERVER['CONTENT_TYPE'], 2);
         $format = restws_format_mimetype($parts[0]);
+        break;
+
+      case 'DELETE':
+        if (isset($_SERVER['HTTP_ACCEPT'])) {
+          $parts = explode(',', $_SERVER['HTTP_ACCEPT'], 2);
+          $format = restws_format_mimetype($parts[0]);
+        }
         if (!$format) {
           // We don't care about the format, just pick JSON.
           $format = restws_format('json');
         }
         break;
+
       default:
         // Get the format MIME type form the HTTP Accept header.
         // Ignore requests from web browsers that accept HTML.
-        if (strpos($_SERVER['HTTP_ACCEPT'], 'html') === FALSE) {
+        if (isset($_SERVER['HTTP_ACCEPT']) && strpos($_SERVER['HTTP_ACCEPT'], 'html') === FALSE) {
           // Use the first MIME type.
           $parts = explode(',', $_SERVER['HTTP_ACCEPT'], 2);
           $format = restws_format_mimetype($parts[0]);
@@ -252,12 +266,15 @@ function restws_page_callback($resource, $page_callback = NULL) {
       case 'PUT':
         $op = 'create';
         break;
+
       case 'POST':
         $op = 'update';
         break;
+
       case 'DELETE':
         $op = 'delete';
         break;
+
       default:
         $op = 'view';
     }
@@ -299,10 +316,10 @@ function restws_resource_uri($resource, $id) {
 /**
  * Returns the format instance for a given MIME type.
  *
- * @param $mime
+ * @param string $mime
  *   The MIME type, e.g. 'application/json' or 'application/xml'.
  *
- * @return
+ * @return bool|RestWSFormatInterface
  *   The format controller or FALSE if the format was not found.
  */
 function restws_format_mimetype($mime) {
@@ -326,4 +343,16 @@ function restws_permission() {
     );
   }
   return $permissions;
+}
+
+/**
+ * Implements hook_module_implements_alter().
+ */
+function restws_module_implements_alter(&$implementations, $hook) {
+  // Make sure that restws runs last.
+  if ($hook == 'menu_alter') {
+    $group = $implementations['restws'];
+    unset($implementations['restws']);
+    $implementations['restws'] = $group;
+  }
 }

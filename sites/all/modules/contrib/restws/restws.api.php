@@ -25,7 +25,7 @@
  *
  * This hook is required in order to add new restws resources.
  *
- * @return
+ * @return array
  *   An array of information about the module's provided resources.
  *   The array contains a sub-array for each resource, with the resource name as
  *   the key. Resource names may only contain lowercase alpha-numeric characters
@@ -54,7 +54,9 @@ function hook_restws_resource_info() {
  * Alter available resource information.
  *
  * @param array $resource_info
- *   @see hook_restws_resource_info().
+ *   Resource information as defined in hook_restws_resource_info().
+ *
+ * @see hook_restws_resource_info()
  */
 function hook_restws_resource_info_alter(&$resource_info) {
   $resource_info['node']['class'] = 'MySpecialNodeResourceController';
@@ -65,7 +67,7 @@ function hook_restws_resource_info_alter(&$resource_info) {
  *
  * This hook is required in order to add new restws formats.
  *
- * @return
+ * @return array
  *   An array of information about the module's provided formats.
  *   The array contains a sub-array for each format, with the format name as
  *   the key. Format names may only contain lowercase alpha-numeric characters
@@ -96,7 +98,9 @@ function hook_restws_format_info() {
  * Alter available format information.
  *
  * @param array $format_info
- *   @see hook_restws_format_info().
+ *   Format information as defined in hook_restws_format_info()
+ *
+ * @see hook_restws_format_info()
  */
 function hook_restws_format_info_alter(&$format_info) {
   $format_info['json']['class'] = 'MyJsonFormatHandler';
