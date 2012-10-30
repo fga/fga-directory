@@ -616,8 +616,9 @@ class RulesData  {
    * @see RulesPlugin::availableVariables()
    */
   public static function addSiteMetadata(EntityMetadataWrapper $wrapper, $property_info) {
-    $site_info = entity_get_property_info('site');
-    $property_info['properties'] += $site_info['properties'];
+    if ($site_info = entity_get_property_info('site')) {
+      $property_info['properties'] += $site_info['properties'];
+    }
     // Also invoke the usual callback for altering metadata, in case actions
     // have specified further metadata.
     return RulesData::applyMetadataAssertions($wrapper, $property_info);
