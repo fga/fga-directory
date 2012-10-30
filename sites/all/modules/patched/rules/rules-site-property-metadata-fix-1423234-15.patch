@@ -1,24 +1,16 @@
 diff --git a/includes/rules.state.inc b/includes/rules.state.inc
-index 2e716b2..4cbeac5 100644
+index 2e716b2..6c48823 100644
 --- a/includes/rules.state.inc
 +++ b/includes/rules.state.inc
-@@ -608,11 +608,14 @@ class RulesData  {
+@@ -608,8 +608,9 @@ class RulesData  {
     * @see RulesPlugin::availableVariables()
     */
    public static function addSiteMetadata(EntityMetadataWrapper $wrapper, $property_info) {
 -    $site_info = entity_get_property_info('site');
 -    $property_info['properties'] += $site_info['properties'];
--    // Also invoke the usual callback for altering metadata, in case actions
--    // have specified further metadata.
--    return RulesData::applyMetadataAssertions($wrapper, $property_info);
 +    if ($site_info = entity_get_property_info('site')) {
 +      $property_info['properties'] += $site_info['properties'];
-+      // Also invoke the usual callback for altering metadata, in case actions
-+      // have specified further metadata.
-+      return RulesData::applyMetadataAssertions($wrapper, $property_info);
-+    }else{
-+      return FALSE;
 +    }
-   }
- }
- 
+     // Also invoke the usual callback for altering metadata, in case actions
+     // have specified further metadata.
+     return RulesData::applyMetadataAssertions($wrapper, $property_info);
