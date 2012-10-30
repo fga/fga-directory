@@ -88,19 +88,15 @@ class DrupalApacheSolrNodeAccess extends DrupalWebTestCase {
     $field = 'access_node_' . apachesolr_site_hash() . '_nodeaccess_author';
     $this->assertEqual($document->{$field}[0], $basic_user->uid, 'Solr Document being indexed is restricted by the proper author');
 
-    // Test addition of filters to query.
-    $subquery = apachesolr_access_build_subquery($basic_user);
-
     $expected_criterion = array(
       'access__all' => 0,
       'access_node_' . apachesolr_site_hash() . '_all' => 0,
-      // The node access_test module writes this as of core 7.3.
+      // The node_access_test module writes this as of core 7.3.
       'access_node_' . apachesolr_site_hash() . '_node_access_test_author' => $basic_user->uid,
-      // @todo - we need to check grants provided by node_access_test module.
- //     'access_node_' . apachesolr_site_hash() . '_nodeaccess_rid' => array(2, $assigned_role),
- //     'access_node_' . apachesolr_site_hash() . '_nodeaccess_uid' => $basic_user->uid,
     );
 
+    // Test addition of filters to query.
+    $subquery = apachesolr_access_build_subquery($basic_user);
     $fields = $subquery->getFilters();
 
     foreach ($fields as $field) {
@@ -117,7 +113,7 @@ class DrupalApacheSolrNodeAccess extends DrupalWebTestCase {
 
     $this->assertEqual($expected_criterion, $found_criterion, 'All Criteria was accounted for in fields. If not accounted for, Unaccounted Criteria [' . var_export(array_diff($expected_criterion, $found_criterion), 1) . ']');
     // Run a query through the MLT code to be sure access filters are added.
-    $solr = new DummySolr();
+    $solr = new DummySolr($url = NULL, $env_id);
     $settings = apachesolr_search_mlt_block_defaults();
     // Dummy value
     $id = apachesolr_document_id($author_restricted_node->nid);

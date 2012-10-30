@@ -278,13 +278,14 @@ class SolrBaseQuery extends SolrFilterSubQuery implements DrupalSolrQueryInterfa
   protected $solrsort = array('#name' => 'score', '#direction' => 'desc');
   // A flag to allow the search to be aborted.
   public $abort_search = FALSE;
-  
+
   // A flag to check if need to retrieve another page of the result set
   public $page = 0;
 
   /**
-   * @param $env_id
-   *   The environment where you are calling the query from.  Typically the default environment.
+   * @param $name
+   *   The search name, used for finding the correct blocks and other config.
+   *   Typically "apachesolr".
    *
    * @param $solr
    *   An instantiated DrupalApacheSolrService Object.
@@ -444,7 +445,7 @@ class SolrBaseQuery extends SolrFilterSubQuery implements DrupalSolrQueryInterfa
       if (is_array($value)) {
         $value = end($value);
       }
-      $this->params[$name] = trim($value);
+      $this->params[$name] = $this->normalizeParamValue($value);
       return $this;
     }
     // We never actually populate $this->params['fq'].  Instead
@@ -463,13 +464,26 @@ class SolrBaseQuery extends SolrFilterSubQuery implements DrupalSolrQueryInterfa
       $this->params[$name] = array();
     }
 
-    if (is_array($value)) {
-      $this->params[$name] = array_merge($this->params[$name], array_values($value));
+    if (!is_array($value)) {
+      // Convert to array for array_map.
+      $param_values = array($value);
     }
     else {
-      $this->params[$name][] = $value;
+      // Convert to a numerically keyed array.
+      $param_values = array_values($value);
     }
+    $this->params[$name] = array_merge($this->params[$name], array_map(array($this, 'normalizeParamValue'), $param_values));
+
     return $this;
+  }
+
+  protected function normalizeParamValue($value) {
+    // Convert boolean to string.
+    if (is_bool($value)) {
+      return $value ? 'true' : 'false';
+    }
+    // Convert to trimmed string.
+    return trim($value);
   }
 
   public function addParams(Array $params) {
@@ -572,7 +586,16 @@ class SolrBaseQuery extends SolrFilterSubQuery implements DrupalSolrQueryInterfa
     if (isset($new_keywords)) {
       return $this->base_path . '/' . $new_keywords;
     }
-    return $this->base_path . '/' . $this->getParam('q');
+    elseif ($this->getParam('q')) {
+      return $this->base_path . '/' . $this->getParam('q');
+    }
+    else {
+      // Return with empty query (the slash). The path for a facet
+      // becomes $this->base_path . '//facetinfo';
+      // We do this so we can have a consistent way of retrieving the query +
+      // additional parameters
+      return $this->base_path . '/';
+    }
   }
 
   public function getSolrsortUrlQuery() {

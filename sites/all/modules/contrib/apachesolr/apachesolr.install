@@ -106,8 +106,6 @@ function apachesolr_schema() {
       'can disable' => FALSE,
       // Variable name to use in exported code.
       'identifier' => 'environment',
-      // Use the environment load callback directly.
-      'load callback' => 'apachesolr_environment_load',
       // Thin wrapper for the environment save callback.
       'save callback' => 'apachesolr_ctools_environment_save',
       // Thin wrapper for the environment delete callback.
@@ -214,7 +212,7 @@ function apachesolr_schema() {
           'not null' => TRUE,
         ),
         'status' => array(
-          'description' => 'Boolean indicating whether the entity is visible to non-administrators (eg, published for nodes).',
+          'description' => 'Boolean indicating whether the entity should be in the index.',
           'type' => 'int',
           'not null' => TRUE,
           'default' => 1,
@@ -227,7 +225,7 @@ function apachesolr_schema() {
         ),
       ),
       'indexes' => array(
-        'changed' => array('bundle', 'status', 'changed'),
+        'bundle_changed' => array('bundle', 'changed'),
       ),
       'primary key' => array('entity_id'),
     );
@@ -280,6 +278,7 @@ function apachesolr_uninstall() {
   variable_del('apachesolr_index_updated');
   variable_del('apachesolr_read_only');
   variable_del('apachesolr_set_nodeapi_messages');
+  variable_del('apachesolr_last_optimize');
   // Remove blocks.
   db_delete('block')->condition('module', 'apachesolr')->execute();
 }
@@ -801,3 +800,26 @@ function apachesolr_update_7013() {
   db_add_primary_key('apachesolr_index_bundles', array('env_id', 'entity_type', 'bundle'));
 }
 
+/**
+ * Remove status from the key.
+ */
+function apachesolr_update_7014() {
+  $types = array(
+    'other' => 'apachesolr_index_entities',
+    'node' => 'apachesolr_index_entities_node',
+  );
+  foreach ($types as $type => $table) {
+    db_drop_index($table, 'changed');
+    db_add_index($table, 'bundle_changed', array('bundle', 'changed'));
+  }
+}
+
+
+/**
+ * Fix primary key schema mismatch for those who cleanly installed with beta16.
+ */
+function apachesolr_update_7015() {
+  // Brand new installations since update_7013 have the wrong primary key.
+  db_drop_primary_key('apachesolr_index_entities');
+  db_add_primary_key('apachesolr_index_entities', array('entity_id', 'entity_type'));
+}

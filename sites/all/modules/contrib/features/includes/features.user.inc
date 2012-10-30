@@ -123,6 +123,7 @@ function user_permission_features_rebuild($module) {
     node_types_rebuild();
 
     $roles = _user_features_get_roles();
+    drupal_static_reset();
     $permissions_by_role = _user_features_get_permissions(FALSE);
     foreach ($defaults as $permission) {
       $perm = $permission['name'];
