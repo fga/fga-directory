@@ -1,0 +1,23 @@
+name = Apache Solr Views Integration
+description = Provides Views Integration with Views
+package = Search Toolkit
+core = "7.x"
+
+dependencies[] = apachesolr
+dependencies[] = views
+
+files[] = apachesolr_views.views.inc
+files[] = apachesolr_views_query.inc
+files[] = apachesolr_views_solr_base_query.inc
+files[] = handlers/apachesolr_views_handler_field.inc
+files[] = handlers/apachesolr_views_handler_sort.inc
+files[] = handlers/apachesolr_views_handler_filter.inc
+files[] = handlers/apachesolr_views_keyword_handler_filter.inc
+files[] = handlers/apachesolr_views_handler_argument.inc
+
+; Information added by drupal.org packaging script on 2012-05-30
+version = "7.x-1.0-beta1"
+core = "7.x"
+project = "apachesolr_views"
+datestamp = "1338371748"
+

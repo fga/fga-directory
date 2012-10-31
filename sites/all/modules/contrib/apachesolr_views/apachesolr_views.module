@@ -1,0 +1,14 @@
+<?php
+
+/**
+ * @file
+ * Provides Views Implementation for the ApacheSolr Search Integration project
+ * drupal.org/project/apachesolr
+ */
+
+/**
+ * Implementation of hook_views_api().
+ */
+function apachesolr_views_views_api() {
+  return array('api' => '3.0');
+}
