@@ -42,6 +42,7 @@
  * sites/8080.www.drupal.org.mysite.test/.
  */
 
+
 /**
  * Database settings:
  *
@@ -510,15 +511,16 @@ if (isset($_SERVER['PANTHEON_ENVIRONMENT']) &&
     header('HTTP/1.0 301 Moved Permanently');
     header('Location: http://directory.occupy.net'. $_SERVER['REQUEST_URI']);
     exit();
+  }
   if ($_SERVER['HTTP_HOST'] == 'test.fga-directory.gotpantheon.com') {
     header('HTTP/1.0 301 Moved Permanently');
     header('Location: http://test.directory.occupy.net'. $_SERVER['REQUEST_URI']);
-    exit();
+    exit(); 
+  }
   if ($_SERVER['HTTP_HOST'] == 'dev.fga-directory.gotpantheon.com') {
     header('HTTP/1.0 301 Moved Permanently');
     header('Location: http://dev.directory.occupy.net'. $_SERVER['REQUEST_URI']);
     exit();
   }
-
 }
 
