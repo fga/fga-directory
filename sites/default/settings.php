@@ -500,3 +500,25 @@ $conf['allow_authorize_operations'] = FALSE;
 
 
 $conf['googleanalytics_account'] = 'UA-29075652-1';
+
+
+
+if (isset($_SERVER['PANTHEON_ENVIRONMENT']) &&
+  $_SERVER['PANTHEON_ENVIRONMENT'] === 'live') {
+  if ($_SERVER['HTTP_HOST'] == 'www.directory.occupy.net' ||
+      $_SERVER['HTTP_HOST'] == 'live.fga-directory.gotpantheon.com') {
+    header('HTTP/1.0 301 Moved Permanently');
+    header('Location: http://directory.occupy.net'. $_SERVER['REQUEST_URI']);
+    exit();
+  if ($_SERVER['HTTP_HOST'] == 'test.fga-directory.gotpantheon.com') {
+    header('HTTP/1.0 301 Moved Permanently');
+    header('Location: http://test.directory.occupy.net'. $_SERVER['REQUEST_URI']);
+    exit();
+  if ($_SERVER['HTTP_HOST'] == 'dev.fga-directory.gotpantheon.com') {
+    header('HTTP/1.0 301 Moved Permanently');
+    header('Location: http://dev.directory.occupy.net'. $_SERVER['REQUEST_URI']);
+    exit();
+  }
+
+}
+
