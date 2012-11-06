@@ -59,7 +59,7 @@ class twitter_puller {
     // if the first character is ~, then consider the key a favorites feed
     elseif ($prefix == "~") {
       $key = drupal_substr($this->twitkey, 1);
-      $url = 'http://api.twitter.com/1/favorites/'.urlencode($key).'.json?count='.$num;   
+      $url = 'http://api.twitter.com/1/favorites/'.urlencode($key).'.json?count='.$num;
     }
     // otherwise, use the key as a search term
     else {
@@ -105,12 +105,17 @@ class twitter_puller {
       $items = array_slice($items, 0, $this->num_items);
       foreach ($items as $item) {
         $obj = new stdClass();
+
         if (isset($item->retweeted_status)) {
           $obj->id = check_plain($item->retweeted_status->id_str);
           $obj->username = (isset($item->retweeted_status->user) && !empty($item->retweeted_status->user->screen_name)) ? $item->retweeted_status->user->screen_name : $item->retweeted_status->from_user;
-            $obj->username = check_plain($obj->username);
+          $obj->username = check_plain($obj->username);
+          //get the user photo for the retweet
           $obj->userphoto = (isset($item->retweeted_status->user) && !empty($item->retweeted_status->user->profile_image_url)) ? $item->retweeted_status->user->profile_image_url : $item->retweeted_status->profile_image_url;
-            $obj->userphoto = check_plain($obj->userphoto);
+          $obj->userphoto = check_plain($obj->userphoto);
+          $obj->userphoto_https = (isset($item->retweeted_status->user) && !empty($item->retweeted_status->user->profile_image_url_https)) ? $item->retweeted_status->user->profile_image_url_https : $item->retweeted_status->profile_image_url_https;
+          $obj->userphoto_https = check_plain($obj->userphoto_https);
+
           $obj->text = filter_xss($item->retweeted_status->text);
           //-- Convert date to unix timestamp so themer can easily work with it.
           $obj->timestamp = strtotime($item->retweeted_status->created_at);
@@ -118,9 +123,13 @@ class twitter_puller {
         else {
           $obj->id = check_plain($item->id_str);
           $obj->username = (isset($item->user) && !empty($item->user->screen_name)) ? $item->user->screen_name : $item->from_user;
-            $obj->username = check_plain($obj->username);
+          $obj->username = check_plain($obj->username);
+          //retrieve the user photo
           $obj->userphoto = (isset($item->user) && !empty($item->user->profile_image_url)) ? $item->user->profile_image_url : $item->profile_image_url;
-            $obj->userphoto = check_plain($obj->userphoto);
+          $obj->userphoto = check_plain($obj->userphoto);
+          $obj->userphoto_https = (isset($item->user) && !empty($item->user->profile_image_url_https)) ? $item->user->profile_image_url_https : $item->profile_image_url_https;
+          $obj->userphoto_https = check_plain($obj->userphoto_https);
+
           $obj->text = filter_xss($item->text);
           //-- Convert date to unix timestamp so themer can easily work with it.
           $obj->timestamp = strtotime($item->created_at);
