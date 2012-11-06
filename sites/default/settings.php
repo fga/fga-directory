@@ -524,3 +524,22 @@ if (isset($_SERVER['PANTHEON_ENVIRONMENT']) &&
   }
 }
 
+if (isset($_SERVER['HTTP_X_SSL']) && $_SERVER['HTTP_X_SSL'] == 'ON') {
+  $_SERVER['HTTPS'] = 'on';
+}
+
+
+      /**
+      * Kalabox local settings
+      */
+       
+      $databases['default']['default'] = array(
+      'driver' => 'mysql',
+      'database' => 'fga_directory_kala',
+      'username' => 'root',
+      'password' => 'password',
+      'host' => 'kala',
+      'prefix' => '',
+      );
+    
+      
