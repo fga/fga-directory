@@ -27,13 +27,28 @@ function directory_block_info() {
 }
 
 /**
+ * Implements hook_theme().
+ *
+ * Defines default theme template for a list of tweets.
+ */
+function directory_theme() {
+  $ret = array(
+    'directory-map' => array(
+      'variables' => array('tweets' => NULL, 'twitkey' => NULL, 'title' => NULL, 'lazy_load' => NULL),
+      'template' => 'directory_map',
+    ),
+  );
+  watchdog( 'directory', $ret );
+  return $ret;
+}
+
+/**
  * Implements hook_block_view().
  */
 function directory_block_view( $delta = '') {
-  echo ($delta == 'directory-map');
   switch( $delta ){
     case 'directory-map':
-      $block['subject'] = t('Directory Map');
+//      $block['subject'] = t('Directory Map');
       $block['content'] = theme('directory-map'); 
       return $block;
     break;
