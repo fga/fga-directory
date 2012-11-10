@@ -1,28 +1,34 @@
 /* main stylesheet for directory.occupy.net */
 
 body {
- font-family: Georgia, 'Times New Roman', serif;
- font-size: 16px;
- line-height: 24px;
+ font-size: 15px;
+ line-height: 18px;
 }
+
 h1, h2, h3, h4, h5, h6 {
- font-family: 'OstrichSansMedium';
  letter-spacing: .075em;
- color: #333;
+ color: #222;
 }
+
 h1,h2 {
  margin-top: 1em;
  margin-bottom: .5em;
 }
+
 h1 {
+ font-size: 3em;
+}
+
+h2 {
  font-size: 2.5em;
 }
-h2 {
- font-size: 1.5em;
-}
+
 h3 {
- font-size: 1.375em;
- padding-bottom: .125em;
+ font-size: 2em;
+}
+
+h4{
+  font-size: 1.5em;
 }
 
 a:link, a:visited {
@@ -42,18 +48,6 @@ a:active {
   background:#FFF;
 }
 
-.site-name {
- font-size: 2.25em;
- color: white;
- background: black;
- padding: .5em .5em .25em;
-}
-
-.site-name a:link, .site-name a:visited {
- color: white;
-  text-decoration: none;
-}
-
 .site-name a:hover {
  color: #d0d0d0;
 }
@@ -63,9 +57,6 @@ nav.navigation {
 }
 nav a:link,
 nav a:visited {
- font-family: 'OstrichSansMedium';
- font-size: 1.5em;
- color: white;
  background-color: black;
  display: inline-block;
  padding: .5em 1em;
@@ -124,7 +115,6 @@ nav a:hover {
 /* Occupation Node Detail Formatting */
 
 article p { /* affect all node types */
-  font-size:.9em;
   margin-bottom: 1em;
 }
 .block article h2 {
@@ -141,10 +131,7 @@ article p { /* affect all node types */
 
 .field-group-format.grouplinks a,
  #block-menu-menu-feeds-and-exports li a:link {
- background-color: black;
- color: white;
  display: inline-block;
- font-size: 1em;
  font-weight: 200;
  margin-bottom: .25em;
  max-width: 90%;
@@ -157,15 +144,6 @@ article p { /* affect all node types */
   border-radius: .25em;
   -moz-border-radius: .25em;
   -webkit-border-radius: .25em;
-
-}
- #block-menu-menu-feeds-and-exports li a:link,
- #block-menu-menu-feeds-and-exports li a:visited {
- font-family: 'OstrichSansMedium';
- font-size: 1em;
- letter-spacing: .1em;
- background-color: #aaa;
- color: white;
 
 }
 
@@ -230,8 +208,8 @@ article.comment {
 article.comment header h3 {
   margin: 0;  padding: 0;
 }
+
 article.comment footer { /* author + date */
-  font-size:.8em;
   font-style:italic;
   margin-bottom:1.25em;
   color: #666;
@@ -243,9 +221,6 @@ article.comment .field-name-field-comment-state {
 }
 article.comment nav.comment-links {
   margin-top: 1em;
-}
-article.comment nav.comment-links a {
-  font-size: .8em;
 }
 
 
@@ -267,43 +242,11 @@ div.talk-page li.comment_forbidden,
 div.talk-page li.comment-add {
   display: inline-block;
   padding: 1em 0 1em 0;
-  font-size:1.5em;
   font-style:italic;
 }
 div.talk-page li.comment-add:before {
   content: "+ ";
 }
-
-/*#edit-comment-body .filter-guidelines,
-#edit-comment-body .filter-wrapper {
-  padding:0;
-}*/
-#edit-comment-body .filter-guidelines li {
-  line-height: 20px;
-}
-
-
-
-
-
-#zone-content {
-  padding-top:3em;
-/*  min-height: 100%;*/
-}
-#region-content h1.title {
-  margin-top: 0.125em;
-}
-#region-content .block .view ul.pager {
-    margin-top: 2.5em;
-}
-#zone-content .tabs {
-  margin-bottom: 1em;
-}
-.zone-preface .block {
- padding: .75em 0;
-}
-
-
 
 /* footer */
 #section-footer {
@@ -326,7 +269,6 @@ div.talk-page li.comment-add:before {
   list-style: none;
   font-style: italic;
   margin-top:0px;
-  font-size:1.2em;
   padding:0;
 }
 #block-menu-menu-add-your-occupation li a:link, #block-menu-menu-add-your-occupation li a:visited {
@@ -371,7 +313,6 @@ div.talk-page li.comment-add:before {
 
 #views-exposed-form-occupation-directory-occupations-list,
 #views-exposed-form-occupation-directory-occupations-manage {
- font-size: .75em;
 }
 
 #views-exposed-form-occupation-directory-occupations-list label {
@@ -429,13 +370,11 @@ div.view-display-id-occupations_list table img {
 .list-occupations .view-header,
 .manage-comments .view-header {
   margin: 0 0 1em;
-  font-size: 1.2em;
   font-style: italic;
 }
 .list-occupations .view-header .occupation-count {}
 .list-occupations .view-header .occupation-count .occupation-count-span,
 .list-occupations .view-header .occupation-count .occupation-count-total {
-  font-size: 1.4em;
   padding:0 0.2em;
 }
 .list-occupations .view-header .curator-utility-links {
@@ -456,7 +395,6 @@ div.view-display-id-occupations_list table img {
 
 .manage-occupations tbody,
 .manage-comments tbody {
-  font-size: .75em;
 }
 
 
@@ -518,7 +456,6 @@ div.view-display-id-occupations_list table img {
 
 .total-occupations tr {
   height: 60px;
-  font-size: .75em;
   line-height: 1.2em;
   font-style: italic;
   color:#ccc;
@@ -545,10 +482,8 @@ div.block-occupation-count {
   font-style: italic;
 }
 div.block-occupation-count .count-result {
-  font-size: 1.8em;
 }
 div.block-occupation-count .count-label {
-  font-size: 1.2em;
 }
 
 
@@ -689,7 +624,6 @@ body.fullwidth-map {
 }
 ul.tweets-pulled-listing {
   list-style: none;
-  font-size:.8em;
   line-height:1.25em;
 }
 ul.tweets-pulled-listing div.tweet-authorphoto {
