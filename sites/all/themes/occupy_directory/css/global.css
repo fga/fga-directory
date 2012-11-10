@@ -6,11 +6,7 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 {
- letter-spacing: .075em;
  color: #222;
-}
-
-h1,h2 {
  margin-top: 1em;
  margin-bottom: .5em;
 }
@@ -43,6 +39,14 @@ a:active {
   color: #3a87c5;
 }
 
+#map-embed-wrapper{
+  width: 100%;
+}
+
+#map-embed{
+  width: 100%;
+  height: 100%;
+}
 
 #section-header {
   background:#FFF;
@@ -53,26 +57,36 @@ a:active {
 }
 
 nav.navigation {
- margin-top: 30px;
+ margin-top: 2em;
 }
-nav a:link,
-nav a:visited {
- background-color: black;
- display: inline-block;
- padding: .5em 1em;
- text-decoration: none;
- letter-spacing: .1em;
+
+nav.navigation li{
+  display: inline-block;
+  margin: 0 0 0 .5em;
 }
+
+nav.navigation li a{
+  display: block;
+  padding: .5em .75em;
+  background: #000;
+  text-decoration: none;
+}
+
+nav.navigation a.active{
+  color: #fc0;
+}
+
 nav a:hover {
  background-color: #d0d0d0;
- color: black;
+ color: white;
 }
 
-
-#main-menu li {
- padding: 0;
+#zone-content,
+#region-content{
+  width: 100%;
+  padding: 0;
+  margin: 0;
 }
-
 
 .zone-preface-wrapper {
  background-color: #d0d0d0;
@@ -249,40 +263,6 @@ div.talk-page li.comment-add:before {
 }
 
 /* footer */
-#section-footer {
- background: #d0d0d0;
-}
-#zone-footer {
-/* margin-top: 1em;*/
-}
-#zone-footer #block-menu-menu-feeds-and-exports h2 { padding-top: 1em; }
-#block-menu-menu-feeds-and-exports ul,
-#block-menu-menu-add-your-occupation ul {
-  list-style-type: none;
-  margin: 0;
-  line-height:1;
-}
-#block-menu-menu-add-your-occupation {
-  float:right;
-}
-#block-menu-menu-add-your-occupation ul li {
-  list-style: none;
-  font-style: italic;
-  margin-top:0px;
-  padding:0;
-}
-#block-menu-menu-add-your-occupation li a:link, #block-menu-menu-add-your-occupation li a:visited {
-  color:#FFF;
-}
-#block-menu-menu-add-your-occupation li a:hover {
-  color:#4298DD;
-  text-decoration:none;
-}
-#block-menu-menu-feeds-and-exports li {
- display:inline;
- margin: 0 15px 0 0;
- padding:0;
- }
 
 .block .view ul.pager {
   margin-top:.5em;
@@ -486,72 +466,6 @@ div.block-occupation-count .count-result {
 div.block-occupation-count .count-label {
 }
 
-
-/********* full width map */
-
-
-.fullwidth-map {
- /*background:#D0D0D0;*/
-}
-
-.fullwidth-map #zone-preface,
-.fullwidth-map #zone-user,
-.fullwidth-map #zone-branding {
-  margin-left: auto;
-  margin-right: auto;
-  width: 960px;
-}
-.fullwidth-map #region-branding,
-.fullwidth-map #region-menu {
-	float: left;
-	width: 460px;
-}
-.fullwidth-map #zone-content {
-  padding-top:0;
-}
-.fullwidth-map  #zone-content .tabs,
-.fullwidth-map  #zone-content .tabs ul {
-  margin:0;
-}
-.fullwidth-map #zone-content .grid-12 {
-  margin-left: 0;
-  margin-right: 0;
-}
-
-.fullwidth-map #section-content {
-  padding-bottom: 0;
-  background:#D0D0D0;
-}
-.fullwidth-map #region-content {
-	padding: 0;
-}
-.fullwidth-map .zone-content .region-inner {
-  margin-bottom: 0;
-  line-height: 0.7em !important;
-}
-.fullwidth-map #section-footer {
- position:relative;
-}
-.fullwidth-map .zone-footer-wrapper {
-	margin-top: 0;
-}
-.fullwidth-map #region-footer-first {
-  float:left;
-}
-.fullwidth-map #region-footer-second {
-  float:right;
-  width:300px;
-}
-
-
-
-
-
-.block h2 {margin:0;}
-
-footer ul.menu { padding-top: 1em;}
-
-
 div.view-display-id-occupations_list table img { }
 
 
@@ -585,37 +499,9 @@ div.view-display-id-occupations_list table img { }
 
 }
 
-
-/* stick the footer at the bottom of the page using CSS only
-TODO: use javascript so that we can also set properties on the map element
-also, not so hot when admin menu is on, and the homepage isn't as nice.
-*/
-html, body.not-front {
- height: 100%;
-}
-body.fullwidth-map {
- height: auto;
-}
-#page {
-  min-height: 100%;
-  position:relative;
-}
-#section-content {
-  padding-bottom: 120px; /* height of the footer */
-}
-#section-footer {
- position:absolute;
- bottom: 0;
- width: 100%;
- height: 120px;
-}
-/* /end footer hack */
-
 /* MORE HACKS */
 
 #admin-menu { margin:0 !important; }
-
-
 
 /* twitter pull styles */
 
@@ -690,4 +576,12 @@ ul.tweets-pulled-listing  div.tweet-divider {
    space when there's an image*/
 .addressfield-container-inline:after {
   clear:none;
+}
+
+/* footer */
+footer{
+  background: #fc0;
+  height: 4em;
+  position: static;
+  bottom: 0;
 }
