@@ -13,7 +13,7 @@ function occupation_directory_structure_menu_default_menu_custom() {
   // Exported menu: menu-add-your-occupation.
   $menus['menu-add-your-occupation'] = array(
     'menu_name' => 'menu-add-your-occupation',
-    'title' => 'Add your Occupation',
+    'title' => 'Footer Links',
     'description' => '',
   );
   // Exported menu: menu-feeds-and-exports.
@@ -24,8 +24,8 @@ function occupation_directory_structure_menu_default_menu_custom() {
   );
   // Translatables
   // Included for use with string extractors like potx.
-  t('Add your Occupation');
   t('Feeds and Exports');
+  t('Footer Links');
 
 
   return $menus;

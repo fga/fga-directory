@@ -33,10 +33,16 @@ function occupation_directory_structure_context_default_contexts() {
   $context->reactions = array(
     'block' => array(
       'blocks' => array(
+        'directory-directory-map' => array(
+          'module' => 'directory',
+          'delta' => 'directory-map',
+          'region' => 'content',
+          'weight' => '-10',
+        ),
         'boxes-occupation_count' => array(
           'module' => 'boxes',
           'delta' => 'occupation_count',
-          'region' => 'user_first',
+          'region' => 'branding',
           'weight' => '-10',
         ),
       ),
@@ -152,17 +158,17 @@ function occupation_directory_structure_context_default_contexts() {
           'region' => 'footer_first',
           'weight' => '-15',
         ),
+        'menu-menu-social-media-links' => array(
+          'module' => 'menu',
+          'delta' => 'menu-social-media-links',
+          'region' => 'footer_second',
+          'weight' => '1',
+        ),
         'menu-menu-add-your-occupation' => array(
           'module' => 'menu',
           'delta' => 'menu-add-your-occupation',
           'region' => 'footer_second',
-          'weight' => '-20',
-        ),
-        'boxes-social_media' => array(
-          'module' => 'boxes',
-          'delta' => 'social_media',
-          'region' => 'footer_second',
-          'weight' => '-19',
+          'weight' => '0',
         ),
       ),
     ),
