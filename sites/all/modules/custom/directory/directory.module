@@ -34,7 +34,6 @@ function directory_block_info() {
 function directory_theme() {
   $ret = array(
     'directory-map' => array(
-      'variables' => array('tweets' => NULL, 'twitkey' => NULL, 'title' => NULL, 'lazy_load' => NULL),
       'template' => 'directory_map',
     ),
   );
@@ -48,7 +47,8 @@ function directory_theme() {
 function directory_block_view( $delta = '') {
   switch( $delta ){
     case 'directory-map':
-//      $block['subject'] = t('Directory Map');
+      drupal_add_js(drupal_get_path('module', 'directory') . '/js/directory.js');
+//    $block['subject'] = t('Directory Map');
       $block['content'] = theme('directory-map'); 
       return $block;
     break;

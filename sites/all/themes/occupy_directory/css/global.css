@@ -27,17 +27,23 @@ h4{
   font-size: 1.5em;
 }
 
-a:link, a:visited {
-  color: #4298dd;
+a:link,
+a:visited {
+  color: #000;
   text-decoration: underline;
 }
-a:hover, a:active {
+
+a:hover,
+a:active {
   color: #666;
   text-decoration: none;
 }
+
 a:active {
   color: #3a87c5;
 }
+
+#page{ height: 100%; }
 
 #map-embed-wrapper{
   width: 100%;
@@ -48,16 +54,14 @@ a:active {
   height: 100%;
 }
 
-#section-header {
-  background:#FFF;
+#section-header{
+  background: #fc0;
+  height: 6em;
 }
-
-.site-name a:hover {
- color: #d0d0d0;
-}
+.site-name a:hover { color: #d0d0d0; }
 
 nav.navigation {
- margin-top: 2em;
+ font-size: 1.75em;
 }
 
 nav.navigation li{
@@ -68,7 +72,6 @@ nav.navigation li{
 nav.navigation li a{
   display: block;
   padding: .5em .75em;
-  background: #000;
   text-decoration: none;
 }
 
@@ -91,11 +94,43 @@ nav a:hover {
 .zone-preface-wrapper {
  background-color: #d0d0d0;
 }
-.zone-content .region-inner {
-  margin-bottom: 66px;
-}
+
 /*#zone-preface .block-fb774b8c338b94662d3aab27b7b1bfc9 { height: 25px; }*/
 
+.tabs{
+}
+
+.tabs.primary{
+  font-size: 2em;
+}
+
+.tabs ul{
+  border-bottom: 1px #dedede solid;
+}
+
+.tabs ul li{
+  display: inline-block;
+  margin: 0 0 0 .25em;
+}
+
+.tabs ul li:first-child{
+  margin:0 0 0 0;
+}
+
+.tabs ul li a{
+  display: block;
+  text-decoration: none;
+  border-radius: .125em;
+  padding: .25em .5em;
+  background: #dedede;
+  color: #aaa;
+}
+
+.tabs ul li a.active,
+.tabs ul li a:hover{
+  background: #000;
+  color: #fc0;
+}
 
 .block-user-menu ul li {
  list-style-type: none;
@@ -143,22 +178,19 @@ article p { /* affect all node types */
  margin-left: 0;
 }
 
-.field-group-format.grouplinks a,
- #block-menu-menu-feeds-and-exports li a:link {
- display: inline-block;
- font-weight: 200;
- margin-bottom: .25em;
- max-width: 90%;
- overflow: hidden;
- padding: .25em .75em;
- text-decoration: none;
- text-transform: lowercase;
- line-height:1.1em;
-
+.field-group-format.grouplinks a{
+  display: inline-block;
+  font-weight: 200;
+  margin-bottom: .25em;
+  max-width: 90%;
+  overflow: hidden;
+  padding: .25em .75em;
+  text-decoration: none;
+  text-transform: lowercase;
+  line-height:1.1em;
   border-radius: .25em;
   -moz-border-radius: .25em;
   -webkit-border-radius: .25em;
-
 }
 
 .field-group-format.grouplinks a:hover,
@@ -262,33 +294,14 @@ div.talk-page li.comment-add:before {
   content: "+ ";
 }
 
-/* footer */
+/* pager */
 
 .block .view ul.pager {
   margin-top:.5em;
 }
 
-.block-social-media {
-  float:right;
-  width: 200px;
-  margin: 68px 0 0;
-}
-.logged-in .block-social-media {
-  margin: 30px 0 0;
-}
-.block-social-media p {
-  padding:0; /*0 0 10px*/
-  text-align:right;
-  line-height:1;
-}
 
-
-
-
-/**
- * VIEWS
- */
-
+/* Views */
 /* Exposed view search form formatting */
 
 #views-exposed-form-occupation-directory-occupations-list,
@@ -579,9 +592,80 @@ ul.tweets-pulled-listing  div.tweet-divider {
 }
 
 /* footer */
-footer{
+footer {
   background: #fc0;
-  height: 4em;
-  position: static;
+  height: 3em;
+  position: fixed;
   bottom: 0;
+  z-index: 500;
+  width: 100%;
 }
+
+#block-menu-menu-add-your-occupation{
+  width: 300px;
+  float: left;
+}
+
+#block-menu-menu-social-media-links h3.block-title{
+  display: none;
+}
+
+#block-menu-menu-social-media-links ul li{
+  display: inline-block;
+  width: 16px;
+  height: 16px;  
+}
+
+#block-menu-menu-social-media-links ul li a{
+  display: block;
+  text-indent: -2000px;
+}
+
+/*
+@todo: id like to install http://drupal.org/project/menu_attributes so we can do this properly
+*/
+#block-menu-social-media-links ul li.first.leaf{
+  background-image: url( "/sites/all/themes/occupy_directory/images/facebook.png" );
+  background-repeat: no-repeat;
+}
+
+#block-menu-social-media-links ul li.last.leaf{
+  background: url( "/sites/all/themes/occupy_directory/images/twitter.png" ) no-repeat;
+  background-repeat: no-repeat;
+}
+
+
+#block-menu-menu-feeds-and-exports{
+  background: #fc0;
+  padding:1em;
+  -webkit-transition: all .5s ease-in-out;
+  -moz-transition: all .5s ease-in-out;
+  -o-transition: all .5s ease-in-out;
+  -ms-transition: all .5s ease-in-out;
+  transition: all .5s ease-in-out;
+}
+
+
+#block-menu-menu-feeds-and-exports ul li{
+  border-bottom: 1px #c69705 solid;
+  margin: .5em 0;
+}
+
+#block-menu-menu-feeds-and-exports ul ul li a{
+  display: block;
+  padding: .25em .5em;
+}
+
+
+#block-menu-menu-feeds-and-exports h3{
+  margin-top: 0;
+}
+
+#block-menu-menu-feeds-and-exports:hover{
+  transform: translate(0,-180px);
+  -ms-transform: translate(0,-180px); /* IE 9 */
+  -webkit-transform: translate(0,-180px); /* Safari and Chrome */
+  -o-transform: translate(0,-180px); /* Opera */
+  -moz-transform: translate(0,-180px); /* Firefox */
+};
+
