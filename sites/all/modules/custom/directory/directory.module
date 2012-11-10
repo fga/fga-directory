@@ -1,0 +1,41 @@
+<?php
+
+/**
+ * @file
+ * Utility module for Occupy Directory.
+ */
+
+/**
+ * Implements hook_help().
+ */
+function directory_help($path, $arg) {
+  if ($path == 'admin/help#directory') {
+    return t('Help for the directory module!');
+  }
+}
+
+/**
+ * Implements hook_block_info().
+ */
+function directory_block_info() {
+  $blocks = array();
+  $blocks['directory-map'] = array(
+    'info' => t('The directory map as a block template.'),
+    // 'cache' => DRUPAL_NO_CACHE,
+  );
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function directory_block_view( $delta = '') {
+  echo ($delta == 'directory-map');
+  switch( $delta ){
+    case 'directory-map':
+      $block['subject'] = t('Directory Map');
+      $block['content'] = theme('directory-map'); 
+      return $block;
+    break;
+ }
+}

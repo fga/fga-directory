@@ -1,0 +1,4 @@
+name = directory
+description = Directory Utility Module
+package = Directory
+core = 7.x
