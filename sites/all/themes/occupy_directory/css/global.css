@@ -1,8 +1,16 @@
 /* main stylesheet for directory.occupy.net */
+@font-face {
+  font-family: 'Dosis Light';
+  src: url("../fonts/dosis-light-webfont.eot");
+  src: url("../fonts/dosis-light-webfont.eot?#iefix") format("../fonts/embedded-opentype"), url("../fonts/dosis-light-webfont.ttf") format("truetype"), url("../fonts/dosis-light-webfont.woff") format("woff"), url("../fonts/dosis-light-webfont.svg#dosislight") format("svg");
+  font-style: normal;
+  font-weight: normal;
+}
 
 body {
- font-size: 15px;
- line-height: 18px;
+  font-family: 'Dosis Light'; font-style: normal; font-weight: normal;
+  font-size: 15px;
+  line-height: 18px;
 }
 
 h1, h2, h3, h4, h5, h6 {
