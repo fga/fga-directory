@@ -76,9 +76,16 @@ function occupations_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'enable_revisions_page_occupation';
+  $strongarm->name = 'diff_enable_revisions_page_node_occupation';
   $strongarm->value = 1;
-  $export['enable_revisions_page_occupation'] = $strongarm;
+  $export['diff_enable_revisions_page_node_occupation'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'diff_show_preview_changes_node_occupation';
+  $strongarm->value = 1;
+  $export['diff_show_preview_changes_node_occupation'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
@@ -176,20 +183,6 @@ function occupations_strongarm() {
   $strongarm->name = 'save_continue_occupation';
   $strongarm->value = 'Save and add fields';
   $export['save_continue_occupation'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'show_diff_inline_occupation';
-  $strongarm->value = 0;
-  $export['show_diff_inline_occupation'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'show_preview_changes_occupation';
-  $strongarm->value = 1;
-  $export['show_preview_changes_occupation'] = $strongarm;
 
   return $export;
 }
