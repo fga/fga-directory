@@ -15,7 +15,7 @@ function occupation_directory_structure_menu_default_menu_links() {
     'menu_name' => 'menu-add-your-occupation',
     'link_path' => 'node/add/occupation',
     'router_path' => 'node/add/occupation',
-    'link_title' => 'Add an Entry!',
+    'link_title' => 'Add an Occupation!',
     'options' => array(
       'attributes' => array(
         'title' => 'Add your occupation, assembly, camp or project!',
@@ -156,7 +156,7 @@ function occupation_directory_structure_menu_default_menu_links() {
   );
   // Translatables
   // Included for use with string extractors like potx.
-  t('Add an Entry!');
+  t('Add an Occupation!');
   t('Atom (new)');
   t('Atom (updated)');
   t('CSV');
