@@ -4,11 +4,11 @@
   src: url("../fonts/dosis-light-webfont.eot");
   src: url("../fonts/dosis-light-webfont.eot?#iefix") format("../fonts/embedded-opentype"), url("../fonts/dosis-light-webfont.ttf") format("truetype"), url("../fonts/dosis-light-webfont.woff") format("woff"), url("../fonts/dosis-light-webfont.svg#dosislight") format("svg");
   font-style: normal;
-  font-weight: normal;
+  font-weight: 300;
 }
 
 body {
-  font-family: 'Dosis Light'; font-style: normal; font-weight: normal;
+  font-family: 'Dosis Light'; font-style: normal; font-weight: 300;
   font-size: 15px;
   line-height: 18px;
 }
@@ -17,6 +17,7 @@ h1, h2, h3, h4, h5, h6 {
  color: #222;
  margin-top: 1em;
  margin-bottom: .5em;
+ font-weight: 300;
 }
 
 h1 {
@@ -35,23 +36,18 @@ h4{
   font-size: 1.5em;
 }
 
-a:link,
-a:visited {
-  color: #000;
-  text-decoration: underline;
-}
+a:link{ color: #222; }
+a:visited { color: #333; }
 
 a:hover,
 a:active {
-  color: #666;
+  color: #000;
   text-decoration: none;
 }
 
-/*
-a:active {
-color: #3a87c5;
+h1 a{
+  text-decoration: none;
 }
-*/
 
 #page{ height: 100%; }
 
@@ -68,7 +64,6 @@ color: #3a87c5;
   background: #fc0;
   height: 6em;
 }
-.site-name a:hover { color: #d0d0d0; }
 
 nav.navigation {
  font-size: 1.75em;
@@ -185,7 +180,6 @@ article p { /* affect all node types */
 
 .field-group-format.grouplinks a{
   display: inline-block;
-  font-weight: 200;
   margin-bottom: .25em;
   max-width: 90%;
   overflow: hidden;
@@ -315,7 +309,6 @@ div.talk-page li.comment-add:before {
 
 #views-exposed-form-occupation-directory-occupations-list label {
  display: inline;
- font-weight: normal;
  padding-left: 2em;
  padding-right: .5em;
 }
@@ -398,9 +391,6 @@ div.view-display-id-occupations_list table img {
 
 #views-exposed-form-occupation-directory-occupations-manage .views-exposed-widget {
   padding: 0 .8em 0 0;
-}
-#views-exposed-form-occupation-directory-occupations-manage label {
- font-weight: normal;
 }
 
 #views-exposed-form-occupation-directory-occupations-manage .form-submit {
@@ -538,15 +528,9 @@ ul.tweets-pulled-listing div.tweet-authorphoto img {
   max-height: 40px;
   max-width: 40px;
 }
-ul.tweets-pulled-listing .tweet-author a {
-  font-weight: bold;
-}
-ul.tweets-pulled-listing div.tweet-time {
-  text-align:right;
-}
-ul.tweets-pulled-listing .tweet-time a {
-  color: #d0d0d0;
-}
+ul.tweets-pulled-listing .tweet-author a {}
+ul.tweets-pulled-listing div.tweet-time { text-align:right; }
+ul.tweets-pulled-listing .tweet-time a { color: #d0d0d0; }
 ul.tweets-pulled-listing  div.tweet-divider {
   clear: left;
   border-bottom: 1px solid #efefef;
