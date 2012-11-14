@@ -39,9 +39,11 @@ a:active {
   text-decoration: none;
 }
 
+/*
 a:active {
-  color: #3a87c5;
+color: #3a87c5;
 }
+*/
 
 #page{ height: 100%; }
 
@@ -75,14 +77,9 @@ nav.navigation li a{
   text-decoration: none;
 }
 
-nav.navigation a.active{
-  color: #fc0;
-}
+nav a.active{ background: #000; color: #fc0; }
 
-nav a:hover {
- background-color: #d0d0d0;
- color: white;
-}
+nav a:hover { background-color: #000; color: #fc0; }
 
 #zone-content,
 #region-content{
