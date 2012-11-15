@@ -1,0 +1,497 @@
+/*
+namespaced, but probably not terribly the best way to do this.
+in some future iteration of the directory, we may eschew the ajaxy sidebar bit on the map
+(since that data is available via the node view )
+*/
+
+#directory-map-wrapper .content{
+	font-weight: normal;
+	letter-spacing: .5px; 
+	line-height: 1.5em
+}
+
+#directory-map-wrapper .content p{
+	margin-bottom: 1em;
+}
+
+#directory-map-wrapper .sidebar h3{
+	word-wrap: break-word;
+	margin-bottom: 1em;
+}
+
+#directory-map-wrapper .sidebar h3 a{
+	color: #fc0;
+}
+
+#directory-map-wrapper #directory_title {
+	position: absolute;
+	bottom: 0px;
+}
+
+#directory-map-wrapper #header{
+	top: 0;
+	background: #000;
+	width: 100%;
+	padding: .5em .5em;
+}
+
+#directory-map-wrapper #legend h1{
+	float: left;
+	color: #dedede;
+}
+
+#directory-map-wrapper #legend h1 a {
+	color: #dedede;
+	padding-left: .25em;
+}
+#directory-map-wrapper #legend h1 a:hover {
+  color: #dedede;
+}
+
+/*-----------------------------------
+  Map
+-------------------------------------*/
+
+#directory-map-wrapper .map {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+	width: 100%;
+	height: 100%;
+}
+
+/*-----------------------------------
+	Wax General
+-------------------------------------*/
+
+#directory-map-wrapper .wax-fade { opacity:0; }
+
+#directory-map-wrapper a.zoomer{
+	position: absolute;
+	top: .75em;
+	left: .5em;
+	width: 18px;
+	height: 18px;
+	border-radius: 3px;
+	background: #000;
+	padding: .25em;
+	text-align: center;
+	line-height: 18px;
+	color: #ddd;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+#directory-map-wrapper a.zoomout{
+	position: absolute;
+	top: 2.75em;
+}
+
+
+/*-----------------------------------
+  Util
+-------------------------------------*/
+
+.hidden{ display: none }
+
+/*
+including listing and map-tooltip classes here to apply clearfix to them, without touching markup because it's rendered in with the maptiles.
+*/
+#directory-map-wrapper .sidebar .founded:before,
+#directory-map-wrapper .sidebar .founded:after{
+  content: '\0020';
+  display: block;
+  overflow: hidden;
+  visibility: hidden;
+  width: 0;
+  height: 0;
+}
+
+#directory-map-wrapper .sidebar .founded:after,
+#directory-map-wrapper .listing:after{
+  clear: both;
+}
+
+/*
+  The following zoom:1 rule is specifically for IE6 + IE7.
+  Move to separate stylesheet if invalid CSS is a problem.
+*/
+#directory-map-wrapper .sidebar .founded,
+#directory-map-wrapper .listing {
+  zoom: 1;
+}
+
+/*----------------------------
+	Sidebar
+------------------------------*/
+
+#directory-map-wrapper .map-tooltip .tooltip-teaser{
+	z-index: 2002;
+	top: 2em;
+	left: 2em;
+	position: absolute;
+	padding: .25em 1em .5em 1em;
+	color: #eee;
+	margin-bottom: .25em;
+	border-radius: 3px;
+	background: rgb( 0,0,0 );
+	background: rgba( 0, 0, 0, .8 );
+}
+
+#directory-map-wrapper .tooltip-teaser a{
+	white-space: nowrap;
+	text-decoration: none;
+}
+
+#directory-map-wrapper .sidebar a.close{
+	text-align: center;
+	color: #dedede;	
+	font-size: 1.25em;
+	background: rgb( 0, 0, 0 );
+	background: rgba( 0, 0, 0, .8 );
+	padding: 0 .25em .125em .25em;
+	line-height: 1;
+	text-decoration: none;
+}
+
+#directory-map-wrapper .sidebar a.close:hover{
+	color:#000;
+	background: #fc0
+}
+
+#directory-map-wrapper .sidebar{
+	z-index: 1450;
+	position: absolute;
+	top: 0;
+	right: 0;
+	padding: 0 .5em .5em .5em;
+	background: rgb( 0, 0, 0 );
+	background: rgba( 0, 0, 0, .9 );
+	height: 100%;
+}
+
+#directory-map-wrapper .sidebar .content{
+	width: 290px;
+	height: 100%;
+	overflow: auto;
+	color: #dedede;
+}
+
+#directory-map-wrapper .sidebar .methods{
+	position: absolute;
+	left: -1.25em;
+	top: 0;
+}
+
+#directory-map-wrapper .sidebar .vcard,
+#directory-map-wrapper .sidebar .info,
+#directory-map-wrapper .sidebar .listings{
+	padding: 1em;
+	margin-bottom: .5em;
+	background: rgb( 30, 30, 30 );
+	background: rgba( 255, 255, 255, .15 );
+}
+
+#directory-map-wrapper .sidebar .vcard{
+	padding-top: 0;
+}
+
+#directory-map-wrapper .sidebar .listings ul{
+	margin-bottom: 1em;
+}
+
+#directory-map-wrapper .sidebar .founded{
+	margin-bottom: .5em;
+}
+#directory-map-wrapper .sidebar .founded .bday{
+	line-height: 1.5;
+}
+
+#directory-map-wrapper .sidebar .founded h5.label{
+	float: left !important;
+	display: inline-block;
+	border-right: 1px #bababa solid;
+	padding-right: .5em;
+	margin-right: .5em;
+}
+
+#directory-map-wrapper .sidebar .website-url,
+#directory-map-wrapper .sidebar .general-email-address{
+	clear: both;
+}
+
+/* hide geo */
+#directory-map-wrapper .sidebar .geo{
+	display: none;
+}
+
+#directory-map-wrapper .sidebar a{
+	color: #000;
+}
+
+#directory-map-wrapper .sidebar .taglink a{
+	display: block;
+	font-weight: 700;
+	text-decoration: none;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	padding: .5em .75em;
+	margin: 0 .5em .5em 0 ;
+	background: #fc0;
+}
+
+#directory-map-wrapper .sidebar .adr,
+#directory-map-wrapper .sidebar .general-phone{
+	margin-top: 1.5em;
+}
+
+#directory-map-wrapper .sidebar a:hover,
+#directory-map-wrapper .sidebar .listings ul li:hover a,
+#directory-map-wrapper .sidebar .listings li:hover a:hover{
+	background: #0af;
+	color: #000;
+}
+
+#directory-map-wrapper .sidebar .listings ul li{
+	float: left;
+}
+
+#directory-map-wrapper .sidebar .occupation-image{
+	float: left;
+	margin: 0 1em 0 0;
+	-moz-box-shadow: 1px 1px 5px #000;
+	-webkit-box-shadow: 1px 1px 5px #000;
+	box-shadow: 1px 1px 8px #000;
+}
+
+#directory-map-wrapper .sidebar .occupation-image {
+	line-height:8px;
+}
+
+#directory-map-wrapper .sidebar .occupation-title{
+	margin: 0 0 1em 0;
+	padding: .5em 0 0 0;
+}
+
+
+/*-----------------------------------
+	Tooltip
+-------------------------------------*/
+
+#directory-map-wrapper .map-tooltip{
+	position: absolute;
+}
+
+
+/*-----------------------------------
+  Overlay
+-------------------------------------*/
+
+#directory-map-wrapper #embed_aux{
+		width: 100%;
+		padding: .25em;
+		position: fixed;
+		bottom: 0;
+		z-index: 2000;
+		background: rgb( 0, 0, 0 );
+		background: rgba( 0, 0, 0, .7 );
+	}
+
+#directory-map-wrapper #search	.geocode{
+		float: right;
+		padding-right: 1em;
+	}
+
+#directory-map-wrapper #search form input[type='text']{
+		border: 1px #444 solid;
+		padding: .5em .25em;
+		font-size: 12px;
+		background: #000;
+		color: #dedede;
+		line-height: 1.2;
+		margin: 1.375em .5em .5em .5em;
+	}
+	
+#directory-map-wrapper #geocode-error {
+	  display: none;
+    position: absolute;
+    top: 1em;
+    margin-left: 3px;
+    color: #e34f4f;
+    font-size: 1em;
+    line-height: 0em;
+	}
+
+/*-----------------------------------
+  Footer
+-------------------------------------*/
+
+#directory-map-wrapper .map-legend {
+	position: absolute;
+	bottom: .65em;
+	left: .5em;
+}
+
+
+/*-----------------------------------
+	Share
+-------------------------------------*/
+
+#directory-map-wrapper .ts-error,
+#directory-map-wrapper .wax-share {
+  background:#666;
+  background:rgba( 0,0, 0, 0.85 );
+  position:absolute;
+  width:100%;
+  height:100%;
+  top:0; 
+  left:0px;
+  right:0px;
+  bottom:0;
+  }
+
+#directory-map-wrapper .wax-share div {
+  right:50%;
+  top:50%;
+  margin:-120px -180px 0px 0px;
+  padding:19px;
+  width:320px;
+  overflow:hidden;
+  }
+
+
+#directory-map-wrapper .wax-share div {
+  right:50%;
+  top:50%;
+  margin:-120px -180px 0px 0px;
+  padding:19px;
+  width:320px;
+  overflow:hidden;
+  }
+
+#directory-map-wrapper .wax-share small { color:#999; }
+
+#directory-map-wrapper .wax-share textarea {
+  display:block;
+  font:normal 10px/15px Arial,sans-serif;
+  resize:none;
+  border:1px solid #ccc;
+  padding:4px;
+  width:310px;
+	clear: both;
+ }
+
+#directory-map-wrapper .wax-share .twitter,
+#directory-map-wrapper .wax-share .facebook {
+  display:block;
+  padding:.5em 1em;
+  margin: .5em 0;
+  color:#000;
+	text-decoration: none;
+	font-family: 'Dosis', sans-serif;
+	font-weight: 300;
+	text-transform: uppercase;
+  }
+
+#directory-map-wrapper .wax-share h3{
+	margin-bottom: 1em;
+}
+#directory-map-wrapper .wax-share h3,
+#directory-map-wrapper .wax-share strong{
+font-family: 'Dosis', sans-serif;
+font-weight: 300;
+color: #eee;
+}
+
+#directory-map-wrapper .wax-share .twitter {
+  background:#0ac;
+  }
+
+#directory-map-wrapper .wax-share .facebook {
+  background:#359;
+  }
+
+#directory-map-wrapper .wax-share>div{
+	margin: 6em auto;
+}
+	
+#directory-map-wrapper .small{
+	font-size: .875em;
+}
+
+/* =====================================
+ Z-INDEXES
+*/
+
+#directory-map-wrapper .map,
+#directory-map-wrapper #header,
+#directory-map-wrapper #directory_title,
+#directory-map-wrapper a.zoomer,
+#directory-map-wrapper .wax-share,
+#directory-map-wrapper .share,
+#directory-map-wrapper .wax-attribution{
+	position: absolute;
+}
+
+#directory-map-wrapper .map{
+	z-index: 5;
+}
+	
+#directory-map-wrapper #header{
+	z-index: 1015;
+}
+
+#directory-map-wrapper #directory_title {
+	z-index: 105;
+}
+
+#directory-map-wrapper a.zoomer{
+	z-index: 102;
+}
+
+#directory-map-wrapper a.zoomout{
+	z-index: 103;	
+}
+
+#directory-map-wrapper .wax-share{
+	z-index: 2500;
+}
+
+#directory-map-wrapper .button,
+#directory-map-wrapper .share{
+	z-index: 200;
+	border: none;
+	background: #fc0;
+	color: #000;
+	text-decoration: none;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+	padding: .5em;
+	bottom: 1em;
+	left: 1em;
+}
+
+#directory-map-wrapper .button:hover{
+	background:#fc0;
+	color:#000;
+}
+
+#directory-map-wrapper .share{ top: .75em; line-height: 1em; left: 2.75em; height: 1.125em; background:#000; color: #dedede;}
+
+#directory-map-wrapper .share:hover{ background: #fc0; color:#000; }
+
+#directory-map-wrapper .wax-attribution{
+	display: none;
+	bottom: 2em;
+	text-align: right;
+}
+
+
+#directory-map-wrapper textarea.embed{
+	font-size: 1em;
+	margin: 1em 0;
+}

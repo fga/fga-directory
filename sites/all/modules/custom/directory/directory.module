@@ -20,8 +20,10 @@ function directory_help($path, $arg) {
 function directory_block_info() {
   $blocks = array();
   $blocks['directory-map'] = array(
-    'info' => t('The directory map as a block template.'),
-    // 'cache' => DRUPAL_NO_CACHE,
+    'info' => t('The directory map as a block template pulling in the directory embed via iframe.'),
+  );
+  $blocks['directory-map-experimental'] = array(
+    'info' => t('The directory map included natively in page'),
   );
   return $blocks;
 }
@@ -36,6 +38,9 @@ function directory_theme() {
     'directory-map' => array(
       'template' => 'directory_map',
     ),
+    'directory-map-experimental' => array(
+      'template' => 'directory_map_experimental',
+    ),
   );
   watchdog( 'directory', $ret );
   return $ret;
@@ -47,9 +52,15 @@ function directory_theme() {
 function directory_block_view( $delta = '') {
   switch( $delta ){
     case 'directory-map':
-      drupal_add_js(drupal_get_path('module', 'directory') . '/js/directory.js');
-//    $block['subject'] = t('Directory Map');
+      drupal_add_js(drupal_get_path('module', 'directory') . '/js/directory_map.js');
       $block['content'] = theme('directory-map'); 
+      return $block;
+    break;
+    case 'directory-map-experimental':
+      // todo: add the map-specific css here
+      drupal_add_js(drupal_get_path('module', 'directory') . '/js/directory_map.js');
+      drupal_add_js( 'http://api.tiles.mapbox.com/mapbox.js/v0.6.3/mapbox.js' );
+      $block['content'] = theme('directory-map-experimental'); 
       return $block;
     break;
  }
