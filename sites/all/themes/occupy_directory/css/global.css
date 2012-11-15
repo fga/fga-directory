@@ -1,40 +1,52 @@
-/* main stylesheet for directory.occupy.net */
-@font-face {
-  font-family: 'Dosis Light';
-  src: url("../fonts/dosis-light-webfont.eot");
-  src: url("../fonts/dosis-light-webfont.eot?#iefix") format("../fonts/embedded-opentype"), url("../fonts/dosis-light-webfont.ttf") format("truetype"), url("../fonts/dosis-light-webfont.woff") format("woff"), url("../fonts/dosis-light-webfont.svg#dosislight") format("svg");
-  font-style: normal;
-  font-weight: 300;
+/*
+------------------------------------------------------------
+Override grid settings for Header, Footer and Homepage Map
+------------------------------------------------------------
+*/
+
+#page,
+#map-embed{
+  height: 100%;
 }
 
-body {
-  font-family: 'Dosis Light'; font-style: normal; font-weight: 300;
-  font-size: 15px;
-  line-height: 18px;
+#zone-navbar, /* occupy.net navbar */
+#region-navbar, /* occupy.net navbar */
+#zone-footer,
+.front #zone-content,
+.front #region-content,
+#region-header,
+#directory-map-wrapper,
+#map-embed,
+#region-footer-first,
+footer{
+  width: 100%;
+  padding: 0;
+  margin: 0;
 }
 
-h1, h2, h3, h4, h5, h6 {
- color: #222;
- margin-top: 1em;
- margin-bottom: .5em;
- font-weight: 300;
+#zone-header{
+  width: 50%;
+  float: left;
 }
 
-h1 {
- font-size: 3em;
+#zone-menu{
+  float: right;
+  width: 50%;
+}
+/* fix omega bullshit */
+#region-user-first,
+#region-footer-second{
+  width: auto !important;
+  float: right;
+  margin-right: 2em;
 }
 
-h2 {
- font-size: 2.5em;
-}
 
-h3 {
- font-size: 2em;
-}
-
-h4{
-  font-size: 1.5em;
-}
+/*
+-------------------------
+Links
+-------------------------
+*/
 
 a:link{ color: #222; }
 a:visited { color: #333; }
@@ -45,33 +57,95 @@ a:active {
   text-decoration: none;
 }
 
-h1 a{
+h1 a,
+h2.site-name a{
   text-decoration: none;
 }
 
-#page{ height: 100%; }
 
-#map-embed-wrapper{
-  width: 100%;
-}
+/*
+-------------------------
+Header
+-------------------------
+*/
 
-#map-embed{
-  width: 100%;
-  height: 100%;
-}
-
-#section-header{
+header{
+  position: relative;
   background: #fc0;
-  height: 6em;
+  height: 4em;
 }
+
+.branding-data,
+.logo-img{
+  float: left;
+}
+
+.logo-img{
+  margin: 0 1em 0 0;
+}
+
+
+#region-branding{
+  width: 564px;
+}
+
+.branding-data{
+  width: 365px;
+}
+
+.site-name-slogan{
+  padding-top: .75em;
+}
+
+#region-menu{ 
+  float: right;
+  border-left: 1px #000 solid;
+}
+
+/*
+-------------------------
+Occupation Count Box
+-------------------------
+*/
+
+.boxes-box-content{  
+  display: inline-block;
+  background: #000;
+  margin: 0 auto;
+  padding: .375em .5em .25em .5em;
+}
+
+.boxes-box-content h4{
+  color: #fc0;
+  margin-bottom: .25em;
+}
+
+.boxes-box-content .small{
+  display: inline-block;
+  clear: both;
+}
+
+
+/*
+------------
+Navigation
+------------
+*/
 
 nav.navigation {
- font-size: 1.75em;
+  position: relative;
+  font-size: 1.5em;
+  float: left;
+}
+
+nav.navigation: ul{
+  border-left: 1px #000 solid;
 }
 
 nav.navigation li{
   display: inline-block;
   margin: 0 0 0 .5em;
+  border-right: 1px #000 solid;
 }
 
 nav.navigation li a{
@@ -84,24 +158,11 @@ nav a.active{ background: #000; color: #fc0; }
 
 nav a:hover { background-color: #000; color: #fc0; }
 
-#zone-content,
-#region-content{
-  width: 100%;
-  padding: 0;
-  margin: 0;
-}
-
-.zone-preface-wrapper {
- background-color: #d0d0d0;
-}
-
-/*#zone-preface .block-fb774b8c338b94662d3aab27b7b1bfc9 { height: 25px; }*/
-
 .tabs{
 }
 
 .tabs.primary{
-  font-size: 2em;
+  font-size: 1em;
 }
 
 .tabs ul{
@@ -133,13 +194,12 @@ nav a:hover { background-color: #000; color: #fc0; }
 }
 
 .block-user-menu ul li {
- list-style-type: none;
- display: inline-block;
- background: #efefef;
- padding: .25em .5em;
- margin-left: 1em;
- float: right;
-
+  list-style-type: none;
+  display: inline-block;
+  background: #efefef;
+  padding: .25em .5em;
+  margin-left: 1em;
+  float: right;
   border-radius: 0 0 .4em .4em;
   -moz-border-radius: 0 0 .4em .4m;
   -webkit-border-radius: 0 0 .4em .4em;
@@ -153,7 +213,6 @@ nav a:hover { background-color: #000; color: #fc0; }
 }
 .region-user-second ul li a{
  color: black;
-
 }
 
 .region-user-second {
@@ -161,7 +220,39 @@ nav a:hover { background-color: #000; color: #fc0; }
 }
 
 
-/* Occupation Node Detail Formatting */
+/*
+--------
+Content
+--------
+*/
+
+.not-front #region-content{
+  padding-bottom: 12em;  
+}
+
+.front #region-content{
+  padding-bottom:0;
+}
+
+.zone-preface-wrapper {
+ background-color: #d0d0d0;
+}
+
+
+/*
+----------------------------------
+Map
+----------------------------------
+*/
+#directory-map-wrapper{
+  background: #aaa;
+}
+
+/*
+----------------------------------
+Occupation Node Detail Formatting
+----------------------------------
+*/
 
 article p { /* affect all node types */
   margin-bottom: 1em;
@@ -186,7 +277,6 @@ article p { /* affect all node types */
   padding: .25em .75em;
   text-decoration: none;
   text-transform: lowercase;
-  line-height:1.1em;
   border-radius: .25em;
   -moz-border-radius: .25em;
   -webkit-border-radius: .25em;
@@ -245,7 +335,11 @@ article p { /* affect all node types */
 }
 
 
-/* Comments */
+/*
+----------------------------------
+Comments
+----------------------------------
+*/
 
 article.comment {
   margin-bottom: 1.5em;
@@ -268,13 +362,18 @@ article.comment nav.comment-links {
   margin-top: 1em;
 }
 
-
 /* hide log in or register to post comments since we use talk */
-/*article.comment nav.comment-links li.comment_forbidden {
+/*
+article.comment nav.comment-links li.comment_forbidden {
 	display: none;
-}*/
-/* Talk messes up the $node->content['links']['comment']['#links']
-   array and override the comment_forbidden key. CSS to the rescue for now. */
+}
+*/
+
+/*
+Talk messes up the $node->content['links']['comment']['#links']
+array and override the comment_forbidden key. CSS to the rescue for now.
+*/
+
 .node-occupation .node-links .first {
   display: none;
 }
@@ -293,15 +392,24 @@ div.talk-page li.comment-add:before {
   content: "+ ";
 }
 
-/* pager */
+
+/*
+----------------------------------
+Pager
+----------------------------------
+*/
 
 .block .view ul.pager {
   margin-top:.5em;
 }
 
 
-/* Views */
-/* Exposed view search form formatting */
+/*
+------------------------------------
+Views
+Exposed view search form formatting
+------------------------------------
+*/
 
 #views-exposed-form-occupation-directory-occupations-list,
 #views-exposed-form-occupation-directory-occupations-manage {
@@ -312,19 +420,23 @@ div.talk-page li.comment-add:before {
  padding-left: 2em;
  padding-right: .5em;
 }
+
 #views-exposed-form-occupation-directory-occupations-list input,
 #views-exposed-form-occupation-directory-occupations-list select,
 #views-exposed-form-occupation-directory-occupations-list div {
  display: inline;
  margin: 0;
 }
+
 #views-exposed-form-occupation-directory-occupations-list div {
  padding: 0;
 }
+
 #views-exposed-form-occupation-directory-occupations-list select,
 #views-exposed-form-occupation-directory-occupations-manage select {
  max-width: 200px;
 }
+
 #views-exposed-form-occupation-directory-occupations-list input.form-submit {
  margin-left: .75em;
 }
@@ -333,25 +445,22 @@ div.talk-page li.comment-add:before {
 #views-exposed-form-occupation-directory-occupations-manage .views-exposed-widgets {
   margin-bottom: 0;
 }
-/*#views-exposed-form-occupation-directory-occupations-list .views-submit-button,
-#views-exposed-form-occupation-directory-occupations-list .views-reset-button,
-#views-exposed-form-occupation-directory-occupations-manage .views-submit-button,
-#views-exposed-form-occupation-directory-occupations-manage .views-reset-button {
-  float:right;
-}*/
+
 #views-exposed-form-occupation-directory-occupations-list .views-submit-button,
 #views-exposed-form-occupation-directory-occupations-manage .views-submit-button {
   margin-left:5em;
 }
 
 
-/********* Occupation Directory Views table listing page */
-
+/*
+----------------------------------------------
+Occupation Directory Views table listing page
+----------------------------------------------
+*/
 
 .occupations-list h1.title {
   display: none;
 }
-
 
 div.view-display-id-occupations_list table img {
   padding-right: 8px;
@@ -380,14 +489,13 @@ div.view-display-id-occupations_list table img {
 }
 
 
+/*
+--------------
+Curator Views
+--------------
+*/
 
-/********* Curator Views */
-
-
-.manage-occupations tbody,
-.manage-comments tbody {
-}
-
+.manage-occupations tbody, .manage-comments tbody {}
 
 #views-exposed-form-occupation-directory-occupations-manage .views-exposed-widget {
   padding: 0 .8em 0 0;
@@ -400,33 +508,34 @@ div.view-display-id-occupations_list table img {
   width: 200px;
 }
 
-
-
 .manage-occupations table.views-table,
 .manage-comments table.views-table {
   margin-top: 1em;
-  line-height:1em;
 }
+
 .manage-occupations #edit-select .fieldset-legend,
 .manage-comments #edit-select .fieldset-legend {
   display: none;
 }
+
 .manage-occupations thead,
 .manage-comments thead {
   border: 1px solid #000;
   border-bottom: 4px solid #333;
 }
+
 .manage-occupations thead th,
 .manage-comments thead th {
   background: #000;
   color:#fff;
-/*  padding: 10px 0;*/
 }
+
 .manage-occupations th.active,
 .manage-comments th.active {
   border-left: 1px solid #333;
   border-right: 1px solid #333;
 }
+
 .manage-occupations td,
 .manage-comments td {
   padding-top: 8px;
@@ -434,7 +543,11 @@ div.view-display-id-occupations_list table img {
 }
 
 
-/********* Total Occupations */
+/*
+------------------
+Total Occupations
+------------------
+*/
 
 .edit-link {
   display: inline-block;
@@ -444,7 +557,6 @@ div.view-display-id-occupations_list table img {
 
 .total-occupations tr {
   height: 60px;
-  line-height: 1.2em;
   font-style: italic;
   color:#ccc;
 }
@@ -459,53 +571,8 @@ div.view-display-id-occupations_list table img {
   font-style:normal;
 }
 
-/* Occupation count block*/
-
-div.block-occupation-count {
-  position: absolute;
-  z-index:86;
-  top: 18px;
-  color: #ddd;
-  color: rgba(0, 0, 0, .2);
-  font-style: italic;
-}
-div.block-occupation-count .count-result {
-}
-div.block-occupation-count .count-label {
-}
-
 div.view-display-id-occupations_list table img { }
 
-
-/*****************  OPEN LAYERS ******/
-/* Map pop-ups */
-.openlayers-map .olPopup a:link, .openlayers-map .olPopup a:visited {
-  color: #FFF;
-}
-.openlayers-map .olPopup a:hover {
-  color: #4298DD;
-  text-decoration: none;
-}
-.olControlPermalink a:link, .olControlPermalink a:visited {
-  color:#fff;
-  text-transform:lowercase;
-}
-.olPopupCloseBox {
-  background-image: url(/sites/all/modules/contrib/openlayers/themes/default_dark/img/layer-switcher-minimize.png) !important;
-}
-.view-map-displays .olControlZoomPanel,
-.node-type-occupation .olControlZoomPanel {
-  top: 10px;
-  left: 10px;
-}
-.view-map-displays h3.o-name {
-  padding:0;
-  line-height:1em;
-}
-.view-map-displays div.o-image {
-  float:left;
-
-}
 
 /* MORE HACKS */
 
@@ -513,13 +580,10 @@ div.view-display-id-occupations_list table img { }
 
 /* twitter pull styles */
 
-.twitter-pull h2.block-title {
-  line-height:2em;
-}
 ul.tweets-pulled-listing {
   list-style: none;
-  line-height:1.25em;
 }
+
 ul.tweets-pulled-listing div.tweet-authorphoto {
   margin: 0 4px 0 0;
   float: left;
@@ -555,19 +619,7 @@ ul.tweets-pulled-listing  div.tweet-divider {
 .page-occupations-cards .views-row:first-child {
 }
 
-
-/* occupy.net navbar*/
-#zone-navbar.container-12 {
-  width:100%;
-}
-#region-navbar.grid-12 {
-  width:100%;
-  margin: 0;
-}
-
-
 /* HACKS */
-
 
 /* new views pager renders "previous" instead of "prev" */
 .pager li.pager-previous a {
@@ -580,76 +632,76 @@ ul.tweets-pulled-listing  div.tweet-divider {
   clear:none;
 }
 
-/* footer */
+
+/*
+------------------------------------------------------------
+Footer
+------------------------------------------------------------
+*/
+
 footer {
-  background: #fc0;
+  background: #0af;
   height: 3em;
   position: fixed;
   bottom: 0;
   z-index: 500;
-  width: 100%;
 }
 
-#region-footer-second .block-menu .content{
-  font-size: 1.25em;
-}
-
-#region-footer-second {
-  border-left: 1px #c69705 solid;  
-}
-
-footer .block-menu a{
+footer .block-menu .content a{
     padding: .75em 1em;
 }
 
-#region-footer-second #block-menu-menu-add-your-occupation .content a{
-  display: inline-block;
-  padding: .75em 1em;
-  border-right: 1px #c69705 solid;
+footer #block-menu-menu-add-your-occupation {
+  border-left: 1px #000 solid;  
+  font-size: 1.25em;
 }
 
-#block-menu-menu-add-your-occupation{
+footer #block-menu-menu-add-your-occupation .content a{
+  display: inline-block;
+  padding: .75em 1em;
+  border-right: 1px #000 solid;
+}
+
+footer #block-menu-menu-add-your-occupation{
   width: 300px;
   float: left;
 }
 
-#block-menu-menu-social-media-links{
-  padding-top: .75em;
-  float: right;
+footer #block-menu-menu-social-media-links{
+  padding: .75em 2em 0 2em;
+  float: left;
 }
 
-#block-menu-menu-social-media-links h3.block-title{
+footer #block-menu-menu-social-media-links h3.block-title{
   display: none;
 }
 
-#block-menu-menu-social-media-links ul li{
+footer #block-menu-menu-social-media-links ul li{
   display: inline-block;
   width: 24px;
   height: 24px;  
 }
 
-#block-menu-menu-social-media-links ul li a{
+footer #block-menu-menu-social-media-links ul li a{
   display: block;
   text-indent: -2000px;
 }
 
-/*
-@todo: id like to install http://drupal.org/project/menu_attributes so we can do this properly
-*/
-#block-menu-menu-social-media-links ul li.first.leaf{
+footer #block-menu-menu-social-media-links ul li.first.leaf{
   background-image: url( "/sites/all/themes/occupy_directory/images/facebook.png" );
   background-repeat: no-repeat;
 }
 
-#block-menu-menu-social-media-links ul li.last.leaf{
+footer #block-menu-menu-social-media-links ul li.last.leaf{
   background: url( "/sites/all/themes/occupy_directory/images/twitter.png" ) no-repeat;
   background-repeat: no-repeat;
 }
 
-
-#block-menu-menu-feeds-and-exports{
-  background: #fc0;
-  padding:1em;
+footer #block-menu-menu-feeds-and-exports{
+  width: 16em;
+  float: right;
+  background-color: #0af;
+  padding: .5em;
   -webkit-transition: all .5s ease-in-out;
   -moz-transition: all .5s ease-in-out;
   -o-transition: all .5s ease-in-out;
@@ -657,27 +709,24 @@ footer .block-menu a{
   transition: all .5s ease-in-out;
 }
 
-
-#block-menu-menu-feeds-and-exports ul li{
-  border-bottom: 1px #c69705 solid;
+footer #block-menu-menu-feeds-and-exports ul li{
+  border-bottom: 1px #0076a5 solid;
   margin: .5em 0;
 }
 
-#block-menu-menu-feeds-and-exports ul ul li a{
+footer #block-menu-menu-feeds-and-exports ul ul li a{
   display: block;
   padding: .25em .5em;
 }
 
-
-#block-menu-menu-feeds-and-exports h3{
+footer #block-menu-menu-feeds-and-exports h3{
   margin-top: 0;
 }
 
-#block-menu-menu-feeds-and-exports:hover{
+footer #block-menu-menu-feeds-and-exports:hover{
   transform: translate(0,-180px);
   -ms-transform: translate(0,-180px); /* IE 9 */
   -webkit-transform: translate(0,-180px); /* Safari and Chrome */
   -o-transform: translate(0,-180px); /* Opera */
   -moz-transform: translate(0,-180px); /* Firefox */
 };
-
