@@ -26,12 +26,16 @@ footer{
 
 #region-user-first{
   background: #f9b018;
-  padding: 1.75em .5em .875em .5em;
+  padding: 1.725em .5em 0 .5em;
 }
 
 #region-user-first ul li{
   display: inline-block;
   margin-right: .25em;
+}
+
+header .ajax-register-links li.last {
+  display:none !important;
 }
 
 /*

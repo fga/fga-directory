@@ -40,6 +40,7 @@ regions[user_first] = 'User Bar First'
 regions[user_second] = 'User Bar Second'
 regions[branding] = 'Branding'
 regions[menu] = 'Menu'
+regions[search] = "Search"
 regions[sidebar_first] = 'Sidebar First'
 regions[sidebar_second] = 'Sidebar Second'
 ;regions[header_first] = 'Header First'
