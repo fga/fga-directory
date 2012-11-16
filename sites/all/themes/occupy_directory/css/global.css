@@ -24,23 +24,14 @@ footer{
   margin: 0;
 }
 
-#zone-header{
-  width: 50%;
-  float: left;
+#region-user-first{
+  padding: 1.75em .5em 0 .5em;
 }
 
-#zone-menu{
-  float: right;
-  width: 50%;
+#region-user-first ul li{
+  display: inline-block;
+  margin-right: .25em;
 }
-/* fix omega bullshit */
-#region-user-first,
-#region-footer-second{
-  width: auto !important;
-  float: right;
-  margin-right: 2em;
-}
-
 
 /*
 -------------------------
@@ -72,18 +63,32 @@ Header
 header{
   position: relative;
   background: #fc0;
-  height: 4em;
+  height: 56px;
 }
 
+.not-logged-in header{
+  height: 86px;
+}
+
+/* undo grid bits where necessary
+in an ideal world, omega would have a checkbox that simply says
+no grid for this zone/region/section just cause you are using a grid
+doesn't mean everything falls into it.
+Zen here I come!
+*/
+#zone-header,
+#zone-menu,
+#region-menu,
 .branding-data,
-.logo-img{
+.logo-img {
+  margin: 0 0 0 0;
+  width: auto;
   float: left;
 }
 
 .logo-img{
   margin: 0 1em 0 0;
 }
-
 
 #region-branding{
   width: 564px;
@@ -94,12 +99,11 @@ header{
 }
 
 .site-name-slogan{
-  padding-top: .75em;
+  display: inline-block;
 }
 
-#region-menu{ 
+#zone-menu{ 
   float: right;
-  border-left: 1px #000 solid;
 }
 
 /*
@@ -108,23 +112,17 @@ Occupation Count Box
 -------------------------
 */
 
-.boxes-box-content{  
+#block-boxes-occupation-count {
   display: inline-block;
   background: #000;
   margin: 0 auto;
   padding: .375em .5em .25em .5em;
 }
 
-.boxes-box-content h4{
+#block-boxes-occupation-count h4{
   color: #fc0;
   margin-bottom: .25em;
 }
-
-.boxes-box-content .small{
-  display: inline-block;
-  clear: both;
-}
-
 
 /*
 ------------
@@ -134,32 +132,36 @@ Navigation
 
 nav.navigation {
   position: relative;
-  font-size: 1.5em;
   float: left;
+  height: 56px;
 }
 
-nav.navigation: ul{
+nav.navigation ul,
+nav.navigation li {
+  height: 56px;
+}
+
+nav.navigation ul{
   border-left: 1px #000 solid;
 }
 
 nav.navigation li{
-  display: inline-block;
-  margin: 0 0 0 .5em;
+  display: block;
+  float: left;
+  margin: 0 0 0 0;
   border-right: 1px #000 solid;
 }
 
 nav.navigation li a{
   display: block;
-  padding: .5em .75em;
+  padding: 1em .75em .7125em .75em;
   text-decoration: none;
 }
 
-nav a.active{ background: #000; color: #fc0; }
-
+nav a.active { background: #000; color: #fc0; }
 nav a:hover { background-color: #000; color: #fc0; }
 
-.tabs{
-}
+.tabs{}
 
 .tabs.primary{
   font-size: 1em;
@@ -204,7 +206,8 @@ nav a:hover { background-color: #000; color: #fc0; }
   -moz-border-radius: 0 0 .4em .4m;
   -webkit-border-radius: 0 0 .4em .4em;
 }
-.block-user-menu ul li a:link, .block-user-menu ul li a:visited {
+.block-user-menu ul li a:link, 
+.block-user-menu ul li a:visited {
   color: #aaa;
 }
 .block-user-menu ul li a:hover {
@@ -282,18 +285,17 @@ article p { /* affect all node types */
   -webkit-border-radius: .25em;
 }
 
-.field-group-format.grouplinks a:hover,
- #block-menu-menu-feeds-and-exports li a:hover{
+.field-group-format.grouplinks a:hover{
  background-color: #d0d0d0;
  text-decoration: none;
  color: black;
 }
 
-#block-menu-menu-feeds-and-exports li a:hover{
+/*#block-menu-menu-feeds-and-exports li a:hover{
  background-color: #000;
  text-decoration: none;
  color: #efefef;
-}
+}*/
 
 .field-name-field-occupation-website {
   padding-bottom: 1em;
@@ -648,7 +650,14 @@ footer {
 }
 
 footer .block-menu .content a{
-    padding: .75em 1em;
+  display: block;
+  padding: .125em 1em;
+  text-decoration: none;
+}
+
+footer .block-menu .content a:hover{
+  background: #000;
+  color: #0af;
 }
 
 footer #block-menu-menu-add-your-occupation {
@@ -698,10 +707,11 @@ footer #block-menu-menu-social-media-links ul li.last.leaf{
 }
 
 footer #block-menu-menu-feeds-and-exports{
-  width: 16em;
+  width: 12em;
   float: right;
+  padding-bottom: 3em;
   background-color: #0af;
-  padding: .5em;
+  border-left: 1px #000 solid;
   -webkit-transition: all .5s ease-in-out;
   -moz-transition: all .5s ease-in-out;
   -o-transition: all .5s ease-in-out;
@@ -711,22 +721,20 @@ footer #block-menu-menu-feeds-and-exports{
 
 footer #block-menu-menu-feeds-and-exports ul li{
   border-bottom: 1px #0076a5 solid;
-  margin: .5em 0;
 }
 
 footer #block-menu-menu-feeds-and-exports ul ul li a{
   display: block;
-  padding: .25em .5em;
 }
 
 footer #block-menu-menu-feeds-and-exports h3{
-  margin-top: 0;
+  margin: .5em 1em .5em .5em;
 }
 
 footer #block-menu-menu-feeds-and-exports:hover{
-  transform: translate(0,-180px);
-  -ms-transform: translate(0,-180px); /* IE 9 */
-  -webkit-transform: translate(0,-180px); /* Safari and Chrome */
-  -o-transform: translate(0,-180px); /* Opera */
-  -moz-transform: translate(0,-180px); /* Firefox */
+  transform: translate(0,-150px);
+  -ms-transform: translate(0,-150px); /* IE 9 */
+  -webkit-transform: translate(0,-150px); /* Safari and Chrome */
+  -o-transform: translate(0,-150px); /* Opera */
+  -moz-transform: translate(0,-150px); /* Firefox */
 };
