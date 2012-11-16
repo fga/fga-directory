@@ -146,17 +146,17 @@ function occupation_directory_structure_context_default_contexts() {
   $context->reactions = array(
     'block' => array(
       'blocks' => array(
-        'system-user-menu' => array(
-          'module' => 'system',
-          'delta' => 'user-menu',
+        'ajax_register-ajax_register_block' => array(
+          'module' => 'ajax_register',
+          'delta' => 'ajax_register_block',
           'region' => 'user_first',
           'weight' => '-10',
         ),
-        'menu-menu-feeds-and-exports' => array(
+        'menu-menu-social-media-links' => array(
           'module' => 'menu',
-          'delta' => 'menu-feeds-and-exports',
+          'delta' => 'menu-social-media-links',
           'region' => 'footer_first',
-          'weight' => '10',
+          'weight' => '-10',
         ),
         'menu-menu-add-your-occupation' => array(
           'module' => 'menu',
@@ -164,11 +164,11 @@ function occupation_directory_structure_context_default_contexts() {
           'region' => 'footer_first',
           'weight' => '0',
         ),
-        'menu-menu-social-media-links' => array(
+        'menu-menu-feeds-and-exports' => array(
           'module' => 'menu',
-          'delta' => 'menu-social-media-links',
+          'delta' => 'menu-feeds-and-exports',
           'region' => 'footer_first',
-          'weight' => '-10',
+          'weight' => '10',
         ),
       ),
     ),

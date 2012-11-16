@@ -5,6 +5,7 @@ package = FGA
 php = 5.2.4
 version = 7.x-0.26
 project = occupation_directory_structure
+dependencies[] = ajax_register
 dependencies[] = block
 dependencies[] = boxes
 dependencies[] = context
