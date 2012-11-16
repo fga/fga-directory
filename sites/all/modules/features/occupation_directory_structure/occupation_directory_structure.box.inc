@@ -10,16 +10,19 @@
 function occupation_directory_structure_default_box() {
   $export = array();
 
+  // Return the total number of published occupations
+  // todo: cache results!
+  $occupation_count = db_query("SELECT COUNT(*) FROM {node} WHERE type = 'occupation' AND status = 1")->fetchField();
   $box = new stdClass();
   $box->disabled = FALSE; /* Edit this to true to make a default box disabled initially */
   $box->api_version = 1;
   $box->delta = 'occupation_count';
   $box->plugin_key = 'simple';
   $box->title = '';
-  $box->description = 'Occupation Count';
+  $box->description = 'Occupation Count';  
   $box->options = array(
     'body' => array(
-      'value' => '<h4 id="occupation-count">1493 Occupations</h4>',
+      'value' => '<h4 id="occupation-count">'. t( "@count Occupations", array('@count' => $occupation_count) ) . '</h4>',
       'format' => 'php_code',
     ),
     'additional_classes' => '',
