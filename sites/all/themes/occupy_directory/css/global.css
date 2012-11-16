@@ -25,7 +25,8 @@ footer{
 }
 
 #region-user-first{
-  padding: 1.75em .5em 0 .5em;
+  background: #f9b018;
+  padding: 1.75em .5em .875em .5em;
 }
 
 #region-user-first ul li{
@@ -80,13 +81,16 @@ Zen here I come!
 #zone-menu,
 #region-menu,
 .branding-data,
-.logo-img {
+.logo-img,
+#region-user-first{
   margin: 0 0 0 0;
   width: auto;
   float: left;
 }
 
 .logo-img{
+  z-index: 1000;
+  position: absolute;
   margin: 0 1em 0 0;
 }
 
@@ -99,7 +103,7 @@ Zen here I come!
 }
 
 .site-name-slogan{
-  display: inline-block;
+  margin-left: 7em;  
 }
 
 #zone-menu{ 
@@ -229,12 +233,14 @@ Content
 --------
 */
 
-.not-front #region-content{
-  padding-bottom: 12em;  
+
+#region-content{
+  margin: 0;
+  padding: 0;
 }
 
-.front #region-content{
-  padding-bottom:0;
+.not-front #region-content{
+  padding-bottom: 12em;  
 }
 
 .zone-preface-wrapper {
@@ -412,6 +418,15 @@ Views
 Exposed view search form formatting
 ------------------------------------
 */
+
+#block-views-exp-global-search-page{
+  position: relative;
+  z-index: 999;
+  margin: 0 0 0 0;
+  height: 3em;
+  background: #3d3d3d;
+  box-shadow: 0px 0px 12px #222;
+}
 
 #views-exposed-form-occupation-directory-occupations-list,
 #views-exposed-form-occupation-directory-occupations-manage {
@@ -677,7 +692,8 @@ footer #block-menu-menu-add-your-occupation{
 }
 
 footer #block-menu-menu-social-media-links{
-  padding: .75em 2em 0 2em;
+  padding: .75em 2em .5em 2em;
+  border-right: 1px #000 solid;
   float: left;
 }
 

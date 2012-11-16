@@ -41,7 +41,9 @@ h4{
   font-size: 1.25em;
 }
 
-.site-name{ margin-top: .5em; }
+.site-name{
+  margin-top: .475em;
+}
 
 nav {  font-size: 1.575em; }
 
