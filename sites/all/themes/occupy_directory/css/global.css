@@ -93,7 +93,7 @@ Zen here I come!
 }
 
 .logo-img{
-  z-index: 1000;
+  z-index: 901;
   position: absolute;
   margin: 0 1em 0 0;
 }
@@ -174,19 +174,27 @@ nav.navigation li a{
 nav a.active { background: #000; color: #fc0; }
 nav a:hover { background-color: #000; color: #fc0; }
 
+
+/* Tabs */
+
 .tabs{}
 
 .tabs.primary{
-  font-size: 1em;
+  position: fixed;
+  z-index: 905;
+  left: 0;
+  top: 45%;
+  font-size: 1.125em;
 }
 
-.tabs ul{
+/*.tabs ul{
   border-bottom: 1px #dedede solid;
 }
-
+*/
 .tabs ul li{
-  display: inline-block;
-  margin: 0 0 0 .25em;
+  display: block;
+  clear: both;
+  margin: 0 0 1px 0;
 }
 
 .tabs ul li:first-child{
@@ -207,6 +215,8 @@ nav a:hover { background-color: #000; color: #fc0; }
   background: #000;
   color: #fc0;
 }
+
+/* Menus */
 
 .block-user-menu ul li {
   list-style-type: none;
@@ -430,7 +440,7 @@ Exposed view search form formatting
 
 #block-views-exp-global-search-page{
   position: relative;
-  z-index: 999;
+  z-index: 900;
   margin: 0 0 0 0;
   height: 3em;
   background: #3d3d3d;
