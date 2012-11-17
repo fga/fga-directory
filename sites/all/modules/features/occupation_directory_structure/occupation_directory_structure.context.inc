@@ -149,8 +149,8 @@ function occupation_directory_structure_context_default_contexts() {
         'ajax_register-ajax_register_block' => array(
           'module' => 'ajax_register',
           'delta' => 'ajax_register_block',
-          'region' => 'user_first',
-          'weight' => '-10',
+          'region' => 'menu',
+          'weight' => '20',
         ),
         'menu-menu-social-media-links' => array(
           'module' => 'menu',

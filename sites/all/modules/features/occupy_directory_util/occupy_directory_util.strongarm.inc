@@ -732,7 +732,7 @@ user/*/*';
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'site_slogan';
-  $strongarm->value = '';
+  $strongarm->value = 'A public listing of occupation sites built by and for the Occupy movement.';
   $export['site_slogan'] = $strongarm;
 
   $strongarm = new stdClass();
