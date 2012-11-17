@@ -11,10 +11,10 @@ Override grid settings for Header, Footer and Homepage Map
 
 #zone-navbar, /* occupy.net navbar */
 #region-navbar, /* occupy.net navbar */
+#zone-header,
 #zone-footer,
 .front #zone-content,
 .front #region-content,
-#region-header,
 #directory-map-wrapper,
 #map-embed,
 #region-footer-first,
@@ -24,15 +24,6 @@ footer{
   margin: 0;
 }
 
-#region-user-first{
-  background: #f9b018;
-  padding: 1.725em .5em 0 .5em;
-}
-
-#region-user-first ul li{
-  display: inline-block;
-  margin-right: .25em;
-}
 
 header .ajax-register-links li.last {
   display:none !important;
@@ -81,12 +72,11 @@ no grid for this zone/region/section just cause you are using a grid
 doesn't mean everything falls into it.
 Zen here I come!
 */
-#zone-header,
-#zone-menu,
-#region-menu,
+
+#region-header,
 .branding-data,
 .logo-img,
-#region-user-first{
+#block-ajax-register-ajax-register-block {
   margin: 0 0 0 0;
   width: auto;
   float: left;
@@ -95,15 +85,11 @@ Zen here I come!
 .logo-img{
   z-index: 901;
   position: absolute;
-  margin: 0 1em 0 0;
+  top: -5px;
 }
 
 #region-branding{
   width: 564px;
-}
-
-.branding-data{
-  width: 365px;
 }
 
 .site-name-slogan{
@@ -115,9 +101,11 @@ Zen here I come!
   top: -1000px;
 }
 
-#zone-menu{ 
+#region-menu{ 
   float: right;
+  margin: 0;
 }
+
 
 /*
 -------------------------
@@ -128,7 +116,7 @@ Occupation Count Box
 #block-boxes-occupation-count {
   display: inline-block;
   background: #000;
-  margin: 0 auto;
+  margin: 0 0 0 2em;
   padding: .375em .5em .25em .5em;
 }
 
@@ -174,6 +162,15 @@ nav.navigation li a{
 nav a.active { background: #000; color: #fc0; }
 nav a:hover { background-color: #000; color: #fc0; }
 
+#block-ajax-register-ajax-register-block{
+  padding: .575em 1em 0 1em;
+  background: #f9b018;
+  line-height: 1.2;
+}
+
+#block-ajax-register-ajax-register-block ul li{
+  margin-left: 0;
+}
 
 /* Tabs */
 
@@ -442,9 +439,25 @@ Exposed view search form formatting
   position: relative;
   z-index: 900;
   margin: 0 0 0 0;
-  height: 3em;
+  padding: .25em .5em;
   background: #3d3d3d;
   box-shadow: 0px 0px 12px #222;
+}
+
+#edit-search-wrapper{
+  float: left;
+}
+
+#block-views-exp-global-search-page .views-submit-button,
+#block-views-exp-global-search-page #edit-submit-global-search{
+  padding: 0;
+  margin: 0;
+}
+
+#block-views-exp-global-search-page .views-submit-button{ margin-top: .5em; }
+
+#block-views-exp-global-search-page #edit-submit-global-search{
+  padding: .25em .5em;
 }
 
 #views-exposed-form-occupation-directory-occupations-list,
@@ -452,15 +465,13 @@ Exposed view search form formatting
 }
 
 #views-exposed-form-occupation-directory-occupations-list label {
- display: inline;
- padding-left: 2em;
- padding-right: .5em;
+ display: inline-block;
+ padding: 2em .5em;
 }
 
 #views-exposed-form-occupation-directory-occupations-list input,
 #views-exposed-form-occupation-directory-occupations-list select,
 #views-exposed-form-occupation-directory-occupations-list div {
- display: inline;
  margin: 0;
 }
 
@@ -474,7 +485,7 @@ Exposed view search form formatting
 }
 
 #views-exposed-form-occupation-directory-occupations-list input.form-submit {
- margin-left: .75em;
+ margin-left: 0 0 0 0;
 }
 
 #views-exposed-form-occupation-directory-occupations-list .views-exposed-widgets,
@@ -508,7 +519,10 @@ div.view-display-id-occupations_list table img {
   margin: 0 0 1em;
   font-style: italic;
 }
-.list-occupations .view-header .occupation-count {}
+.list-occupations .view-header .occupation-count {
+
+}
+
 .list-occupations .view-header .occupation-count .occupation-count-span,
 .list-occupations .view-header .occupation-count .occupation-count-total {
   padding:0 0.2em;
