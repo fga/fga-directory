@@ -23,7 +23,7 @@ Links
 -------------------------
 */
 
-a:link, a:visited { color: #222; }
+a:link, a:visited { color: #9f9f9f; }
 
 a:hover,
 a:active {
@@ -167,22 +167,18 @@ nav a:hover { background-color: #000; color: #fc0; }
 
 .tabs{}
 
-.tabs.primary{
+/*.tabs.primary{
   position: fixed;
   z-index: 905;
   left: 0;
   top: 45%;
   font-size: 1.125em;
 }
-
+*/
 .tabs ul li{
-  display: block;
+  display: inline-block;
   clear: both;
-  margin: 0 0 1px 0;
-}
-
-.tabs ul li:first-child{
-  margin:0 0 0 0;
+  margin: 0 2px 0 0;
 }
 
 .tabs ul li a{
@@ -260,9 +256,9 @@ article a:hover, article a:active {
   padding-bottom: 12em;
 }
 
-.not-front #zone-content{
-  margin-top: 4em;
-}
+/*.not-front #zone-content{
+padding-top: 4em;
+}*/
 
 .context-about .article p:first-child{
   font-size: 1.5em;
@@ -402,6 +398,19 @@ article.comment nav.comment-links {
   margin-top: 1em;
 }
 
+.comment-wrapper{
+  font-size: .875em;
+}
+
+.comment-wrapper article{
+  padding: 1em;
+  background: #fffade;
+}
+
+.field-name-field-comment-state{
+  background:#fff;
+  padding: .25em .5em;
+}
 /* hide log in or register to post comments since we use talk */
 /*
 article.comment nav.comment-links li.comment_forbidden {
@@ -420,6 +429,12 @@ array and override the comment_forbidden key. CSS to the rescue for now.
 
 #comments h2.title {
   display: none;
+}
+
+.links.inline li{
+  font-size: .75em;
+  margin: 0 .5em 0 0;
+  display: inline-block;
 }
 
 div.talk-page li.comment_forbidden,
@@ -580,7 +595,8 @@ Curator Views
 --------------
 */
 
-.manage-occupations tbody, .manage-comments tbody {}
+.manage-occupations tbody,
+.manage-comments tbody {}
 
 #views-exposed-form-occupation-directory-occupations-manage .views-exposed-widget {
   padding: 0 .8em 0 0;
@@ -589,6 +605,7 @@ Curator Views
 #views-exposed-form-occupation-directory-occupations-manage .form-submit {
   margin-top: 2em;
 }
+
 #views-exposed-form-occupation-directory-occupations-manage .form-item-search input {
   width: 200px;
 }
@@ -640,11 +657,35 @@ Total Occupations
   margin-right: 35%;
 }
 
-.total-occupations tr {
+.list-occupations thead{
+  background: #262626;
+  padding: .5em;
+}
+
+.list-occupations table{
+  position: absolute;
+  left: 0;
+  max-width: 670px;
+  min-width: 550px;
+  color: #eee;
+}
+
+.list-occupations tr{
+  padding: .5em;
+  background: #151515;
+  border-bottom: none;
+}
+
+.list-occupations tr.odd{
+  background: #000;
+}
+
+/*.total-occupations tr {
   height: 60px;
   font-style: italic;
   color:#ccc;
 }
+*/
 
 .total-occupations tr td {
   vertical-align: top;
@@ -684,7 +725,7 @@ Footer
 ------------------------------------------------------------
 */
 
-footer {
+footer#section-footer {
   background: #aaa;
   height: 3em;
   position: fixed;
@@ -692,73 +733,73 @@ footer {
   z-index: 500;
 }
 
-footer .block-menu .content a{
+footer#section-footer .block-menu .content a{
   display: block;
   padding: .125em 1em;
   text-decoration: none;
 }
 
-footer .block-menu .content a:hover{
+footer#section-footer .block-menu .content a:hover{
   background: #000;
   color: #aaa;
 }
 
-footer #block-menu-menu-add-your-occupation {
+footer#section-footer #block-menu-menu-add-your-occupation {
   font-size: 1.25em;
 }
 
-footer #block-menu-menu-add-your-occupation .content a{
+footer#section-footer #block-menu-menu-add-your-occupation .content a{
   display: inline-block;
   padding: .75em 1em;
   border-right: 1px #000 solid;
 }
 
 
-footer #block-menu-menu-social-media-links{
+footer#section-footer #block-menu-menu-social-media-links{
   padding: .75em 2em .5em 2em;
   border-right: 1px #000 solid;
   float: left;
 }
 
-footer #block-menu-menu-social-media-links h3.block-title{
+footer#section-footer #block-menu-menu-social-media-links h3.block-title{
   display: none;
 }
 
-footer #block-menu-menu-social-media-links ul li{
+footer#section-footer #block-menu-menu-social-media-links ul li{
   display: inline-block;
   width: 24px;
   height: 24px;
 }
 
-footer #block-menu-menu-social-media-links ul li a{
+footer#section-footer #block-menu-menu-social-media-links ul li a{
   display: block;
   text-indent: -2000px;
 }
 
-footer #block-menu-menu-social-media-links ul li.first.leaf{
+footer#section-footer #block-menu-menu-social-media-links ul li.first.leaf{
   background-image: url( "/sites/all/themes/occupy_directory/images/facebook.png" );
   background-repeat: no-repeat;
 }
 
-footer #block-menu-menu-social-media-links ul li.last.leaf{
+footer#section-footer #block-menu-menu-social-media-links ul li.last.leaf{
   background: url( "/sites/all/themes/occupy_directory/images/twitter.png" ) no-repeat;
   background-repeat: no-repeat;
 }
 
 
-footer #block-menu-menu-feeds-and-exports ul li{
+footer#section-footer #block-menu-menu-feeds-and-exports ul li{
   border-bottom: 1px #666 solid;
 }
 
-footer #block-menu-menu-feeds-and-exports ul ul li a{
+footer#section-footer #block-menu-menu-feeds-and-exports ul ul li a{
   display: block;
 }
 
-footer #block-menu-menu-feeds-and-exports h3{
+footer#section-footer #block-menu-menu-feeds-and-exports h3{
   margin: .5em 1em .5em .5em;
 }
 
-footer #block-menu-menu-feeds-and-exports:hover{
+footer#section-footer #block-menu-menu-feeds-and-exports:hover{
   transform: translate(0,-170px);
   -ms-transform: translate(0,-170px); /* IE 9 */
   -webkit-transform: translate(0,-170px); /* Safari and Chrome */

@@ -9,6 +9,8 @@
 #directory-map-wrapper,
 #map-embed,
 #region-footer-first,
+.occupations-list #zone-content,
+.occupations-list #region-content,
 footer{
   width: 100%;
   padding: 0;
