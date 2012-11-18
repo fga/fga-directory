@@ -6,18 +6,51 @@ Type and Vertical Rythm Definitions
 
 @font-face {
   font-family: 'Dosis Light';
-  src: url("/sites/all/themes/occupy_directory/fonts/dosis-light-webfont.eot");
-  src: url("/sites/all/themes/occupy_directory/fonts/dosis-light-webfont.eot?#iefix") format("embedded-opentype"), url("/sites/all/themes/occupy_directory/fonts/dosis-light-webfont.ttf") format("truetype"), url("/sites/all/themes/occupy_directory/fonts/dosis-light-webfont.woff") format("woff"), url("/sites/all/themes/occupy_directory/fonts/dosis-light-webfont.svg#dosislight") format("svg");
+  src: url("/sites/all/themes/occupy_directory/fonts/dosis/dosis-light-webfont.eot");
+  src: url("/sites/all/themes/occupy_directory/fonts/dosis/dosis-light-webfont.eot?#iefix") format("embedded-opentype"), url("/sites/all/themes/occupy_directory/fonts/dosis/dosis-light-webfont.ttf") format("truetype"), url("/sites/all/themes/occupy_directory/fonts/dosis/dosis-light-webfont.woff") format("woff"), url("/sites/all/themes/occupy_directory/fonts/dosis/dosis-light-webfont.svg#dosislight") format("svg");
   font-style: normal;
-  font-weight: 300;
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: 'PTSansRoman';
+  src: url("/sites/all/themes/occupy_directory/fonts/ptsans/PTC55F-webfont.eot");
+  src: url("/sites/all/themes/occupy_directory/fonts/ptsans/PTC55F-webfont.eot?#iefix") format("embedded-opentype"), url("/sites/all/themes/occupy_directory/fonts/ptsans/PTC55F-webfont.ttf") format("truetype"), url("/sites/all/themes/occupy_directory/fonts/ptsans/PTC55F-webfont.woff") format("woff"), url("/sites/all/themes/occupy_directory/fonts/ptsans/PTC55F-webfont.svg#dosislight") format("svg");
+  font-style: normal;
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: 'PTSansItalic';
+  src: url("/sites/all/themes/occupy_directory/fonts/ptsans/PTS56F-webfont.eot");
+  src: url("/sites/all/themes/occupy_directory/fonts/ptsans/PTS56F-webfont.eot?#iefix") format("embedded-opentype"), url("/sites/all/themes/occupy_directory/fonts/ptsans/PTS55F-webfont.ttf") format("truetype"), url("/sites/all/themes/occupy_directory/fonts/ptsans/PTS55F-webfont.woff") format("woff"), url("/sites/all/themes/occupy_directory/fonts/ptsans/PTS55F-webfont.svg#dosislight") format("svg");
+  font-style: normal;
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: 'PTSansBold';
+  src: url("/sites/all/themes/occupy_directory/fonts/ptsans/PTS75F-webfont.eot");
+  src: url("/sites/all/themes/occupy_directory/fonts/ptsans/PTS75F-webfont.eot?#iefix") format("embedded-opentype"), url("/sites/all/themes/occupy_directory/fonts/ptsans/PTS75F-webfont.ttf") format("truetype"), url("/sites/all/themes/occupy_directory/fonts/ptsans/PTS75F-webfont.woff") format("woff"), url("/sites/all/themes/occupy_directory/fonts/ptsans/PTS75F-webfont.svg#dosislight") format("svg");
+  font-style: normal;
+  font-weight: normal;
+
 }
 
 body {
-  font-family: 'Dosis Light', helvetica, arial, sans-serif;
+  font-family: 'PTSansRoman', helvetica, arial, sans-serif;
   font-style: normal;
   font-weight: 300;
   font-size: 14px;
   line-height: 18px;
+}
+
+i, em{
+  font-family: 'PTSansItalic', helvetica, arial, sans-serif;
+}
+
+b, strong{
+  font-family: 'PTSansBold', helvetica, arial, sans-serif;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -26,6 +59,10 @@ h1, h2, h3, h4, h5, h6 {
 	margin-top: 1em;
 	margin-bottom: .5em;
 	font-weight: 300;
+}
+
+nav, footer .menu{
+  font-family: 'Dosis Light', helvetica, arial, sans-serif; font-style: normal; font-weight: 300;
 }
 
 h1 {
@@ -76,7 +113,7 @@ article p { /* affect all node types */
 }
 
 article p:first-child{
-  font-size: 1.5em;
+  font-size: 1.25em;
   line-height: 1.125em;
 }
 
