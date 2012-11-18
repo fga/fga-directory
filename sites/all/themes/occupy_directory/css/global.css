@@ -56,7 +56,7 @@ Header
 #page-title { display: none; }
 
 .node-type-occupation #page-title{
-  display: block;
+  display: block !important;
 }
 
 #region-branding, #region-menu{
