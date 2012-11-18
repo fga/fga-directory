@@ -52,11 +52,11 @@ function occupations_context_default_contexts() {
   $context->reactions = array(
     'block' => array(
       'blocks' => array(
-        'views-fb774b8c338b94662d3aab27b7b1bfc9' => array(
+        'views--exp-global_search-page' => array(
           'module' => 'views',
-          'delta' => 'fb774b8c338b94662d3aab27b7b1bfc9',
-          'region' => 'preface_first',
-          'weight' => '-10',
+          'delta' => '-exp-global_search-page',
+          'region' => 'search',
+          'weight' => '-24',
         ),
       ),
     ),
