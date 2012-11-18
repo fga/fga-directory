@@ -10,9 +10,6 @@ Override grid settings for Header, Footer and Homepage Map
 }
 
 
-
-#zone-navbar { height: 30px; }
-
 header .ajax-register-links li.last {
   display:none !important;
 }
@@ -43,7 +40,7 @@ a:active {
   text-decoration: none;
 }
 .site-name a:hover {
-  color: #3d3d3d;
+  color: #f30;
 }
 
 /*
@@ -92,6 +89,9 @@ Occupation Count Box
   background: #000;
   margin: 0 0 0 2em;
   padding: .375em .5em .25em .5em;
+  position: absolute;
+  width: auto;
+  white-space: nowrap;
 }
 
 #block-boxes-occupation-count h4{

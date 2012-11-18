@@ -21,6 +21,8 @@ Header
 -------------------------
 */
 
+#zone-navbar { height: 30px; }
+
 /* undo grid bits where necessary
 in an ideal world, omega would have a checkbox that simply says
 no grid for this zone/region/section just cause you are using a grid
@@ -29,6 +31,7 @@ Zen here I come!
 */
 
 #region-header,
+#region-menu,
 .logo-img,
 #block-ajax-register-ajax-register-block {
   margin: 0 0 0 0;
@@ -36,8 +39,14 @@ Zen here I come!
   float: left;
 }
 
+#region-branding, #region-menu{
+	clear: none;
+}
+
+
 #region-branding{
-  width: 564px;
+  width: auto;
+  float: left;
 }
 
 .site-name-slogan{
