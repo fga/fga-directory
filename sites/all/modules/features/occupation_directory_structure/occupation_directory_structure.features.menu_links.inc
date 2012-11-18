@@ -154,6 +154,42 @@ function occupation_directory_structure_menu_default_menu_links() {
     'expanded' => '0',
     'weight' => '-47',
   );
+  // Exported menu link: menu-social-media-links:https://twitter.com/#!/OWSdirectory
+  $menu_links['menu-social-media-links:https://twitter.com/#!/OWSdirectory'] = array(
+    'menu_name' => 'menu-social-media-links',
+    'link_path' => 'https://twitter.com/#!/OWSdirectory',
+    'router_path' => '',
+    'link_title' => 'Twitter',
+    'options' => array(
+      'attributes' => array(
+        'title' => 'Find us on Twitter',
+      ),
+    ),
+    'module' => 'menu',
+    'hidden' => '0',
+    'external' => '1',
+    'has_children' => '0',
+    'expanded' => '0',
+    'weight' => '0',
+  );
+  // Exported menu link: menu-social-media-links:https://www.facebook.com/OccupyDirectory
+  $menu_links['menu-social-media-links:https://www.facebook.com/OccupyDirectory'] = array(
+    'menu_name' => 'menu-social-media-links',
+    'link_path' => 'https://www.facebook.com/OccupyDirectory',
+    'router_path' => '',
+    'link_title' => 'Facebook',
+    'options' => array(
+      'attributes' => array(
+        'title' => 'Connect to the Occupy Directory on Facebook!',
+      ),
+    ),
+    'module' => 'menu',
+    'hidden' => '0',
+    'external' => '1',
+    'has_children' => '0',
+    'expanded' => '0',
+    'weight' => '0',
+  );
   // Translatables
   // Included for use with string extractors like potx.
   t('Add an Occupation!');
@@ -161,8 +197,10 @@ function occupation_directory_structure_menu_default_menu_links() {
   t('Atom (updated)');
   t('CSV');
   t('CSV (now)');
+  t('Facebook');
   t('RSS (new)');
   t('RSS (updated)');
+  t('Twitter');
   t('json');
 
 

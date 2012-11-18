@@ -63,6 +63,21 @@ header h3.block-title{
 	text-transform: uppercase;	
 }
 
+article h2 {
+  margin: 1.25em 0 .5em;
+}
+
+article p { /* affect all node types */
+  margin-bottom: 1em;
+}
+
+article p:first-child{
+  font-size: 1.5em;
+  line-height: 1.125em;
+};
+
 .smaller{
   font-size: .75em;
 }
+
+

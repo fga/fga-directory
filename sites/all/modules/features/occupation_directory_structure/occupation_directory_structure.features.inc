@@ -17,3 +17,10 @@ function occupation_directory_structure_ctools_plugin_api() {
     return array("version" => "3");
   }
 }
+
+/**
+ * Implements hook_views_api().
+ */
+function occupation_directory_structure_views_api() {
+  return array("version" => "3.0");
+}
