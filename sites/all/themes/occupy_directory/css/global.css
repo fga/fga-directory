@@ -53,6 +53,20 @@ Header
   background: #353838;
 }
 
+#page-title { display: none; }
+
+.node-type-occupation #page-title{
+  display: block;
+}
+
+#region-branding, #region-menu{
+  clear: none;
+}
+
+.branding-data{
+  float: left;
+}
+
 .logo-img{
   z-index: 901;
   position: absolute;
@@ -224,8 +238,6 @@ nav a:hover { background-color: #000; color: #fc0; }
 Content
 --------
 */
-
-#page-title { }
 
 #messages {
   margin: 5px 10px 15px;
@@ -442,6 +454,8 @@ Exposed view search form formatting
 #region-search {
   margin: 0 0 0 0;
   background: #aaa;
+  position: relative;
+  z-index: 899;
   box-shadow: 3px 3px 12px rgba( 0, 0, 0, .95 );
 }
 
@@ -745,11 +759,11 @@ footer #block-menu-menu-feeds-and-exports h3{
 }
 
 footer #block-menu-menu-feeds-and-exports:hover{
-  transform: translate(0,-150px);
-  -ms-transform: translate(0,-150px); /* IE 9 */
-  -webkit-transform: translate(0,-150px); /* Safari and Chrome */
-  -o-transform: translate(0,-150px); /* Opera */
-  -moz-transform: translate(0,-150px); /* Firefox */
+  transform: translate(0,-170px);
+  -ms-transform: translate(0,-170px); /* IE 9 */
+  -webkit-transform: translate(0,-170px); /* Safari and Chrome */
+  -o-transform: translate(0,-170px); /* Opera */
+  -moz-transform: translate(0,-170px); /* Firefox */
 };
 
 
