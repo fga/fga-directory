@@ -7,7 +7,8 @@ Drupal.behaviors.directory = {
 		function resize_map(){
 			var map = jQuery( Drupal.behaviors.directory.map );
 			var winh = jQuery(window).height();
-			map.css( { 'width': '100%', 'height': winh - map.offset().top } );				
+			if( console.log ) console.log( map.offset().top ); 
+			map.css( { 'width': '100%', 'height': winh - Math.floor( map.offset().top ) } );				
 		}
 
 		if( Drupal.behaviors.directory.map ) {
