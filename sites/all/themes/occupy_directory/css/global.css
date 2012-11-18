@@ -4,9 +4,9 @@ Override grid settings for Header, Footer and Homepage Map
 ------------------------------------------------------------
 */
 
-#page,
+/*#page,*/
 #map-embed{
-  height: 100%;
+  height: 99%;
 }
 
 #zone-navbar, /* occupy.net navbar */
@@ -24,10 +24,14 @@ footer{
   margin: 0;
 }
 
+#zone-navbar { height: 30px; }
 
 header .ajax-register-links li.last {
   display:none !important;
 }
+
+#section-content{ clear: both; }
+
 
 /*
 -------------------------
@@ -44,8 +48,9 @@ a:active {
   text-decoration: none;
 }
 
-h1 a,
-h2.site-name a{
+.site-name { float: left; }
+
+.site-name a {
   text-decoration: none;
 }
 
@@ -56,14 +61,8 @@ Header
 -------------------------
 */
 
-header{
-  position: static;
+#zone-header {
   background: #fc0;
-  height: 56px;
-}
-
-.not-logged-in header{
-  height: 86px;
 }
 
 /* undo grid bits where necessary
@@ -74,7 +73,6 @@ Zen here I come!
 */
 
 #region-header,
-.branding-data,
 .logo-img,
 #block-ajax-register-ajax-register-block {
   margin: 0 0 0 0;
@@ -131,6 +129,7 @@ Occupation Count Box
   margin-bottom: .25em;
 }
 
+
 /*
 ------------
 Navigation
@@ -178,6 +177,7 @@ nav a:hover { background-color: #000; color: #fc0; }
   margin-left: 0;
 }
 
+
 /* Tabs */
 
 .tabs{}
@@ -190,10 +190,6 @@ nav a:hover { background-color: #000; color: #fc0; }
   font-size: 1.125em;
 }
 
-/*.tabs ul{
-  border-bottom: 1px #dedede solid;
-}
-*/
 .tabs ul li{
   display: block;
   clear: both;
@@ -232,20 +228,23 @@ nav a:hover { background-color: #000; color: #fc0; }
   -moz-border-radius: 0 0 .4em .4m;
   -webkit-border-radius: 0 0 .4em .4em;
 }
+
 .block-user-menu ul li a:link, 
 .block-user-menu ul li a:visited {
   color: #aaa;
 }
+
 .block-user-menu ul li a:hover {
   color: #000;
   text-decoration:none;
 }
+
 .region-user-second ul li a{
- color: black;
+  color: black;
 }
 
 .region-user-second {
- margin-top: 1em;
+  margin-top: 1em;
 }
 
 
@@ -275,9 +274,11 @@ Content
 Map
 ----------------------------------
 */
+
 #directory-map-wrapper{
   background: #aaa;
 }
+
 
 /*
 ----------------------------------
@@ -318,12 +319,6 @@ article p { /* affect all node types */
  text-decoration: none;
  color: black;
 }
-
-/*#block-menu-menu-feeds-and-exports li a:hover{
- background-color: #000;
- text-decoration: none;
- color: #efefef;
-}*/
 
 .field-name-field-occupation-website {
   padding-bottom: 1em;
@@ -441,67 +436,60 @@ Exposed view search form formatting
 ------------------------------------
 */
 
-#block-views-exp-global-search-page{
-  position: relative;
-  z-index: 900;
+#region-search {
   margin: 0 0 0 0;
-  padding: .25em .5em;
   background: #3d3d3d;
-  box-shadow: 0px 0px 12px #222;
+  box-shadow: 0px 0px 12px rgba( 0, 0, 0, .75 );
+}
+
+.region-search-inner {
+  padding: 1em;
 }
 
 #edit-search-wrapper{
   float: left;
+  padding: 0;
 }
 
-#block-views-exp-global-search-page .views-submit-button,
-#block-views-exp-global-search-page #edit-submit-global-search{
+#region-search .views-submit-button,
+#region-search #edit-submit-global-search{
   padding: 0;
   margin: 0;
 }
 
-#block-views-exp-global-search-page .views-submit-button{ margin-top: .5em; }
+#region-search .views-submit-button{ margin-top: 0; }
 
-#block-views-exp-global-search-page #edit-submit-global-search{
+#region-search #edit-submit-global-search{
   padding: .25em .5em;
 }
 
-#views-exposed-form-occupation-directory-occupations-list,
-#views-exposed-form-occupation-directory-occupations-manage {
-}
 
-#views-exposed-form-occupation-directory-occupations-list label {
+#region-search label {
  display: inline-block;
  padding: 2em .5em;
 }
 
-#views-exposed-form-occupation-directory-occupations-list input,
-#views-exposed-form-occupation-directory-occupations-list select,
-#views-exposed-form-occupation-directory-occupations-list div {
+#region-search input,
+#region-search select,
+#region-search div {
  margin: 0;
 }
 
-#views-exposed-form-occupation-directory-occupations-list div {
- padding: 0;
-}
-
-#views-exposed-form-occupation-directory-occupations-list select,
-#views-exposed-form-occupation-directory-occupations-manage select {
+#region-search select,
+#region-search select {
  max-width: 200px;
 }
 
-#views-exposed-form-occupation-directory-occupations-list input.form-submit {
+#region-search input.form-submit {
  margin-left: 0 0 0 0;
 }
 
-#views-exposed-form-occupation-directory-occupations-list .views-exposed-widgets,
-#views-exposed-form-occupation-directory-occupations-manage .views-exposed-widgets {
+#region-search .views-exposed-widgets {
   margin-bottom: 0;
 }
 
-#views-exposed-form-occupation-directory-occupations-list .views-submit-button,
-#views-exposed-form-occupation-directory-occupations-manage .views-submit-button {
-  margin-left:5em;
+#region-search .views-submit-button {
+  margin-left: 2em;
 }
 
 
@@ -616,12 +604,15 @@ Total Occupations
   font-style: italic;
   color:#ccc;
 }
+
 .total-occupations tr td {
   vertical-align: top;
 }
+
 .total-occupations tr.row-first td {
   padding-top:20px;
 }
+
 .total-occupations tr td .title {
   margin-bottom: .33em;
   font-style:normal;
@@ -644,10 +635,12 @@ ul.tweets-pulled-listing div.tweet-authorphoto {
   margin: 0 4px 0 0;
   float: left;
 }
+
 ul.tweets-pulled-listing div.tweet-authorphoto img {
   max-height: 40px;
   max-width: 40px;
 }
+
 ul.tweets-pulled-listing .tweet-author a {}
 ul.tweets-pulled-listing div.tweet-time { text-align:right; }
 ul.tweets-pulled-listing .tweet-time a { color: #d0d0d0; }
