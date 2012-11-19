@@ -166,6 +166,10 @@ nav a:hover { background-color: #000; color: #fc0; }
 /* Tabs */
 
 .tabs{}
+.tabs.primary{
+  position: absolute; top: 0;
+  z-index: 898;
+}
 
 /*.tabs.primary{
   position: fixed;
