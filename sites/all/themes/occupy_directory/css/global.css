@@ -171,14 +171,6 @@ nav a:hover { background-color: #000; color: #fc0; }
   z-index: 898;
 }
 
-/*.tabs.primary{
-  position: fixed;
-  z-index: 905;
-  left: 0;
-  top: 45%;
-  font-size: 1.125em;
-}
-*/
 .tabs ul li{
   display: inline-block;
   clear: both;
