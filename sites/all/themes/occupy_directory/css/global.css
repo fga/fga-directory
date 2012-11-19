@@ -123,12 +123,14 @@ Navigation
 nav.navigation {
   position: relative;
   float: left;
-  height: 56px;
+  height: 100%;
 }
 
 nav.navigation ul,
 nav.navigation li {
-  height: 56px;
+  height: 100%;
+  margin-left: 0;
+  padding-left: 0;
 }
 
 nav.navigation ul{
@@ -431,7 +433,7 @@ array and override the comment_forbidden key. CSS to the rescue for now.
   display: none;
 }
 
-.links.inline li{
+#comments .links.inline li{
   font-size: .75em;
   margin: 0 .5em 0 0;
   display: inline-block;
