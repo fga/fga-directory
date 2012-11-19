@@ -2,29 +2,21 @@ Drupal.behaviors.directory = {
 
 	attach: function(context, settings){
 
-		var map = jQuery( '#directory-map-wrapper' )[0];
+        Drupal.behaviors.directory.map = jQuery( '#directory-map-wrapper' )[0];
 
 		function resize_map(){
 			var winh = jQuery(window).height();
-			map.css( { 'width': '100%', 'height': winh - map.offset().top } );				
+            map = jQuery( Drupal.behaviors.directory.map );
+			map.css( { 'width': '100%', 'height': winh - map.offset().top } );
 		}
 
-		if( map ) {
+		if( Drupal.behaviors.directory.map ) {
 
 			resize_map();
 			jQuery(window).resize( function(){
 				resize_map();
 			});
 
-			/**
-			This bit is for sizing the sidebar so its not tucked UNDER the footer (for external embeds).
-			The footer contains branding, search…
-			consider toggling the presence of the footer to admin panel
-			*/
-		  if( jQuery( '#embed_aux' ) ){
-	      var el = jQuery('#embed_aux');
-	      directory.footerHeight = el.height() + parseInt( el.css('padding-top') ) * 2;
-		  }
 
 		  /* todo: move these configuration variables to the module admin */
 			directory.map = {
@@ -36,9 +28,7 @@ Drupal.behaviors.directory = {
 				zoom: { init:2,  min: 2 , max: 11 },
 				options: [ 'share', 'legend','zoomer', 'zoombox', 'hash' ]
 			};
-
-			directory.init_map( jQuery('#map')[0] );
-
+			directory.init_map( jQuery( '#directory-map-wrapper' )[0], directory.map );
 		}
 
 	}
@@ -59,9 +49,11 @@ directory.tooltipTemplate = "<div class=\"detail\" id=\"occupation-{{{id}}}\">  
         parent;
 
     function moveTooltip(e) {
+
        var eo = wax.u.eventoffset(e);
+       
        // faux-positioning
-       if ((_tooltipOffset.height + eo.y) >
+       if ((_tooltipOffset.height + eo.y ) >
            (_contextOffset.top + _contextOffset.height) &&
            (_contextOffset.height > _tooltipOffset.height)) {
            eo.y -= _tooltipOffset.height;
@@ -71,12 +63,12 @@ directory.tooltipTemplate = "<div class=\"detail\" id=\"occupation-{{{id}}}\">  
        // faux-positioning
        if ((_tooltipOffset.width + eo.x) >
            (_contextOffset.left + _contextOffset.width)) {
-           eo.x -= _tooltipOffset.width;
+           eo.x -= _tooltipOffset.width - directory.map.offsetParent.offset().x;
            tooltip.className += ' flip-x';
        }
 
-       tooltip.style.left = eo.x + 'px';
-       tooltip.style.top = eo.y + 'px';
+       tooltip.style.left = ( eo.x - directory.map.offsetParent.offset().left ) + 'px';
+       tooltip.style.top = ( eo.y - directory.map.offsetParent.offset().top  ) + 'px';
     }
 
     // Get the active tooltip for a layer or create a new one if no tooltip exists.
@@ -98,18 +90,18 @@ directory.tooltipTemplate = "<div class=\"detail\" id=\"occupation-{{{id}}}\">  
 
     function on(o) {
         var content;
-        //if (popped) return;
+
         if ((o.e.type === 'mousemove' || !o.e.type)) {
             content = o.formatter({ format: 'teaser' }, o.data);
             if (!content) return;
             hide();
             parent.style.cursor = 'pointer';
-            tooltip = document.body.appendChild(getTooltip(content));
+            tooltip = directory.map.overlay.appendChild(getTooltip(content));
         } else {
             content = o.formatter({ format: 'teaser' }, o.data);
             if (!content) return;
             hide();
-            var tt = document.body.appendChild(getTooltip(content));
+            var tt = directory.map.overlay.appendChild(getTooltip(content));
             tt.className += ' map-popup';
 
             var close = tt.appendChild(document.createElement('a'));
@@ -128,10 +120,10 @@ directory.tooltipTemplate = "<div class=\"detail\" id=\"occupation-{{{id}}}\">  
             bean.add(close, 'click touchend', function closeClick(e) {
                 e.stop();
                 hide();
-                //popped = false;
             });
         }
         if (tooltip) {
+
           _tooltipOffset = wax.u.offset(tooltip);
           _contextOffset = wax.u.offset(parent);
           moveTooltip(o.e);
@@ -141,8 +133,7 @@ directory.tooltipTemplate = "<div class=\"detail\" id=\"occupation-{{{id}}}\">  
 
     function off() {
         parent.style.cursor = 'default';
-        //if (!popped) 
-				hide();
+        hide();
     }
 
     t.parent = function(x) {
@@ -238,7 +229,6 @@ directory.share = function(map, tilejson) {
         }
     });
 
-
     embed.className = 'embed';
     embed.rows = 4;
     embed.setAttribute('readonly', 'readonly');
@@ -247,7 +237,6 @@ directory.share = function(map, tilejson) {
         embed.select();
         return false;
     };
-
 
     var twitter = 'http://twitter.com/intent/tweet?status='
         + encodeURIComponent(document.title + ' (' + tilejson.webpage + ')');
@@ -270,57 +259,66 @@ directory.share = function(map, tilejson) {
 
     return {
         appendTo: function(elem) {
-            wax.u.jQuery(elem).appendChild(link);
-            wax.u.jQuery(elem).appendChild(popup);
+            wax.u.$(elem).appendChild(link);
+            wax.u.$(elem).appendChild(popup);
             return this;
         }
     };
 };
 
-directory.init_map = function( el ){
+directory.init_map = function( el, options ){
 
-			directory.map.container = el;
+	directory.map.container = jQuery( el );
 
-			jQuery('#sidebar a.close').click( function(){
-				jQuery("#sidebar").addClass( 'hidden' );
-			});
+    var offsetParent = directory.map.container;
 
-			mapbox.load( directory.map.id, function( o ){
-				var eventHandlers = [
-                    easey_handlers.TouchHandler(),
-                    easey_handlers.DragHandler(),
-                    easey_handlers.DoubleClickHandler()
-                ]
-				var map = mapbox.map('map', null, null, eventHandlers );
-                directory.map.map = map;
-				map.addLayer( o.layer ).zoom( directory.map.zoom.init ).center( directory.map.center );				
-				map.interaction.auto();
-				map.interaction.on({
-					on: function( obj ){
-						if( obj.e.type == 'click' ){
-							var sidebarContent = Mustache.to_html( directory.tooltipTemplate , obj.data );
-							var sidebarEl = jQuery('#sidebar');
-                            var h = jQuery(document).height() - directory.footerHeight;
-                            sidebarEl.removeClass('hidden');
-                            sidebarEl.height( h);
-							jQuery('#sidebar .content').html( sidebarContent );							
-						}
-					}
-				});
-                if( jQuery.inArray('share', directory.map.options ) > -1 ){
-                    directory.share( map,  map.layers[0].tilejson() ).appendTo( jQuery( 'body' )[0] );
-                    directory.map.options.splice(jQuery.inArray( "share", directory.map.options),1);
+    while( offsetParent[0] != jQuery( document.body )[0] ){
+        if( offsetParent.offsetParent()[0] != jQuery( document.body )[0] ){
+            offsetParent = offsetParent.offsetParent();
+            break;
+        }
+    }
+
+    directory.map.offsetParent = offsetParent;
+
+    mapbox.load( directory.map.id, function( o ){
+        
+        var eventHandlers = [
+            easey_handlers.TouchHandler(),
+            easey_handlers.DragHandler(),
+            easey_handlers.DoubleClickHandler()
+        ]
+
+        directory.map.overlay =  directory.map.container.find( '.overlay' )[0];
+        var map = mapbox.map( el, null, null, eventHandlers );
+        directory.map.map = map;
+
+        map.addLayer( o.layer ).zoom( directory.map.zoom.init ).center( directory.map.center );             
+        map.interaction.auto();
+        map.interaction.on({
+            on: function( obj ){
+                if( obj.e.type == 'click' ){
+                    window.location.href = obj.data["Occupy Directory URL"];
                 }
-				jQuery( directory.map.options ).each( function( i, opt ){
-					map.ui[this].add();
-				});
-				map.setPanLimits( directory.map.bounds );
-				map.setZoomRange( directory.map.zoom.min, directory.map.zoom.max );				
-                directory.geocoder( map );
-				map.refresh();
-			});
-			
-		}
+            }
+        });
+
+        if( jQuery.inArray('share', directory.map.options ) > -1 ){
+            directory.share( map,  map.layers[0].tilejson() ).appendTo( jQuery( 'body' )[0] );
+            directory.map.options.splice( jQuery.inArray( "share", directory.map.options),1);
+        }
+        
+        jQuery( directory.map.options ).each( function( i, opt ){
+            map.ui[this].add();
+        });
+        
+        map.setPanLimits( directory.map.bounds );
+        map.setZoomRange( directory.map.zoom.min, directory.map.zoom.max );             
+        directory.geocoder( map );
+        map.refresh();
+
+    });	
+}
 		
 
 // Bind the geocoder functionality to any div with the format

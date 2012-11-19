@@ -128,9 +128,9 @@ including listing and map-tooltip classes here to apply clearfix to them, withou
 ------------------------------*/
 
 #directory-map-wrapper .map-tooltip .tooltip-teaser{
-	z-index: 2002;
-	top: 2em;
-	left: 2em;
+	z-index: 2000;
+	top: .5em;
+	left: .5em;
 	position: absolute;
 	padding: .25em 1em .5em 1em;
 	color: #eee;
@@ -138,6 +138,12 @@ including listing and map-tooltip classes here to apply clearfix to them, withou
 	border-radius: 3px;
 	background: rgb( 0,0,0 );
 	background: rgba( 0, 0, 0, .8 );
+}
+
+
+#directory-map-wrapper .tooltip-teaser .occupation-title h3{
+	margin-top: .5em;
+	padding-top: 0;
 }
 
 #directory-map-wrapper .tooltip-teaser a{
@@ -283,12 +289,17 @@ including listing and map-tooltip classes here to apply clearfix to them, withou
 
 #directory-map-wrapper .map-tooltip{
 	position: absolute;
+	z-index: 910;
 }
 
 
 /*-----------------------------------
   Overlay
 -------------------------------------*/
+#directory-map-wrapper .overlay{
+	position: relative;
+	z-index: 15000;
+}
 
 #directory-map-wrapper #embed_aux{
 		width: 100%;

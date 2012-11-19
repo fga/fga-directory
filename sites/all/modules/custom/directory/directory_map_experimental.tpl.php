@@ -1,5 +1,5 @@
 <div id="directory-map-wrapper">
-	<div class="map"></div>
+	<div class="overlay"></div>
 	<div class="sidebar hidden">
 		<div class="methods">
 			<a href="#" class="close">&times;</a>
