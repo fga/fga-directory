@@ -53,8 +53,6 @@ Header
   background: #353838;
 }
 
-#page-title { display: none; }
-
 .node-type-occupation #page-title{
   display: block !important;
 }
