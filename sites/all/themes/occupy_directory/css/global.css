@@ -275,6 +275,12 @@ padding-top: 4em;
 Pages
 ----------------------------------
 */
+
+.not-front.node-type-page .region-content-inner,
+aside#region-sidebar-first{
+  margin-top: 4em;
+}
+
 .not-front.node-type-page .region-content-inner {
   margin-right: 2em;
 }
@@ -739,6 +745,7 @@ footer#section-footer .block-menu .content a{
   display: block;
   padding: .125em 1em;
   text-decoration: none;
+  color: #000;
 }
 
 footer#section-footer .block-menu .content a:hover{
