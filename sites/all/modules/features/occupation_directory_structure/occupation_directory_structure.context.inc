@@ -13,6 +13,40 @@ function occupation_directory_structure_context_default_contexts() {
   $context = new stdClass();
   $context->disabled = FALSE; /* Edit this to true to make a default context disabled initially */
   $context->api_version = 3;
+  $context->name = 'directory_get_involved';
+  $context->description = 'context for get-involved page';
+  $context->tag = 'blocks';
+  $context->conditions = array(
+    'path' => array(
+      'values' => array(
+        'get-involved' => 'get-involved',
+        'node/2' => 'node/2',
+      ),
+    ),
+  );
+  $context->reactions = array(
+    'block' => array(
+      'blocks' => array(
+        'webform-client-block-3' => array(
+          'module' => 'webform',
+          'delta' => 'client-block-3',
+          'region' => 'content',
+          'weight' => '8',
+        ),
+      ),
+    ),
+  );
+  $context->condition_mode = 0;
+
+  // Translatables
+  // Included for use with string extractors like potx.
+  t('blocks');
+  t('context for get-involved page');
+  $export['directory_get_involved'] = $context;
+
+  $context = new stdClass();
+  $context->disabled = FALSE; /* Edit this to true to make a default context disabled initially */
+  $context->api_version = 3;
   $context->name = 'front';
   $context->description = 'Is the front page';
   $context->tag = 'pages';
