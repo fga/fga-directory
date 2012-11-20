@@ -91,7 +91,7 @@ Zen here I come!
 }
 
 .site-name-slogan{
-  margin-left: 7em;  
+  margin-left: 7em;
 }
 
 .site-slogan {
@@ -99,7 +99,7 @@ Zen here I come!
   top: -1000px;
 }
 
-#region-menu{ 
+#region-menu{
   float: right;
   margin: 0;
 }
@@ -229,7 +229,7 @@ nav a:hover { background-color: #000; color: #fc0; }
   -webkit-border-radius: 0 0 .4em .4em;
 }
 
-.block-user-menu ul li a:link, 
+.block-user-menu ul li a:link,
 .block-user-menu ul li a:visited {
   color: #aaa;
 }
@@ -254,17 +254,28 @@ Content
 --------
 */
 
+#messages {
+  margin: 15px 10px;
+}
 
 #region-content{
   margin: 0;
   padding: 0;
 }
 
-.not-front #section-content{
-  padding-bottom: 12em;  
+article a:link, article a:visited {
+  color: #0af;
+}
+article a:hover, article a:active {
+  color: #666;
 }
 
-.not-front #region-content{
+
+.not-front #section-content{
+  padding-bottom: 12em;
+}
+
+.not-front #zone-content{
   margin-top: 4em;
 }
 
@@ -274,6 +285,15 @@ Content
 
 .zone-preface-wrapper {
  background-color: #d0d0d0;
+}
+
+/*
+----------------------------------
+Pages
+----------------------------------
+*/
+.context-about .region-content-inner {
+  margin-right: 2em;
 }
 
 
@@ -737,7 +757,7 @@ footer #block-menu-menu-social-media-links h3.block-title{
 footer #block-menu-menu-social-media-links ul li{
   display: inline-block;
   width: 24px;
-  height: 24px;  
+  height: 24px;
 }
 
 footer #block-menu-menu-social-media-links ul li a{
