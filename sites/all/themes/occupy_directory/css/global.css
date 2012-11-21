@@ -39,8 +39,7 @@ Links
 -------------------------
 */
 
-a:link{ color: #222; }
-a:visited { color: #333; }
+a:link, a:visited { color: #222; }
 
 a:hover,
 a:active {
@@ -53,7 +52,9 @@ a:active {
 .site-name a {
   text-decoration: none;
 }
-
+.site-name a:hover {
+  color: #3d3d3d;
+}
 
 /*
 -------------------------
@@ -84,6 +85,7 @@ Zen here I come!
   z-index: 901;
   position: absolute;
   top: 11px;
+  left:9px;
 }
 
 #region-branding{
@@ -255,7 +257,7 @@ Content
 */
 
 #messages {
-  margin: 15px 10px;
+  margin: 5px 10px 15px;
 }
 
 #region-content{
@@ -279,7 +281,7 @@ article a:hover, article a:active {
   margin-top: 4em;
 }
 
-.article p:first-child{
+.context-about .article p:first-child{
   font-size: 1.5em;
 }
 
@@ -292,7 +294,7 @@ article a:hover, article a:active {
 Pages
 ----------------------------------
 */
-.context-about .region-content-inner {
+.node-type-page .region-content-inner {
   margin-right: 2em;
 }
 
