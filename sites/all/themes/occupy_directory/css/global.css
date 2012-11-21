@@ -294,7 +294,7 @@ article a:hover, article a:active {
 Pages
 ----------------------------------
 */
-.node-type-page .region-content-inner {
+.not-front .node-type-page .region-content-inner {
   margin-right: 2em;
 }
 
@@ -304,6 +304,10 @@ Pages
 Map
 ----------------------------------
 */
+
+.front h1.title {
+  display: none;
+}
 
 #directory-map-wrapper{
   background: #aaa;
