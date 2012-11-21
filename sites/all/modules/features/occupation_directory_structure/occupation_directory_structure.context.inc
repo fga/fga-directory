@@ -33,6 +33,12 @@ function occupation_directory_structure_context_default_contexts() {
           'region' => 'content',
           'weight' => '8',
         ),
+        'boxes-twitter_pull' => array(
+          'module' => 'boxes',
+          'delta' => 'twitter_pull',
+          'region' => 'sidebar_first',
+          'weight' => '-10',
+        ),
       ),
     ),
   );
