@@ -1,0 +1,11 @@
+name = Directory views filter search
+description = Search the site with views filters
+core = 7.x
+package = FGA
+version = 7.x-0.01
+project = directory_views_search
+dependencies[] = context
+dependencies[] = ctools
+features[context][] = search_occupations
+features[ctools][] = context:context:3
+features[features_api][] = api:1
