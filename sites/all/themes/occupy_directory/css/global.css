@@ -508,8 +508,10 @@ Exposed view search form formatting
  margin: 0;
  display: inline;
 }
-
-#region-search select,
+#region-search input,
+#region-search select {
+  background-color: #efefef;
+}
 #region-search select {
  max-width: 200px;
 }
@@ -526,9 +528,14 @@ Exposed view search form formatting
   padding: 0;
 }
 
-#region-search .views-submit-button {
-  margin-left: 2em;
+#region-search #edit-search {
+  width: 240px;
 }
+form#views-exposed-form-directory-global-search-search-page {
+  float: right;
+  margin: 5px 138px 5px 0;
+}
+#views-exposed-form-directory-global-search-search-page {}
 
 /* legacy views filter */
 #views-exposed-form-occupation-directory-occupations-list,
@@ -536,6 +543,10 @@ Exposed view search form formatting
   height: 1.65em;
   margin: 10px auto;
   width: 960px;
+}
+#views-exposed-form-occupation-directory-occupations-list .views-submit-button,
+#views-exposed-form-occupation-directory-occupations-manage .views-submit-button {
+  margin-left: 2em;
 }
 
 /*
