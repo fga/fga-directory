@@ -28,6 +28,8 @@ function directory_solr_strongarm() {
   $strongarm->value = array(
     'occupations_index' => array(
       'search_api_views:global_search:page' => 'search_api_views:global_search:page',
+      'search_api_views:directory_global_search:page' => 'search_api_views:directory_global_search:page',
+      'search_api_views:directory_global_search:search_page' => 'search_api_views:directory_global_search:search_page',
     ),
   );
   $export['search_api_facets_search_ids'] = $strongarm;

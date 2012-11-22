@@ -294,7 +294,7 @@ article a:hover, article a:active {
 Pages
 ----------------------------------
 */
-.not-front .node-type-page .region-content-inner {
+.not-front.node-type-page .region-content-inner {
   margin-right: 2em;
 }
 
@@ -533,7 +533,7 @@ Exposed view search form formatting
 }
 form#views-exposed-form-directory-global-search-search-page {
   float: right;
-  margin: 5px 138px 5px 0;
+  margin: 15px 138px 15px 0;
 }
 #views-exposed-form-directory-global-search-search-page {}
 
