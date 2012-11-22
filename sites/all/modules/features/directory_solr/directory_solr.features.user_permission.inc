@@ -1,13 +1,13 @@
 <?php
 /**
  * @file
- * occupations_solr.features.user_permission.inc
+ * directory_solr.features.user_permission.inc
  */
 
 /**
  * Implements hook_user_default_permissions().
  */
-function occupations_solr_user_default_permissions() {
+function directory_solr_user_default_permissions() {
   $permissions = array();
 
   // Exported permission: access resource search_api_index.

@@ -4,4 +4,4 @@
  * Code for the solr search feature.
  */
 
-include_once 'occupations_solr.features.inc';
+include_once 'directory_solr.features.inc';
