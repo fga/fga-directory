@@ -498,13 +498,15 @@ Exposed view search form formatting
 
 #region-search label {
  display: inline-block;
- padding: 2em .5em;
+ padding: 0 .5em 0 2em;
+ color: #ccc;
 }
 
 #region-search input,
 #region-search select,
 #region-search div {
  margin: 0;
+ display: inline;
 }
 
 #region-search select,
@@ -513,17 +515,28 @@ Exposed view search form formatting
 }
 
 #region-search input.form-submit {
- margin-left: 0 0 0 0;
+ margin: 0 0 0 .75em;
 }
 
 #region-search .views-exposed-widgets {
   margin-bottom: 0;
 }
 
+#region-search .views-exposed-widget {
+  padding: 0;
+}
+
 #region-search .views-submit-button {
   margin-left: 2em;
 }
 
+/* legacy views filter */
+#views-exposed-form-occupation-directory-occupations-list,
+#views-exposed-form-occupation-directory-occupations-manage {
+  height: 1.65em;
+  margin: 10px auto;
+  width: 960px;
+}
 
 /*
 ----------------------------------------------
