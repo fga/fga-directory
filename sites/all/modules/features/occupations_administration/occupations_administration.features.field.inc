@@ -10,7 +10,7 @@
 function occupations_administration_field_default_fields() {
   $fields = array();
 
-  // Exported field: 'user-user-field_term_geographic_area'
+  // Exported field: 'user-user-field_term_geographic_area'.
   $fields['user-user-field_term_geographic_area'] = array(
     'field_config' => array(
       'active' => '1',
@@ -34,6 +34,7 @@ function occupations_administration_field_default_fields() {
           0 => 'tid',
         ),
       ),
+      'locked' => '0',
       'module' => 'taxonomy',
       'settings' => array(
         'allowed_values' => array(
