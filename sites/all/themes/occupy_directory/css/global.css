@@ -314,6 +314,43 @@ Map
 }
 
 
+
+/* Open Layers */
+
+/* Map pop-ups
+* for legacy compatibility with OL map at /map
+* */
+.openlayers-map .olPopup a:link, .openlayers-map .olPopup a:visited {
+  color: #FFF;
+}
+.openlayers-map .olPopup a:hover {
+  color: #4298DD;
+  text-decoration: none;
+}
+.olControlPermalink a:link, .olControlPermalink a:visited {
+  color:#fff;
+  text-transform:lowercase;
+}
+.olPopupCloseBox {
+  background-image: url(/sites/all/modules/contrib/openlayers/themes/default_dark/img/layer-switcher-minimize.png) !important;
+}
+.view-map-displays .olControlZoomPanel,
+.node-type-occupation .olControlZoomPanel {
+  top: 10px;
+  left: 10px;
+}
+.view-map-displays h3.o-name {
+  padding:0;
+  line-height:1em;
+}
+.view-map-displays div.o-image {
+  float:left;
+}
+
+
+
+
+
 /*
 ----------------------------------
 Occupation Node Detail Formatting
@@ -717,7 +754,7 @@ Footer
 */
 
 footer {
-  background: #0af;
+  background: #ccc;
   height: 3em;
   position: fixed;
   bottom: 0;
