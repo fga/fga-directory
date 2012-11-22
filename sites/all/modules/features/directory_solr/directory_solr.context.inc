@@ -14,6 +14,39 @@ function directory_solr_context_default_contexts() {
   $context->disabled = FALSE; /* Edit this to true to make a default context disabled initially */
   $context->api_version = 3;
   $context->name = 'solr_search';
+  $context->description = 'Expose solr search bar sitewide';
+  $context->tag = 'blocks';
+  $context->conditions = array(
+    'sitewide' => array(
+      'values' => array(
+        1 => 1,
+      ),
+    ),
+  );
+  $context->reactions = array(
+    'block' => array(
+      'blocks' => array(
+        'views-0b5b932676a8d4135ba66f63dbbc9a9c' => array(
+          'module' => 'views',
+          'delta' => '0b5b932676a8d4135ba66f63dbbc9a9c',
+          'region' => 'search',
+          'weight' => '-10',
+        ),
+      ),
+    ),
+  );
+  $context->condition_mode = 0;
+
+  // Translatables
+  // Included for use with string extractors like potx.
+  t('Expose solr search bar sitewide');
+  t('blocks');
+  $export['solr_search'] = $context;
+
+  $context = new stdClass();
+  $context->disabled = FALSE; /* Edit this to true to make a default context disabled initially */
+  $context->api_version = 3;
+  $context->name = 'solr_search_page';
   $context->description = 'Expose search facets and properties for solr';
   $context->tag = 'blocks';
   $context->conditions = array(
@@ -25,7 +58,7 @@ function directory_solr_context_default_contexts() {
     ),
     'views' => array(
       'values' => array(
-        'global_search:page' => 'global_search:page',
+        'directory_global_search:search_page' => 'directory_global_search:search_page',
       ),
     ),
   );
@@ -62,7 +95,7 @@ function directory_solr_context_default_contexts() {
   // Included for use with string extractors like potx.
   t('Expose search facets and properties for solr');
   t('blocks');
-  $export['solr_search'] = $context;
+  $export['solr_search_page'] = $context;
 
   return $export;
 }
