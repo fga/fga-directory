@@ -1,0 +1,106 @@
+diff --git a/README.txt b/README.txt
+index fc5ee84..5b43a7f 100644
+--- a/README.txt
++++ b/README.txt
+@@ -85,6 +85,17 @@ directory, not directly the ones provided with this module.
+ You'll have to restart your Solr server after making such changes, for them to
+ take effect.
+ 
++Hidden Configuration
++----------
++
++The variable search_api_solr_connection_class is used to define the connection
++information that will be used to connect to solr. This was abstracted into a
++variable to allow services that automatically setup solr for a particular site
++to override the default connection class.
++
++The default is the SearchApiSolrConnection class in solr_connection.inc, which
++should be used as the base class for custom modifications.
++
+ Developers
+ ----------
+ 
+diff --git a/search_api_solr.install b/search_api_solr.install
+index 3b88e86..14fdccb 100644
+--- a/search_api_solr.install
++++ b/search_api_solr.install
+@@ -108,6 +108,7 @@ function search_api_solr_uninstall() {
+       ->execute();
+   }
+   variable_del('search_api_solr_last_optimize');
++  variable_del('search_api_solr_connection_class');
+ }
+ 
+ /**
+diff --git a/service.inc b/service.inc
+index 9c13087..5b1f6c7 100644
+--- a/service.inc
++++ b/service.inc
+@@ -230,7 +230,13 @@ class SearchApiSolrService extends SearchApiAbstractService {
+       if (!class_exists('Apache_Solr_Service')) {
+         throw new Exception(t('SolrPhpClient library not found! Please follow the instructions in search_api_solr/INSTALL.txt for installing the Solr search module.'));
+       }
+-      $this->solr = new SearchApiSolrConnection($this->options);
++      $class = variable_get('search_api_solr_connection_class', 'SearchApiSolrConnection');
++
++      if ( !class_exists( $class ) ) {
++        $class = 'SearchApiSolrConnection';
++      }
++
++      $this->solr = new $class($this->options);
+     }
+   }
+ 
+@@ -854,7 +860,8 @@ class SearchApiSolrService extends SearchApiAbstractService {
+       }
+       else {
+         $key = trim($key);
+-        $key = SearchApiSolrConnection::phrase($key);
++        $class = variable_get('search_api_solr_connection_class', 'SearchApiSolrConnection');
++        $key = call_user_func(array($class, 'phrase'), $key);
+         $k[] = $key;
+       }
+     }
+@@ -932,7 +939,8 @@ class SearchApiSolrService extends SearchApiAbstractService {
+    * and operator.
+    */
+   protected function createFilterQuery($field, $value, $operator, $field_info) {
+-    $field = SearchApiSolrConnection::escapeFieldName($field);
++    $class = variable_get('search_api_solr_connection_class', 'SearchApiSolrConnection');
++    $field = call_user_func(array($class, 'escapeFieldName'), $field);
+     if ($value === NULL) {
+       return ($operator == '=' ? '-' : '') . "$field:[* TO *]";
+     }
+@@ -971,8 +979,9 @@ class SearchApiSolrService extends SearchApiAbstractService {
+         $value = format_date($value, 'custom', self::SOLR_DATE_FORMAT, 'UTC');
+         break;
+     }
+-    return SearchApiSolrConnection::phrase($value);
+-  }
++    $class = variable_get('search_api_solr_connection_class', 'SearchApiSolrConnection');
++    return call_user_func(array($class, 'phrase'), $value);
++ }
+ 
+   /**
+    * Helper method for creating the facet field parameters.
+@@ -996,7 +1005,8 @@ class SearchApiSolrService extends SearchApiAbstractService {
+       // Check for the "or" operator.
+       if (isset($info['operator']) && $info['operator'] === 'or') {
+         // Remember that filters for this field should be tagged.
+-        $escaped = SearchApiSolrConnection::escapeFieldName($fields[$info['field']]);
++        $class = variable_get('search_api_solr_connection_class', 'SearchApiSolrConnection');
++        $escaped = call_user_func(array($class, 'escapeFieldName'), $fields[$info['field']]);
+         $taggedFields[$escaped] = "{!tag=$escaped}";
+         // Add the facet field.
+         $facet_params['facet.field'][] = "{!ex=$escaped}$field";
+@@ -1063,7 +1073,9 @@ class SearchApiSolrService extends SearchApiAbstractService {
+       $k = $keys;
+       $fields = $params['qf'];
+       unset($params['qf']);
+-      $keys = implode(":($k) OR ", array_map(array('SearchApiSolrConnection', 'escapeFieldName'), $fields)) . ":($k)";
++      $class = variable_get('search_api_solr_connection_class', 'SearchApiSolrConnection');
++      $keys = implode(":($k) OR ", array_map(array($class, 'escapeFieldName'), $fields)) . ":($k)";
++
+       return TRUE;
+     }
+     return FALSE;
