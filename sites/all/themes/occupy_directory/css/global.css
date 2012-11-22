@@ -315,39 +315,6 @@ Map
 
 
 
-/* Open Layers */
-
-/* Map pop-ups
-* for legacy compatibility with OL map at /map
-* */
-.openlayers-map .olPopup a:link, .openlayers-map .olPopup a:visited {
-  color: #FFF;
-}
-.openlayers-map .olPopup a:hover {
-  color: #4298DD;
-  text-decoration: none;
-}
-.olControlPermalink a:link, .olControlPermalink a:visited {
-  color:#fff;
-  text-transform:lowercase;
-}
-.olPopupCloseBox {
-  background-image: url(/sites/all/modules/contrib/openlayers/themes/default_dark/img/layer-switcher-minimize.png) !important;
-}
-.view-map-displays .olControlZoomPanel,
-.node-type-occupation .olControlZoomPanel {
-  top: 10px;
-  left: 10px;
-}
-.view-map-displays h3.o-name {
-  padding:0;
-  line-height:1em;
-}
-.view-map-displays div.o-image {
-  float:left;
-}
-
-
 
 
 
@@ -686,38 +653,6 @@ Total Occupations
 div.view-display-id-occupations_list table img { }
 
 
-/* MORE HACKS */
-
-#admin-menu { margin:0 !important; }
-
-/* twitter pull styles */
-
-ul.tweets-pulled-listing {
-  list-style: none;
-}
-
-ul.tweets-pulled-listing div.tweet-authorphoto {
-  margin: 0 4px 0 0;
-  float: left;
-}
-
-ul.tweets-pulled-listing div.tweet-authorphoto img {
-  max-height: 40px;
-  max-width: 40px;
-}
-
-ul.tweets-pulled-listing .tweet-author a {}
-ul.tweets-pulled-listing div.tweet-time { text-align:right; }
-ul.tweets-pulled-listing .tweet-time a { color: #d0d0d0; }
-ul.tweets-pulled-listing  div.tweet-divider {
-  clear: left;
-  border-bottom: 1px solid #efefef;
-  margin: 6px 0 7px 0;
-}
-
-
-
-
 /* -----------------------------------------------------------
 	page-occupations-cards
 ----------------------------------------------------------- */
@@ -731,19 +666,6 @@ ul.tweets-pulled-listing  div.tweet-divider {
 }
 
 .page-occupations-cards .views-row:first-child {
-}
-
-/* HACKS */
-
-/* new views pager renders "previous" instead of "prev" */
-.pager li.pager-previous a {
-    width: 68px;
-}
-
-/* Country is renedered outside the wrapper div, so clearing gives us a big
-   space when there's an image*/
-.addressfield-container-inline:after {
-  clear:none;
 }
 
 
@@ -850,3 +772,85 @@ footer #block-menu-menu-feeds-and-exports:hover{
   -o-transform: translate(0,-150px); /* Opera */
   -moz-transform: translate(0,-150px); /* Firefox */
 };
+
+
+
+/*
+------------------------------------------------------------
+Overrides – bending displays to our will
+------------------------------------------------------------
+*/
+
+/* twitter pull styles */
+
+ul.tweets-pulled-listing {
+  list-style: none;
+}
+
+ul.tweets-pulled-listing div.tweet-authorphoto {
+  margin: 0 4px 0 0;
+  float: left;
+}
+
+ul.tweets-pulled-listing div.tweet-authorphoto img {
+  max-height: 40px;
+  max-width: 40px;
+}
+
+ul.tweets-pulled-listing .tweet-author a {}
+ul.tweets-pulled-listing div.tweet-time { text-align:right; }
+ul.tweets-pulled-listing .tweet-time a { color: #d0d0d0; }
+ul.tweets-pulled-listing  div.tweet-divider {
+  clear: left;
+  border-bottom: 1px solid #efefef;
+  margin: 6px 0 7px 0;
+}
+
+
+/* Open Layers */
+/* Map pop-ups, for legacy compatibility with OL map at /map */
+.openlayers-map .olPopup a:link, .openlayers-map .olPopup a:visited {
+  color: #FFF;
+}
+.openlayers-map .olPopup a:hover {
+  color: #4298DD;
+  text-decoration: none;
+}
+.olControlPermalink a:link, .olControlPermalink a:visited {
+  color:#fff;
+  text-transform:lowercase;
+}
+.olPopupCloseBox {
+  background-image: url(/sites/all/modules/contrib/openlayers/themes/default_dark/img/layer-switcher-minimize.png) !important;
+}
+.view-map-displays .olControlZoomPanel,
+.node-type-occupation .olControlZoomPanel {
+  top: 10px;
+  left: 10px;
+}
+.view-map-displays h3.o-name {
+  padding:0;
+  line-height:1em;
+}
+.view-map-displays div.o-image {
+  float:left;
+}
+
+
+
+
+
+/* HACKS */
+
+#admin-menu { margin:0 !important; }
+
+/* new views pager renders "previous" instead of "prev" */
+.pager li.pager-previous a {
+    width: 68px;
+}
+
+/* Country is renedered outside the wrapper div, so clearing gives us a big
+   space when there's an image*/
+.addressfield-container-inline:after {
+  clear:none;
+}
