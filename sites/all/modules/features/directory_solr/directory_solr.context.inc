@@ -14,12 +14,12 @@ function directory_solr_context_default_contexts() {
   $context->disabled = FALSE; /* Edit this to true to make a default context disabled initially */
   $context->api_version = 3;
   $context->name = 'solr_search';
-  $context->description = 'Expose solr search bar sitewide';
+  $context->description = 'Expose solr search bar sitewide, except when we manage occupations';
   $context->tag = 'blocks';
   $context->conditions = array(
-    'sitewide' => array(
+    'context' => array(
       'values' => array(
-        1 => 1,
+        '~manage_occupations' => '~manage_occupations',
       ),
     ),
   );
@@ -39,7 +39,7 @@ function directory_solr_context_default_contexts() {
 
   // Translatables
   // Included for use with string extractors like potx.
-  t('Expose solr search bar sitewide');
+  t('Expose solr search bar sitewide, except when we manage occupations');
   t('blocks');
   $export['solr_search'] = $context;
 
