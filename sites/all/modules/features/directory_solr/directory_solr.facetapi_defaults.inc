@@ -1,13 +1,13 @@
 <?php
 /**
  * @file
- * occupations_solr.facetapi_defaults.inc
+ * directory_solr.facetapi_defaults.inc
  */
 
 /**
  * Implements hook_facetapi_default_facet_settings().
  */
-function occupations_solr_facetapi_default_facet_settings() {
+function directory_solr_facetapi_default_facet_settings() {
   $export = array();
 
   $facet = new stdClass();

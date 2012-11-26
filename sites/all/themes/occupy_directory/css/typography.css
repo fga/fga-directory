@@ -13,8 +13,8 @@ Type and Vertical Rythm Definitions
 }
 
 body {
-  font-family: 'Dosis Light', helvetica, arial, sans-serif; 
-  font-style: normal; 
+  font-family: 'Dosis Light', helvetica, arial, sans-serif;
+  font-style: normal;
   font-weight: 300;
   font-size: 14px;
   line-height: 18px;
@@ -51,16 +51,20 @@ nav {  font-size: 1.575em; }
 
 header h1 a,
 header h2 a,
-header h3.block-title{
+header h3.block-title {
   text-transform: uppercase;
   font-size: 27px;
   font-weight: 300;
   margin-top:1em;
 }
 
+h1.title {
+  margin: 0 0 .75em;
+  line-height: 1em;
+}
 
 .boxes-box-content h4{
-	text-transform: uppercase;	
+	text-transform: uppercase;
 }
 
 article h2 {
@@ -74,7 +78,7 @@ article p { /* affect all node types */
 article p:first-child{
   font-size: 1.5em;
   line-height: 1.125em;
-};
+}
 
 .smaller{
   font-size: .75em;

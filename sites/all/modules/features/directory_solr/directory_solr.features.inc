@@ -1,13 +1,17 @@
 <?php
 /**
  * @file
- * occupations_solr.features.inc
+ * directory_solr.features.inc
  */
 
 /**
  * Implements hook_ctools_plugin_api().
  */
-function occupations_solr_ctools_plugin_api() {
+function directory_solr_ctools_plugin_api() {
+  list($module, $api) = func_get_args();
+  if ($module == "context" && $api == "context") {
+    return array("version" => "3");
+  }
   list($module, $api) = func_get_args();
   if ($module == "facetapi" && $api == "facetapi_defaults") {
     return array("version" => "1");
@@ -19,9 +23,16 @@ function occupations_solr_ctools_plugin_api() {
 }
 
 /**
+ * Implements hook_views_api().
+ */
+function directory_solr_views_api() {
+  return array("version" => "3.0");
+}
+
+/**
  * Implements hook_default_search_api_index().
  */
-function occupations_solr_default_search_api_index() {
+function directory_solr_default_search_api_index() {
   $items = array();
   $items['occupations_index'] = entity_import('search_api_index', '{
     "name" : "occupations index",
@@ -177,7 +188,7 @@ function occupations_solr_default_search_api_index() {
 /**
  * Implements hook_default_search_api_server().
  */
-function occupations_solr_default_search_api_server() {
+function directory_solr_default_search_api_server() {
   $items = array();
   $items['localhost_server'] = entity_import('search_api_server', '{
     "name" : "pantheon solr server",

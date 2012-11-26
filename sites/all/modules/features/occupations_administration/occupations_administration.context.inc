@@ -31,7 +31,7 @@ function occupations_administration_context_default_contexts() {
         'views-914bc2c4fe4a3310e751e161b901751d' => array(
           'module' => 'views',
           'delta' => '914bc2c4fe4a3310e751e161b901751d',
-          'region' => 'preface_first',
+          'region' => 'search',
           'weight' => '-10',
         ),
       ),

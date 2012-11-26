@@ -1,33 +1,35 @@
 <?php
 /**
  * @file
- * occupation_directory_structure.views_default.inc
+ * directory_solr.views_default.inc
  */
 
 /**
  * Implements hook_views_default_views().
  */
-function occupation_directory_structure_views_default_views() {
+function directory_solr_views_default_views() {
   $export = array();
 
   $view = new view();
-  $view->name = 'global_search';
-  $view->description = '';
-  $view->tag = 'default';
+  $view->name = 'directory_global_search';
+  $view->description = 'solr search for occupy directory';
+  $view->tag = 'FGA';
   $view->base_table = 'search_api_index_occupations_index';
-  $view->human_name = 'global search';
+  $view->human_name = 'Solr Search';
   $view->core = 7;
   $view->api_version = '3.0';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
 
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
-  $handler->display->display_options['title'] = 'global search';
+  $handler->display->display_options['title'] = 'Search';
+  $handler->display->display_options['css_class'] = 'search';
   $handler->display->display_options['use_more_always'] = FALSE;
   $handler->display->display_options['access']['type'] = 'none';
   $handler->display->display_options['cache']['type'] = 'none';
   $handler->display->display_options['query']['type'] = 'views_query';
   $handler->display->display_options['exposed_form']['type'] = 'basic';
+  $handler->display->display_options['exposed_form']['options']['submit_button'] = 'search';
   $handler->display->display_options['pager']['type'] = 'full';
   $handler->display->display_options['pager']['options']['items_per_page'] = '25';
   $handler->display->display_options['style_plugin'] = 'default';
@@ -37,7 +39,9 @@ function occupation_directory_structure_views_default_views() {
   $handler->display->display_options['empty']['area']['table'] = 'views';
   $handler->display->display_options['empty']['area']['field'] = 'area';
   $handler->display->display_options['empty']['area']['empty'] = TRUE;
-  $handler->display->display_options['empty']['area']['content'] = 'yo. do it again!';
+  $handler->display->display_options['empty']['area']['content'] = 'There aren\'t any listings based on your search criteria, but it\'s only a matter of time.
+
+Do you have the information? <a href="http://directory.occupy.net/node/add/occupation">Add an Occupation</a>!';
   $handler->display->display_options['empty']['area']['format'] = 'filtered_html';
   /* Field: Indexed Node: Node ID */
   $handler->display->display_options['fields']['nid']['id'] = 'nid';
@@ -65,7 +69,6 @@ function occupation_directory_structure_views_default_views() {
   $handler->display->display_options['filters']['search_api_views_fulltext']['expose']['operator_id'] = 'search_api_views_fulltext_op';
   $handler->display->display_options['filters']['search_api_views_fulltext']['expose']['operator'] = 'search_api_views_fulltext_op';
   $handler->display->display_options['filters']['search_api_views_fulltext']['expose']['identifier'] = 'search';
-  $handler->display->display_options['filters']['search_api_views_fulltext']['expose']['required'] = TRUE;
   $handler->display->display_options['filters']['search_api_views_fulltext']['expose']['remember_roles'] = array(
     2 => '2',
     1 => 0,
@@ -85,12 +88,12 @@ function occupation_directory_structure_views_default_views() {
   );
 
   /* Display: Page */
-  $handler = $view->new_display('page', 'Page', 'page');
+  $handler = $view->new_display('page', 'Page', 'search_page');
   $handler->display->display_options['display_comment'] = 'search field is required on the page, so we narrow the results';
   $handler->display->display_options['defaults']['hide_admin_links'] = FALSE;
   $handler->display->display_options['exposed_block'] = TRUE;
   $handler->display->display_options['path'] = 'search';
-  $export['global_search'] = $view;
+  $export['directory_global_search'] = $view;
 
   return $export;
 }
