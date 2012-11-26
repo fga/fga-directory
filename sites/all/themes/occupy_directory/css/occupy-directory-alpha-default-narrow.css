@@ -1,1 +1,84 @@
 /* This file will hold styles that are loaded using the same media query as the narrow grid. */
+
+/* This file will hold styles that are loaded using the same media query as the normal grid. */
+
+#zone-navbar, /* occupy.net navbar */
+#region-navbar, /* occupy.net navbar */
+#zone-header,
+#zone-footer,
+.front #zone-content,
+.front #region-content,
+#directory-map-wrapper,
+#map-embed,
+#region-footer-first
+#region-branding,
+#region-menu,
+footer{
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+/*
+-------------------------
+Header
+-------------------------
+*/
+
+/* undo grid bits where necessary
+in an ideal world, omega would have a checkbox that simply says
+no grid for this zone/region/section just cause you are using a grid
+doesn't mean everything falls into it.
+Zen here I come!
+*/
+
+#block-ajax-register-ajax-register-block {
+  margin: 0 0 0 0;
+  width: auto;
+  float: left;
+}
+
+#region-branding{
+  width: 564px;
+}
+
+.site-name-slogan{
+  margin-left: 7em;  
+}
+
+#region-search {
+  width: 100%;
+  clear: both;
+  margin: 0;
+}
+
+/*
+------------------------------------------------------------
+Footer
+------------------------------------------------------------
+*/
+
+
+footer #block-menu-menu-add-your-occupation{
+  display: inline-block;
+}
+
+
+footer #block-menu-menu-feeds-and-exports{
+  float: right;
+  padding-bottom: 3em;
+  background-color: #aaa;
+  border-left: 1px #000 solid;
+  -webkit-transition: all .5s ease-in-out;
+  -moz-transition: all .5s ease-in-out;
+  -o-transition: all .5s ease-in-out;
+  -ms-transition: all .5s ease-in-out;
+  transition: all .5s ease-in-out;
+}
+footer #block-menu-menu-feeds-and-exports:hover{
+  transform: translate(0,-160px);
+  -ms-transform: translate(0,-160px); /* IE 9 */
+  -webkit-transform: translate(0,-160px); /* Safari and Chrome */
+  -o-transform: translate(0,-160px); /* Opera */
+  -moz-transform: translate(0,-160px); /* Firefox */
+};
