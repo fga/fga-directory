@@ -34,7 +34,7 @@ a:active {
   text-decoration: none;
 }
 
-.site-name { 
+.site-name {
   float: left;
 }
 
@@ -225,7 +225,7 @@ Content
 --------
 */
 
-#page-title{ display: none; }
+#page-title { }
 
 #messages {
   margin: 5px 10px 15px;
