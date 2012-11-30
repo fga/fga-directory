@@ -1,0 +1,137 @@
+<?php
+/**
+ * @file
+ * Install, update and uninstall functions for the apachesolr_stats module.
+ *
+ */
+
+
+/**
+ * Implements hook_install().
+ */
+function apachesolr_stats_install() {
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function apachesolr_stats_uninstall() {
+  // Remove variables.
+  variable_del('apachesolr_stats_enabled');
+  variable_del('apachesolr_stats_flush_log_timer');
+  variable_del('apachesolr_stats_ignore_ip_list');
+  variable_del('apachesolr_stats_ignore_role_list');
+  variable_del('apachesolr_stats_gadget_key');
+  // Remove cached info.
+  cache_clear_all('apachesolr_stats_block_frequent_keywords', 'cache_block');
+}
+
+/**
+ * Implements hook_enable().
+ */
+function apachesolr_stats_enable() {
+  drupal_set_message(t("Apache Solr Statistics module enabled. Enable logging and other settings at the !link", array('!link' => l('module configuration page', 'admin/config/apachesolr/stats'))));
+}
+
+/**
+ * Implements hook_schema().
+ */
+function apachesolr_stats_schema() {
+  $schema['apachesolr_stats'] = array(
+    'description' => 'Table that contains a log of Apache Solr queries and performance.',
+    'fields' => array(
+      'qid' => array(
+        'type' => 'serial',
+        'not null' => TRUE,
+        'description' => 'Primary Key: Unique log ID.',
+      ),
+      'timestamp' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'Unix timestamp of when query occurred.',
+      ),
+      'numfound' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'Number of results.',
+      ),
+      'total_time' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'Total query time (miliseconds).',
+      ),
+      'prepare_time' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'Time taken by Solr prepare phase for this query (miliseconds).',
+      ),
+      'process_time' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'Time taken by Solr process phase for this query (miliseconds).',
+      ),
+      'uid' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'The {users}.uid of the user who triggered the query.',
+      ),
+      'sid' => array(
+        'type' => 'varchar',
+        'length' => 64,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => 'Session ID of user who triggered the query.',
+      ),
+      'showed_suggestions' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'Indicates whether a spelling suggestion was shown.',
+      ),
+      'page' => array(
+        'type' => 'varchar',
+        'length' => 10,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => 'Current results page.',
+      ),
+      'keywords' => array(
+        'type' => 'varchar',
+        'length' => 128,
+        'not null' => FALSE,
+        'default' => '',
+        'description' => 'Query keywords arguments.',
+      ),
+      'filters' => array(
+        'type' => 'text',
+        'size' => 'normal',
+        'not null' => TRUE,
+        'description' => 'Query filter arguments.',
+      ),
+      'sort' => array(
+        'type' => 'varchar',
+        'length' => 128,
+        'not null' => TRUE,
+        'description' => 'Query sort arguments.',
+      ),
+      /*
+      'params' => array(
+        'type' => 'text',
+        'not null' => TRUE,
+        'size' => 'big',
+        'description' => "Query object's complete parameters.",
+        'default' => 'i:0',
+      ),
+       */
+    ),
+    'primary key' => array('qid'),
+  );
+
+  return $schema;
+}
