@@ -39,19 +39,11 @@ Zen here I come!
   float: left;
 }
 
-#region-branding, #region-menu{
-	clear: none;
-}
-
-
 #region-branding{
   width: auto;
   float: left;
 }
 
-.site-name-slogan{
-  margin-left: 7em;  
-}
 
 #region-search {
   width: 100%;
