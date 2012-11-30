@@ -64,6 +64,12 @@ zones[content] = 'Content'
 zones[postscript] = 'Postscript'
 zones[footer] = 'Footer'
 
+
+;
+; ----------------------------------
+; Settings (exportable at /admin/appearance/settings/occupy_directory/export)
+; ----------------------------------
+
 settings[toggle_logo] = '1'
 settings[toggle_name] = '1'
 settings[toggle_slogan] = '1'
