@@ -39,10 +39,14 @@ function geocoder_services_resources() {
         'help' => 'List Geocoder Capabilities',
         'file' => array('type' => 'inc', 'module' => 'geocoder', 'name' => 'geocoder.services'),
         'callback' => 'geocoder_services_capabilities',
-        'access callback' => TRUE,
+        'access callback' => 'geocoder_services_capabilities_ac', // Always returns TRUE
       ),
     ),
   );
+}
+
+function geocoder_services_capabilities_ac() {
+  return TRUE;
 }
 
 function geocoder_services_access($handler, $data, $output) {
