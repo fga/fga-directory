@@ -40,6 +40,9 @@ Icon?
 Thumbs.db
 ._*
 
+# Eclipse #
+###########
+.project
 
 # Vim generated files #
 ######################
