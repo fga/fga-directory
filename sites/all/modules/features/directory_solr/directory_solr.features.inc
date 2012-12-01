@@ -17,6 +17,10 @@ function directory_solr_ctools_plugin_api() {
     return array("version" => "1");
   }
   list($module, $api) = func_get_args();
+  if ($module == "features_plumber" && $api == "features_plumber_records") {
+    return array("version" => "1");
+  }
+  list($module, $api) = func_get_args();
   if ($module == "strongarm" && $api == "strongarm") {
     return array("version" => "1");
   }
@@ -178,7 +182,7 @@ function directory_solr_default_search_api_index() {
         }
       }
     },
-    "enabled" : "1",
+    "enabled" : "0",
     "read_only" : "0",
     "rdf_mapping" : []
   }');
@@ -205,25 +209,26 @@ function directory_solr_default_search_api_server() {
       "retrieve_data" : 0,
       "highlight_data" : 0
     },
-    "enabled" : "1",
+    "enabled" : "0",
     "rdf_mapping" : []
   }');
   $items['localhost_solr_server'] = entity_import('search_api_server', '{
-    "name" : "localhost solr server",
+    "name" : "kalabox solr server",
     "machine_name" : "localhost_solr_server",
     "description" : "local development on kalabox requires a different port (for now)",
     "class" : "search_api_solr_service",
     "options" : {
-      "host" : "localhost",
+      "host" : "kala",
       "port" : "8080",
       "path" : "\\/solr",
       "http_user" : "",
       "http_pass" : "",
       "excerpt" : 0,
       "retrieve_data" : 0,
-      "highlight_data" : 0
+      "highlight_data" : 0,
+      "http_method" : "POST"
     },
-    "enabled" : "0",
+    "enabled" : "1",
     "rdf_mapping" : []
   }');
   return $items;
