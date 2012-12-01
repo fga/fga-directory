@@ -95,6 +95,17 @@ directory, not directly the ones provided with this module.
 You'll have to restart your Solr server after making such changes, for them to
 take effect.
 
+Hidden Configuration
+----------
+
+The variable search_api_solr_connection_class is used to define the connection
+information that will be used to connect to solr. This was abstracted into a
+variable to allow services that automatically setup solr for a particular site
+to override the default connection class.
+
+The default is the SearchApiSolrConnection class in solr_connection.inc, which
+should be used as the base class for custom modifications.
+
 Developers
 ----------
 
