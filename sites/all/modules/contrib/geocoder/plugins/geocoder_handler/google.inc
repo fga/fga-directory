@@ -14,7 +14,7 @@ $plugin = array(
   'title' => t("Google Geocoder"),
   'description' => t('Geocodes via google geocoder'),
   'callback' => 'geocoder_google',
-  'field_types' => array('text', 'text_long', 'addressfield', 'text_with_summary', 'computed', 'taxonomy_term_reference'),
+  'field_types' => array('text', 'text_long', 'addressfield', 'location', 'text_with_summary', 'computed', 'taxonomy_term_reference'),
   'field_callback' => 'geocoder_google_field',
   'settings_callback' => 'geocoder_google_form',
   'terms_of_service' => 'http://code.google.com/apis/maps/documentation/geocoding/#Limits',
@@ -24,34 +24,44 @@ $plugin = array(
  * Process Markup
  */
 function geocoder_google($address, $options = array()) {
-  geophp_load();
-  
-  $query = array(
-    'address' => $address,
-    'sensor' => 'false'
-  );
-  
-  $url = url("http://maps.googleapis.com/maps/api/geocode/json", array('query' => $query));
-  $result = drupal_http_request($url);
-  
-  if (isset($result->error)) {
-    drupal_set_message(t('Error geocoding') . ' - ' . $result->code . ' ' . $result->error, 'error');
-    return FALSE;
-  }
-  
-  $data = json_decode($result->data);
-  
-  if ($data->status == 'OK') {
+  try {
+    geophp_load();
+
+    $query = array(
+      'address' => $address,
+      'sensor' => 'false',
+    );
+
+    $url = url("http://maps.googleapis.com/maps/api/geocode/json", array('query' => $query));
+    $result = drupal_http_request($url);
+
+    if (isset($result->error)) {
+      $args = array(
+        '@code' => $result->code,
+        '@error' => $result->error,
+      );
+      $msg = t('HTTP request to google API failed.\nCode: @code\nError: @error', $args);
+      throw new Exception($msg);
+    }
+
+    $data = json_decode($result->data);
+
+    if ($data->status != 'OK') {
+      $args = array('@status' => $data->status);
+      $msg = t('Google API returned bad status.\nStatus: @status', $args);
+      throw new Exception($msg);
+    }
+
     $geometries = array();
-    
+
     foreach ($data->results as $item) {
       // Check if we should reject these results
-      if (isset($options['reject_results'])) {        
+      if (isset($options['reject_results'])) {
         if (in_array($item->geometry->location_type, $options['reject_results'], TRUE)) {
           continue;
         }
       }
-      
+
       // Construct a geoPHP Geometry depending on what type of geometry we want returned (defaults to point)
       if (!isset($options['geometry_type']) || $options['geometry_type'] == 'point') {
         $geom = new Point($item->geometry->location->lng, $item->geometry->location->lat);
@@ -76,19 +86,21 @@ function geocoder_google($address, $options = array()) {
         );
         $geom = new Polygon(array(new LineString($points)));
       }
-      
+
       // Add additional metadata to the geometry - it might be useful!
       $geom->data = array();
       $geom->data['geocoder_accuracy'] = $item->geometry->location_type;
       $geom->data['geocoder_formatted_address'] = $item->formatted_address;
       $geom->data['geocoder_address_components'] = $item->address_components;
-      
+
       $geometries[] = $geom;
     }
-    
-    if (empty($geometries)) return;
-    
-    // Check if we should return all results as a compound geometry  
+
+    if (empty($geometries)) {
+      return;
+    }
+
+    // Check if we should return all results as a compound geometry
     if (isset($options['all_results'])) {
       if ($options['all_results']) {
         return geoPHP::geometryReduce($geometries);
@@ -96,14 +108,15 @@ function geocoder_google($address, $options = array()) {
     }
     // The connonical geometry is the first result (best guesse)
     $geometry = array_shift($geometries);
-    
+
     // If there are any other geometries, these are auxiliary geometries that represent "alternatives"
-    if (count($geometries)) $geometry->data['geocoder_alternatives'] = $geometries;
-    
+    if (count($geometries)) {
+      $geometry->data['geocoder_alternatives'] = $geometries;
+    }
+
     return $geometry;
-  }
-  else {
-    drupal_set_message(t('Error geocoding') . ' - ' . $data->status, 'error');
+  } catch (Exception $e) {
+    watchdog_exception('geocoder', $e);
     return FALSE;
   }
 }
@@ -114,6 +127,10 @@ function geocoder_google_field($field, $field_item, $options = array()) {
   }
   if ($field['type'] == 'addressfield') {
     $address = geocoder_widget_parse_addressfield($field_item);
+    return geocoder_google($address, $options);
+  }
+  if ($field['type'] == 'location') {
+    $address = geocoder_widget_parse_locationfield($field_item);
     return geocoder_google($address, $options);
   }
   if ($field['type'] == 'taxonomy_term_reference') {
@@ -139,7 +156,7 @@ function geocoder_google_form($default_values = array()) {
   $form['all_results'] = array(
     '#type' => 'checkbox',
     '#title' => 'Geocode all alternative results',
-    '#default_value' => isset($default_values['all_values']) ? $default_values['all_values'] : FALSE,
+    '#default_value' => isset($default_values['all_results']) ? $default_values['all_results'] : FALSE,
     '#description' => 'Often an ambiguous address (such as "Springfield USA") can result in multiple hits. By default we only return the first (best guess) result. Check this to return all results as a Multi-Geometry (MultiPoint or MultiPolygon).', 
   );
   

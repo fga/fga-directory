@@ -9,16 +9,59 @@ include_once('geocoder.widget.inc');
 include_once('geocoder.services.inc');
 
 /**
- * The Geocode API call.
+ * The Geocoder API call.
+ *
+ * Given a handler and data, geocode the data into a geometry object using the handler.
+ *  
+ * @param string $handler
+ *   The geocoder handler to use. Call geocoder_handler_info() to get a list
+ * 
+ * @param mixed $data
+ *   Data to be passed into the handler for geocoding. For example a address string.
+ * 
+ * @param array $options
+ *   Additional options to pass to the handler. Exact key / values to pass depend on the handler.
+ * 
+ * @param int $cache_type
+ *   (optional) The type of caching to use. Defaults to 2 (static and persistent)
+ *     0 or FALSE is no-caching at all
+ *     1 is static-cache but no persistent-cache
+ *     2 is both static-cache AND persistent-cache
+ * 
+ * @pram bool $cache_reset
+ *   (optional) Empty the static-cache and re-fill the persistent-cache. Defaults to FALSE.
+ * 
+ * @return geometry
+ *   Returns a geoPHP geometry object. Generally a Point.
+ *   See http://drupal.org/project/geoPHP and https://github.com/phayes/geoPHP/wiki/API-Reference
+ * 
  * @example:
  *    geocoder('google','4925 Gair Ave, Terrace, BC');
  *    geocoder('google','New York City',array('geometry_type' => 'bounds'));
  */
-function geocoder($handler, $data, $options = array()) {
+function geocoder($handler, $data, $options = array(), $cache_type = 2, $cache_reset = FALSE) {
   ctools_include('plugins');
+  static $static_cache = array();
+  
+  if ($cache_reset) {
+    $static_cache = array();
+  }
+  
+  if ($cache_type) {
+    $cache_id = $handler . '_' . md5(serialize(array($data, $options)));
+    if (!empty($static_cache[$cache_id])) {
+      return $static_cache[$cache_id];
+    }
+  }
   
   $processor = ctools_get_plugins('geocoder', 'geocoder_handler', $handler);
-  return call_user_func($processor['callback'], $data, $options);
+  $geometry = call_user_func($processor['callback'], $data, $options);
+  
+  if ($cache_type) {
+    $static_cache[$cache_id] = $geometry;
+  }
+  
+  return $geometry;
 }
 
 
