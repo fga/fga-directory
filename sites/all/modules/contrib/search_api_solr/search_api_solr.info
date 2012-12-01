@@ -10,9 +10,9 @@ files[] = solr_field.inc
 files[] = includes/solr_httptransport.inc
 files[] = includes/spellcheck.inc
 
-; Information added by drupal.org packaging script on 2012-11-11
-version = "7.x-1.0-rc2+13-dev"
+; Information added by drupal.org packaging script on 2012-07-01
+version = "7.x-1.0-rc2+2-dev"
 core = "7.x"
 project = "search_api_solr"
-datestamp = "1352599265"
+datestamp = "1341147223"
 

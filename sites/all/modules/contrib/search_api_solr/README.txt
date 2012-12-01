@@ -1,3 +1,4 @@
+
 Solr search
 -----------
 
@@ -27,15 +28,11 @@ Regarding third-party features, the following are supported:
 
 - search_api_autocomplete
   Introduced by module: search_api_autocomplete
-  Lets you add autocompletion capabilities to search forms on the site. (See
-  also "Hidden variables" below for Solr-specific customization.)
+  Lets you add autocompletion capabilities to search forms on the site.
 - search_api_facets
-  Introduced by module: search_api_facetapi
+  Introduced by module: search_api_facets
   Allows you to create facetted searches for dynamically filtering search
   results.
-- search_api_facets_operator_or
-  Introduced by module: search_api_facetapi
-  Allows the creation of OR facets.
 - search_api_mlt
   Introduced by module: search_api_views
   Lets you display items that are similar to a given one. Use, e.g., to create
@@ -51,9 +48,9 @@ Regarding third-party features, the following are supported:
 
 If you feel some service option is missing, or have other ideas for improving
 this implementation, please file a feature request in the project's issue queue,
-at [3].
+at [3], using the "Solr search" component.
 
-[3] http://drupal.org/project/issues/search_api_solr
+[3] http://drupal.org/project/issues/search_api
 
 Specifics
 ---------
@@ -68,16 +65,9 @@ Also, due to the way Solr works, using a single field for fulltext searching
 will result in the smallest index size and best search performance, as well as
 possibly having other advantages, too. Therefore, if you don't need to search
 different sets of fields in different searches on an index, it is adviced that
-you collect all fields that should be searchable into a single field using the
-“Aggregated fields” data alteration.
-
-Hidden variables
-----------------
-
-- search_api_solr_autocomplete_max_occurrences (default: 0.9)
-  By default, keywords that occur in more than 90% of results are ignored for
-  autocomplete suggestions. This setting lets you modify that behaviour by
-  providing your own ratio. Use 1 or greater to use all suggestions.
+you simply set all fields that should be searched to type "Fulltext" (but don't
+check "Indexed"), add the "Fulltext field" data alter callback and only index
+the newly added field named "Fulltext".
 
 Customizing your Solr server
 ----------------------------
@@ -110,5 +100,6 @@ Developers
 ----------
 
 The SearchApiSolrService class has a few custom extensions, documented with its
-code. Methods of note are deleteItems(), which treats the first argument
-differently in certain cases, and the methods at the end of service.inc.
+code. Methods of note are:
+- deleteItems()
+- ping()
