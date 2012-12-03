@@ -231,6 +231,11 @@ class SearchApiSolrService extends SearchApiAbstractService {
         throw new Exception(t('SolrPhpClient library not found! Please follow the instructions in search_api_solr/INSTALL.txt for installing the Solr search module.'));
       }
       $class = variable_get('search_api_solr_connection_class', 'SearchApiSolrConnection');
+      
+      if ( !class_exists( $class ) ) {
+        $class = 'SearchApiSolrConnection';
+      }
+      
       $this->solr = new $class($this->options);
     }
   }
@@ -850,6 +855,11 @@ class SearchApiSolrService extends SearchApiAbstractService {
       else {
         $key = trim($key);
         $class = variable_get('search_api_solr_connection_class', 'SearchApiSolrConnection');
+        
+        if ( !class_exists( $class ) ) {
+          $class = 'SearchApiSolrConnection';
+        }
+        
         $key = call_user_func(array($class, 'phrase'), $key);
         $k[] = $key;
       }
@@ -929,6 +939,11 @@ class SearchApiSolrService extends SearchApiAbstractService {
    */
   protected function createFilterQuery($field, $value, $operator, $field_info) {
     $class = variable_get('search_api_solr_connection_class', 'SearchApiSolrConnection');
+    
+    if ( !class_exists( $class ) ) {
+      $class = 'SearchApiSolrConnection';
+    }
+    
     $field = call_user_func(array($class, 'escapeFieldName'), $field);
     if ($value === NULL) {
       return ($operator == '=' ? '-' : '') . "$field:[* TO *]";
@@ -969,6 +984,11 @@ class SearchApiSolrService extends SearchApiAbstractService {
         break;
     }
     $class = variable_get('search_api_solr_connection_class', 'SearchApiSolrConnection');
+    
+    if ( !class_exists( $class ) ) {
+      $class = 'SearchApiSolrConnection';
+    }
+    
     return call_user_func(array($class, 'phrase'), $value);
  }
 
@@ -995,6 +1015,11 @@ class SearchApiSolrService extends SearchApiAbstractService {
       if (isset($info['operator']) && $info['operator'] === 'or') {
         // Remember that filters for this field should be tagged.
         $class = variable_get('search_api_solr_connection_class', 'SearchApiSolrConnection');
+        
+        if ( !class_exists( $class ) ) {
+          $class = 'SearchApiSolrConnection';
+        }
+        
         $escaped = call_user_func(array($class, 'escapeFieldName'), $fields[$info['field']]);
         $taggedFields[$escaped] = "{!tag=$escaped}";
         // Add the facet field.
@@ -1063,6 +1088,11 @@ class SearchApiSolrService extends SearchApiAbstractService {
       $fields = $params['qf'];
       unset($params['qf']);
       $class = variable_get('search_api_solr_connection_class', 'SearchApiSolrConnection');
+      
+      if ( !class_exists( $class ) ) {
+        $class = 'SearchApiSolrConnection';
+      }
+      
       $keys = implode(":($k) OR ", array_map(array($class, 'escapeFieldName'), $fields)) . ":($k)";
 
       return TRUE;
