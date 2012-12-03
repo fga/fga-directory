@@ -43,6 +43,8 @@ Thumbs.db
 # Eclipse #
 ###########
 .project
+.buildpath
+.settings*
 
 # Vim generated files #
 ######################
