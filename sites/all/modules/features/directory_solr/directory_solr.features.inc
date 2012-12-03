@@ -182,7 +182,7 @@ function directory_solr_default_search_api_index() {
         }
       }
     },
-    "enabled" : "0",
+    "enabled" : "1",
     "read_only" : "0",
     "rdf_mapping" : []
   }');
@@ -195,7 +195,7 @@ function directory_solr_default_search_api_index() {
 function directory_solr_default_search_api_server() {
   $items = array();
   $items['localhost_server'] = entity_import('search_api_server', '{
-    "name" : "pantheon solr server",
+    "name" : "localhost solr server",
     "machine_name" : "localhost_server",
     "description" : "Pantheon\\u0027s solr instance uses the non-standard port at 8983",
     "class" : "search_api_solr_service",
@@ -208,25 +208,6 @@ function directory_solr_default_search_api_server() {
       "excerpt" : 0,
       "retrieve_data" : 0,
       "highlight_data" : 0
-    },
-    "enabled" : "0",
-    "rdf_mapping" : []
-  }');
-  $items['localhost_solr_server'] = entity_import('search_api_server', '{
-    "name" : "kalabox solr server",
-    "machine_name" : "localhost_solr_server",
-    "description" : "local development on kalabox requires a different port (for now)",
-    "class" : "search_api_solr_service",
-    "options" : {
-      "host" : "kala",
-      "port" : "8080",
-      "path" : "\\/solr",
-      "http_user" : "",
-      "http_pass" : "",
-      "excerpt" : 0,
-      "retrieve_data" : 0,
-      "highlight_data" : 0,
-      "http_method" : "POST"
     },
     "enabled" : "1",
     "rdf_mapping" : []
