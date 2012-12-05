@@ -17,6 +17,10 @@ function occupations_ctools_plugin_api() {
     return array("version" => "2");
   }
   list($module, $api) = func_get_args();
+  if ($module == "ds" && $api == "ds") {
+    return array("version" => "1");
+  }
+  list($module, $api) = func_get_args();
   if ($module == "field_group" && $api == "field_group") {
     return array("version" => "1");
   }
@@ -149,6 +153,36 @@ function occupations_rdf_default_mappings() {
 
   // Exported RDF mapping: occupation_type
   $rdf_mappings['taxonomy_term']['occupation_type'] = array(
+    'rdftype' => array(
+      0 => 'skos:Concept',
+    ),
+    'name' => array(
+      'predicates' => array(
+        0 => 'rdfs:label',
+        1 => 'skos:prefLabel',
+      ),
+    ),
+    'description' => array(
+      'predicates' => array(
+        0 => 'skos:definition',
+      ),
+    ),
+    'vid' => array(
+      'predicates' => array(
+        0 => 'skos:inScheme',
+      ),
+      'type' => 'rel',
+    ),
+    'parent' => array(
+      'predicates' => array(
+        0 => 'skos:broader',
+      ),
+      'type' => 'rel',
+    ),
+  );
+
+  // Exported RDF mapping: geographic_area
+  $rdf_mappings['taxonomy_term']['geographic_area'] = array(
     'rdftype' => array(
       0 => 'skos:Concept',
     ),

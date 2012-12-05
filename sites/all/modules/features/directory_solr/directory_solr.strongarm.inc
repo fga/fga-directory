@@ -13,6 +13,26 @@ function directory_solr_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
+  $strongarm->name = 'field_bundle_settings_ds_views__directory_global_search-search_page';
+  $strongarm->value = array(
+    'view_modes' => array(),
+    'extra_fields' => array(
+      'form' => array(),
+      'display' => array(
+        'title' => array(
+          'default' => array(
+            'weight' => '8',
+            'visible' => FALSE,
+          ),
+        ),
+      ),
+    ),
+  );
+  $export['field_bundle_settings_ds_views__directory_global_search-search_page'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
   $strongarm->name = 'search_active_modules';
   $strongarm->value = array(
     'node' => 'node',
@@ -30,6 +50,7 @@ function directory_solr_strongarm() {
       'search_api_views:global_search:page' => 'search_api_views:global_search:page',
       'search_api_views:directory_global_search:page' => 'search_api_views:directory_global_search:page',
       'search_api_views:directory_global_search:search_page' => 'search_api_views:directory_global_search:search_page',
+      'search_api_views:directory_global_search:page_1' => 'search_api_views:directory_global_search:page_1',
     ),
   );
   $export['search_api_facets_search_ids'] = $strongarm;

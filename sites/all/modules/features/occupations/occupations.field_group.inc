@@ -467,5 +467,72 @@ function occupations_field_group_info() {
   );
   $export['group_occupation_links|node|occupation|form'] = $field_group;
 
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_occupation_links|node|occupation|occupation_search_result';
+  $field_group->group_name = 'group_occupation_links';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'occupation';
+  $field_group->mode = 'occupation_search_result';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'links',
+    'weight' => '6',
+    'children' => array(
+      0 => 'field_occupation_website',
+      1 => 'field_occupation_twitter',
+      2 => 'field_occupation_email_general',
+      3 => 'field_occupation_facebook',
+      4 => 'field_occupation_twitter_hash',
+    ),
+    'format_type' => 'div',
+    'format_settings' => array(
+      'label' => 'links',
+      'instance_settings' => array(
+        'classes' => 'links',
+        'description' => '',
+        'show_label' => '0',
+        'label_element' => 'h2',
+        'effect' => 'none',
+        'speed' => 'fast',
+      ),
+      'formatter' => 'open',
+    ),
+  );
+  $export['group_occupation_links|node|occupation|occupation_search_result'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_occupation_teaser|node|occupation|occupation_search_result';
+  $field_group->group_name = 'group_occupation_teaser';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'occupation';
+  $field_group->mode = 'occupation_search_result';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'Teaser',
+    'weight' => '0',
+    'children' => array(
+      0 => 'field_occupation_description',
+      1 => 'field_occupation_image',
+    ),
+    'format_type' => 'div',
+    'format_settings' => array(
+      'label' => 'Teaser',
+      'instance_settings' => array(
+        'classes' => 'teaser',
+        'description' => '',
+        'show_label' => '0',
+        'label_element' => 'h2',
+        'effect' => 'none',
+        'speed' => 'none',
+      ),
+      'formatter' => 'open',
+    ),
+  );
+  $export['group_occupation_teaser|node|occupation|occupation_search_result'] = $field_group;
+
   return $export;
 }

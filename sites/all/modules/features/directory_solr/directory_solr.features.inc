@@ -13,6 +13,14 @@ function directory_solr_ctools_plugin_api() {
     return array("version" => "3");
   }
   list($module, $api) = func_get_args();
+  if ($module == "ds" && $api == "ds") {
+    return array("version" => "1");
+  }
+  list($module, $api) = func_get_args();
+  if ($module == "ds_extras" && $api == "ds_extras") {
+    return array("version" => "1");
+  }
+  list($module, $api) = func_get_args();
   if ($module == "facetapi" && $api == "facetapi_defaults") {
     return array("version" => "1");
   }

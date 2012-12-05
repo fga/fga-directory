@@ -111,6 +111,18 @@ function occupations_strongarm() {
       'token' => array(
         'custom_settings' => FALSE,
       ),
+      'occupation_search_result' => array(
+        'custom_settings' => TRUE,
+      ),
+      'diff_standard' => array(
+        'custom_settings' => FALSE,
+      ),
+      'revision' => array(
+        'custom_settings' => FALSE,
+      ),
+      'search' => array(
+        'custom_settings' => TRUE,
+      ),
     ),
     'extra_fields' => array(
       'form' => array(
