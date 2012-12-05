@@ -424,9 +424,8 @@ article.comment nav.comment-links li.comment_forbidden {
 Talk messes up the $node->content['links']['comment']['#links']
 array and override the comment_forbidden key. CSS to the rescue for now.
 */
-
 .node-occupation .node-links .first {
-  display: none;
+  /*display: none;*/
 }
 
 #comments h2.title {

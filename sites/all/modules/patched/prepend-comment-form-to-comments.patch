@@ -1,0 +1,31 @@
+diff --git a/sites/all/modules/contrib/ajax_comments/ajax_comments.module b/sites/all/modules/contrib/ajax_comments/ajax_comments.module
+index e71d75e..cb7a433 100644
+--- a/sites/all/modules/contrib/ajax_comments/ajax_comments.module
++++ b/sites/all/modules/contrib/ajax_comments/ajax_comments.module
+@@ -225,7 +225,7 @@ function ajax_comments_submit_js($form, &$form_state) {
+   elseif (isset($form_state['values']['pid'])) {
+     // Append comment to parent wrapper.
+     $comment_output = drupal_render($comment_build);
+-    $commands[] = ajax_command_append('#comment-wrapper-' . $comment->pid, $notify_text . $comment_output);
++    $commands[] = ajax_command_prepend('#comment-wrapper-' . $comment->pid, $notify_text . $comment_output);
+ 
+     // Delete the form.
+     $commands[] = ajax_command_invoke('#' . $form['#id'], 'remove');
+@@ -234,7 +234,7 @@ function ajax_comments_submit_js($form, &$form_state) {
+   else {
+     // Append comment to root comment wrapper.
+     $comment_output = drupal_render($comment_build);
+-    $commands[] = ajax_command_append('#comment-wrapper', $notify_text . $comment_output);
++    $commands[] = ajax_command_prepend('#comment-wrapper', $notify_text . $comment_output);
+ 
+     // If we have a default form, update it with a new one.
+     if (variable_get('comment_form_location_' . $node->type, COMMENT_FORM_BELOW) == COMMENT_FORM_BELOW) {
+@@ -447,7 +447,7 @@ function ajax_comments_reply($node, $pid = NULL) {
+     $commands[] = ajax_command_after('#comment-wrapper-' . $pid . ' >.comment', $form);
+   }
+   else {
+-    $commands[] = ajax_command_append('#comment-wrapper', $form);
++    $commands[] = ajax_command_prepend('#comment-wrapper', $form);
+   }
+ 
+   return array('#type' => 'ajax', '#commands' => $commands);

@@ -413,6 +413,9 @@ ini_set('session.cookie_lifetime', 2000000);
 #   'forum'      => 'Discussion board',
 #   '@count min' => '@count minutes',
 # );
+$conf['locale_custom_strings_en'][''] = array(
+    'Add new comment' => 'Suggest an Edit',
+);
 
 /**
  *
