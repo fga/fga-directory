@@ -5,9 +5,9 @@ dependencies[] = comment
 dependencies[] = nodejs
 
 
-; Information added by drupal.org packaging script on 2012-03-13
-version = "7.x-1.0-alpha1"
+; Information added by drupal.org packaging script on 2012-09-26
+version = "7.x-1.0-alpha1+7-dev"
 core = "7.x"
 project = "ajax_comments"
-datestamp = "1331621446"
+datestamp = "1348661005"
 
