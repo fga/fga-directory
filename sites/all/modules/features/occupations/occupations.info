@@ -6,7 +6,6 @@ php = 5.2.4
 version = 7.x-1.03
 project = occupations
 dependencies[] = addressfield
-dependencies[] = ajax_comments
 dependencies[] = computed_field
 dependencies[] = context
 dependencies[] = ctools
