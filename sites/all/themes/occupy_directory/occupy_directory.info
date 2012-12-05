@@ -4,7 +4,7 @@ core = '7.x'
 engine = 'phptemplate'
 screenshot = 'screenshot.png'
 base theme = 'omega'
-version = '1.75'
+version = '1.5'
 
 ;
 ; ----------------------------------
@@ -40,6 +40,7 @@ regions[user_first] = 'User Bar First'
 regions[user_second] = 'User Bar Second'
 regions[branding] = 'Branding'
 regions[menu] = 'Menu'
+regions[menu_second] = "Menu Second"
 regions[search] = "Search"
 regions[sidebar_first] = 'Sidebar First'
 regions[sidebar_second] = 'Sidebar Second'
