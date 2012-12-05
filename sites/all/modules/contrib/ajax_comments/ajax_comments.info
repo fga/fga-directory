@@ -1,0 +1,11 @@
+name = AJAX Comments
+description = Module makes comments load without a page refresh via AJAX
+core = 7.x
+dependencies[] = comment
+
+; Information added by drupal.org packaging script on 2012-03-13
+version = "7.x-1.0-alpha1"
+core = "7.x"
+project = "ajax_comments"
+datestamp = "1331621446"
+

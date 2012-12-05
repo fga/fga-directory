@@ -1,0 +1,9 @@
+<?php
+
+/**
+ * Implements hook_uninstall().
+ */
+function ajax_comments_uninstall() {
+  variable_del('ajax_comments_node_types');
+  variable_del('ajax_comments_notify');
+}
