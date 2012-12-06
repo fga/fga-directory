@@ -270,7 +270,7 @@ Pages
 ----------------------------------
 */
 
-.not-front.node-type-page .region-content-inner,
+.not-front .region-content-inner,
 aside#region-sidebar-first{
   margin-top: 4em;
 }
@@ -304,6 +304,7 @@ Map
 Occupation Node Detail Formatting
 ----------------------------------
 */
+
 
 
 .field-group-format.grouplinks {

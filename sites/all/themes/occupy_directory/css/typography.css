@@ -77,6 +77,11 @@ h4{
   font-size: 1.25em;
 }
 
+h5{
+  font-size: .75em;
+  letter-spacing: 1px;
+}
+
 .site-name{ margin: .5em 0 0 0; }
 
 .not-front .site-name{

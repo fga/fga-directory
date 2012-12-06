@@ -44,6 +44,10 @@ Zen here I come!
   float: left;
 }
 
+#region-menu-second{
+  float: left;
+}
+
 #region-search {
   width: 100%;
   clear: both;
