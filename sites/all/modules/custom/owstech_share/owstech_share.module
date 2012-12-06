@@ -1,0 +1,62 @@
+<?php
+
+/**
+ * @file
+ * General trackerless share plugin for Drupal
+ * Currently only supports facebook, twitter, gplus, and reddit, this can grow rather easily. 
+ * @todo make sure the appropriate metadata is showing up in the document for previews/descriptions and fancy titles, consider integration with page_title module.
+ */
+
+/**
+ * Implements hook_help().
+ */
+function owstech_share($path, $arg) {
+  drm( "owstech_share path", $path );
+  drm( "owstech_share arg", $arg );
+  if ($path == 'admin/help#owstech_share') {
+    return t('Help for the OWSTech Share module!');
+  }
+}
+
+/**
+ * Implements hook_block_info().
+ */
+function owstech_share_info() {
+  $blocks = array();
+  $blocks['owstech-share'] = array(
+    'info' => t('OWSTechShare, a tracking-free, spiffy social media share that aims for simplicity and wont clutter your site with corporate logos.'),
+  );
+  return $blocks;
+}
+
+/**
+ * Implements hook_theme().
+ *
+ * Defines default theme template for a list of tweets.
+ */
+function owstech_share_theme() {
+  $ret = array(
+    'owstech-share' => array(
+      'variables' => array(
+        'page_url' => 'http://' . urlencode( $_SERVER['HTTP_HOST'] . request_uri() ) . $_SERVER['QUERY_STRING'],
+        'page_title' => drupal_get_title(),
+      ),
+      'template' => 'owstech_share',
+    ),
+  );
+  return $ret;
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function owstech_share_block_view( $delta = '') {
+  switch( $delta ){
+    case 'owstech-share':
+      drupal_add_js( drupal_get_path('module', 'owstech_share') . '/js/owstech_share.js');
+      drupal_add_css( drupal_get_path('module', 'owstech_share') .'/css/owstech_share.css');
+      $block['content'] = theme('owstech-share'); 
+      return $block;
+    break;
+ }
+}

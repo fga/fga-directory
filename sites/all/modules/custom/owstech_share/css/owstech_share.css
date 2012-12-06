@@ -1,0 +1,116 @@
+.owstech-share {
+	position: relative;
+}
+
+.owstech-share h5 {
+	position: absolute;
+	left: 0;
+	top: 0;
+	z-index: 3;
+	margin: 0;
+	float: left;
+	background: #000;
+}
+
+.owstech-share h5 a{
+	display: block;
+	padding: .25em .375em;
+	color: #fff;
+	text-decoration: none;
+}
+
+.owstech-share:hover h5 a{
+	cursor: pointer;
+	text-decoration: none;
+	background: #fff;
+	color: #000;
+}
+
+.owstech-share div.drawer {
+	display: inline-block;
+	overflow: hidden;
+	padding: .15em .1875em .225em .1875em;
+	padding-left: .325em;
+	white-space: nowrap;
+	opacity: 0;
+	width: 0;
+	-webkit-transition: all 350ms cubic-bezier(0.250, 0.460, 0.450, 0.940);
+	-moz-transition: all 350ms cubic-bezier(0.250, 0.460, 0.450, 0.940);
+	-ms-transition: all 350ms cubic-bezier(0.250, 0.460, 0.450, 0.940);
+	-o-transition: all 350ms cubic-bezier(0.250, 0.460, 0.450, 0.940);
+	transition: all 350ms cubic-bezier(0.250, 0.460, 0.450, 0.940); /* easeOutQuad */
+}
+
+.owstech-share:hover div.drawer{
+	width: auto;
+	opacity: 1;
+	padding: .15em .1875em .225em 3.25em;
+	box-shadow: 0px 1px 1px #aaa;
+}
+
+.owstech-share ul,
+.owstech-share li {
+	margin: 0;
+	padding: 0;
+}
+
+.owstech-share ul li {
+	display: inline-block;
+	margin-right: 1px;
+	box-shadow: 0px 1px 250px #000;
+}
+
+.owstech-share ul li a {
+	display: block;
+	text-indent: -5000px;
+	overflow: hidden;
+}
+
+.owstech-share a.icon16 {
+	width: 16px;
+	height: 16px;
+	opacity: .6;
+}
+
+.owstech-share a.icon16:hover{
+	opacity: 1;
+} 
+
+.owstech-share a.icon16.facebook{
+	background: url( ../images/owstech_share_sprite_16.png ) 0 0;
+}
+
+.owstech-share a.icon16.twitter{
+	background: url( ../images/owstech_share_sprite_16.png ) 16px 0;
+}
+
+.owstech-share a.icon16.google-plus{
+	background: url( ../images/owstech_share_sprite_16.png ) 48px 0;
+}
+
+.owstech-share a.icon16.reddit{
+	background: url( ../images/owstech_share_sprite_16.png ) 32px 0;
+}
+
+/*
+
+.owstech-share a.icon24{
+	width: 24px;
+	height: 24px;
+}
+
+.owstech-share a.icon24.facebook{
+	background: url( ../images/owstech_share_sprite_24.png ) 0 0;
+}
+
+.owstech-share a.icon24.twitter{
+	background: url( ../images/owstech_share_sprite_24.png ) 24px 0;
+}
+
+.owstech-share a.icon24.google-plus{
+	background: url( ../images/owstech_share_sprite_24.png ) 48px 0;
+}
+
+.owstech-share a.icon24.reddit{
+	background: url( ../images/owstech_share_sprite_24.png )72px 0;
+}*/

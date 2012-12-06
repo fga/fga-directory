@@ -1,0 +1,4 @@
+name = OWSTech Share
+description = Share module with no tracking, the js just pops up a window and ability to hide corporate logos (icons) til hover/touch.
+package = OWS
+core = 7.x
