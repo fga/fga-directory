@@ -9,7 +9,7 @@
       </li>
       <li>
         <a class="icon16 twitter" rel="nofollow" title="Tweet This!" target="_blank" href="http://twitter.com/home?status=<?php echo $page_url . '%20'. urlencode( $page_title );?>">
-          Tweet <?php echo $paget_title;?>
+          Tweet <?php echo $page_title;?>
         </a>
       </li>
       <li>
