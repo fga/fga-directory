@@ -44,8 +44,8 @@
 
     <div class="comment-instructions">
       <p>This is a community managed project that relies on people like you to keep the data current!
-     if something is incomplete or incorrect please suggest an edit using the form below. Edits will typically be reviews and implemented
-     within 24 hours.</p>
+        If something is incomplete or incorrect please suggest an edit using the form below.
+        Edits will typically be reviewed and implemented within 24 hours.</p>
    </div>
   <?php endif; ?>
 
