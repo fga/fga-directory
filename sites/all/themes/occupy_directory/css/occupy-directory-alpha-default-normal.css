@@ -5,8 +5,11 @@
 #zone-header,
 #zone-footer,
 #zone-menu,
+#messages,
 .front #zone-content,
 .front #region-content,
+.page-search #zone-content,
+.page-search #region-content,
 #directory-map-wrapper,
 #map-embed,
 #region-footer-first,
@@ -16,6 +19,24 @@ footer{
   width: 100%;
   padding: 0;
   margin: 0;
+}
+
+.page-search #zone-content-wrapper {
+  position: relative;
+}
+
+.page-search #region-content-inner {
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.page-search #region-sidebar-first {
+  z-index: 10;
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 0;
+  width: 16em;
 }
 
 /*

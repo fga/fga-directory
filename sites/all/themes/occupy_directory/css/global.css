@@ -239,8 +239,8 @@ Content
 --------
 */
 
-#messages {
-  margin: 5px 10px 15px;
+#messages .error{
+  margin: 0;
 }
 
 #region-content{
@@ -263,10 +263,6 @@ article a:hover, article a:active {
 /*.not-front #zone-content{
 padding-top: 4em;
 }*/
-
-.context-about .article p:first-child{
-  font-size: 1.5em;
-}
 
 .zone-preface-wrapper {
  background-color: #d0d0d0;
@@ -471,6 +467,45 @@ Pager
 
 .block .view ul.pager {
   margin-top:.5em;
+}
+
+/*
+----------------------------------
+SOLR Search Facets
+----------------------------------
+*/
+
+
+.page-search #region-sidebar-first{
+  background-color: #222;
+  padding: 0;
+}
+
+.page-search #region-sidebar-first .block-title{
+  font-size: 18px;
+    margin: 0 0 .5em 0;
+    padding: 12px;
+    background:#555;
+    color: #aaa;
+}
+
+.block-facetapi{
+
+}
+
+.block-facetapi ul{
+  padding-bottom: .5em;
+}
+
+.block-facetapi li{
+  font-size: .875em;
+  margin: 0;
+  padding: .25em 0;
+  border-bottom: 1px #555 solid;
+}
+
+#facetapi-facet-search-apioccupations-index-block-field-occupation-addressadministrative-area li{
+  text-transform: uppercase;
 }
 
 
