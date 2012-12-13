@@ -99,6 +99,7 @@ header h3.block-title {
   margin-top:1em;
 }
 
+
 h1.title {
   margin: 0 0 .75em;
   line-height: 1em;
@@ -125,4 +126,7 @@ article p:first-child{
   font-size: .75em;
 }
 
+#block-boxes-twitter-pull{
+  font-size: .925em;
+}
 
