@@ -92,7 +92,133 @@ Header
 }
 
 
+/*
+-------------------------
+Ajax Login Form
+-------------------------
+*/
 
+
+#block-ajax-register-ajax-register-block{
+  padding: .575em 1em 0 1em;
+  background: #f9b018;
+  line-height: 1.2;
+}
+
+.node-type-occupation .node-links&#comments { display: none }
+
+#block-ajax-register-ajax-register-block ul li{
+  margin-left: 0;
+}
+
+#block-ajax-register-ajax-register-block a {
+  color: #222;
+}
+
+/* modal */
+
+div.ctools-modal-content {
+  background: #eee;
+}
+
+div.ctools-modal-content .modal-header {
+  padding: 1em .575em .575em 1em;
+  background-color: #ccc;
+  border-bottom: 1px #aaa solid;
+}
+
+div.ctools-modal-content a.close {
+ width: 24px;
+ height: 24px;
+ margin: 0;
+ position: relative;
+ z-index: 1000;
+ top: -.25em;
+  text-decoration: none;
+  border-radius: 12px;
+ background: #999;
+ color: #000;
+ box-sizing: border-box;
+}
+
+div.ctools-modal-content a.close:after {
+  position: relative;
+  width: 24px;
+  height: 24px;
+  left: .275em;
+  font-family: Dosis;
+  font-weight: 300;
+  text-align: center;
+  content: "\00d7";
+  font-size: 24px;
+  line-height: .85;
+}
+
+.not-logged-in div.ctools-modal-content .ajax-register-links-wrapper {
+  display: none;
+}
+
+.not-logged-in div.ctools-modal-content .form-item {
+  padding: 0 1em;
+}
+
+div.ctools-modal-content a:hover {
+  background: #333;
+  color: #aaa;
+}
+
+div.ctools-modal-content a.close img {
+  display: none;
+}
+
+div.ctools-modal-content .login-forgot {
+  margin: 0 1em;
+}
+
+div.ctools-modal-content .edit-submit {
+  display: block;
+  width: 100%;
+}
+
+div.ctools-modal-content .form-actions {
+  margin: .5em 0 0 0;
+  width: 100%;
+  border-top: 1px #aaa solid;
+}
+
+div.ctools-modal-content .form-actions input {
+  border: none;
+  margin: none;
+  outline: none;
+  border-radius: 0;
+  width: 100%;
+  background: #dedede;
+  color: #000;
+  display: inline block;
+  margin:  0 0 0 0;
+  padding: 1em .75em .7125em .75em;
+  text-decoration: none;
+  font-family: Dosis;
+  font-size: 1.25em;
+  font-weight: 300;
+}
+
+div.ctools-modal-content .form-actions input:hover {
+  background: #333;
+  color: #dedede;
+  border-bottom: #333;
+}
+
+.form-actions input+input {
+  border-right: 1px #000 solid;
+}
+
+
+div.ctools-modal-content #modal-content {
+  width: 100% !important;
+  padding: 0;
+  margin: 0;
+}
 
 /*
 -------------------------
@@ -157,19 +283,6 @@ nav a.active { background: #000; color: #fc0; }
 nav a:hover { background-color: #000; color: #fc0; }
 
 
-#block-ajax-register-ajax-register-block{
-  padding: .575em 1em 0 1em;
-  background: #f9b018;
-  line-height: 1.2;
-}
-
-#block-ajax-register-ajax-register-block ul li{
-  margin-left: 0;
-}
-
-#block-ajax-register-ajax-register-block a {
-  color: #222;
-}
 
 /* Tabs */
 

@@ -74,6 +74,7 @@ b, strong{
   font-weight: 700;
 }
 
+#modal-title,
 h1, h2, h3, h4, h5, h6 {
 	font-family: Dosis, helvetica, arial, sans-serif; font-style: normal; font-weight: 300;
 	color: #222;
@@ -91,6 +92,7 @@ h1 {
   text-transform: uppercase;
 }
 
+#modal-title,
 h2 { font-size: 2em; }
 
 h3 { font-size: 1.5em; }
