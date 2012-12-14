@@ -1,19 +1,19 @@
-/* This file will hold styles that are loaded using the same media query as the narrow grid. */
-
-/* occupy.net navbar */
-#region-navbar, /* occupy.net navbar */
-#zone-header,
-#zone-footer,
-.front #zone-content,
-.front #region-content,
-#directory-map-wrapper,
-#map-embed,
-#region-footer-first
-footer{
+/* just a little help with the responsive breakpoints */
+#zone-header:before {
+  position: fixed;
+  height: 1em;
+  text-align: center;
+  color: #fff;
+  z-index: 5005;
+  bottom: 0;
   width: 100%;
-  padding: 0;
-  margin: 0;
+  background: rgba( 255, 0, 0, .875 );
+  padding: .5em;
+  content: "Narrow < 800";
 }
+
+
+
 
 /*
 -------------------------
@@ -21,9 +21,7 @@ Header
 -------------------------
 */
 
-/* hide occupy.net navbar on mobile (til its fixed, or more accessible ) */
-#zone-navbar { display: none !important }
-
+#zone-navbar { height: 30px; }
 
 /* undo grid bits where necessary
 in an ideal world, omega would have a checkbox that simply says
@@ -32,6 +30,9 @@ doesn't mean everything falls into it.
 Zen here I come!
 */
 
+#region-header,
+#region-menu,
+.logo-img,
 #block-ajax-register-ajax-register-block {
   margin: 0 0 0 0;
   width: auto;
@@ -39,21 +40,67 @@ Zen here I come!
 }
 
 #region-branding{
-  width: 100%;
+  width: auto;
+  float: left;
 }
 
-#region-menu{
-	width: auto;
-	clear: both;
-	margin: 0 auto;
-}
-
-
-#region-search {
-  width: 100%;
-  clear: both;
+#zone-menu #region-menu-second{
+  float: left;
+  width: 49%;
+  background: #f30;
+  padding: 0;
   margin: 0;
 }
+
+#zone-menu #region-search{
+  clear: none;
+  width: auto;
+  text-align: right;
+  width: 100%;
+}
+
+#zone-menu #region-menu-second+#region-search{
+  width: 50%;
+  margin-left: 50%;
+}
+
+#zone-menu .region-search-inner{
+  display: inline-block;
+  width: 21.82em;
+  text-align: left;
+}
+
+#zone-menu .region-search-inner {
+  padding: 1.25em .5em 1.25em 1em;
+}
+
+.page-search #zone-menu .region-search-inner{ 
+  border-left: 1px #000 solid;
+}
+
+/*
+------------------------------------------------------------
+Content
+------------------------------------------------------------
+*/
+
+
+.page-node.not-front #region-content {
+  background: #eee;
+  margin: 0;
+}
+
+.page-node.not-front  #region-content .region-content-inner{
+  background: #fafafa;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.page-node.not-front #region-content .region-content-inner{
+  margin-top: 4em;
+}
+
+.node-type-page #region-sidebar-first { background: #eee; }
 
 /*
 ------------------------------------------------------------
@@ -63,11 +110,13 @@ Footer
 
 
 footer #block-menu-menu-add-your-occupation{
-  display: inline-block;
+  width: 300px;
+  float: left;
 }
 
 
 footer #block-menu-menu-feeds-and-exports{
+  width: 12em;
   float: right;
   padding-bottom: 3em;
   background-color: #aaa;

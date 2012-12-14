@@ -25,7 +25,7 @@ Links
 
 a:link, a:visited { color: #666; }
 
-aside#region-sidebar-first a{ 
+#region-sidebar-first a{ 
   color: #0af;
 }
 
@@ -47,6 +47,8 @@ a:active {
   color: #f30;
 }
 
+.element-invisible { display: none; }
+
 /*
 -------------------------
 Header
@@ -61,7 +63,8 @@ Header
   display: block !important;
 }
 
-#region-branding, #region-menu{
+#region-branding, 
+#region-menu{
   clear: none;
 }
 
@@ -86,10 +89,6 @@ Header
   top: -1000px;
 }
 
-#region-menu{
-  float: right;
-  margin: 0;
-}
 
 
 /*
@@ -97,17 +96,6 @@ Header
 Ajax Login Form
 -------------------------
 */
-
-
-#block-ajax-register-ajax-register-block{
-  padding: .575em 1em 0 1em;
-  background: #f9b018;
-  line-height: 1.2;
-}
-
-#block-ajax-register-ajax-register-block ul li{
-  margin-left: 0;
-}
 
 #block-ajax-register-ajax-register-block a {
   color: #222;
@@ -224,15 +212,7 @@ Occupation Count Box
 -------------------------
 */
 
-#block-boxes-occupation-count {
-  display: inline-block;
-  background: #000;
-  margin: 0 0 0 2em;
-  padding: .375em .5em .25em .5em;
-  position: absolute;
-  width: auto;
-  white-space: nowrap;
-}
+
 
 #block-boxes-occupation-count h4{
   color: #fc0;
@@ -247,7 +227,6 @@ Navigation
 */
 
 nav.navigation {
-  position: relative;
   float: left;
   height: 100%;
 }
@@ -259,7 +238,7 @@ nav.navigation li {
   padding-left: 0;
 }
 
-nav.navigation ul{
+nav.navigation{
   border-left: 1px #000 solid;
 }
 
@@ -354,18 +333,12 @@ Content
   margin: 0;
 }
 
-#region-content{
-  margin: 0;
-  padding: 0;
-}
-
 article a:link, article a:visited {
   color: #0af;
 }
 article a:hover, article a:active {
   color: #666;
 }
-
 
 .not-front #section-content{
   padding-bottom: 12em;
@@ -381,18 +354,10 @@ Pages
 ----------------------------------
 */
 
-.page-node #region-sidebar-first,
-.page-node.not-front .region-content-inner{
-  margin-top: 4em;
-}
 
 aside h3.block-title{
   margin-top: .75em;
   margin-bottom: 1.5em;
-}
-
-.not-front.node-type-page .region-content-inner {
-  margin-right: 2em;
 }
 
 
@@ -579,7 +544,6 @@ SOLR Search Facets
 
 .solr-search #region-sidebar-first{
   background-color: #222;
-  padding: 0;
 }
 
 .block-facetapi{
@@ -587,7 +551,7 @@ SOLR Search Facets
   border-bottom: 1px #000 solid;
 }
 
-.solr-search .block-facetapi h3.block-title{
+.block-facetapi h3.block-title{
   font-family: PTSans;
   font-size: 14px;
   margin: 0 0 .5em 0;
@@ -621,18 +585,13 @@ SOLR Search Facets
 
 /*
 ------------------------------------
-Views
-Exposed view search form formatting
+Global Search bar
 ------------------------------------
 */
 
-#zone-menu {
-  margin: 0 0 0 0;
-  padding: 0;
-  background: #aaa;
-  position: relative;
-  z-index: 899;
-  box-shadow: 3px 3px 12px rgba( 0, 0, 0, .95 );
+
+#zone-menu .region-search-inner {
+  padding: 1em .5em 1em 1em;
 }
 
 #edit-search-wrapper{
@@ -722,11 +681,17 @@ Search Results
 }
 
 .view-directory-global-search li {
+  padding: 1em;
   background: #eee;
 }
 
 .view-directory-global-search li:nth-child( even ) {
   background: #dedede;  
+}
+
+.group-occupation-teaser {
+  float: left;
+  display: none;
 }
 
 /*
@@ -845,9 +810,6 @@ Total Occupations
 }
 
 .list-occupations table{
-  left: 0;
-  max-width: 670px;
-  min-width: 550px;
   color: #eee;
 }
 
@@ -1004,7 +966,7 @@ ul.tweets-pulled-listing {
   list-style: none;
 }
 
-aside#region-sidebar-first div.tweet-time a{
+#region-sidebar-first div.tweet-time a{
   color: #aaa !important;
   font-size: 10px;
 }
@@ -1012,6 +974,7 @@ aside#region-sidebar-first div.tweet-time a{
 ul.tweets-pulled-listing div.tweet-authorphoto {
   margin: 0 4px 0 0;
   float: left;
+  box-shadow: 1px 1px 3px rgba( 0, 0, 0, .3 );
 }
 
 ul.tweets-pulled-listing div.tweet-authorphoto img {
@@ -1056,10 +1019,6 @@ ul.tweets-pulled-listing  div.tweet-divider {
   float:left;
 }
 
-
-
-
-
 /* HACKS */
 
 #admin-menu { margin:0 !important; }
@@ -1074,3 +1033,5 @@ ul.tweets-pulled-listing  div.tweet-divider {
 .addressfield-container-inline:after {
   clear:none;
 }
+
+
