@@ -1,6 +1,24 @@
 
 Drupal.behaviors.occupy_directory = {
+
 	attach: function(context, settings){
+
+    var facetSidebar = jQuery( jQuery( '.solr-search #region-sidebar-first' )[0] );
+
+    if(  facetSidebar ){
+      function resize_sidebar(){
+        var winh = jQuery(window).height();
+        console.log( facetSidebar );
+        console.log( jQuery( facetSidebar ).offset().top );
+
+        facetSidebar.css( { 'height': winh - jQuery( facetSidebar ).offset().top } );        
+      }
+      resize_sidebar();
+      jQuery(window).resize( function(){
+        resize_sidebar();
+      });
+    }
+
     /*
     Overriding Drupal.CTools.Modal.show, to bind esc to 'dismiss' on show and unbind the keydown on hide
     */
