@@ -594,11 +594,6 @@ Global Search bar
   padding: 1em .5em 1em 1em;
 }
 
-#edit-search-wrapper{
-  float: left;
-  padding: 0;
-}
-
 input#edit-search {
   border-radius: 1em;
   line-height: .875;
@@ -606,7 +601,7 @@ input#edit-search {
   font-size: .875em;
   border: none;
   padding: .125em .25em 0 1.5em;
-  background: url( ../images/search.png ) .25em .35em no-repeat;
+  background: url( ../images/search.png ) .25em .25em no-repeat;
 }
 
 input#edit-search:after {
@@ -663,10 +658,6 @@ input#edit-search:after {
   padding: 0;
 }
 
-#region-search #edit-search {
-  width: 23em;
-}
-
 /*
 ----------------------------------------------
 Search Results
@@ -713,10 +704,6 @@ div.view-display-id-occupations_list table img {
 .manage-comments .view-header {
   margin: 0 0 1em;
   font-style: italic;
-}
-
-.list-occupations .view-header .occupation-count {
-
 }
 
 .list-occupations .view-header .occupation-count .occupation-count-span,
@@ -823,13 +810,6 @@ Total Occupations
   background: #000;
 }
 
-/*.total-occupations tr {
-  height: 60px;
-  font-style: italic;
-  color:#ccc;
-}
-*/
-
 .total-occupations tr td {
   vertical-align: top;
 }
@@ -843,12 +823,10 @@ Total Occupations
   font-style:normal;
 }
 
-div.view-display-id-occupations_list table img { }
-
-
 /* -----------------------------------------------------------
 	page-occupations-cards
 ----------------------------------------------------------- */
+
 .page-occupations-cards .views-row {
 	float: left;
 	width: 220px;
@@ -857,10 +835,6 @@ div.view-display-id-occupations_list table img { }
 	background: #eee;
 	min-height: 400px;
 }
-
-.page-occupations-cards .views-row:first-child {
-}
-
 
 /*
 ------------------------------------------------------------
@@ -897,7 +871,6 @@ footer#section-footer #block-menu-menu-add-your-occupation .content a{
   padding: .75em 1em;
   border-right: 1px #000 solid;
 }
-
 
 footer#section-footer #block-menu-menu-social-media-links{
   padding: .75em 2em .5em 2em;

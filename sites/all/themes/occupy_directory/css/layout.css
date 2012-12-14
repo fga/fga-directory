@@ -23,7 +23,14 @@ footer{
   margin: 0;
 }
 
+body,
+#zone-header,
 #page { min-width: 480px; }
+
+
+#region-menu {
+  width: auto;
+}
 /*
 -------------------------
 Header
@@ -40,7 +47,6 @@ Zen here I come!
 */
 
 #region-header,
-#region-menu,
 .logo-img,
 #block-ajax-register-ajax-register-block {
   margin: 0 0 0 0;
@@ -54,13 +60,13 @@ Zen here I come!
 }
 
 #zone-menu {
-  height: 4.125em;
+  height: 4.25em;
   margin: 0 0 0 0;
   padding: 0;
   background: #aaa;
   position: relative;
   z-index: 899;
-  box-shadow: 3px 3px 12px rgba( 0, 0, 0, .95 );
+  box-shadow: 0px 3px 12px rgba( 0, 0, 0, .95 );
 }
 
 #zone-menu #region-menu-second{
@@ -90,16 +96,27 @@ Zen here I come!
   text-align: left;
 }
 
-
 /*
 ------------------------------------------------------------
 Content
 ------------------------------------------------------------
 */
 
-#region-sidebar-first .region-inner{
-  padding: 0 1em;
+.not-front #region-content {
+  width: auto;
 }
+
+#region-sidebar-first{
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.not-front #region-sidebar-first .region-inner {
+  margin-top: 5.125em;
+}
+
+
 
 /*
 ------------------------------------------------------------
@@ -107,14 +124,13 @@ Footer
 ------------------------------------------------------------
 */
 
-
-footer #block-menu-menu-add-your-occupation{
+footer #block-menu-menu-add-your-occupation {
   width: 300px;
   float: left;
 }
 
 
-footer #block-menu-menu-feeds-and-exports{
+footer #block-menu-menu-feeds-and-exports {
   width: 12em;
   float: right;
   padding-bottom: 3em;
@@ -126,7 +142,8 @@ footer #block-menu-menu-feeds-and-exports{
   -ms-transition: all .5s ease-in-out;
   transition: all .5s ease-in-out;
 }
-footer #block-menu-menu-feeds-and-exports:hover{
+
+footer #block-menu-menu-feeds-and-exports:hover {
   transform: translate(0,-160px);
   -ms-transform: translate(0,-160px); /* IE 9 */
   -webkit-transform: translate(0,-160px); /* Safari and Chrome */
@@ -134,28 +151,26 @@ footer #block-menu-menu-feeds-and-exports:hover{
   -moz-transform: translate(0,-160px); /* Firefox */
 };
 
-
-/* 
-480 - 959
+/*
+this is here because the above transfor seems to breakthe following declartion 
+no idea why
 */
-@media all and (min-width: 480px) and (max-width: 959px) {
-    /* just a little help with the responsive breakpoints */
-  #zone-header:before {
-    position: fixed;
-    height: 1em;
-    text-align: center;
-    color: #fff;
-    z-index: 5005;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    background: rgba( 255, 0, 0, .875 );
-    content: "Normal > 480 < 959";
+#what { border: 0; }
+
+/* why */
+
+  #block-boxes-occupation-count {
+    display: inline-block;
+    background: #000;
+    margin: 0 0 0 2em;
+    padding: .375em .5em .25em .5em;
+    position: absolute;
+    width: auto;
+    white-space: nowrap;
   }
 
-}
 
-@media all and (max-width: 480px){
+@media all and ( max-width: 844px ){
 
   #zone-header:before {
     position: fixed;
@@ -168,8 +183,9 @@ footer #block-menu-menu-feeds-and-exports:hover{
     width: 100%;
     background: rgba( 255, 0, 0, .875 );
     padding: .5em;
-    content: "Narrow < 800";
+    content: "Less than 844 wide.";
   }
+
 
   #zone-header,
   #region-search,
@@ -181,11 +197,29 @@ footer #block-menu-menu-feeds-and-exports:hover{
   }
 
   #zone-header {
-    height: 100px;
+    box-shadow: 0px 1px 3px rgba( 0, 0, 0, .3 );
+    position: relative;
+    z-index: 1000;
+    background: #000;
   }
 
-  #zone-menu {
-    height: 3.75em;
+  #zone-menu { height: 0; position: relative; z-index: 1001; }
+  
+  #zone-menu .region-search-inner{
+    text-align: left;
+    width: 40%;
+    float: right;
+    position: absolute;
+    top: -3.5em;
+    right: 0;
+  }
+
+  #region-search #edit-search {
+    width: 100%;
+  }
+
+  #zone-header {
+    height: 106px;
   }
 
   #region-menu{
@@ -195,14 +229,10 @@ footer #block-menu-menu-feeds-and-exports:hover{
     margin-top: 1em;
   }
 
-  #block-boxes-occupation-count {
-    display:none;
-  }
-
   #block-ajax-register-ajax-register-block{
     font-size: .875em;
     position: absolute;
-    top: 30px;
+    top: 0;
     right: .5em;
     background: none;
     text-overflow: ellipsis;
@@ -233,43 +263,69 @@ footer #block-menu-menu-feeds-and-exports:hover{
     background: #000;
   }
 
+  .not-front #region-content .region-inner {
+    margin: 4em 0 0 2em;    
+  }
+
   #region-sidebar-first {
+    position: static;
     width: 100%;
     clear: both;
     padding: 0;
-    margin: 2em 0 0 0;
+    margin: 2em 0 0 2em;
   }
   
-  .not-front #zone-content .region-inner,
   #region-sidebar-first .region-inner {
     padding: 1em;
   }
+
+  .not-front #zone-content #region-content .region-inner {
+    margin-left: 4em;
+  }
+
+
 }
 
-@media all and (min-width: 480px){
-    /*
-  ------------------------------------------------------------
-  Content
-  ------------------------------------------------------------
+@media all and ( max-width: 580px ){
+  #block-boxes-occupation-count { display: none; }
+}
+
+/* General width */
+@media all and ( min-width: 845px ){
+  
+  /*
+  -----------------------------------
+    Content
+  -----------------------------------
   */
+
+  #zone-header:before {
+    position: fixed;
+    height: 1em;
+    text-align: center;
+    color: #fff;
+    z-index: 5005;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: rgba( 255, 0, 0, .875 );
+    padding: .5em;
+    content: "Greater than 845";
+  }
 
   #zone-header {
     height: 56px;
+    box-shadow: none;
   }
 
   #region-menu{
     float: right;
+    width: auto;
     margin: 0;
   }
 
-  #block-boxes-occupation-count {
-    display: inline-block;
-    background: #000;
-    margin: 0 0 0 2em;
-    padding: .375em .5em .25em .5em;
-    position: absolute;
-    width: auto;
-    white-space: nowrap;
+  #region-search #edit-search {
+    width: 23em;
   }
 
   #block-ajax-register-ajax-register-block{
@@ -283,57 +339,27 @@ footer #block-menu-menu-feeds-and-exports:hover{
     margin-left: 0;
   }
 
-  #zone-content {
+  .not-front #zone-content {
     position: relative;
     padding: 0;
+    width: auto;
   }
 
-  .not-front #zone-content #region-content {
-    position: relative;
-    display: inline-block;
-    margin-right: 16em;
-  }
 
-  .not-front #zone-content #region-content .region-inner {
+  .not-front #region-content .region-inner {
     padding-right: 2em;
     margin: 4em 18em 2em 8em;
+    max-width: 600px;
   }
 
-  .not-front #zone-content #region-sidebar-first{
-    position: absolute;
-    top: 0;
-    right: 0;
+  .not-front #region-sidebar-first{
     min-width: 16em;
   }
 
 }
 
-@media all and ( max-width: 780px) {
-  .not-front #zone-content #region-content .region-inner {
-    margin-left: 4em;
-  }
-}
+@media all and ( min-width: 960px ) {
 
-@media all and ( max-width: 650px) {
-
-  .not-front #zone-content #region-content {
-    display: block;
-    clear: both;
-  }
-
-  #zone-content #region-content .region-inner {
-    margin: 4em 2em 2em 2em;
-  }
-
-  .not-front #zone-content #region-sidebar-first {
-    clear: both;
-    width: 100%;
-    margin: 2em;
-  }
- 
-}
-
-@media all and (min-width: 960px) {
   #zone-header:before {
     position: fixed;
     height: 1em;
@@ -345,16 +371,16 @@ footer #block-menu-menu-feeds-and-exports:hover{
     width: 100%;
     background: rgba( 255, 0, 0, .875 );
     padding: .5em;
-    content: "Wide > 960px";
+    content: "Greater than 960px";
   }
 
-  #zone-content #region-content .region-inner{
+  .not-front #region-content .region-inner{
     max-width: 800px;
-    margin-top: 4em 28em 2em 8em;
+    margin: 4em 28em 2em 8em;
   }
 
-  #zone-content #region-sidebar-first{
-    min-width: 16em;
+  .not-front #region-sidebar-first{
+    min-width: 22em;
   }
 
 }
