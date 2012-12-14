@@ -415,6 +415,7 @@ ini_set('session.cookie_lifetime', 2000000);
 # );
 $conf['locale_custom_strings_en'][''] = array(
     'Add new comment' => 'Suggest an Edit',
+    'Create new account' => 'Register',
 );
 
 /**
