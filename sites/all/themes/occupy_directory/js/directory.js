@@ -3,15 +3,11 @@ Drupal.behaviors.occupy_directory = {
 
 	attach: function(context, settings){
 
-    var facetSidebar = jQuery( jQuery( '.solr-search #region-sidebar-first' )[0] );
-
-    if(  facetSidebar ){
+    var facetSidebar = jQuery( '.solr-search #region-sidebar-first' );
+    if( facetSidebar[0] ){
       function resize_sidebar(){
         var winh = jQuery(window).height();
-        console.log( facetSidebar );
-        console.log( jQuery( facetSidebar ).offset().top );
-
-        facetSidebar.css( { 'height': winh - jQuery( facetSidebar ).offset().top } );        
+        facetSidebar.css( { 'height': winh - jQuery( facetSidebar[0] ).offset().top } );        
       }
       resize_sidebar();
       jQuery(window).resize( function(){
