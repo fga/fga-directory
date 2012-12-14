@@ -17,7 +17,7 @@ css[global.css][name] = 'global styles'
 css[reset.css][name] = 'reset styles'
 css[reset.css][description] = 'Reset styles for directory, alpha-reset was loading after typography.'
 css[reset.css][options][group] = '5000'
-css[reset.css][options][weight] = 1
+css[reset.css][options][weight] = 3
 
 css[typography.css][name] = 'typography styles'
 css[typography.css][description] = 'Type styles for the directory theme.'
@@ -26,7 +26,9 @@ css[typography.css][options][weight] = 2
 
 css[global.css][description] = 'This file holds the globally active custom CSS of our theme.'
 css[global.css][options][group] = '5000'
-css[global.css][options][weight] = 3
+css[global.css][options][weight] = 1
+
+scripts[] = js/directory.js
 
 ;
 ; ----------------------------------
