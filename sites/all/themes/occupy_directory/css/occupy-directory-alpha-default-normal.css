@@ -6,38 +6,34 @@
 #zone-footer,
 #zone-menu,
 #messages,
-.front #zone-content,
+#zone-content,
 .front #region-content,
-.page-search #zone-content,
-.page-search #region-content,
 #directory-map-wrapper,
 #map-embed,
 #region-footer-first,
-.occupations-list #zone-content,
-.occupations-list #region-content,
 footer{
   width: 100%;
   padding: 0;
   margin: 0;
 }
 
-.page-search #zone-content-wrapper {
-  position: relative;
-}
-
-.page-search #region-content-inner {
-  max-width: 960px;
+#region-content .region-content-inner{
+  max-width: 650px;
+  padding: 0 30px;
   margin: 0 auto;
 }
 
-.page-search #region-sidebar-first {
-  z-index: 10;
-  position: absolute;
-  top: 0;
-  right: 0;
+#region-sidebar-first {
   margin: 0;
-  width: 16em;
+  float: right;
+  width: 23.35em;
 }
+
+.page-node #region-content #region-sidebar-first,
+.page-node.not-front #region-content .region-content-inner{
+  margin-top: 4em;
+}
+
 
 /*
 -------------------------
@@ -68,13 +64,39 @@ Zen here I come!
   float: left;
 }
 
-#region-meni-second{
+#zone-menu
+#region-menu-second{
   float: left;
-}
-#region-search {
-  width: 100%;
-  clear: both;
+  width: 49%;
+  background: #f30;
+  padding: 0;
   margin: 0;
+}
+
+#zone-menu #region-search{
+  clear: none;
+  width: auto;
+  text-align: right;
+  width: 100%;
+}
+
+#zone-menu #region-menu-second+#region-search{
+  width: 50%;
+  margin-left: 50%;
+}
+
+#zone-menu .region-search-inner{
+  display: inline-block;
+  width: 21.82em;
+  text-align: left;
+}
+
+#zone-menu .region-search-inner {
+  padding: 1.25em .5em 1.25em 1em;
+}
+
+.page-search #zone-menu .region-search-inner{ 
+  border-left: 1px #000 solid;
 }
 
 /*

@@ -105,8 +105,6 @@ Ajax Login Form
   line-height: 1.2;
 }
 
-.node-type-occupation .node-links&#comments { display: none }
-
 #block-ajax-register-ajax-register-block ul li{
   margin-left: 0;
 }
@@ -373,10 +371,6 @@ article a:hover, article a:active {
   padding-bottom: 12em;
 }
 
-/*.not-front #zone-content{
-padding-top: 4em;
-}*/
-
 .zone-preface-wrapper {
  background-color: #d0d0d0;
 }
@@ -387,12 +381,12 @@ Pages
 ----------------------------------
 */
 
-aside#region-sidebar-first,
-.not-front .region-content-inner{
+.page-node #region-sidebar-first,
+.page-node.not-front .region-content-inner{
   margin-top: 4em;
 }
 
-aside#region-sidebar-first h3{
+aside h3.block-title{
   margin-top: .75em;
   margin-bottom: 1.5em;
 }
@@ -502,6 +496,23 @@ Comments
 ----------------------------------
 */
 
+.node-type-occupation .node-links&#comments { display: none }
+
+.form-item form-type-select form-item-field-comment-state-und,
+#edit-comment-body-und-0-format {
+  display: none;
+}
+
+#comment-wrapper-287{}
+
+.comment-instructions {
+  background: #fe3;
+  color: #333;
+  width: 25em;
+  padding: .5em;
+  box-shadow: 1px 1px 2px #aaa;
+}
+
 article.comment {
   margin-bottom: 1.5em;
 }
@@ -536,20 +547,6 @@ article.comment nav.comment-links {
   background:#fff;
   padding: .25em .5em;
 }
-/* hide log in or register to post comments since we use talk */
-/*
-article.comment nav.comment-links li.comment_forbidden {
-	display: none;
-}
-*/
-
-/*
-Talk messes up the $node->content['links']['comment']['#links']
-array and override the comment_forbidden key. CSS to the rescue for now.
-*/
-.node-occupation .node-links .first {
-  /*display: none;*/
-}
 
 #comments h2.title {
   display: none;
@@ -561,15 +558,6 @@ array and override the comment_forbidden key. CSS to the rescue for now.
   display: inline-block;
 }
 
-div.talk-page li.comment_forbidden,
-div.talk-page li.comment-add {
-  display: inline-block;
-  padding: 1em 0 1em 0;
-  font-style:italic;
-}
-div.talk-page li.comment-add:before {
-  content: "+ ";
-}
 
 
 /*
@@ -589,32 +577,41 @@ SOLR Search Facets
 */
 
 
-.page-search #region-sidebar-first{
+.solr-search #region-sidebar-first{
   background-color: #222;
   padding: 0;
 }
 
-.page-search #region-sidebar-first .block-title{
-  font-size: 18px;
-    margin: 0 0 .5em 0;
-    padding: 12px;
-    background:#555;
-    color: #aaa;
+.block-facetapi{
+  padding: .5em 1em;
+  border-bottom: 1px #000 solid;
 }
 
-.block-facetapi{
-
+.solr-search .block-facetapi h3.block-title{
+  font-family: PTSans;
+  font-size: 14px;
+  margin: 0 0 .5em 0;
+  padding: 0;
+  color: #dedede;
 }
 
 .block-facetapi ul{
+  margin: 0;
   padding-bottom: .5em;
 }
 
-.block-facetapi li{
+
+.block-facetapi .item-list li{
+  display: inline-block;
+  border-radius: .25em;
+  background: #121212;
+  padding: .125em .5em;
   font-size: .875em;
   margin: 0;
-  padding: .25em 0;
-  border-bottom: 1px #555 solid;
+}
+
+.block-facetapi .item-list li+li{
+  margin: 0 0 .25em .25em;
 }
 
 #facetapi-facet-search-apioccupations-index-block-field-occupation-addressadministrative-area li{
@@ -629,21 +626,37 @@ Exposed view search form formatting
 ------------------------------------
 */
 
-#region-search {
+#zone-menu {
   margin: 0 0 0 0;
+  padding: 0;
   background: #aaa;
   position: relative;
   z-index: 899;
   box-shadow: 3px 3px 12px rgba( 0, 0, 0, .95 );
 }
 
-.region-search-inner {
-  padding: 1.5em 1em;
-}
-
 #edit-search-wrapper{
   float: left;
   padding: 0;
+}
+
+input#edit-search {
+  border-radius: 1em;
+  line-height: .875;
+  font-family: PTSans, sans-serif;
+  font-size: .875em;
+  border: none;
+  padding: .125em .25em 0 1.5em;
+  background: url( ../images/search.png ) .25em .35em no-repeat;
+}
+
+input#edit-search:after {
+  color:#000;
+  content: 'Search';
+}
+
+#zone-menu .views-submit-button {
+  display: none;
 }
 
 #region-search .views-submit-button,
@@ -692,24 +705,28 @@ Exposed view search form formatting
 }
 
 #region-search #edit-search {
-  width: 240px;
+  width: 23em;
 }
-form#views-exposed-form-directory-global-search-search-page {
-  float: right;
-  margin: 15px 138px 15px 0;
-}
-#views-exposed-form-directory-global-search-search-page {}
 
-/* legacy views filter */
-#views-exposed-form-occupation-directory-occupations-list,
-#views-exposed-form-occupation-directory-occupations-manage {
-  height: 1.65em;
-  margin: 10px auto;
-  width: 960px;
+/*
+----------------------------------------------
+Search Results
+----------------------------------------------
+*/
+
+.solr-search #page-title { 
+  display: none;
 }
-#views-exposed-form-occupation-directory-occupations-list .views-submit-button,
-#views-exposed-form-occupation-directory-occupations-manage .views-submit-button {
-  margin-left: 2em;
+
+.view-directory-global-search {
+}
+
+.view-directory-global-search li {
+  background: #eee;
+}
+
+.view-directory-global-search li:nth-child( even ) {
+  background: #dedede;  
 }
 
 /*
@@ -828,7 +845,6 @@ Total Occupations
 }
 
 .list-occupations table{
-  position: absolute;
   left: 0;
   max-width: 670px;
   min-width: 550px;
