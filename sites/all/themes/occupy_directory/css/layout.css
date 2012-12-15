@@ -48,8 +48,8 @@ Footer
 ------------------------------------------------------------
 */
 
-.not-front footer { 
-  box-shadow: 0 12px 24px rgba( 0, 0, 0, .3 );
+footer { 
+  box-shadow: 0 -.25em .5em rgba( 0, 0, 0, .675 );
 }
 
 footer #block-menu-menu-add-your-occupation {
