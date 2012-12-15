@@ -576,12 +576,15 @@ ul.pager li .ajax-progress {
   background: #000;
   border-radius: 13px;
   top: -.25em;
+  width: 24px;
+  height: 24px;
+}
+
+ul.pager li .ajax-progress .throbber{
   background-image: url( ../images/spinner.gif );
   background-position:  3px 4px;
   background-size: 75%;
   background-repeat: no-repeat;
-  width: 24px;
-  height: 24px;
 }
 
 .pager-first:after,
