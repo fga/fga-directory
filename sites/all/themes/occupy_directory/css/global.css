@@ -752,9 +752,13 @@ Search Results
   background: #eee;
 }
 
+.solr-search .ds-left{
+  width: 64px;
+}
+
 .solr-search .ds-right {
   float: none;
-  margin-left: 20%;
+  margin-left: 64px;
 }
 
 .view-directory-global-search li:nth-child( even ) {
