@@ -206,7 +206,7 @@ function occupations_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '38',
+          'weight' => '37',
         ),
         'rss' => array(
           'label' => 'above',
@@ -218,7 +218,7 @@ function occupations_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '25',
+          'weight' => '38',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -298,7 +298,7 @@ function occupations_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '35',
+          'weight' => '34',
         ),
         'rss' => array(
           'label' => 'above',
@@ -310,7 +310,7 @@ function occupations_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '22',
+          'weight' => '35',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -390,7 +390,7 @@ function occupations_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '37',
+          'weight' => '36',
         ),
         'rss' => array(
           'label' => 'above',
@@ -402,7 +402,7 @@ function occupations_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '24',
+          'weight' => '37',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -482,7 +482,7 @@ function occupations_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '36',
+          'weight' => '35',
         ),
         'rss' => array(
           'label' => 'above',
@@ -494,7 +494,7 @@ function occupations_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '23',
+          'weight' => '36',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -599,15 +599,9 @@ function occupations_field_default_fields() {
         ),
         'search' => array(
           'label' => 'above',
-          'module' => 'addressfield',
-          'settings' => array(
-            'format_handlers' => array(
-              0 => 'address',
-            ),
-            'use_widget_handlers' => 1,
-          ),
-          'type' => 'addressfield_default',
-          'weight' => '8',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '26',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -708,10 +702,12 @@ function occupations_field_default_fields() {
           'weight' => '22',
         ),
         'search' => array(
-          'label' => 'above',
+          'label' => 'hidden',
           'module' => 'text',
-          'settings' => array(),
-          'type' => 'text_default',
+          'settings' => array(
+            'trim_length' => '200',
+          ),
+          'type' => 'text_trimmed',
           'weight' => '2',
         ),
         'teaser' => array(
@@ -798,7 +794,7 @@ function occupations_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '31',
+          'weight' => '30',
         ),
         'rss' => array(
           'label' => 'hidden',
@@ -809,10 +805,9 @@ function occupations_field_default_fields() {
         ),
         'search' => array(
           'label' => 'above',
-          'module' => 'link',
           'settings' => array(),
-          'type' => 'link_default',
-          'weight' => '18',
+          'type' => 'hidden',
+          'weight' => '31',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -910,7 +905,7 @@ function occupations_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '33',
+          'weight' => '32',
         ),
         'rss' => array(
           'label' => 'above',
@@ -920,10 +915,9 @@ function occupations_field_default_fields() {
         ),
         'search' => array(
           'label' => 'above',
-          'module' => 'text',
           'settings' => array(),
-          'type' => 'text_default',
-          'weight' => '20',
+          'type' => 'hidden',
+          'weight' => '33',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -1003,11 +997,11 @@ function occupations_field_default_fields() {
           'weight' => '7',
         ),
         'search' => array(
-          'label' => 'inline',
+          'label' => 'hidden',
           'module' => 'email',
           'settings' => array(),
           'type' => 'email_default',
-          'weight' => '6',
+          'weight' => '13',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -1073,7 +1067,7 @@ function occupations_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '39',
+          'weight' => '38',
         ),
         'rss' => array(
           'label' => 'hidden',
@@ -1086,7 +1080,7 @@ function occupations_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '27',
+          'weight' => '39',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -1172,7 +1166,7 @@ function occupations_field_default_fields() {
           'module' => 'link',
           'settings' => array(),
           'type' => 'link_default',
-          'weight' => '16',
+          'weight' => '17',
         ),
         'rss' => array(
           'label' => 'hidden',
@@ -1182,11 +1176,11 @@ function occupations_field_default_fields() {
           'weight' => '19',
         ),
         'search' => array(
-          'label' => 'above',
+          'label' => 'hidden',
           'module' => 'link',
           'settings' => array(),
           'type' => 'link_default',
-          'weight' => '14',
+          'weight' => '16',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -1293,10 +1287,9 @@ function occupations_field_default_fields() {
         ),
         'search' => array(
           'label' => 'above',
-          'module' => 'text',
           'settings' => array(),
-          'type' => 'text_default',
-          'weight' => '4',
+          'type' => 'hidden',
+          'weight' => '24',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -1414,29 +1407,10 @@ function occupations_field_default_fields() {
           'weight' => '21',
         ),
         'search' => array(
-          'label' => 'above',
-          'module' => 'geofield_map',
-          'settings' => array(
-            'geofield_map_baselayers_hybrid' => 1,
-            'geofield_map_baselayers_map' => 1,
-            'geofield_map_baselayers_physical' => 0,
-            'geofield_map_baselayers_satellite' => 1,
-            'geofield_map_controltype' => 'default',
-            'geofield_map_draggable' => 0,
-            'geofield_map_height' => '300px',
-            'geofield_map_maptype' => 'map',
-            'geofield_map_mtc' => 'standard',
-            'geofield_map_overview' => 0,
-            'geofield_map_overview_opened' => 0,
-            'geofield_map_pancontrol' => 1,
-            'geofield_map_scale' => 0,
-            'geofield_map_scrollwheel' => 0,
-            'geofield_map_streetview_show' => 0,
-            'geofield_map_width' => '100%',
-            'geofield_map_zoom' => '8',
-          ),
-          'type' => 'geofield_map_map',
-          'weight' => '21',
+          'label' => 'hidden',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '19',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -1565,10 +1539,10 @@ function occupations_field_default_fields() {
           'module' => 'image',
           'settings' => array(
             'image_link' => '',
-            'image_style' => '',
+            'image_style' => 'occupation_thumb_sm',
           ),
           'type' => 'image',
-          'weight' => '0',
+          'weight' => '1',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -1709,10 +1683,9 @@ function occupations_field_default_fields() {
         ),
         'search' => array(
           'label' => 'above',
-          'module' => 'link',
           'settings' => array(),
-          'type' => 'link_default',
-          'weight' => '12',
+          'type' => 'hidden',
+          'weight' => '27',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -1811,7 +1784,7 @@ function occupations_field_default_fields() {
           'label' => 'inline',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '30',
+          'weight' => '29',
         ),
         'rss' => array(
           'label' => 'hidden',
@@ -1822,10 +1795,9 @@ function occupations_field_default_fields() {
         ),
         'search' => array(
           'label' => 'inline',
-          'module' => 'link',
           'settings' => array(),
-          'type' => 'link_default',
-          'weight' => '15',
+          'type' => 'hidden',
+          'weight' => '30',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -1922,7 +1894,7 @@ function occupations_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '42',
+          'weight' => '41',
         ),
         'rss' => array(
           'label' => 'above',
@@ -1934,7 +1906,7 @@ function occupations_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '30',
+          'weight' => '42',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -2030,10 +2002,9 @@ function occupations_field_default_fields() {
         ),
         'search' => array(
           'label' => 'above',
-          'module' => 'link',
           'settings' => array(),
-          'type' => 'link_default',
-          'weight' => '17',
+          'type' => 'hidden',
+          'weight' => '22',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -2127,7 +2098,7 @@ function occupations_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '41',
+          'weight' => '40',
         ),
         'rss' => array(
           'label' => 'above',
@@ -2139,7 +2110,7 @@ function occupations_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '29',
+          'weight' => '41',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -2221,7 +2192,7 @@ function occupations_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '40',
+          'weight' => '39',
         ),
         'rss' => array(
           'label' => 'above',
@@ -2233,7 +2204,7 @@ function occupations_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '28',
+          'weight' => '40',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -2353,17 +2324,17 @@ function occupations_field_default_fields() {
           'weight' => '0',
         ),
         'search' => array(
-          'label' => 'inline',
+          'label' => 'hidden',
           'module' => 'date',
           'settings' => array(
-            'format_type' => 'date_long',
+            'format_type' => 'date_short',
             'fromto' => 'both',
             'multiple_from' => '',
             'multiple_number' => '',
             'multiple_to' => '',
           ),
           'type' => 'date_default',
-          'weight' => '1',
+          'weight' => '7',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -2468,10 +2439,9 @@ function occupations_field_default_fields() {
         ),
         'search' => array(
           'label' => 'above',
-          'module' => 'link',
           'settings' => array(),
-          'type' => 'link_default',
-          'weight' => '11',
+          'type' => 'hidden',
+          'weight' => '20',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -2580,10 +2550,9 @@ function occupations_field_default_fields() {
         ),
         'search' => array(
           'label' => 'inline',
-          'module' => 'text',
           'settings' => array(),
-          'type' => 'text_default',
-          'weight' => '7',
+          'type' => 'hidden',
+          'weight' => '25',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -2676,10 +2645,9 @@ function occupations_field_default_fields() {
         ),
         'search' => array(
           'label' => 'inline',
-          'module' => 'list',
           'settings' => array(),
-          'type' => 'list_default',
-          'weight' => '3',
+          'type' => 'hidden',
+          'weight' => '23',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -2762,7 +2730,7 @@ function occupations_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '32',
+          'weight' => '31',
         ),
         'rss' => array(
           'label' => 'hidden',
@@ -2773,10 +2741,9 @@ function occupations_field_default_fields() {
         ),
         'search' => array(
           'label' => 'above',
-          'module' => 'link',
           'settings' => array(),
-          'type' => 'link_default',
-          'weight' => '19',
+          'type' => 'hidden',
+          'weight' => '32',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -2887,10 +2854,9 @@ URL: http address of the page.',
         ),
         'search' => array(
           'label' => 'above',
-          'module' => 'link',
           'settings' => array(),
-          'type' => 'link_default',
-          'weight' => '16',
+          'type' => 'hidden',
+          'weight' => '21',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -2999,11 +2965,11 @@ URL: http address of the page.',
           'weight' => '12',
         ),
         'search' => array(
-          'label' => 'inline',
+          'label' => 'hidden',
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_plain',
-          'weight' => '9',
+          'weight' => '14',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -3094,7 +3060,7 @@ URL: http address of the page.',
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_plain',
-          'weight' => '15',
+          'weight' => '16',
         ),
         'rss' => array(
           'label' => 'hidden',
@@ -3104,11 +3070,11 @@ URL: http address of the page.',
           'weight' => '11',
         ),
         'search' => array(
-          'label' => 'inline',
+          'label' => 'hidden',
           'module' => 'taxonomy',
           'settings' => array(),
-          'type' => 'taxonomy_term_reference_link',
-          'weight' => '10',
+          'type' => 'taxonomy_term_reference_plain',
+          'weight' => '15',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -3206,10 +3172,11 @@ URL: http address of the page.',
           'weight' => 0,
         ),
         'search' => array(
-          'label' => 'inline',
+          'label' => 'hidden',
+          'module' => 'taxonomy',
           'settings' => array(),
-          'type' => 'hidden',
-          'weight' => '26',
+          'type' => 'taxonomy_term_reference_link',
+          'weight' => '2',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -3300,11 +3267,11 @@ URL: http address of the page.',
           'weight' => '9',
         ),
         'search' => array(
-          'label' => 'inline',
+          'label' => 'hidden',
           'module' => 'link',
           'settings' => array(),
           'type' => 'link_default',
-          'weight' => '5',
+          'weight' => '12',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -3411,10 +3378,9 @@ URL: http address of the page.',
         ),
         'search' => array(
           'label' => 'above',
-          'module' => 'link',
           'settings' => array(),
-          'type' => 'link_default',
-          'weight' => '13',
+          'type' => 'hidden',
+          'weight' => '28',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -3516,7 +3482,7 @@ URL: http address of the page.',
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '34',
+          'weight' => '33',
         ),
         'rss' => array(
           'label' => 'above',
@@ -3526,10 +3492,9 @@ URL: http address of the page.',
         ),
         'search' => array(
           'label' => 'above',
-          'module' => 'taxonomy',
           'settings' => array(),
-          'type' => 'taxonomy_term_reference_link',
-          'weight' => '32',
+          'type' => 'hidden',
+          'weight' => '34',
         ),
         'teaser' => array(
           'label' => 'above',

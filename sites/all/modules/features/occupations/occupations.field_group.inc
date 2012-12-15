@@ -59,7 +59,7 @@ function occupations_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Donation Info',
-    'weight' => '6',
+    'weight' => '5',
     'children' => array(
       0 => 'field_occupation_dontate_info',
       1 => 'field_occupation_donate_url',
@@ -91,7 +91,7 @@ function occupations_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Video & Audio',
-    'weight' => '4',
+    'weight' => '3',
     'children' => array(
       0 => 'field_occupation_live_video',
       1 => 'field_occupation_youtube_chan',
@@ -123,7 +123,7 @@ function occupations_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'News & Info',
-    'weight' => '5',
+    'weight' => '4',
     'children' => array(
       0 => 'field_occupation_other_websites',
       1 => 'field_occupation_newspaper_url',
@@ -156,7 +156,7 @@ function occupations_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Other Resources',
-    'weight' => '3',
+    'weight' => '2',
     'children' => array(
       0 => 'field_occupation_rss',
     ),
@@ -485,6 +485,7 @@ function occupations_field_group_info() {
       2 => 'field_occupation_email_general',
       3 => 'field_occupation_facebook',
       4 => 'field_occupation_twitter_hash',
+      5 => 'twitter_user_link',
     ),
     'format_type' => 'div',
     'format_settings' => array(
