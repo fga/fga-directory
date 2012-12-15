@@ -539,6 +539,7 @@ Pager
 /* new views pager renders "previous" instead of "prev" */
 ul.pager li {
   display: inline-block;
+  position: relative;
   margin-left: .5em;
   text-align: center;  
 
@@ -565,10 +566,14 @@ ul.pager li+li {
   height: 24px;
   word-wrap: nowrap;
   overflow: hidden;
-  position: relative;
+  top: .5em;
   text-indent: -1000px;
 }
 
+ul.pager li .throbber {
+  position: absolute;
+  top: -1em;
+}
 
 .pager-first:after,
 .pager-last:after,
