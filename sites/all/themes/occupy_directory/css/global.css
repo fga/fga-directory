@@ -754,6 +754,7 @@ Search Results
 
 .solr-search .ds-right {
   float: none;
+  margin-left: 20%;
 }
 
 .view-directory-global-search li:nth-child( even ) {
