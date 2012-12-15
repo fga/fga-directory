@@ -570,7 +570,7 @@ ul.pager li+li {
   text-indent: -1000px;
 }
 
-ul.pager li .throbber {
+ul.pager li .ajax-progress {
   position: absolute;
   top: -1em;
 }
