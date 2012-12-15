@@ -577,6 +577,7 @@ ul.pager li .ajax-progress {
   border-radius: 13px;
   top: -.1375em;
   right: 2px;
+  background-image: url( ../images/spinner.gif );
   width: 24px;
   height: 24px;
 }
