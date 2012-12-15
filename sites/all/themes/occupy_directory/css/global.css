@@ -23,11 +23,15 @@ Links
 -------------------------
 */
 
-a:link, a:visited { color: #9f9f9f; }
+a:link, a:visited { color: #666; }
+
+aside#region-sidebar-first a{ 
+  color: #0af;
+}
 
 a:hover,
 a:active {
-  color: #000;
+  color: #333;
   text-decoration: none;
 }
 
@@ -152,6 +156,7 @@ nav.navigation li a{
 nav a.active { background: #000; color: #fc0; }
 nav a:hover { background-color: #000; color: #fc0; }
 
+
 #block-ajax-register-ajax-register-block{
   padding: .575em 1em 0 1em;
   background: #f9b018;
@@ -162,6 +167,9 @@ nav a:hover { background-color: #000; color: #fc0; }
   margin-left: 0;
 }
 
+#block-ajax-register-ajax-register-block a {
+  color: #222;
+}
 
 /* Tabs */
 
@@ -270,9 +278,14 @@ Pages
 ----------------------------------
 */
 
-.not-front .region-content-inner,
-aside#region-sidebar-first{
+aside#region-sidebar-first,
+.not-front .region-content-inner{
   margin-top: 4em;
+}
+
+aside#region-sidebar-first h3{
+  margin-top: .75em;
+  margin-bottom: 1.5em;
 }
 
 .not-front.node-type-page .region-content-inner {
@@ -571,6 +584,7 @@ div.view-display-id-occupations_list table img {
   margin: 0 0 1em;
   font-style: italic;
 }
+
 .list-occupations .view-header .occupation-count {
 
 }
@@ -579,6 +593,7 @@ div.view-display-id-occupations_list table img {
 .list-occupations .view-header .occupation-count .occupation-count-total {
   padding:0 0.2em;
 }
+
 .list-occupations .view-header .curator-utility-links {
   margin-bottom: 0.5em;
   float: right;
@@ -609,7 +624,7 @@ Curator Views
 }
 
 #views-exposed-form-occupation-directory-occupations-manage .form-item-search input {
-  width: 200px;
+  width: 49em;
 }
 
 .manage-occupations table.views-table,
@@ -820,8 +835,14 @@ Overrides – bending displays to our will
 
 /* twitter pull styles */
 
+
 ul.tweets-pulled-listing {
   list-style: none;
+}
+
+aside#region-sidebar-first div.tweet-time a{
+  color: #aaa !important;
+  font-size: 10px;
 }
 
 ul.tweets-pulled-listing div.tweet-authorphoto {
@@ -835,11 +856,9 @@ ul.tweets-pulled-listing div.tweet-authorphoto img {
 }
 
 ul.tweets-pulled-listing .tweet-author a {}
-ul.tweets-pulled-listing div.tweet-time { text-align:right; }
-ul.tweets-pulled-listing .tweet-time a { color: #d0d0d0; }
 ul.tweets-pulled-listing  div.tweet-divider {
   clear: left;
-  border-bottom: 1px solid #efefef;
+  border-bottom: 1px solid #dedede;
   margin: 6px 0 7px 0;
 }
 
