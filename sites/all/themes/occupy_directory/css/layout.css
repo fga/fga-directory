@@ -60,6 +60,7 @@ footer #block-menu-menu-feeds-and-exports {
   padding-bottom: 3em;
   background-color: #aaa;
   border-left: 1px #000 solid;
+  box-shadow: 0 -3px 5px rgba( 255, 255, 255, .30 );
   -webkit-transition: all .5s ease-in-out;
   -moz-transition: all .5s ease-in-out;
   -o-transition: all .5s ease-in-out;
@@ -157,7 +158,9 @@ no idea why
 
   .solr-search.not-front #region-content .region-content-inner {
     max-width: 900px;
-    margin: 4em 14em 2em 1em;
+    padding-top: 2em;
+    padding-left: 1em;
+    margin: 0em 14em 2em 1em;
   }
 
 
@@ -209,13 +212,15 @@ no idea why
     max-width: 600px;
   }
 
-  .solr-search.not-front #region-content .region-content-inner {
-    max-width: 600px;
-    margin: 4em 24em 2em 1em;
-  }
-
   .not-front #region-sidebar-first{
     min-width: 16em;
+  }
+
+  .solr-search.not-front #region-content .region-content-inner {
+    padding-top: 2em;
+    padding-left: 1em;
+    max-width: 820px;
+    margin: 0em 16em 2em 1em;
   }
 
 }
@@ -227,21 +232,28 @@ no idea why
     margin: 4em 28em 2em 8em;
   }
 
-  .solr-search.not-front #region-content .region-content-inner {
-    max-width: 900px;
-    margin: 4em 24em 2em 1em;
-  }
-
   .not-front #region-sidebar-first{
     min-width: 22em;
   }
 
+  .solr-search.not-front #region-content .region-content-inner {
+    padding-top: 2em;
+    padding-left: 1em;
+    margin: 0;
+    margin: 0em 22em 2em 1em;
+    max-width: 1030px;
+    }
+
 }
 
-.solr-search.not-front #region-content .region-content-inner {
+.occupations-list #region-content,
+.occupations-list .region-content-inner {
+  width: 100%;
+}
+
+.occupations-list #region-content .region-content-inner {
   padding-top: 1em;
   padding-left: 1em;
-  margin: 0;
+  margin: 0 auto;
   max-width: 1200px;
 }
-

@@ -114,18 +114,19 @@ div.ctools-modal-content .modal-header {
 }
 
 div.ctools-modal-content a.close {
- width: 24px;
- height: 24px;
- margin: 0;
- position: relative;
- z-index: 1000;
- top: -.25em;
+  width: 24px;
+  height: 24px;
+  margin: 0;
+  position: relative;
+  z-index: 1000;
+  top: -.25em;
   text-decoration: none;
   border-radius: 12px;
- background: #999;
- color: #000;
- box-sizing: border-box;
+  background: #999;
+  color: #000;
+  box-sizing: border-box;
 }
+
 
 div.ctools-modal-content a.close:after {
   position: relative;
@@ -535,6 +536,81 @@ Pager
   margin-top:.5em;
 }
 
+/* new views pager renders "previous" instead of "prev" */
+ul.pager li {
+  display: inline-block;
+  margin-left: .5em;
+  text-align: center;  
+
+}
+
+.pager-next a,
+.pager-previous a,
+ul.pager li a {
+  display: block;
+  width: 100%;
+  height: 100%;
+  width: 24px;
+  height: 24px;
+}
+
+ul.pager li+li {
+  margin-left: .5em;
+}
+
+.pager-last,
+.pager-first,
+.pager-previous,
+.pager-next {
+  width: 24px;
+  height: 24px;
+  word-wrap: nowrap;
+  overflow: hidden;
+  position: relative;
+  top: .5em;
+  text-indent: -1000px;
+}
+
+
+.pager-first:after,
+.pager-last:after,
+.pager-previous:after,
+.pager-next:after {
+  font-size: 18px;
+  display: block;
+  position: absolute;
+  top: .25em;
+  left: .25em;
+  text-indent: 0;
+  content: "\2192";
+}
+
+.pager-previous:after {
+  content: "\2190";
+}
+
+.pager-first:after {
+  content: "\00AB";
+}
+
+.pager-last:after {
+  content: "\00BB";
+}
+
+.pager-current {
+  line-height: 26px;
+  width: 24px;
+  height: 24px;
+  margin: 0;
+  z-index: 1000;
+  text-decoration: none;
+  border-radius: 12.5px;
+  background: #000;
+  color: #dedede;
+  box-sizing: border-box;
+}
+
+
 /*
 ----------------------------------
 SOLR Search Facets
@@ -698,8 +774,11 @@ Occupation Directory Views table listing page
   display: none;
 }
 
+.occupations-list table {
+  width: 100%;
+}
+
 div.view-display-id-occupations_list table img {
-  padding-right: 8px;
   vertical-align: middle;
 }
 
@@ -794,31 +873,26 @@ Total Occupations
   margin-right: 35%;
 }
 
-.list-occupations thead{
-  background: #262626;
-  padding: .5em;
-}
 
 .list-occupations table{
-  color: #eee;
 }
 
-.list-occupations tr{
+.list-occupations table thead th{
   padding: .5em;
-  background: #151515;
+  text-align: left;
+}
+
+.list-occupations table.views-table tr{
+  background: #dedede;
   border-bottom: none;
 }
 
-.list-occupations tr.odd{
-  background: #000;
+.list-occupations table.views-table tr.odd{
+  background: #cfcfcf;
 }
 
-.total-occupations tr td {
-  vertical-align: top;
-}
-
-.total-occupations tr.row-first td {
-  padding-top:20px;
+.list-occupations table.views-table tr td {
+  padding: .5em;
 }
 
 .total-occupations tr td .title {
@@ -982,26 +1056,32 @@ ul.tweets-pulled-listing  li {
 .openlayers-map .olPopup a:link, .openlayers-map .olPopup a:visited {
   color: #FFF;
 }
+
 .openlayers-map .olPopup a:hover {
   color: #4298DD;
   text-decoration: none;
 }
+
 .olControlPermalink a:link, .olControlPermalink a:visited {
   color:#fff;
   text-transform:lowercase;
 }
+
 .olPopupCloseBox {
   background-image: url(/sites/all/modules/contrib/openlayers/themes/default_dark/img/layer-switcher-minimize.png) !important;
 }
+
 .view-map-displays .olControlZoomPanel,
 .node-type-occupation .olControlZoomPanel {
   top: 10px;
   left: 10px;
 }
+
 .view-map-displays h3.o-name {
   padding:0;
   line-height:1em;
 }
+
 .view-map-displays div.o-image {
   float:left;
 }
@@ -1009,11 +1089,6 @@ ul.tweets-pulled-listing  li {
 /* HACKS */
 
 #admin-menu { margin:0 !important; }
-
-/* new views pager renders "previous" instead of "prev" */
-.pager li.pager-previous a {
-    width: 68px;
-}
 
 /* Country is renedered outside the wrapper div, so clearing gives us a big
    space when there's an image*/
