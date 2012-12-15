@@ -22,9 +22,12 @@ footer{
 body,
 #page { min-width: 480px; }
 
-
 #region-menu {
   width: auto;
+}
+
+.not-front #region-sidebar-first .region-content-inner {
+  margin-top: 3.125em;
 }
 
 /*
@@ -38,12 +41,6 @@ Content
   top: 0;
   right: 0;
 }
-
-.not-front #region-sidebar-first .region-inner {
-  margin-top: 3.125em;
-}
-
-
 
 /*
 ------------------------------------------------------------
@@ -84,6 +81,10 @@ no idea why
 */
 #what { border: 0; }
 
+.solr-search.not-front #region-sidebar-first {
+  margin: 0;
+}
+
 /* why */
 
 
@@ -96,7 +97,7 @@ no idea why
     padding: 0;
   }
 
-  .not-front #region-content .region-inner {
+  .not-front #region-content .region-content-inner {
     margin: 4em 2em 2em 2em;
     padding: 0;    
   }
@@ -111,7 +112,20 @@ no idea why
   }
   
   #region-sidebar-first .region-inner {
-    padding: 0em 1em 1em 2em;
+    padding: 1em;
+  }
+
+  .solr-search #zone-content {
+    margin-bottom: 12em;
+  }
+
+  .block-facetapi {
+    width: 23%;
+    float: left;
+  }
+
+  .block-facetapi+.block-facetapi{
+    margin-left: 1%;
   }
 
 }
@@ -134,11 +148,18 @@ no idea why
 }
 
 @media all and ( min-width: 651px ) and ( max-width: 844px ){
-   .not-front #region-content .region-inner {
+
+  .not-front #region-content .region-content-inner {
     padding-right: 2em;
     margin: 2em 14em 2em 2em;
     max-width: 480px;
   }
+
+  .solr-search.not-front #region-content .region-content-inner {
+    max-width: 900px;
+    margin: 4em 14em 2em 1em;
+  }
+
 
   .not-front #region-sidebar-first{
     min-width: 14em;
@@ -182,10 +203,15 @@ no idea why
     padding: 0;
   }
 
-  .not-front #region-content .region-inner {
+  .not-front #region-content .region-content-inner {
     padding-right: 2em;
     margin: 4em 18em 2em 8em;
     max-width: 600px;
+  }
+
+  .solr-search.not-front #region-content .region-content-inner {
+    max-width: 600px;
+    margin: 4em 24em 2em 1em;
   }
 
   .not-front #region-sidebar-first{
@@ -196,9 +222,14 @@ no idea why
 
 @media all and ( min-width: 960px ) {
 
-  .not-front #region-content .region-inner{
+  .not-front #region-content .region-content-inner{
     max-width: 800px;
     margin: 4em 28em 2em 8em;
+  }
+
+  .solr-search.not-front #region-content .region-content-inner {
+    max-width: 900px;
+    margin: 4em 24em 2em 1em;
   }
 
   .not-front #region-sidebar-first{
@@ -206,3 +237,11 @@ no idea why
   }
 
 }
+
+.solr-search.not-front #region-content .region-content-inner {
+  padding-top: 1em;
+  padding-left: 1em;
+  margin: 0;
+  max-width: 1200px;
+}
+

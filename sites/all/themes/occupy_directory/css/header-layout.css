@@ -129,7 +129,7 @@ Zen here I come!
 
   #zone-menu { height: 0; position: relative; z-index: 1001; }
   
-  #zone-menu .region-search-inner{
+  #zone-menu .region-search-inner {
     text-align: left;
     width: 35%;
     float: right;

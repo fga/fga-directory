@@ -341,7 +341,7 @@ article a:hover, article a:active {
 }
 
 .not-front #section-content{
-  padding-bottom: 12em;
+  padding-bottom: 4em;
 }
 
 .zone-preface-wrapper {
@@ -541,13 +541,13 @@ SOLR Search Facets
 ----------------------------------
 */
 
-
 .solr-search #region-sidebar-first{
   background-color: #222;
 }
 
 .block-facetapi{
-  padding: .5em 1em;
+  background-color: #222;
+  padding: 1em;
   border-bottom: 1px #000 solid;
 }
 
@@ -571,7 +571,7 @@ SOLR Search Facets
   background: #121212;
   padding: .125em .5em;
   font-size: .875em;
-  margin: 0;
+  margin: 0 0 .25em 0;
 }
 
 .block-facetapi .item-list li+li{
@@ -624,7 +624,6 @@ input#edit-search:after {
 #region-search #edit-submit-global-search{
   padding: .25em .5em;
 }
-
 
 #region-search label {
  display: inline-block;
