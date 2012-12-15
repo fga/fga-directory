@@ -575,7 +575,8 @@ ul.pager li .ajax-progress {
   background-position: none;
   background: #000;
   border-radius: 13px;
-  top: -.125em;
+  top: -.1375em;
+  right: 2px;
   width: 24px;
   height: 24px;
 }
