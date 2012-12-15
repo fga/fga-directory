@@ -573,7 +573,7 @@ ul.pager li+li {
 ul.pager li .ajax-progress {
   position: absolute;
   background-position: center center;
-  top: -.375em;
+  top: -.25em;
   width: 24px;
   height: 24px;
 }
