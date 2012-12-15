@@ -6,11 +6,6 @@ Because if you want something done right...
 
 /* clear out some grid crap we cant opt-out of cause of omega */
 
-#zone-navbar, /* occupy.net navbar */
-#region-navbar, /* occupy.net navbar */
-#zone-header,
-#zone-footer,
-#zone-menu,
 #messages,
 #zone-content,
 #region-content,
@@ -21,79 +16,15 @@ footer{
   width: 100%;
   padding: 0;
   margin: 0;
+  position: relative;
 }
 
 body,
-#zone-header,
 #page { min-width: 480px; }
 
 
 #region-menu {
   width: auto;
-}
-/*
--------------------------
-Header
--------------------------
-*/
-
-#zone-navbar { height: 30px; overflow: hidden; }
-
-/* undo grid bits where necessary
-in an ideal world, omega would have a checkbox that simply says
-no grid for this zone/region/section just cause you are using a grid
-doesn't mean everything falls into it.
-Zen here I come!
-*/
-
-#region-header,
-.logo-img,
-#block-ajax-register-ajax-register-block {
-  margin: 0 0 0 0;
-  width: auto;
-  float: left;
-}
-
-#region-branding{
-  width: auto;
-  float: left;
-}
-
-#zone-menu {
-  height: 4.25em;
-  margin: 0 0 0 0;
-  padding: 0;
-  background: #aaa;
-  position: relative;
-  z-index: 899;
-  box-shadow: 0px 3px 12px rgba( 0, 0, 0, .95 );
-}
-
-#zone-menu #region-menu-second{
-  float: left;
-  width: 49%;
-  background: #f30;
-  padding: 0;
-  margin: 0;
-}
-
-#zone-menu #region-search{
-  clear: none;
-  width: auto;
-  margin: 0 0 0 0;
-  text-align: right;
-  width: 100%;
-}
-
-#zone-menu #region-menu-second+#region-search{
-  width: 50%;
-  margin-left: 50%;
-}
-
-#zone-menu .region-search-inner{
-  display: inline-block;
-  width: 21.82em;
-  text-align: left;
 }
 
 /*
@@ -102,10 +33,6 @@ Content
 ------------------------------------------------------------
 */
 
-.not-front #region-content {
-  width: auto;
-}
-
 #region-sidebar-first{
   position: absolute;
   top: 0;
@@ -113,7 +40,7 @@ Content
 }
 
 .not-front #region-sidebar-first .region-inner {
-  margin-top: 5.125em;
+  margin-top: 3.125em;
 }
 
 
@@ -159,20 +86,38 @@ no idea why
 
 /* why */
 
-  #block-boxes-occupation-count {
-    display: inline-block;
-    background: #000;
-    margin: 0 0 0 2em;
-    padding: .375em .5em .25em .5em;
-    position: absolute;
-    width: auto;
-    white-space: nowrap;
+
+@media all and ( max-width: 650px ){
+
+  .not-front #region-content { 
+    width: 100%;
+    float: none;
+    margin: 0;
+    padding: 0;
   }
 
+  .not-front #region-content .region-inner {
+    margin: 4em 2em 2em 2em;
+    padding: 0;    
+  }
 
-@media all and ( max-width: 844px ){
+  #region-sidebar-first {
+    position: static;
+    width: 100%;
+    clear: both;
+    float: none;
+    padding: 0;
+    margin-top: 0;
+  }
+  
+  #region-sidebar-first .region-inner {
+    padding: 0em 1em 1em 2em;
+  }
 
-  #zone-header:before {
+}
+
+@media all and ( max-width: 580px ){
+/*  #zone-header:before {
     position: fixed;
     height: 1em;
     text-align: center;
@@ -183,111 +128,23 @@ no idea why
     width: 100%;
     background: rgba( 255, 0, 0, .875 );
     padding: .5em;
-    content: "Less than 844 wide.";
-  }
-
-
-  #zone-header,
-  #region-search,
-  #region-menu{
-    clear:both;
-    width: 100%;
-    padding: 0;
-    margin: 0;
-  }
-
-  #zone-header {
-    box-shadow: 0px 1px 3px rgba( 0, 0, 0, .3 );
-    position: relative;
-    z-index: 1000;
-    background: #000;
-  }
-
-  #zone-menu { height: 0; position: relative; z-index: 1001; }
-  
-  #zone-menu .region-search-inner{
-    text-align: left;
-    width: 40%;
-    float: right;
-    position: absolute;
-    top: -3.5em;
-    right: 0;
-  }
-
-  #region-search #edit-search {
-    width: 100%;
-  }
-
-  #zone-header {
-    height: 106px;
-  }
-
-  #region-menu{
-    clear: both;
-    position: static;
-    border-top: 1px #000 solid;
-    margin-top: 1em;
-  }
-
-  #block-ajax-register-ajax-register-block{
-    font-size: .875em;
-    position: absolute;
-    top: 0;
-    right: .5em;
-    background: none;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    margin: 1.5em .5em 0 0;
-    line-height: 1.2;
-  }
-
-  #block-ajax-register-ajax-register-block li {
-    display: inline-block;
-    padding: .25em;
-    background: #222;
-  }
-
-  #block-ajax-register-ajax-register-block li+li {
-    margin-left: .5em;
-  }
-
-  #block-ajax-register-ajax-register-block li a,
-  nav.navigation li a{
-    font-size: .925em;
-    color: #fc0;
-    display: inline;
-    text-decoration: none;
-  }
-
-  #block-ajax-register-ajax-register-block li:hover {
-    background: #000;
-  }
-
-  .not-front #region-content .region-inner {
-    margin: 4em 0 0 2em;    
-  }
-
-  #region-sidebar-first {
-    position: static;
-    width: 100%;
-    clear: both;
-    padding: 0;
-    margin: 2em 0 0 2em;
-  }
-  
-  #region-sidebar-first .region-inner {
-    padding: 1em;
-  }
-
-  .not-front #zone-content #region-content .region-inner {
-    margin-left: 4em;
-  }
-
+    content: "Max 580";
+  }*/
 
 }
 
-@media all and ( max-width: 580px ){
-  #block-boxes-occupation-count { display: none; }
+@media all and ( min-width: 651px ) and ( max-width: 844px ){
+   .not-front #region-content .region-inner {
+    padding-right: 2em;
+    margin: 2em 14em 2em 2em;
+    max-width: 480px;
+  }
+
+  .not-front #region-sidebar-first{
+    min-width: 14em;
+  }
+
+
 }
 
 /* General width */
@@ -299,7 +156,7 @@ no idea why
   -----------------------------------
   */
 
-  #zone-header:before {
+/*  #zone-header:before {
     position: fixed;
     height: 1em;
     text-align: center;
@@ -312,39 +169,18 @@ no idea why
     padding: .5em;
     content: "Greater than 845";
   }
-
-  #zone-header {
-    height: 56px;
-    box-shadow: none;
-  }
-
-  #region-menu{
-    float: right;
-    width: auto;
-    margin: 0;
-  }
-
-  #region-search #edit-search {
-    width: 23em;
-  }
-
-  #block-ajax-register-ajax-register-block{
-    padding: 1.25em 1em .875em 1em;
-    background: #f9b018;
-    line-height: 1.45;
-    font-size: .875em;
-  }
-
-  #block-ajax-register-ajax-register-block ul li{
-    margin-left: 0;
-  }
-
+*/
   .not-front #zone-content {
-    position: relative;
     padding: 0;
     width: auto;
   }
 
+  .not-front #region-content { 
+    width: 100%;
+    float: none;
+    margin: 0;
+    padding: 0;
+  }
 
   .not-front #region-content .region-inner {
     padding-right: 2em;
@@ -359,20 +195,6 @@ no idea why
 }
 
 @media all and ( min-width: 960px ) {
-
-  #zone-header:before {
-    position: fixed;
-    height: 1em;
-    text-align: center;
-    color: #fff;
-    z-index: 5005;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    background: rgba( 255, 0, 0, .875 );
-    padding: .5em;
-    content: "Greater than 960px";
-  }
 
   .not-front #region-content .region-inner{
     max-width: 800px;

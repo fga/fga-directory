@@ -13,27 +13,33 @@ version = '1.5'
 stylesheets[all][] = 'css/reset.css'
 stylesheets[all][] = 'css/typography.css'
 stylesheets[all][] = 'css/layout.css'
+stylesheets[all][] = 'css/header-layout.css'
 
 css[global.css][name] = 'global styles'
 
 css[reset.css][name] = 'reset styles'
 css[reset.css][description] = 'Reset styles for directory, alpha-reset was loading after typography.'
 css[reset.css][options][group] = '5000'
-css[reset.css][options][weight] = 3
+css[reset.css][options][weight] = 4
 
 css[typography.css][name] = 'typography styles'
 css[typography.css][description] = 'Type styles for the directory theme.'
 css[typography.css][options][group] = '5000'
-css[typography.css][options][weight] = 2
-
-css[typography.css][name] = 'Layouts'
-css[typography.css][description] = 'Responsive layouts for the directory theme, were migrating away from omega, so want to define these explicitly'
-css[typography.css][options][group] = '5000'
-css[typography.css][options][weight] = 0
+css[typography.css][options][weight] = 3
 
 css[global.css][description] = 'This file holds the globally active custom CSS of our theme.'
 css[global.css][options][group] = '5000'
-css[global.css][options][weight] = 1
+css[global.css][options][weight] = 2
+
+css[layout.css][name] = 'Layouts'
+css[layout.css][description] = 'Responsive layouts for the directory theme, were migrating away from omega, so want to define these explicitly'
+css[layout.css][options][group] = '5000'
+css[layout.css][options][weight] = 1
+
+css[header-layout.css][name] = 'Header layout'
+css[header-layout][description] = 'Responsive layouts for the directory header'
+css[header-layout][options][group] = '5000'
+css[header-layout][options][weight] = 0
 
 scripts[] = js/directory.js
 

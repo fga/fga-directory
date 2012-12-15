@@ -944,22 +944,33 @@ ul.tweets-pulled-listing {
   font-size: 10px;
 }
 
+ul.tweets-pulled-listing .tweet-author{
+  font-weight: bold;
+  display: block;
+}
+
 ul.tweets-pulled-listing div.tweet-authorphoto {
-  margin: 0 4px 0 0;
+  margin: 0 .5em 0 0;
   float: left;
   box-shadow: 1px 1px 3px rgba( 0, 0, 0, .3 );
 }
 
-ul.tweets-pulled-listing div.tweet-authorphoto img {
-  max-height: 40px;
-  max-width: 40px;
+ul.tweets-pulled-listing div.tweet-authorphoto{
+  display: none;
+  height: 40px;
+  width: 40px;
 }
 
-ul.tweets-pulled-listing .tweet-author a {}
-ul.tweets-pulled-listing  div.tweet-divider {
-  clear: left;
-  border-bottom: 1px solid #dedede;
-  margin: 6px 0 7px 0;
+ul.tweets-pulled-listing div.tweet-authorphoto img {
+  display: block;
+  height: 40px;
+  width: 40px;
+}
+
+ul.tweets-pulled-listing  li {
+  border-top: 1px solid #dedede;
+  padding: 1em 0 .5em 0;
+  margin: .5em 0 .5em 0;
 }
 
 
