@@ -572,21 +572,19 @@ ul.pager li+li {
 
 ul.pager li .ajax-progress {
   position: absolute;
-  background-position: none;
-  background: #000;
-  border-radius: 13px;
   top: -.25em;
   width: 24px;
   height: 24px;
   padding: 0;
+  overflow: hidden;
 }
 
 ul.pager li .ajax-progress .throbber{
   width: 24px;
   height: 24px;
-  background-image: url( ../images/spinner.gif );
-  background-size: 98%;
-  background-repeat: no-repeat;
+  border-radius: 13px;
+  background: transparent url( ../images/spinner.gif ) center center no-repeat;
+  background-size: 100%;
 }
 
 .pager-first:after,
