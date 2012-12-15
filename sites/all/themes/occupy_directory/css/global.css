@@ -583,7 +583,7 @@ ul.pager li .ajax-progress {
 ul.pager li .ajax-progress .throbber{
   background-image: url( ../images/spinner.gif );
   background-position:  3px 3px;
-  background-size: 87.5%;
+  background-size: 90%;
   background-repeat: no-repeat;
 }
 
