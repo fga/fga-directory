@@ -566,7 +566,6 @@ ul.pager li+li {
   word-wrap: nowrap;
   overflow: hidden;
   position: relative;
-  top: .5em;
   text-indent: -1000px;
 }
 
