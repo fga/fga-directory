@@ -544,8 +544,7 @@ ul.pager li {
 
 }
 
-.pager-next a,
-.pager-previous a,
+
 ul.pager li a {
   display: block;
   width: 100%;
@@ -583,6 +582,7 @@ ul.pager li+li {
   left: .25em;
   text-indent: 0;
   content: "\2192";
+  z-index: -1;
 }
 
 .pager-previous:after {
