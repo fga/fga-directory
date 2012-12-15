@@ -131,6 +131,7 @@ h1.title {
 
 .context-about  article p:first-child{
   font-size: 1.25em;
+  line-height: 1.25em;
 }
 
 .boxes-box-content h4{
