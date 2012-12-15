@@ -574,8 +574,8 @@ ul.pager li .ajax-progress {
   position: absolute;
   background-position: center center;
   top: 0em;
-  width: 24px;
-  height: 24px;
+  width: 25px;
+  height: 25px;
 }
 
 .pager-first:after,
