@@ -617,6 +617,7 @@ SOLR Search Facets
 ----------------------------------
 */
 
+
 .solr-search #region-sidebar-first{
   background-color: #222;
 }
@@ -749,6 +750,10 @@ Search Results
 .view-directory-global-search li {
   padding: 1em;
   background: #eee;
+}
+
+.solr-search .ds-right {
+  float: none;
 }
 
 .view-directory-global-search li:nth-child( even ) {
