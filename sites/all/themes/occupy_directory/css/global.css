@@ -575,9 +575,11 @@ ul.pager li .ajax-progress {
   background-position: none;
   background: #000;
   border-radius: 13px;
-  top: -.1375em;
-  right: 2px;
+  top: -.25em;
   background-image: url( ../images/spinner.gif );
+  background-position:  3px 4px;
+  background-size: 75%;
+  background-repeat: no-repeat;
   width: 24px;
   height: 24px;
 }
@@ -589,8 +591,6 @@ ul.pager li .ajax-progress {
   font-size: 18px;
   display: block;
   position: absolute;
-  top: .25em;
-  left: .25em;
   text-indent: 0;
   content: "\2192";
   z-index: -1;
