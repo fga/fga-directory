@@ -44,6 +44,7 @@ features[ctools][] = openlayers:openlayers_maps:1
 features[ctools][] = strongarm:strongarm:1
 features[ctools][] = views:views_default:3.0
 features[ds_field_settings][] = node|occupation|occupation_search_result
+features[ds_field_settings][] = node|occupation|search
 features[ds_fields][] = address_city_state_country
 features[ds_fields][] = address_latitude
 features[ds_fields][] = city

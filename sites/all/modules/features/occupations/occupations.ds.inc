@@ -107,6 +107,60 @@ function occupations_ds_field_settings_info() {
   );
   $export['node|occupation|occupation_search_result'] = $ds_fieldsetting;
 
+  $ds_fieldsetting = new stdClass();
+  $ds_fieldsetting->api_version = 1;
+  $ds_fieldsetting->id = 'node|occupation|search';
+  $ds_fieldsetting->entity_type = 'node';
+  $ds_fieldsetting->bundle = 'occupation';
+  $ds_fieldsetting->view_mode = 'search';
+  $ds_fieldsetting->settings = array(
+    'address_city_state_country' => array(
+      'weight' => '2',
+      'label' => 'hidden',
+      'format' => 'default',
+    ),
+    'twitter_user_link' => array(
+      'weight' => '7',
+      'label' => 'hidden',
+      'format' => 'default',
+    ),
+    'title' => array(
+      'weight' => '1',
+      'label' => 'hidden',
+      'format' => 'default',
+      'formatter_settings' => array(
+        'link' => '1',
+        'wrapper' => 'h3',
+        'class' => 'fn org title',
+        'ft' => array(
+          'func' => 'theme_ds_field_reset',
+        ),
+      ),
+    ),
+    'field_occupation_origin_date' => array(
+      'formatter_settings' => array(
+        'ft' => array(
+          'lb' => 'founded',
+          'lb-col' => TRUE,
+        ),
+      ),
+    ),
+    'field_occupation_image' => array(
+      'formatter_settings' => array(
+        'ft' => array(
+          'func' => 'theme_ds_field_expert',
+          'fi' => TRUE,
+          'fi-el' => 'span',
+          'fi-cl' => 'image',
+          'fi-at' => '',
+          'fi-def-at' => FALSE,
+          'fi-odd-even' => FALSE,
+        ),
+      ),
+    ),
+  );
+  $export['node|occupation|search'] = $ds_fieldsetting;
+
   return $export;
 }
 
