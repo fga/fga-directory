@@ -1,0 +1,21 @@
+<?php
+/**
+ * @file
+ * occupations module install/schema/update hooks.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function occupations_install() {
+}
+
+/**
+ * enable comments for all occupation nodes
+ */
+function occupations_update_7001(&$sandbox) {
+  
+  db_query("UPDATE node_revision SET comment=2 WHERE nid IN (SELECT nid FROM node WHERE node.type='occupation')");
+
+  drupal_set_message(t('Comment successfully enabled on all occupations'));
+}
