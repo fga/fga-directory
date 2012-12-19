@@ -218,7 +218,7 @@ function occupations_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '38',
+          'weight' => '42',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -310,7 +310,7 @@ function occupations_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '35',
+          'weight' => '39',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -402,7 +402,7 @@ function occupations_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '37',
+          'weight' => '41',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -494,7 +494,7 @@ function occupations_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '36',
+          'weight' => '40',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -601,7 +601,7 @@ function occupations_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '26',
+          'weight' => '31',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -708,7 +708,7 @@ function occupations_field_default_fields() {
             'trim_length' => '200',
           ),
           'type' => 'text_trimmed',
-          'weight' => '2',
+          'weight' => '6',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -807,7 +807,7 @@ function occupations_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '31',
+          'weight' => '35',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -917,7 +917,7 @@ function occupations_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '33',
+          'weight' => '37',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -1001,7 +1001,7 @@ function occupations_field_default_fields() {
           'module' => 'email',
           'settings' => array(),
           'type' => 'email_default',
-          'weight' => '13',
+          'weight' => '5',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -1080,7 +1080,7 @@ function occupations_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '39',
+          'weight' => '43',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -1180,7 +1180,7 @@ function occupations_field_default_fields() {
           'module' => 'link',
           'settings' => array(),
           'type' => 'link_default',
-          'weight' => '16',
+          'weight' => '9',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -1289,7 +1289,7 @@ function occupations_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '24',
+          'weight' => '30',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -1410,7 +1410,7 @@ function occupations_field_default_fields() {
           'label' => 'hidden',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '19',
+          'weight' => '25',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -1542,7 +1542,7 @@ function occupations_field_default_fields() {
             'image_style' => 'occupation_thumb_sm',
           ),
           'type' => 'image',
-          'weight' => '1',
+          'weight' => '0',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -1685,7 +1685,7 @@ function occupations_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '27',
+          'weight' => '32',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -1797,7 +1797,7 @@ function occupations_field_default_fields() {
           'label' => 'inline',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '30',
+          'weight' => '34',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -1906,7 +1906,7 @@ function occupations_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '42',
+          'weight' => '46',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -2004,7 +2004,7 @@ function occupations_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '22',
+          'weight' => '28',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -2110,7 +2110,7 @@ function occupations_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '41',
+          'weight' => '45',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -2204,7 +2204,7 @@ function occupations_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '40',
+          'weight' => '44',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -2324,7 +2324,7 @@ function occupations_field_default_fields() {
           'weight' => '0',
         ),
         'search' => array(
-          'label' => 'hidden',
+          'label' => 'inline',
           'module' => 'date',
           'settings' => array(
             'format_type' => 'date_short',
@@ -2334,7 +2334,7 @@ function occupations_field_default_fields() {
             'multiple_to' => '',
           ),
           'type' => 'date_default',
-          'weight' => '7',
+          'weight' => '3',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -2441,7 +2441,7 @@ function occupations_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '20',
+          'weight' => '26',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -2552,7 +2552,7 @@ function occupations_field_default_fields() {
           'label' => 'inline',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '25',
+          'weight' => '23',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -2647,7 +2647,7 @@ function occupations_field_default_fields() {
           'label' => 'inline',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '23',
+          'weight' => '29',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -2743,7 +2743,7 @@ function occupations_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '32',
+          'weight' => '36',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -2856,7 +2856,7 @@ URL: http address of the page.',
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '21',
+          'weight' => '27',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -2966,10 +2966,9 @@ URL: http address of the page.',
         ),
         'search' => array(
           'label' => 'hidden',
-          'module' => 'text',
           'settings' => array(),
-          'type' => 'text_plain',
-          'weight' => '14',
+          'type' => 'hidden',
+          'weight' => '24',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -3074,7 +3073,7 @@ URL: http address of the page.',
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_plain',
-          'weight' => '15',
+          'weight' => '8',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -3173,10 +3172,9 @@ URL: http address of the page.',
         ),
         'search' => array(
           'label' => 'hidden',
-          'module' => 'taxonomy',
           'settings' => array(),
-          'type' => 'taxonomy_term_reference_link',
-          'weight' => '2',
+          'type' => 'hidden',
+          'weight' => '22',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -3271,7 +3269,7 @@ URL: http address of the page.',
           'module' => 'link',
           'settings' => array(),
           'type' => 'link_default',
-          'weight' => '12',
+          'weight' => '4',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -3380,7 +3378,7 @@ URL: http address of the page.',
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '28',
+          'weight' => '33',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -3494,7 +3492,7 @@ URL: http address of the page.',
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '34',
+          'weight' => '38',
         ),
         'teaser' => array(
           'label' => 'above',

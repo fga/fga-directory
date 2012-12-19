@@ -25,7 +25,7 @@ Links
 
 a:link, a:visited { color: #666; }
 
-#region-sidebar-first a{ 
+#region-sidebar-first a{
   color: #0af;
 }
 
@@ -63,7 +63,7 @@ Header
   display: block !important;
 }
 
-#region-branding, 
+#region-branding,
 #region-menu{
   clear: none;
 }
@@ -663,7 +663,7 @@ Search Results
 ----------------------------------------------
 */
 
-.solr-search #page-title { 
+.solr-search #page-title {
   display: none;
 }
 
@@ -676,12 +676,16 @@ Search Results
 }
 
 .view-directory-global-search li:nth-child( even ) {
-  background: #dedede;  
+  background: #dedede;
 }
 
-.group-occupation-teaser {
+/*.group-occupation-teaser {
   float: left;
   display: none;
+}
+*/
+.view-directory-global-search  h3.title {
+  margin: 0 0 10px;
 }
 
 /*
@@ -1018,3 +1022,9 @@ ul.tweets-pulled-listing  li {
 }
 
 
+
+
+.label-inline {
+  display: inline-block;
+  margin-right: 5px;
+}
