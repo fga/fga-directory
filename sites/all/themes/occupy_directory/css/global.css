@@ -558,21 +558,11 @@ ul.pager li+li {
   margin-left: .5em;
 }
 
-.pager-last,
-.pager-first,
-.pager-previous,
-.pager-next {
-  width: 24px;
-  height: 24px;
-  word-wrap: nowrap;
-  overflow: hidden;
-  top: .5em;
-  text-indent: -1000px;
-}
-
 ul.pager li .ajax-progress {
   position: absolute;
-  top: -.25em;
+  background-position: none;
+  border-radius: 13px;
+  top: -1em;
   width: 24px;
   height: 24px;
   padding: 0;
@@ -580,13 +570,22 @@ ul.pager li .ajax-progress {
 }
 
 ul.pager li .ajax-progress .throbber{
-  width: 24px;
-  height: 24px;
-  border-radius: 13px;
+  width: 22px;
+  height: 22px;
   background: transparent url( ../images/spinner.gif ) center center no-repeat;
   background-size: 100%;
 }
 
+.pager-last,
+.pager-first,
+.pager-previous,
+.pager-next {
+  width: 24px;
+  height: 24px;
+  word-wrap: nowrap;
+  text-indent: -1000px;
+}
+  
 .pager-first:after,
 .pager-last:after,
 .pager-previous:after,
@@ -595,6 +594,7 @@ ul.pager li .ajax-progress .throbber{
   display: block;
   position: absolute;
   text-indent: 0;
+  top: 0em;
   content: "\2192";
   z-index: -1;
 }
