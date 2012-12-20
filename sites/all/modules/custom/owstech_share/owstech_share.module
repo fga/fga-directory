@@ -35,16 +35,9 @@ function owstech_share_block_info() {
  * Defines default theme template for a list of tweets.
  */
 function owstech_share_theme( $variables = '' ) {
-  if ($node = menu_get_object()) {
-    $nid = $node->nid;
-  } 
-  $url = url('node/' . $nid, array('absolute' => TRUE) );
   $theme = array(
     'owstech-share' => array(
-      'variables' => array(
-        'page_url' => $url,
-        'page_title' => drupal_get_title(),
-      ),
+      'variables' => $variables,
       'template' => 'owstech_share',
     ),
   );
@@ -59,7 +52,16 @@ function owstech_share_block_view( $delta = '') {
     case 'owstech-share':
       drupal_add_js( drupal_get_path('module', 'owstech_share') . '/js/owstech_share.js');
       drupal_add_css( drupal_get_path('module', 'owstech_share') .'/css/owstech_share.css');
-      $block['content'] = theme('owstech-share'); 
+      if ($node = menu_get_object()) {
+        $nid = $node->nid;
+      } 
+      $url = url( 'node/' . $nid, array('absolute' => TRUE) );
+      $title = drupal_get_title();
+      $vars = array(
+        'page_url' => $url,
+        'page_title' => $title,
+      );
+      $block['content'] = theme('owstech-share', $vars ); 
       return $block;
     break;
  }
