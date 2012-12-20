@@ -541,17 +541,20 @@ ul.pager li {
   display: inline-block;
   position: relative;
   margin-left: .5em;
-  text-align: center;  
-
+  text-align: center;
 }
-
 
 ul.pager li a {
   display: block;
   width: 100%;
   height: 100%;
-  width: 24px;
-  height: 24px;
+  width: 20px;
+  height: 20px;
+}
+
+ul.pager li.pager-item a:hover {
+  background: #dedede;
+  border-radius: 13px;
 }
 
 ul.pager li+li {
@@ -562,18 +565,22 @@ ul.pager li .ajax-progress {
   position: absolute;
   background-position: none;
   border-radius: 13px;
-  top: -1em;
+  top: -.25em;
+  left: -3px;
   width: 24px;
   height: 24px;
   padding: 0;
+  background: #000;
   overflow: hidden;
 }
 
 ul.pager li .ajax-progress .throbber{
-  width: 22px;
-  height: 22px;
+  width: 20px;
+  height: 20px;
+  margin: 2px;
   background: transparent url( ../images/spinner.gif ) center center no-repeat;
   background-size: 100%;
+  box-sizing: border-box;
 }
 
 .pager-last,
@@ -597,6 +604,14 @@ ul.pager li .ajax-progress .throbber{
   top: 0em;
   content: "\2192";
   z-index: -1;
+}
+
+.pager-first:hover:after,
+.pager-last:hover:after,
+.pager-previous:hover:after,
+.pager-next:hover:after {
+  color: #fc0;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, .8 );
 }
 
 .pager-previous:after {
