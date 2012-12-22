@@ -1,0 +1,130 @@
+<html>
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>Directory Tagswarm</title>
+
+<link rel="stylesheet" href="/sites/all/themes/occupy_directory/css/reset.css" type="text/css" />
+<link rel="stylesheet" href="/sites/all/themes/occupy_directory/css/typography.css" type="text/css" />
+<link rel="stylesheet" href="/sites/all/themes/occupy_directory/css/layout.css" type="text/css" />
+
+<style>
+  
+  .not-front #region-sidebar-first {
+    width: 25em;
+    border:;
+  }
+
+  .tagswarm {
+    vertical-align: top;
+    background: #eee;
+    padding: 1em;
+    margin-bottom: .5em;
+  }
+
+  .tagswarm li {
+    line-height: 1.2;
+    vertical-align: top;
+    display: inline-block;
+    position: relative;
+    float: left;
+    padding: .375em .25em .25em.25em;
+    border-radius: .15em;
+    background: #333;
+    color: #dedede;
+    margin: 0 .125em .125em 0;
+  }
+
+  .tagswarm li:hover{
+    background: #fc0;
+    color: #000;
+  }
+
+  .tagswarm li.gt40 {
+    font-size: 2.735em;
+    display: block;
+    clear: both;
+    float: none;
+  }
+
+  .tagswarm li.gt30 { 
+    font-size: 2.1875em;
+  }
+
+  .tagswarm li.gt20 { 
+    font-size: 1.75em;
+  }
+
+  .tagswarm li.lt20 { 
+    font-size: .875em;
+  }
+
+  /**
+   * Markup free clearing.
+   *
+   * @see http://perishablepress.com/press/2009/12/06/new-clearfix-hack
+   */
+  .clearfix:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+  }
+  /* IE6 */
+  * html .clearfix {
+    height: 1%;
+  }
+  /* IE7 */
+  *:first-child + html .clearfix {
+    min-height: 1%;
+  }
+
+</style>
+
+</head>
+<body class='not-front'>
+
+<div class="zone-content">
+
+<aside id='region-sidebar-first'>
+
+
+  <div class='tagswarm clearfix'>
+    <ul class='taxonomy tags'>
+      <li class='gt40' data-percentoftotal="40">Strike Debt</li>
+      <li class='gt40' data-percentoftotal="42">Debt</li>
+      <li class='gt30' data-percentoftotal="33">Debt Relief</li>
+      <li class='gt30' data-percentoftotal="33">Relief</li>
+      <li class='gt20' data-percentoftotal="22">Banks</li>
+      <li class='gt20' data-percentoftotal="20">Cultural Shift</li>
+      <li class='lt20' data-percentoftotal="12">Some tag</li>
+      <li class='lt20' data-percentoftotal="5">Another tag</li>
+      <li class='lt20' data-percentoftotal="3">Anotherother</li>
+      <li class='lt20' data-percentoftotal="2">Somen random</li>
+    </ul>
+  </div>
+
+  <div class='tagswarm clearfix'>
+    <ul class='taxonomy tags'>
+      <li class='gt40' data-percentoftotal="40">Strike Debt</li>
+      <li class='gt40' data-percentoftotal="42">Debt</li>
+      <li class='gt30' data-percentoftotal="33">Debt Relief</li>
+      <li class='gt30' data-percentoftotal="33">Relief</li>
+      <li class='gt20' data-percentoftotal="22">Banks</li>
+      <li class='gt20' data-percentoftotal="20">Cultural Shift</li>
+      <li class='lt20' data-percentoftotal="12">Some tag</li>
+      <li class='lt20' data-percentoftotal="5">Another tag</li>
+      <li class='lt20' data-percentoftotal="3">Anotherother</li>
+      <li class='lt20' data-percentoftotal="2">Somen random</li>
+    </ul>
+  </div>
+
+
+</aside>
+
+</div>
+
+</body>
+
+</html>
