@@ -265,6 +265,11 @@ nav a:hover { background-color: #000; color: #fc0; }
   z-index: 898;
 }
 
+.front #region-content .tabs{
+  position: absolute;
+  top: 0;
+}
+
 .tabs.primary{
   width: 100%;
 }
@@ -401,7 +406,9 @@ Occupation Node Detail Formatting
 ----------------------------------
 */
 
-
+.node-type-occupation #page-title {
+  float: left;
+}
 
 .field-group-format.grouplinks {
  margin-bottom: 1em;
