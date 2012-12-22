@@ -1,0 +1,40 @@
+diff --git a/sites/all/modules/contrib/ajax_comments/ajax_comments.module b/sites/all/modules/contrib/ajax_comments/ajax_comments.module
+index e384f45..ffddd32 100644
+--- a/sites/all/modules/contrib/ajax_comments/ajax_comments.module
++++ b/sites/all/modules/contrib/ajax_comments/ajax_comments.module
+@@ -177,7 +177,7 @@ function ajax_comments_preview_js($form, &$form_state) {
+   }
+   // Or is this a brand new comment.
+   else {
+-    $commands[] = ajax_command_append('#comment-wrapper', $notify_text . $comment_output);
++    $commands[] = ajax_command_prepend('#comment-wrapper', $notify_text . $comment_output);
+     $new_form_state = array();
+     $new_form_state['build_info']['args'][] = (object) array('nid' => $node->nid);
+     $new_form_state['input'] = $form_state['input'];
+@@ -249,7 +249,7 @@ function ajax_comments_submit_js($form, &$form_state) {
+   elseif (isset($form_state['values']['pid'])) {
+     // Append comment to parent wrapper.
+     $comment_output = drupal_render($comment_build);
+-    $commands[] = ajax_command_append('#comment-wrapper-' . $comment->pid, $notify_text . $comment_output);
++    $commands[] = ajax_command_html('#comment-wrapper-' . $comment->pid, $notify_text . $comment_output);
+ 
+     // Delete the form.
+     $commands[] = ajax_command_invoke('#' . $form['#id'], 'remove');
+@@ -258,7 +258,7 @@ function ajax_comments_submit_js($form, &$form_state) {
+   else {
+     // Append comment to root comment wrapper.
+     $comment_output = drupal_render($comment_build);
+-    $commands[] = ajax_command_append('#comment-wrapper-nid-' . $node->nid, $notify_text . $comment_output);
++    $commands[] = ajax_command_html('#comment-wrapper-nid-' . $node->nid, $notify_text . $comment_output);
+ 
+     // If we have a default form, update it with a new one.
+     if (variable_get('comment_form_location_' . $node->type, COMMENT_FORM_BELOW) == COMMENT_FORM_BELOW) {
+@@ -476,7 +476,7 @@ function ajax_comments_reply($node, $pid = NULL) {
+     $commands[] = ajax_command_after('#comment-wrapper-' . $pid . '>.comment', $form);
+   }
+   else {
+-    $commands[] = ajax_command_append('#comment-wrapper-nid-' . $node->nid, $form);
++    $commands[] = ajax_command_html('#comment-wrapper-nid-' . $node->nid, $form);
+   }
+ 
+   return array('#type' => 'ajax', '#commands' => $commands);
