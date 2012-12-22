@@ -259,15 +259,18 @@ nav a:hover { background-color: #000; color: #fc0; }
 
 /* Tabs */
 
-.tabs{}
-.tabs.primary{
-  position: absolute; top: 0;
+#region-content .tabs{
+  width: 100%;
+  top: 1em;
   z-index: 898;
+}
+
+.tabs.primary{
+  width: 100%;
 }
 
 .tabs ul li{
   display: inline-block;
-  clear: both;
   margin: 0 2px 0 0;
 }
 
@@ -327,10 +330,10 @@ Content
 
 #messages .error{
   margin: 0;
+  padding: 1em .5em 1em 2.75em;
 }
 
 #messages {
-  padding: 20px 0 5px;
   margin: 0 auto;
 }
 

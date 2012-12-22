@@ -102,8 +102,8 @@ no idea why
   }
 
   .not-front #region-content .region-content-inner {
-    margin: 4em 2em 2em 2em;
-    padding: 0;    
+    margin: 0 2em 2em 2em;
+    padding: 0 0 0 0;    
   }
 
   #region-sidebar-first {
@@ -154,8 +154,9 @@ no idea why
 @media all and ( min-width: 651px ) and ( max-width: 844px ){
 
   .not-front #region-content .region-content-inner {
+    margin: 0 14em 2em 2em;
     padding-right: 2em;
-    margin: 2em 14em 2em 2em;
+    padding-top: 2em;
     max-width: 480px;
   }
 
@@ -211,7 +212,8 @@ no idea why
 
   .not-front #region-content .region-content-inner {
     padding-right: 2em;
-    margin: 4em 18em 2em 8em;
+    margin: 0 18em 2em 8em;
+    padding-top: 4em;
     max-width: 600px;
   }
 
@@ -232,7 +234,8 @@ no idea why
 
   .not-front #region-content .region-content-inner{
     max-width: 800px;
-    margin: 4em 28em 2em 8em;
+    margin: 0 28em 2em 8em;
+    padding-top: 4em;
   }
 
   .not-front #region-sidebar-first{
