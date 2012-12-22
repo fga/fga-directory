@@ -1,16 +1,11 @@
 /*
 ------------------------------------------------------------
-Override grid settings for Header, Footer and Homepage Map
+Override grid settings 
 ------------------------------------------------------------
 */
 
-/*#page,*/
-#map-embed{
-  height: 99%;
-}
-
-
 header .ajax-register-links li.last {
+  /* forgot password doesn't need to be present in login block */
   display:none !important;
 }
 
@@ -334,6 +329,21 @@ Content
   margin: 0;
 }
 
+#messages {
+  padding: 20px 0 5px;
+  margin: 0 auto;
+}
+
+div.messages {
+  margin: 0;
+  padding: 1em;
+}
+
+#messages div.section{
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
 article a:link, article a:visited {
   color: #0af;
 }
@@ -354,13 +364,10 @@ article a:hover, article a:active {
 Pages
 ----------------------------------
 */
-
-
 aside h3.block-title{
   margin-top: .75em;
   margin-bottom: 1.5em;
 }
-
 
 /*
 ----------------------------------
@@ -376,9 +383,13 @@ Map
   background: #aaa;
 }
 
+/*
 
-
-
+// i suspect this is vestigeous — tdb
+#map-embed{
+  height: 99%;
+}
+*/
 
 
 /*
@@ -1087,42 +1098,6 @@ ul.tweets-pulled-listing  li {
   border-top: 1px solid #dedede;
   padding: 1em 0 .5em 0;
   margin: .5em 0 .5em 0;
-}
-
-
-/* Open Layers */
-/* Map pop-ups, for legacy compatibility with OL map at /map */
-.openlayers-map .olPopup a:link, .openlayers-map .olPopup a:visited {
-  color: #FFF;
-}
-
-.openlayers-map .olPopup a:hover {
-  color: #4298DD;
-  text-decoration: none;
-}
-
-.olControlPermalink a:link, .olControlPermalink a:visited {
-  color:#fff;
-  text-transform:lowercase;
-}
-
-.olPopupCloseBox {
-  background-image: url(/sites/all/modules/contrib/openlayers/themes/default_dark/img/layer-switcher-minimize.png) !important;
-}
-
-.view-map-displays .olControlZoomPanel,
-.node-type-occupation .olControlZoomPanel {
-  top: 10px;
-  left: 10px;
-}
-
-.view-map-displays h3.o-name {
-  padding:0;
-  line-height:1em;
-}
-
-.view-map-displays div.o-image {
-  float:left;
 }
 
 /* HACKS */

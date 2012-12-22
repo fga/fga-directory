@@ -15,8 +15,8 @@
  * but it's more staightforward to exclude our module styles here
  */
 function occupy_directory_css_alter(&$css) {
-  if(module_exists('twitter_pull')) {
-    unset($css[drupal_get_path('module','twitter_pull').'/twitter-pull-listing.css']);
+  if (module_exists('twitter_pull')) {
+    unset($css[drupal_get_path('module', 'twitter_pull') . '/twitter-pull-listing.css']);
   }
 }
 
