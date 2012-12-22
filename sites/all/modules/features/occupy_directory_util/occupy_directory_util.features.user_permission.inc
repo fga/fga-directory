@@ -246,9 +246,10 @@ function occupy_directory_util_user_default_permissions() {
   $permissions['show format tips'] = array(
     'name' => 'show format tips',
     'roles' => array(
-      0 => 'authenticated user',
-      1 => 'site developer',
-      2 => 'unconfirmed',
+      0 => 'anonymous user',
+      1 => 'authenticated user',
+      2 => 'site developer',
+      3 => 'unconfirmed',
     ),
     'module' => 'better_formats',
   );
@@ -257,10 +258,9 @@ function occupy_directory_util_user_default_permissions() {
   $permissions['show more format tips link'] = array(
     'name' => 'show more format tips link',
     'roles' => array(
-      0 => 'anonymous user',
-      1 => 'authenticated user',
-      2 => 'site developer',
-      3 => 'unconfirmed',
+      0 => 'authenticated user',
+      1 => 'site developer',
+      2 => 'unconfirmed',
     ),
     'module' => 'better_formats',
   );
@@ -277,9 +277,7 @@ function occupy_directory_util_user_default_permissions() {
   // Exported permission: use text format ds_code.
   $permissions['use text format ds_code'] = array(
     'name' => 'use text format ds_code',
-    'roles' => array(
-      0 => 'site developer',
-    ),
+    'roles' => array(),
     'module' => 'filter',
   );
 
