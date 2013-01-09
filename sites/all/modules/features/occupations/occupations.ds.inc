@@ -119,6 +119,14 @@ function occupations_ds_field_settings_info() {
       'label' => 'hidden',
       'format' => 'default',
     ),
+    'twitter_hashtags_link' => array(
+      'weight' => '8',
+      'label' => 'hidden',
+      'format' => 'default',
+      'formatter_settings' => array(
+        'ft' => array(),
+      ),
+    ),
     'twitter_user_link' => array(
       'weight' => '7',
       'label' => 'hidden',
@@ -284,6 +292,43 @@ function occupations_ds_custom_fields_info() {
 
   $ds_field = new stdClass();
   $ds_field->api_version = 1;
+  $ds_field->field = 'twitter_hashtags_link';
+  $ds_field->label = 'twitter hashtags linked';
+  $ds_field->field_type = 5;
+  $ds_field->entities = array(
+    'node' => 'node',
+  );
+  $ds_field->ui_limit = 'occupation|*';
+  $ds_field->properties = array(
+    'code' => array(
+      'value' => '<?php //dsm($entity); ?>
+
+<?php
+$hashtag_tids = field_get_items(\'node\', $entity, \'field_occupation_twitter_hash\');
+
+foreach ($hashtag_tids as $term) {
+ if( !empty($term[\'tid\']) ) {
+   
+  $term = taxonomy_term_load($term[\'tid\']);
+  $hashtag = trim($term->name);
+  
+  if (strpos($hashtag, \'#\') === 0) {
+    $tag = trim($hashtag, \'#\');
+  }
+  
+   $hashtags[] = l( $hashtag, \'https://twitter.com/search?q=%23\' . $tag );
+ }
+}
+return implode($hashtags, \', \');
+?>  ',
+      'format' => 'ds_code',
+    ),
+    'use_token' => 0,
+  );
+  $export['twitter_hashtags_link'] = $ds_field;
+
+  $ds_field = new stdClass();
+  $ds_field->api_version = 1;
   $ds_field->field = 'twitter_user_link';
   $ds_field->label = 'twitter users linked';
   $ds_field->field_type = 5;
@@ -394,7 +439,7 @@ function occupations_ds_layout_settings_info() {
         5 => 'field_occupation_email_general',
         6 => 'field_occupation_description',
         7 => 'twitter_user_link',
-        8 => 'field_occupation_twitter_hash',
+        8 => 'twitter_hashtags_link',
         9 => 'field_occupation_facebook',
       ),
     ),
@@ -407,7 +452,7 @@ function occupations_ds_layout_settings_info() {
       'field_occupation_email_general' => 'right',
       'field_occupation_description' => 'right',
       'twitter_user_link' => 'right',
-      'field_occupation_twitter_hash' => 'right',
+      'twitter_hashtags_link' => 'right',
       'field_occupation_facebook' => 'right',
     ),
     'classes' => array(),
