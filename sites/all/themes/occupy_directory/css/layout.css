@@ -26,6 +26,7 @@ body,
   width: auto;
 }
 
+.not-front #region-sidebar-first .region-inner,
 .not-front #region-sidebar-first .region-content-inner {
   margin-top: 3.125em;
 }
@@ -77,16 +78,11 @@ footer #block-menu-menu-feeds-and-exports:hover {
   -webkit-transform: translate(0,-160px); /* Safari and Chrome */
   -o-transform: translate(0,-160px); /* Opera */
   -moz-transform: translate(0,-160px); /* Firefox */
-};
-
-/*
-this is here because the above transfor seems to breakthe following declartion 
-no idea why
-*/
-#what { border: 0; }
+}
 
 .solr-search.not-front #region-sidebar-first {
   margin: 0;
+  padding-top: 0px;
 }
 
 /* why */
@@ -96,9 +92,8 @@ no idea why
 
   .not-front #region-content { 
     width: 100%;
-    float: none;
     margin: 0;
-    padding: 0;
+    padding: 0;a
   }
 
   .not-front #region-content .region-content-inner {
@@ -110,7 +105,6 @@ no idea why
     position: static;
     width: 100%;
     clear: both;
-    float: none;
     padding: 0;
     margin-top: 0;
   }
@@ -170,6 +164,7 @@ no idea why
 
   .not-front #region-sidebar-first{
     min-width: 14em;
+    padding-top: 2em;
   }
 
 
@@ -205,7 +200,6 @@ no idea why
 
   .not-front #region-content { 
     width: 100%;
-    float: none;
     margin: 0;
     padding: 0;
   }
@@ -219,6 +213,7 @@ no idea why
 
   .not-front #region-sidebar-first{
     min-width: 16em;
+    padding-top: 4em;
   }
 
   .solr-search.not-front #region-content .region-content-inner {
@@ -240,6 +235,7 @@ no idea why
 
   .not-front #region-sidebar-first{
     min-width: 22em;
+    padding-top: 4em;
   }
 
   .solr-search.not-front #region-content .region-content-inner {
@@ -252,6 +248,92 @@ no idea why
 
 }
 
+  
+  /*
+  -----------------------------------
+    Nodes
+  -----------------------------------
+  */
+
+.node-type-occupation #region-content,
+.node-type-occupation #region-content .region-content-inner{
+  width: 100%;
+  margin: 0 1em;
+  padding: 0 0 0 0;
+  max-width: none;
+}
+
+@media all and ( max-width: 580px ){
+
+}
+
+@media all and ( min-width: 651px ) and ( max-width: 844px ){
+
+}
+
+@media all and ( min-width: 845px ) {}
+
+/* General width */
+@media all and ( min-width: 845px ) and ( max-width: 959px ){
+
+  #node_occupation_full_group_listings .grouplinks{
+    width: 120px;
+    display: inline-block;
+    margin-left: 1em;
+    background: #eee;
+    border-radius: 4px;
+  }
+
+}
+
+@media all and ( min-width: 960px ) {
+
+
+  .node-type-occupation .ds-left {
+    float: left;
+    width: 186px;
+  }
+
+  .node-type-occupation .ds-right {
+    margin-left: 220px;
+    width: auto;
+    border: 1px #f00 solid;
+  }
+
+  #node_occupation_full_group_listings .grouplinks{
+    vertical-align: top;
+    width: 220px;
+    padding: 0 1em 1em 1em;
+    display: inline-block;
+    margin-left: 1em;
+    background: #eee;
+    border-radius: 4px;
+  }
+
+}
+
+
+
+
+
+
+
+.node-type-occupation h1.page-title{
+  float: left;
+}
+
+#node_occupation_full_group_listings {
+  width: 100%;
+  padding: 0;
+}
+
+
+#node_occupation_full_group_listings .grouplinks:first-child{
+  margin-left: 0;
+}
+
+/* Overrides */
+
 .occupations-list #region-content,
 .occupations-list .region-content-inner {
   width: 100%;
@@ -263,3 +345,4 @@ no idea why
   margin: 0 auto;
   max-width: 1200px;
 }
+

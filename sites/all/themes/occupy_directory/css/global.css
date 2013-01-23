@@ -54,10 +54,6 @@ Header
   background: #353838;
 }
 
-.node-type-occupation #page-title{
-  display: block !important;
-}
-
 #region-branding,
 #region-menu{
   clear: none;
@@ -406,17 +402,7 @@ Occupation Node Detail Formatting
 ----------------------------------
 */
 
-.node-type-occupation #page-title {
-  float: left;
-}
-
-.field-group-format.grouplinks {
- margin-bottom: 1em;
-}
-
-.node-type-occupation .node .content.grid-6 {
- margin-left: 0;
-}
+/*
 
 .field-group-format.grouplinks a{
   display: inline-block;
@@ -474,7 +460,7 @@ Occupation Node Detail Formatting
 
 .context-get-involved .block-webform h2.node-title {
   display:none;
-}
+}*/
 
 
 /*
@@ -786,8 +772,9 @@ input#edit-search:after {
 
 /*
 ----------------------------------------------
-Search Results
+SOLR Search Results
 ----------------------------------------------
+See ds_layouts/search_result.php
 */
 
 .solr-search #page-title {
@@ -797,32 +784,6 @@ Search Results
 .view-directory-global-search {
 }
 
-.view-directory-global-search li {
-  padding: 1em;
-  background: #eee;
-}
-
-.solr-search .ds-left{
-  width: 64px;
-}
-
-.solr-search .ds-right {
-  float: none;
-  margin-left: 64px;
-}
-
-.view-directory-global-search li:nth-child( even ) {
-  background: #dedede;
-}
-
-/*.group-occupation-teaser {
-  float: left;
-  display: none;
-}
-*/
-.view-directory-global-search  h3.title {
-  margin: 0 0 10px;
-}
 
 /*
 ----------------------------------------------
@@ -1120,10 +1081,141 @@ ul.tweets-pulled-listing  li {
   clear:none;
 }
 
-
-
-
 .label-inline {
   display: inline-block;
   margin-right: 5px;
 }
+
+
+
+/*
+------------------------------------------------------------
+ Icons
+------------------------------------------------------------
+*/
+
+
+.icon>legend { margin: 0; padding: 0; }
+
+.icon>legend,
+.icon {
+  display: inline-block;
+  margin: 0 0 0 .5em;
+}
+
+.icon>legend,
+a.icon,
+.icon>a {
+  width: 24px;
+  height: 24px;
+}
+
+.icon>legend,
+.icon>a {
+  display: block;
+  text-indent: -5000px;
+}
+
+.icon:first-child {
+  margin-left: 0;
+}
+
+.icon.email>a,
+a.icon.email {
+  background: url( '../images/icon_email.png' ) no-repeat;
+}
+
+.icon.site>a,
+a.icon.site {
+  background: url( '../images/icon_site.png' ) no-repeat;
+}
+
+.icon.twitter>legend {
+  background: url( '../images/icon_twitter.png' ) no-repeat;
+}
+
+/*
+------------------------------------------------------------
+ Flyout Menu
+------------------------------------------------------------
+*/
+
+
+/*
+------------------------------------------------------------
+ Flyout Menu
+ Ref http://stackoverflow.com/questions/3032856/z-index-of-before-or-after-to-be-below-the-element-is-that-possible
+------------------------------------------------------------
+*/
+
+.flyoutmenu {
+  position: relative;
+  z-index: 10;
+}
+
+
+.flyoutmenu .fieldset-wrapper,
+.search-result .ds-left .field-name-field-occupation-description {
+  display: none;
+  position: absolute;
+  left: -2em;
+  top: 1.5em;
+  font-size: .875em;
+  padding: .5em;
+  background: #fff;
+  box-shadow: 2px 2px 3px rgba( 0, 0, 0, .5 );
+  text-indent: 0px;
+    width: 12em;
+
+}
+
+.flyoutmenu:hover {
+  z-index: 100;
+}
+
+.flyoutmenu:hover .field-name-field-occupation-description,
+.flyoutmenu:hover .fieldset-wrapper {
+  display: block;
+ }
+
+.flyoutmenu .field-name-field-occupation-description::before,
+.flyoutmenu .fieldset-wrapper::before {
+  content: "\25B2";
+  position: absolute;
+  padding-top: .5em;
+  text-align: center;
+  z-index: 101;
+  left: 1.25em;
+  top: -1em;
+  clip: rect(0,auto,18px,0);
+  color: #fff;
+  font-size: 1.5em;
+  text-shadow: 1px 1px 2px rgba( 0, 0, 0, .75 );
+  rotation: 360deg;
+}
+
+.search-result .ds-left .field-name-field-occupation-description {
+  top: 3em;
+}
+
+.flyoutmenu .field-name-field-occupation-description::before {
+  left: 2em;
+}
+
+.flyoutmenu .fieldset-wrapper a {
+  display: inline-block;
+  padding: .25em .5em .125em .5em;
+  line-height: 1.5;
+  background: #000;
+  color: #0af;
+  text-decoration: none;
+  width: auto;
+  border-radius: .25em;
+  margin: 0 .125em .125em 0;
+}
+
+.flyoutmenu .fieldset-wrapper a:hover {
+  background: #0af;
+  color: #fff;
+}
+
