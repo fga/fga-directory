@@ -114,26 +114,23 @@ function occupations_ds_field_settings_info() {
   $ds_fieldsetting->bundle = 'occupation';
   $ds_fieldsetting->view_mode = 'search';
   $ds_fieldsetting->settings = array(
-    'address_city_state_country' => array(
-      'weight' => '2',
-      'label' => 'hidden',
-      'format' => 'default',
-    ),
-    'twitter_hashtags_link' => array(
-      'weight' => '8',
+    'twitter_user_link' => array(
+      'weight' => '10',
       'label' => 'hidden',
       'format' => 'default',
       'formatter_settings' => array(
-        'ft' => array(),
+        'ft' => array(
+          'func' => 'theme_ds_field_minimal',
+        ),
       ),
     ),
-    'twitter_user_link' => array(
-      'weight' => '7',
+    'address_city_state_country' => array(
+      'weight' => '4',
       'label' => 'hidden',
       'format' => 'default',
     ),
     'title' => array(
-      'weight' => '1',
+      'weight' => '3',
       'label' => 'hidden',
       'format' => 'default',
       'formatter_settings' => array(
@@ -148,7 +145,8 @@ function occupations_ds_field_settings_info() {
     'field_occupation_origin_date' => array(
       'formatter_settings' => array(
         'ft' => array(
-          'lb' => 'founded',
+          'func' => 'theme_ds_field_minimal',
+          'lb' => 'Founded',
           'lb-col' => TRUE,
         ),
       ),
@@ -157,12 +155,46 @@ function occupations_ds_field_settings_info() {
       'formatter_settings' => array(
         'ft' => array(
           'func' => 'theme_ds_field_expert',
+        ),
+      ),
+    ),
+    'field_occupation_website' => array(
+      'formatter_settings' => array(
+        'ft' => array(
+          'func' => 'theme_ds_field_expert',
           'fi' => TRUE,
-          'fi-el' => 'span',
-          'fi-cl' => 'image',
+          'fi-el' => 'div',
+          'fi-cl' => 'icon site',
           'fi-at' => '',
           'fi-def-at' => FALSE,
           'fi-odd-even' => FALSE,
+        ),
+      ),
+    ),
+    'field_occupation_email_general' => array(
+      'formatter_settings' => array(
+        'ft' => array(
+          'func' => 'theme_ds_field_expert',
+          'fi' => TRUE,
+          'fi-el' => 'div',
+          'fi-cl' => 'icon email',
+          'fi-at' => '',
+          'fi-def-at' => FALSE,
+          'fi-odd-even' => FALSE,
+        ),
+      ),
+    ),
+    'field_occupation_facebook' => array(
+      'formatter_settings' => array(
+        'ft' => array(
+          'func' => 'theme_ds_field_minimal',
+        ),
+      ),
+    ),
+    'field_occupation_twitter_hash' => array(
+      'formatter_settings' => array(
+        'ft' => array(
+          'func' => 'theme_ds_field_minimal',
         ),
       ),
     ),
@@ -341,12 +373,22 @@ return implode($hashtags, \', \');
       'value' => '<?php //dsm($entity); ?>
 <?php
 $tweeters = array();
+/*
+  @Review
+  Thiago made this modification, kept existing code intact.
+  Assumption being that DS code field is for displaying the frontend content, and that any need to get the \'raw stuff\' would be using field_get_items in a preprocess function.
+*/
+$ul_string = \'<ul class="tweeters">\';
 foreach (field_get_items(\'node\', $entity, \'field_occupation_twitter\') as $tweeter) {
- if( !empty($tweeter[\'safe_value\']) ) { 
-   $tweeters[] = l( $tweeter[\'safe_value\'] , \'https://twitter.com/\' . trim($tweeter[\'safe_value\']) );
- }
+  if( !empty($tweeter[\'safe_value\']) ) {
+    $val = l( $tweeter[\'safe_value\'] , \'https://twitter.com/\' . trim($tweeter[\'safe_value\']) );
+    $tweeters[] = $val;
+    $ul_string .= "<li>" . $val . "</li>";
+  }
 }
-return implode($tweeters, \', \');
+$ul_string .= "</ul>";
+//return implode($tweeters, \',\');
+return $ul_string;
 ?>',
       'format' => 'ds_code',
     ),
@@ -430,35 +472,48 @@ function occupations_ds_layout_settings_info() {
     'regions' => array(
       'left' => array(
         0 => 'field_occupation_image',
+        2 => 'field_occupation_description',
+        3 => 'group_title_loc',
+        4 => 'title',
+        6 => 'address_city_state_country',
       ),
       'right' => array(
-        1 => 'title',
-        2 => 'address_city_state_country',
-        3 => 'field_occupation_origin_date',
-        4 => 'field_occupation_website',
-        5 => 'field_occupation_email_general',
-        6 => 'field_occupation_description',
-        7 => 'twitter_user_link',
-        8 => 'twitter_hashtags_link',
-        9 => 'field_occupation_facebook',
+        1 => 'field_occupation_email_general',
+        5 => 'group_linklists',
+        7 => 'field_occupation_website',
+        8 => 'field_occupation_origin_date',
+        9 => 'twitter_user_link',
+        10 => 'field_occupation_twitter_hash',
+        11 => 'group_twitter_links',
+        12 => 'field_occupation_facebook',
       ),
     ),
     'fields' => array(
       'field_occupation_image' => 'left',
-      'title' => 'right',
-      'address_city_state_country' => 'right',
-      'field_occupation_origin_date' => 'right',
-      'field_occupation_website' => 'right',
       'field_occupation_email_general' => 'right',
-      'field_occupation_description' => 'right',
+      'field_occupation_description' => 'left',
+      'group_title_loc' => 'left',
+      'title' => 'left',
+      'group_linklists' => 'right',
+      'address_city_state_country' => 'left',
+      'field_occupation_website' => 'right',
+      'field_occupation_origin_date' => 'right',
       'twitter_user_link' => 'right',
-      'twitter_hashtags_link' => 'right',
+      'field_occupation_twitter_hash' => 'right',
+      'group_twitter_links' => 'right',
       'field_occupation_facebook' => 'right',
     ),
-    'classes' => array(),
+    'classes' => array(
+      'layout_class' => array(
+        '' => '',
+      ),
+      'left' => array(
+        'flyoutmenu' => 'flyoutmenu',
+      ),
+    ),
     'wrappers' => array(
-      'left' => 'div',
-      'right' => 'div',
+      'left' => 'section',
+      'right' => 'section',
     ),
     'layout_wrapper' => 'div',
     'layout_attributes' => '',

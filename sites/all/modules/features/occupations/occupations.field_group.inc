@@ -13,6 +13,36 @@ function occupations_field_group_info() {
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
+  $field_group->identifier = 'group_contact|node|occupation|full';
+  $field_group->group_name = 'group_contact';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'occupation';
+  $field_group->mode = 'full';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => '',
+    'weight' => '1',
+    'children' => array(
+      0 => 'field_occupation_image',
+      1 => 'field_occupation_website',
+      2 => 'field_occupation_email_general',
+      3 => 'field_occupation_phone_general',
+    ),
+    'format_type' => 'fieldset',
+    'format_settings' => array(
+      'label' => '',
+      'instance_settings' => array(
+        'classes' => '',
+        'description' => '',
+      ),
+      'formatter' => 'open',
+    ),
+  );
+  $export['group_contact|node|occupation|full'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
   $field_group->identifier = 'group_content_main|node|occupation|full';
   $field_group->group_name = 'group_content_main';
   $field_group->entity_type = 'node';
@@ -22,16 +52,7 @@ function occupations_field_group_info() {
   $field_group->data = array(
     'label' => 'Main Content',
     'weight' => '0',
-    'children' => array(
-      0 => 'field_occupation_address',
-      1 => 'field_occupation_origin_date',
-      2 => 'field_occupation_image',
-      3 => 'field_occupation_website',
-      4 => 'field_occupation_email_general',
-      5 => 'field_occupation_phone_general',
-      6 => 'field_occupation_geo',
-      7 => 'group_occupation_description',
-    ),
+    'children' => array(),
     'format_type' => 'div',
     'format_settings' => array(
       'label' => 'Main Content',
@@ -83,12 +104,75 @@ function occupations_field_group_info() {
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
+  $field_group->identifier = 'group_header|node|occupation|full';
+  $field_group->group_name = 'group_header';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'occupation';
+  $field_group->mode = 'full';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => '',
+    'weight' => '1',
+    'children' => array(
+      0 => 'share_this_node_block',
+      1 => 'title',
+      2 => 'group_meta',
+    ),
+    'format_type' => 'fieldset',
+    'format_settings' => array(
+      'label' => '',
+      'instance_settings' => array(
+        'classes' => '',
+        'description' => '',
+      ),
+      'formatter' => 'open',
+    ),
+  );
+  $export['group_header|node|occupation|full'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_linklists|node|occupation|search';
+  $field_group->group_name = 'group_linklists';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'occupation';
+  $field_group->mode = 'search';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'Links',
+    'weight' => '4',
+    'children' => array(
+      0 => 'field_occupation_website',
+      1 => 'field_occupation_email_general',
+      2 => 'field_occupation_facebook',
+      3 => 'group_twitter_links',
+    ),
+    'format_type' => 'div',
+    'format_settings' => array(
+      'label' => 'Links',
+      'instance_settings' => array(
+        'classes' => '',
+        'description' => '',
+        'show_label' => '0',
+        'label_element' => 'h3',
+        'effect' => 'none',
+        'speed' => 'fast',
+      ),
+      'formatter' => 'open',
+    ),
+  );
+  $export['group_linklists|node|occupation|search'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
   $field_group->identifier = 'group_links_media|node|occupation|full';
   $field_group->group_name = 'group_links_media';
   $field_group->entity_type = 'node';
   $field_group->bundle = 'occupation';
   $field_group->mode = 'full';
-  $field_group->parent_name = '';
+  $field_group->parent_name = 'group_listings';
   $field_group->data = array(
     'label' => 'Video & Audio',
     'weight' => '3',
@@ -120,7 +204,7 @@ function occupations_field_group_info() {
   $field_group->entity_type = 'node';
   $field_group->bundle = 'occupation';
   $field_group->mode = 'full';
-  $field_group->parent_name = '';
+  $field_group->parent_name = 'group_listings';
   $field_group->data = array(
     'label' => 'News & Info',
     'weight' => '4',
@@ -153,7 +237,7 @@ function occupations_field_group_info() {
   $field_group->entity_type = 'node';
   $field_group->bundle = 'occupation';
   $field_group->mode = 'full';
-  $field_group->parent_name = '';
+  $field_group->parent_name = 'group_listings';
   $field_group->data = array(
     'label' => 'Other Resources',
     'weight' => '2',
@@ -184,7 +268,7 @@ function occupations_field_group_info() {
   $field_group->entity_type = 'node';
   $field_group->bundle = 'occupation';
   $field_group->mode = 'full';
-  $field_group->parent_name = '';
+  $field_group->parent_name = 'group_listings';
   $field_group->data = array(
     'label' => 'Social Media',
     'weight' => '1',
@@ -209,6 +293,90 @@ function occupations_field_group_info() {
     ),
   );
   $export['group_links_social|node|occupation|full'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_listings|node|occupation|full';
+  $field_group->group_name = 'group_listings';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'occupation';
+  $field_group->mode = 'full';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => '',
+    'weight' => '10',
+    'children' => array(
+      0 => 'group_links_media',
+      1 => 'group_links_news',
+      2 => 'group_links_resources',
+      3 => 'group_links_social',
+    ),
+    'format_type' => 'fieldset',
+    'format_settings' => array(
+      'label' => '',
+      'instance_settings' => array(
+        'classes' => '',
+        'description' => '',
+      ),
+      'formatter' => 'open',
+    ),
+  );
+  $export['group_listings|node|occupation|full'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_location|node|occupation|full';
+  $field_group->group_name = 'group_location';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'occupation';
+  $field_group->mode = 'full';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'Location',
+    'weight' => '2',
+    'children' => array(
+      0 => 'field_occupation_address',
+      1 => 'field_occupation_geo',
+      2 => 'address_city_state_country',
+    ),
+    'format_type' => 'fieldset',
+    'format_settings' => array(
+      'formatter' => 'collapsible',
+      'instance_settings' => array(
+        'description' => '',
+        'classes' => '',
+      ),
+    ),
+  );
+  $export['group_location|node|occupation|full'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_meta|node|occupation|full';
+  $field_group->group_name = 'group_meta';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'occupation';
+  $field_group->mode = 'full';
+  $field_group->parent_name = 'group_header';
+  $field_group->data = array(
+    'label' => 'Meta',
+    'weight' => '2',
+    'children' => array(
+      0 => 'field_occupation_type',
+    ),
+    'format_type' => 'fieldset',
+    'format_settings' => array(
+      'formatter' => 'collapsible',
+      'instance_settings' => array(
+        'description' => '',
+        'classes' => '',
+      ),
+    ),
+  );
+  $export['group_meta|node|occupation|full'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -347,10 +515,10 @@ function occupations_field_group_info() {
   $field_group->entity_type = 'node';
   $field_group->bundle = 'occupation';
   $field_group->mode = 'full';
-  $field_group->parent_name = 'group_content_main';
+  $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Occupation Description',
-    'weight' => '13',
+    'weight' => '5',
     'children' => array(
       0 => 'field_occupation_description',
       1 => 'field_occupation_physical',
@@ -534,6 +702,34 @@ function occupations_field_group_info() {
     ),
   );
   $export['group_occupation_teaser|node|occupation|occupation_search_result'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_twitter_links|node|occupation|search';
+  $field_group->group_name = 'group_twitter_links';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'occupation';
+  $field_group->mode = 'search';
+  $field_group->parent_name = 'group_linklists';
+  $field_group->data = array(
+    'label' => 'Twitter Links',
+    'weight' => '15',
+    'children' => array(
+      0 => 'field_occupation_twitter_hash',
+      1 => 'twitter_user_link',
+    ),
+    'format_type' => 'fieldset',
+    'format_settings' => array(
+      'label' => 'Twitter Links',
+      'instance_settings' => array(
+        'classes' => 'flyoutmenu icon twitter',
+        'description' => '',
+      ),
+      'formatter' => 'open',
+    ),
+  );
+  $export['group_twitter_links|node|occupation|search'] = $field_group;
 
   return $export;
 }
