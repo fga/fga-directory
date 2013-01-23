@@ -1134,6 +1134,10 @@ a.icon.site {
   background: url( '../images/icon_twitter.png' ) no-repeat;
 }
 
+.icon.facebook a {
+  background: url( '../images/icon_facebook.png' ) no-repeat;  
+}
+
 /*
 ------------------------------------------------------------
  Flyout Menu
