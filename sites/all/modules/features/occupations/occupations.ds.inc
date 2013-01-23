@@ -12,6 +12,49 @@ function occupations_ds_field_settings_info() {
 
   $ds_fieldsetting = new stdClass();
   $ds_fieldsetting->api_version = 1;
+  $ds_fieldsetting->id = 'node|occupation|full';
+  $ds_fieldsetting->entity_type = 'node';
+  $ds_fieldsetting->bundle = 'occupation';
+  $ds_fieldsetting->view_mode = 'full';
+  $ds_fieldsetting->settings = array(
+    'share_this_node_block' => array(
+      'weight' => '1',
+      'label' => 'hidden',
+      'format' => 'default',
+    ),
+    'address_city_state_country' => array(
+      'weight' => '1',
+      'label' => 'hidden',
+      'format' => 'default',
+    ),
+    'title' => array(
+      'weight' => '0',
+      'label' => 'hidden',
+      'format' => 'default',
+      'formatter_settings' => array(
+        'link' => '0',
+        'wrapper' => 'h1',
+        'class' => 'page-title',
+        'ft' => array(),
+      ),
+    ),
+    'comments' => array(
+      'weight' => '50',
+      'label' => 'above',
+      'format' => 'default',
+    ),
+    'field_occupation_dontate_info' => array(
+      'formatter_settings' => array(
+        'ft' => array(
+          'func' => 'theme_ds_field_minimal',
+        ),
+      ),
+    ),
+  );
+  $export['node|occupation|full'] = $ds_fieldsetting;
+
+  $ds_fieldsetting = new stdClass();
+  $ds_fieldsetting->api_version = 1;
   $ds_fieldsetting->id = 'node|occupation|occupation_search_result';
   $ds_fieldsetting->entity_type = 'node';
   $ds_fieldsetting->bundle = 'occupation';
@@ -129,6 +172,11 @@ function occupations_ds_field_settings_info() {
       'label' => 'hidden',
       'format' => 'default',
     ),
+    'twitter_hashtags_link' => array(
+      'weight' => '12',
+      'label' => 'hidden',
+      'format' => 'default',
+    ),
     'title' => array(
       'weight' => '3',
       'label' => 'hidden',
@@ -141,6 +189,11 @@ function occupations_ds_field_settings_info() {
           'func' => 'theme_ds_field_reset',
         ),
       ),
+    ),
+    'links' => array(
+      'weight' => '5',
+      'label' => 'hidden',
+      'format' => 'default',
     ),
     'field_occupation_origin_date' => array(
       'formatter_settings' => array(
@@ -200,6 +253,26 @@ function occupations_ds_field_settings_info() {
     ),
   );
   $export['node|occupation|search'] = $ds_fieldsetting;
+
+  $ds_fieldsetting = new stdClass();
+  $ds_fieldsetting->api_version = 1;
+  $ds_fieldsetting->id = 'taxonomy_term|twitter_hashtags|default';
+  $ds_fieldsetting->entity_type = 'taxonomy_term';
+  $ds_fieldsetting->bundle = 'twitter_hashtags';
+  $ds_fieldsetting->view_mode = 'default';
+  $ds_fieldsetting->settings = array(
+    'twitter_hashes_taxonomyterms' => array(
+      'weight' => '0',
+      'label' => 'hidden',
+      'format' => 'default',
+      'formatter_settings' => array(
+        'ft' => array(
+          'func' => 'theme_ds_field_reset',
+        ),
+      ),
+    ),
+  );
+  $export['taxonomy_term|twitter_hashtags|default'] = $ds_fieldsetting;
 
   return $export;
 }
@@ -306,6 +379,21 @@ function occupations_ds_custom_fields_info() {
 
   $ds_field = new stdClass();
   $ds_field->api_version = 1;
+  $ds_field->field = 'share_this_node_block';
+  $ds_field->label = 'Share this Node Block';
+  $ds_field->field_type = 6;
+  $ds_field->entities = array(
+    'node' => 'node',
+  );
+  $ds_field->ui_limit = 'occupation|*';
+  $ds_field->properties = array(
+    'block' => 'owstech_share|owstech-share',
+    'block_render' => '1',
+  );
+  $export['share_this_node_block'] = $ds_field;
+
+  $ds_field = new stdClass();
+  $ds_field->api_version = 1;
   $ds_field->field = 'state';
   $ds_field->label = 'State/Province';
   $ds_field->field_type = 5;
@@ -321,6 +409,26 @@ function occupations_ds_custom_fields_info() {
     'use_token' => 1,
   );
   $export['state'] = $ds_field;
+
+  $ds_field = new stdClass();
+  $ds_field->api_version = 1;
+  $ds_field->field = 'twitter_hashes_taxonomyterms';
+  $ds_field->label = 'Twitter Hashes';
+  $ds_field->field_type = 5;
+  $ds_field->entities = array(
+    'node' => 'node',
+    'taxonomy_term' => 'taxonomy_term',
+  );
+  $ds_field->ui_limit = '';
+  $ds_field->properties = array(
+    'code' => array(
+      'value' => '<a class=\'twitterhash_js_hook\' href="https://twitter.com/search/[term:name]" target="_blank">[term:name]</a>
+',
+      'format' => 'php_code',
+    ),
+    'use_token' => 1,
+  );
+  $export['twitter_hashes_taxonomyterms'] = $ds_field;
 
   $ds_field = new stdClass();
   $ds_field->api_version = 1;
@@ -407,6 +515,115 @@ function occupations_ds_layout_settings_info() {
 
   $ds_layout = new stdClass();
   $ds_layout->api_version = 1;
+  $ds_layout->id = 'node|occupation|full';
+  $ds_layout->entity_type = 'node';
+  $ds_layout->bundle = 'occupation';
+  $ds_layout->view_mode = 'full';
+  $ds_layout->layout = 'occupation';
+  $ds_layout->settings = array(
+    'regions' => array(
+      'right' => array(
+        0 => 'title',
+        2 => 'group_links_social',
+        4 => 'share_this_node_block',
+        5 => 'group_header',
+        7 => 'group_links_resources',
+        8 => 'group_meta',
+        9 => 'group_links_media',
+        10 => 'group_links_news',
+        12 => 'group_occupation_description',
+        13 => 'field_occupation_type',
+        15 => 'field_occupation_origin_date',
+        19 => 'group_listings',
+        20 => 'field_occupation_meetup_url',
+        22 => 'field_occupation_live_video',
+        24 => 'field_occupation_newspaper_url',
+        25 => 'field_occupation_other_websites',
+        26 => 'field_occupation_youtube_chan',
+        27 => 'field_occupation_facebook',
+        28 => 'field_occupation_description',
+        29 => 'field_occupation_twitter',
+        30 => 'field_occupation_twitter_hash',
+        31 => 'field_occupation_physical',
+        33 => 'field_occupation_general_info',
+        35 => 'field_occupation_social_sites',
+        36 => 'field_occupation_rss',
+        37 => 'comments',
+      ),
+      'left' => array(
+        1 => 'address_city_state_country',
+        3 => 'group_contact',
+        6 => 'group_location',
+        11 => 'group_donate_info',
+        14 => 'field_occupation_dontate_info',
+        16 => 'field_occupation_donate_url',
+        17 => 'field_occupation_image',
+        18 => 'field_occupation_website',
+        21 => 'field_occupation_email_general',
+        23 => 'field_occupation_phone_general',
+        32 => 'field_occupation_address',
+        34 => 'field_occupation_geo',
+      ),
+    ),
+    'fields' => array(
+      'title' => 'right',
+      'address_city_state_country' => 'left',
+      'group_links_social' => 'right',
+      'group_contact' => 'left',
+      'share_this_node_block' => 'right',
+      'group_header' => 'right',
+      'group_location' => 'left',
+      'group_links_resources' => 'right',
+      'group_meta' => 'right',
+      'group_links_media' => 'right',
+      'group_links_news' => 'right',
+      'group_donate_info' => 'left',
+      'group_occupation_description' => 'right',
+      'field_occupation_type' => 'right',
+      'field_occupation_dontate_info' => 'left',
+      'field_occupation_origin_date' => 'right',
+      'field_occupation_donate_url' => 'left',
+      'field_occupation_image' => 'left',
+      'field_occupation_website' => 'left',
+      'group_listings' => 'right',
+      'field_occupation_meetup_url' => 'right',
+      'field_occupation_email_general' => 'left',
+      'field_occupation_live_video' => 'right',
+      'field_occupation_phone_general' => 'left',
+      'field_occupation_newspaper_url' => 'right',
+      'field_occupation_other_websites' => 'right',
+      'field_occupation_youtube_chan' => 'right',
+      'field_occupation_facebook' => 'right',
+      'field_occupation_description' => 'right',
+      'field_occupation_twitter' => 'right',
+      'field_occupation_twitter_hash' => 'right',
+      'field_occupation_physical' => 'right',
+      'field_occupation_address' => 'left',
+      'field_occupation_general_info' => 'right',
+      'field_occupation_geo' => 'left',
+      'field_occupation_social_sites' => 'right',
+      'field_occupation_rss' => 'right',
+      'comments' => 'right',
+    ),
+    'classes' => array(
+      'layout_class' => array(
+        '' => '',
+      ),
+    ),
+    'wrappers' => array(
+      'left' => 'div',
+      'right' => 'div',
+    ),
+    'layout_wrapper' => 'div',
+    'layout_attributes' => '',
+    'layout_attributes_merge' => 0,
+    'hide_page_title' => '1',
+    'page_option_title' => '',
+  );
+  $export['node|occupation|full'] = $ds_layout;
+
+  $ds_layout = new stdClass();
+  $ds_layout->api_version = 1;
   $ds_layout->id = 'node|occupation|occupation_search_result';
   $ds_layout->entity_type = 'node';
   $ds_layout->bundle = 'occupation';
@@ -474,18 +691,22 @@ function occupations_ds_layout_settings_info() {
         0 => 'field_occupation_image',
         2 => 'field_occupation_description',
         3 => 'group_title_loc',
-        4 => 'title',
-        6 => 'address_city_state_country',
+        5 => 'title',
+        7 => 'address_city_state_country',
       ),
       'right' => array(
         1 => 'field_occupation_email_general',
-        5 => 'group_linklists',
-        7 => 'field_occupation_website',
-        8 => 'field_occupation_origin_date',
-        9 => 'twitter_user_link',
-        10 => 'field_occupation_twitter_hash',
-        11 => 'group_twitter_links',
-        12 => 'field_occupation_facebook',
+        4 => 'field_occupation_website',
+        6 => 'group_twitter_links',
+        8 => 'field_occupation_facebook',
+        9 => 'group_linklists',
+        10 => 'field_occupation_origin_date',
+        11 => 'links',
+        12 => 'field_occupation_other_websites',
+        13 => 'field_occupation_social_sites',
+        14 => 'twitter_user_link',
+        15 => 'field_occupation_twitter_hash',
+        16 => 'twitter_hashtags_link',
       ),
     ),
     'fields' => array(
@@ -493,15 +714,19 @@ function occupations_ds_layout_settings_info() {
       'field_occupation_email_general' => 'right',
       'field_occupation_description' => 'left',
       'group_title_loc' => 'left',
-      'title' => 'left',
-      'group_linklists' => 'right',
-      'address_city_state_country' => 'left',
       'field_occupation_website' => 'right',
+      'title' => 'left',
+      'group_twitter_links' => 'right',
+      'address_city_state_country' => 'left',
+      'field_occupation_facebook' => 'right',
+      'group_linklists' => 'right',
       'field_occupation_origin_date' => 'right',
+      'links' => 'right',
+      'field_occupation_other_websites' => 'right',
+      'field_occupation_social_sites' => 'right',
       'twitter_user_link' => 'right',
       'field_occupation_twitter_hash' => 'right',
-      'group_twitter_links' => 'right',
-      'field_occupation_facebook' => 'right',
+      'twitter_hashtags_link' => 'right',
     ),
     'classes' => array(
       'layout_class' => array(
@@ -520,6 +745,36 @@ function occupations_ds_layout_settings_info() {
     'layout_attributes_merge' => 0,
   );
   $export['node|occupation|search'] = $ds_layout;
+
+  $ds_layout = new stdClass();
+  $ds_layout->api_version = 1;
+  $ds_layout->id = 'taxonomy_term|twitter_hashtags|default';
+  $ds_layout->entity_type = 'taxonomy_term';
+  $ds_layout->bundle = 'twitter_hashtags';
+  $ds_layout->view_mode = 'default';
+  $ds_layout->layout = 'ds_1col';
+  $ds_layout->settings = array(
+    'regions' => array(
+      'ds_content' => array(
+        0 => 'twitter_hashes_taxonomyterms',
+      ),
+    ),
+    'fields' => array(
+      'twitter_hashes_taxonomyterms' => 'ds_content',
+    ),
+    'classes' => array(
+      'layout_class' => array(
+        '' => '',
+      ),
+    ),
+    'wrappers' => array(
+      'ds_content' => 'div',
+    ),
+    'layout_wrapper' => 'div',
+    'layout_attributes' => '',
+    'layout_attributes_merge' => 0,
+  );
+  $export['taxonomy_term|twitter_hashtags|default'] = $ds_layout;
 
   return $export;
 }
@@ -547,6 +802,16 @@ function occupations_ds_view_modes_info() {
     'node' => 'node',
   );
   $export['search'] = $ds_view_mode;
+
+  $ds_view_mode = new stdClass();
+  $ds_view_mode->api_version = 1;
+  $ds_view_mode->view_mode = 'twitter_hashes';
+  $ds_view_mode->label = 'Twitter hash link';
+  $ds_view_mode->entities = array(
+    'node' => 'node',
+    'taxonomy_term' => 'taxonomy_term',
+  );
+  $export['twitter_hashes'] = $ds_view_mode;
 
   return $export;
 }
