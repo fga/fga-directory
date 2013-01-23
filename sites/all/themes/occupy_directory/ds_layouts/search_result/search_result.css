@@ -3,14 +3,77 @@
  * Display Suite search-result stylesheet.
  */
 
-.ds-left {
-  /* Styles for the "left" region go here */
-  float: left;
-  width: 20%;
+
+.search-result {
+  padding: 1em;
+  background: #eee;
+  vertical-align: top;
+  overflow: visible;
+/*  position: relative;
+  z-index: 1000;
+*/}
+
+.search-result:nth-child( even ) {
+  background: #dedede;
 }
 
-.ds-right {
-  /* Styles for the "right" region go here */
+.search-result .ds-left {
+  width: 264px;
+  clear: left;
   float: left;
-  width: 80%;
+  position: relative;
+  cursor: pointer;
+  vertical-align: top;
+}
+
+
+.search-result .ds-right {
+  margin-left: 300px;
+}
+
+.search-result .ds-left img {
+  display: inline-block;
+  margin-right: 1em;
+}
+
+.search-result .group_title_loc {
+  display: inline-block;
+  vertical-align: top;
+  margin: 0 0 0 0;
+}
+
+.search-result h3.title {
+  margin: 0;
+  font-family: PTSans;
+  font-weight: bold;
+  font-size: 14px;
+  line-height: 1.375;
+}
+
+.search-result .title a{
+  color: #222;
+  text-decoration: none;
+}
+
+.search-result .field-group-div {
+  display: inline-block;
+}
+
+.search-result .label-above {
+  color: #aaa;
+  font-weight: normal;
+  font-size: .875em;
+}
+
+.search-result .field-name-address-city-state-country {
+  color: #666;
+  line-height: 2;
+}
+
+.field-name-field-occupation-origin-date {
+  float: right;
+}
+
+.group-linklists {
+
 }
