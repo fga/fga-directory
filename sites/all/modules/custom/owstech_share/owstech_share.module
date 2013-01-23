@@ -185,7 +185,7 @@ function owstech_share_theme() {
  * @Todo, use l() to build the links (title attributes etc) in the tpl
  * Let's juggle some variables
  */
-qfunction template_preprocess_owstech_share( &$variables ) {  
+function template_preprocess_owstech_share( &$variables ) {  
   global $language, $base_url;
 
   $node = menu_get_object();
