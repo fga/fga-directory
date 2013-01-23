@@ -1,3 +1,0 @@
-[submodule "sites/all/modules/custom/owstech_share"]
-	path = sites/all/modules/custom/owstech_share
-	url = git@github.com:madeofpeople/owstech_share.git
