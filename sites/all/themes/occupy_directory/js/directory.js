@@ -1,19 +1,74 @@
 
 Drupal.behaviors.occupy_directory = {
 
-	attach: function(context, settings){
+	attach: function (context, settings) {
+
+
+    /* 
+      Let's detect whether device relies on touches or clicks, then sets event strings accordingly 
+      @Todo, see about handling 'mouseout' if 'touchend' outside target.
+    */
+    // Defaults
+    Drupal.behaviors.occupy_directory.settings = {
+      click_string: 'click',
+      hover_string: 'mouseover',
+      device: 'mouse'
+    }
+    // If device supports  touch we set our event strings to be touch events
+    if ("ontouchstart" in document.documentElement) {
+      Drupal.behaviors.occupy_directory.settings.click_string = 'touchend';
+      Drupal.behaviors.occupy_directory.settings.hover_string = 'touchstart';
+      Drupal.behaviors.occupy_directory.settings.device = 'touch';
+    }
 
     var facetSidebar = jQuery( '.solr-search #region-sidebar-first' );
-    if( facetSidebar[0] ){
-      function resize_sidebar(){
-        var winh = jQuery(window).height();
-        facetSidebar.css( { 'height': winh - jQuery( facetSidebar[0] ).offset().top } );        
+    var results = jQuery( '#region-content' );
+
+    if ( facetSidebar[0] ) {
+
+      function resize_sidebar() {
+        var h = jQuery( results ).height() + jQuery( results ).offset().top;
+        facetSidebar.css( { 'height': h} );
       }
+
       resize_sidebar();
-      jQuery(window).resize( function(){
+
+      jQuery(window).resize( function() {
         resize_sidebar();
       });
+
     }
+
+    /* A quick hack that replaces # with %23 in twitter hash URLS */
+    jQuery( 'a.twitterhash_js_hook' ).each( function() {
+      var href = jQuery( this ).attr( 'href' ).replace( 'search/#', 'search/%23' );
+      jQuery(this).attr('href', href );
+    });
+
+    /* Setting up search result title to also trigger the .ds-left hover that shows the description if present */
+    jQuery( '.search-result' ).each( function() {
+      var el, title, hover_string, click_string;
+      hover_string = Drupal.behaviors.occupy_directory.settings.hover_string;
+      click_string = Drupal.behaviors.occupy_directory.settings.click_string;
+      el = jQuery( this );
+      title = jQuery( el.find( 'h3.org.title' ));
+      console.log( 'el', el );
+      console.log( 'title', title );
+      // Hover
+      el.bind( hover_string , function(e) {
+        var left_el = jQuery( this ).find( '.ds-left' );
+        console.log( left_el );
+        left_el.hover();
+        left_el = null;
+      });
+      // el.bind( click_string, function(e) {
+      //   console.log("::::", document.elementFromPoint(e.pageX, e.pageY));
+      //   left_el.addClass('active');
+      //   e.preventDefault();
+      // });
+      // clean up so we don't inadvertently spill memory.
+      el = title = null;
+    });
 
     /*
     Overriding Drupal.CTools.Modal.show, to bind esc to 'dismiss' on show and unbind the keydown on hide
@@ -44,8 +99,7 @@ Drupal.behaviors.occupy_directory = {
                 height: .8,
                 addWidth: 0,
                 addHeight: 0,
-                // How much to remove from the inner content to make space for the
-                // theming.
+                // How much to remove from the inner content to make space for the theming.
                 contentRight: 25,
                 contentBottom: 45
               },
@@ -100,7 +154,6 @@ Drupal.behaviors.occupy_directory = {
             resize();
             jQuery(document).bind( 'keydown.modalclose', function( e ){
               if( e.which == 27 ){
-                console.log( "ESCAPE!");
                 Drupal.CTools.Modal.dismiss();
                 jQuery(document).unbind( 'keydown.modalclose' );
               }
@@ -110,7 +163,6 @@ Drupal.behaviors.occupy_directory = {
             Drupal.CTools.Modal.modalContent(Drupal.CTools.Modal.modal, settings.modalOptions, settings.animation, settings.animationSpeed);
             jQuery('#modalContent .modal-content').html(Drupal.theme(settings.throbberTheme));
           }
-          //////////
         }
       );
     }
