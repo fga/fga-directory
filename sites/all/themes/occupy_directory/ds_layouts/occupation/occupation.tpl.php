@@ -29,10 +29,10 @@
   }
 
   $classes = 'occupation';
-  $header_classes = '';
-  $left_classes = 'equal-height-element';
-  $right_classes  = 'equal-height-element';
-  $footer_classes = '';
+  $header_classes = 'grid-10 prefix-1 suffix-1 pull-1';
+  $left_classes = 'grid-3 first equal-height-element';
+  $right_classes  = 'grid-6 equal-height-element';
+  $footer_classes = 'grid-10 clearfix';
 ?>
 
 <<?php print $layout_wrapper; print $layout_attributes; ?> class="<?php print $classes;?> clearfix">
@@ -49,17 +49,24 @@
     </<?php print $header_wrapper; ?>>
   <?php endif; ?>
 
-
-  <?php if ($left): ?>
-    <<?php print $left_wrapper; ?> class="ds-left <?php print $left_classes; ?>">
-      <?php print $left; ?>
-    </<?php print $left_wrapper; ?>>
+  <?php if ($left && $right): ?>
+    <div class="equal-height-container clearfix">
   <?php endif; ?>
 
-  <?php if ($right): ?>
-    <<?php print $right_wrapper; ?> class="ds-right <?php print $right_classes; ?>">
-      <?php print $right; ?>
-    </<?php print $right_wrapper; ?>>
+    <?php if ($left): ?>
+      <<?php print $left_wrapper; ?> class="ds-left <?php print $left_classes; ?>">
+        <?php print $left; ?>
+      </<?php print $left_wrapper; ?>>
+    <?php endif; ?>
+
+    <?php if ($right): ?>
+      <<?php print $right_wrapper; ?> class="ds-right <?php print $right_classes; ?>">
+        <?php print $right; ?>
+      </<?php print $right_wrapper; ?>>
+    <?php endif; ?>
+
+  <?php if ($left && $right): ?>
+    </div>
   <?php endif; ?>
 
 
