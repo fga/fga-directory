@@ -144,12 +144,9 @@ function occupations_field_group_info() {
     'weight' => '4',
     'children' => array(
       0 => 'field_occupation_website',
-      1 => 'field_occupation_social_sites',
-      2 => 'field_occupation_email_general',
-      3 => 'field_occupation_other_websites',
-      4 => 'field_occupation_facebook',
-      5 => 'links',
-      6 => 'group_twitter_links',
+      1 => 'field_occupation_email_general',
+      2 => 'field_occupation_facebook',
+      3 => 'group_twitter_links',
     ),
     'format_type' => 'div',
     'format_settings' => array(
@@ -719,16 +716,18 @@ function occupations_field_group_info() {
     'label' => 'Twitter Links',
     'weight' => '3',
     'children' => array(
-      0 => 'field_occupation_twitter_hash',
-      1 => 'twitter_user_link',
-      2 => 'twitter_hashtags_link',
+      0 => 'group_twitter_links_wraper',
     ),
-    'format_type' => 'fieldset',
+    'format_type' => 'div',
     'format_settings' => array(
       'label' => 'Twitter Links',
       'instance_settings' => array(
         'classes' => 'flyoutmenu icon twitter',
         'description' => '',
+        'show_label' => '1',
+        'label_element' => 'h3',
+        'effect' => 'none',
+        'speed' => 'fast',
       ),
       'formatter' => 'open',
     ),
