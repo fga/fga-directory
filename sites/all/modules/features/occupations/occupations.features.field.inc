@@ -200,7 +200,7 @@ function occupations_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '33',
+          'weight' => '30',
         ),
         'occupation_search_result' => array(
           'label' => 'above',
@@ -298,7 +298,7 @@ function occupations_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '32',
+          'weight' => '29',
         ),
         'occupation_search_result' => array(
           'label' => 'above',
@@ -396,7 +396,7 @@ function occupations_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '30',
+          'weight' => '27',
         ),
         'occupation_search_result' => array(
           'label' => 'above',
@@ -494,7 +494,7 @@ function occupations_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '31',
+          'weight' => '28',
         ),
         'occupation_search_result' => array(
           'label' => 'above',
@@ -1127,7 +1127,7 @@ function occupations_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '34',
+          'weight' => '31',
         ),
         'occupation_search_result' => array(
           'label' => 'above',
@@ -1456,28 +1456,9 @@ function occupations_field_default_fields() {
         ),
         'full' => array(
           'label' => 'hidden',
-          'module' => 'geofield_map',
-          'settings' => array(
-            'geofield_map_baselayers_hybrid' => 1,
-            'geofield_map_baselayers_map' => 1,
-            'geofield_map_baselayers_physical' => 0,
-            'geofield_map_baselayers_satellite' => 1,
-            'geofield_map_controltype' => 'default',
-            'geofield_map_draggable' => 0,
-            'geofield_map_height' => '300px',
-            'geofield_map_maptype' => 'map',
-            'geofield_map_mtc' => 'standard',
-            'geofield_map_overview' => 0,
-            'geofield_map_overview_opened' => 0,
-            'geofield_map_pancontrol' => 1,
-            'geofield_map_scale' => 0,
-            'geofield_map_scrollwheel' => 0,
-            'geofield_map_streetview_show' => 0,
-            'geofield_map_width' => '100%',
-            'geofield_map_zoom' => '8',
-          ),
-          'type' => 'geofield_map_map',
-          'weight' => '15',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '9',
         ),
         'occupation_search_result' => array(
           'label' => 'hidden',
@@ -2023,7 +2004,7 @@ function occupations_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '37',
+          'weight' => '34',
         ),
         'occupation_search_result' => array(
           'label' => 'above',
@@ -2242,7 +2223,7 @@ function occupations_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '36',
+          'weight' => '33',
         ),
         'occupation_search_result' => array(
           'label' => 'above',
@@ -2342,7 +2323,7 @@ function occupations_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '35',
+          'weight' => '32',
         ),
         'occupation_search_result' => array(
           'label' => 'above',
@@ -2457,7 +2438,7 @@ function occupations_field_default_fields() {
             'multiple_to' => '',
           ),
           'type' => 'date_default',
-          'weight' => '8',
+          'weight' => '3',
         ),
         'occupation_search_result' => array(
           'label' => 'hidden',

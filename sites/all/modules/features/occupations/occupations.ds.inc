@@ -17,17 +17,17 @@ function occupations_ds_field_settings_info() {
   $ds_fieldsetting->bundle = 'occupation';
   $ds_fieldsetting->view_mode = 'full';
   $ds_fieldsetting->settings = array(
+    'mapbox_static_map_full' => array(
+      'weight' => '8',
+      'label' => 'hidden',
+      'format' => 'default',
+    ),
     'address_city_state_country' => array(
-      'weight' => '9',
+      'weight' => '0',
       'label' => 'hidden',
       'format' => 'default',
     ),
     'share_this_node_block' => array(
-      'weight' => '4',
-      'label' => 'hidden',
-      'format' => 'default',
-    ),
-    'twitter_user_link' => array(
       'weight' => '0',
       'label' => 'hidden',
       'format' => 'default',
@@ -37,49 +37,25 @@ function occupations_ds_field_settings_info() {
       'label' => 'hidden',
       'format' => 'default',
     ),
-    'title' => array(
-      'weight' => '3',
+    'twitter_user_link' => array(
+      'weight' => '0',
       'label' => 'hidden',
       'format' => 'default',
-      'formatter_settings' => array(
-        'link' => '0',
-        'wrapper' => 'h1',
-        'class' => 'page-title',
-        'ft' => array(
-          'func' => 'theme_ds_field_minimal',
-        ),
-      ),
+    ),
+    'title' => array(
+      'weight' => '0',
+      'label' => 'hidden',
+      'format' => 'default',
     ),
     'links' => array(
-      'weight' => '30',
+      'weight' => '4',
       'label' => 'hidden',
       'format' => 'default',
     ),
     'comments' => array(
-      'weight' => '40',
-      'label' => 'above',
+      'weight' => '5',
+      'label' => 'hidden',
       'format' => 'default',
-    ),
-    'field_occupation_address' => array(
-      'formatter_settings' => array(
-        'ft' => array(
-          'func' => 'theme_ds_field_minimal',
-        ),
-      ),
-    ),
-    'field_occupation_image' => array(
-      'formatter_settings' => array(
-        'ft' => array(
-          'func' => 'theme_ds_field_minimal',
-        ),
-      ),
-    ),
-    'field_occupation_dontate_info' => array(
-      'formatter_settings' => array(
-        'ft' => array(
-          'func' => 'theme_ds_field_minimal',
-        ),
-      ),
     ),
   );
   $export['node|occupation|full'] = $ds_fieldsetting;
@@ -411,6 +387,25 @@ function occupations_ds_custom_fields_info() {
 
   $ds_field = new stdClass();
   $ds_field->api_version = 1;
+  $ds_field->field = 'mapbox_static_map_full';
+  $ds_field->label = 'mapbox static map full';
+  $ds_field->field_type = 5;
+  $ds_field->entities = array(
+    'node' => 'node',
+  );
+  $ds_field->ui_limit = 'occupation|full';
+  $ds_field->properties = array(
+    'code' => array(
+      'value' => '<img alt="map marking the location of [node:title] " src="http://api.tiles.mapbox.com/v3/occupydirectory.map-1tyybpog/url-bit.ly%2FMvRTGQ([node:field-occupation-geo:lon],[node:field-occupation-geo:lat])/[node:field-occupation-geo:lon],[node:field-occupation-geo:lat],12/640x400.jpg70" />
+',
+      'format' => 'ds_code',
+    ),
+    'use_token' => 1,
+  );
+  $export['mapbox_static_map_full'] = $ds_field;
+
+  $ds_field = new stdClass();
+  $ds_field->api_version = 1;
   $ds_field->field = 'share_this_node_block';
   $ds_field->label = 'Share this Node Block';
   $ds_field->field_type = 6;
@@ -555,99 +550,95 @@ function occupations_ds_layout_settings_info() {
   $ds_layout->settings = array(
     'regions' => array(
       'right' => array(
-        0 => 'twitter_hashtags_link',
-        1 => 'twitter_user_link',
-        5 => 'title',
-        6 => 'share_this_node_block',
-        7 => 'group_meta',
-        8 => 'group_header',
-        9 => 'field_occupation_type',
-        13 => 'address_city_state_country',
-        16 => 'group_occupation_description',
-        17 => 'field_occupation_meetup_url',
-        19 => 'field_occupation_live_video',
-        21 => 'field_occupation_newspaper_url',
-        22 => 'field_occupation_other_websites',
-        23 => 'field_occupation_youtube_chan',
-        24 => 'field_occupation_description',
-        25 => 'field_occupation_geo',
-        26 => 'field_occupation_twitter',
-        27 => 'field_occupation_twitter_hash',
-        28 => 'field_occupation_physical',
-        30 => 'group_links_social',
-        31 => 'field_occupation_facebook',
-        32 => 'group_links_resources',
-        33 => 'field_occupation_general_info',
-        34 => 'field_occupation_social_sites',
-        35 => 'group_links_media',
-        36 => 'group_links_news',
-        37 => 'group_listings',
-        38 => 'field_occupation_rss',
-        39 => 'links',
-        40 => 'comments',
+        0 => 'twitter_user_link',
+        1 => 'twitter_hashtags_link',
+        2 => 'share_this_node_block',
+        3 => 'address_city_state_country',
+        4 => 'title',
+        9 => 'links',
+        10 => 'comments',
+        11 => 'group_meta',
+        12 => 'group_header',
+        13 => 'group_occupation_description',
+        14 => 'field_occupation_type',
+        16 => 'mapbox_static_map_full',
+        20 => 'group_listings',
+        22 => 'field_occupation_meetup_url',
+        23 => 'field_occupation_newspaper_url',
+        24 => 'field_occupation_live_video',
+        26 => 'field_occupation_youtube_chan',
+        27 => 'field_occupation_other_websites',
+        28 => 'field_occupation_twitter',
+        29 => 'field_occupation_description',
+        30 => 'field_occupation_twitter_hash',
+        31 => 'field_occupation_physical',
+        32 => 'field_occupation_facebook',
+        34 => 'group_links_social',
+        35 => 'field_occupation_social_sites',
+        36 => 'group_links_resources',
+        37 => 'field_occupation_general_info',
+        38 => 'group_links_media',
+        39 => 'group_links_news',
+        40 => 'field_occupation_rss',
       ),
       'left' => array(
-        2 => 'group_contact',
-        3 => 'group_location',
-        4 => 'group_donate_info',
-        10 => 'field_occupation_dontate_info',
-        11 => 'field_occupation_origin_date',
-        12 => 'field_occupation_donate_url',
-        14 => 'field_occupation_image',
-        15 => 'field_occupation_website',
-        18 => 'field_occupation_email_general',
-        20 => 'field_occupation_phone_general',
-        29 => 'field_occupation_address',
+        5 => 'group_contact',
+        6 => 'group_location',
+        7 => 'group_donate_info',
+        8 => 'field_occupation_origin_date',
+        15 => 'field_occupation_dontate_info',
+        17 => 'field_occupation_image',
+        18 => 'field_occupation_donate_url',
+        19 => 'field_occupation_website',
+        21 => 'field_occupation_email_general',
+        25 => 'field_occupation_phone_general',
+        33 => 'field_occupation_address',
       ),
     ),
     'fields' => array(
-      'twitter_hashtags_link' => 'right',
       'twitter_user_link' => 'right',
+      'twitter_hashtags_link' => 'right',
+      'share_this_node_block' => 'right',
+      'address_city_state_country' => 'right',
+      'title' => 'right',
       'group_contact' => 'left',
       'group_location' => 'left',
       'group_donate_info' => 'left',
-      'title' => 'right',
-      'share_this_node_block' => 'right',
-      'group_meta' => 'right',
-      'group_header' => 'right',
-      'field_occupation_type' => 'right',
-      'field_occupation_dontate_info' => 'left',
       'field_occupation_origin_date' => 'left',
-      'field_occupation_donate_url' => 'left',
-      'address_city_state_country' => 'right',
-      'field_occupation_image' => 'left',
-      'field_occupation_website' => 'left',
-      'group_occupation_description' => 'right',
-      'field_occupation_meetup_url' => 'right',
-      'field_occupation_email_general' => 'left',
-      'field_occupation_live_video' => 'right',
-      'field_occupation_phone_general' => 'left',
-      'field_occupation_newspaper_url' => 'right',
-      'field_occupation_other_websites' => 'right',
-      'field_occupation_youtube_chan' => 'right',
-      'field_occupation_description' => 'right',
-      'field_occupation_geo' => 'right',
-      'field_occupation_twitter' => 'right',
-      'field_occupation_twitter_hash' => 'right',
-      'field_occupation_physical' => 'right',
-      'field_occupation_address' => 'left',
-      'group_links_social' => 'right',
-      'field_occupation_facebook' => 'right',
-      'group_links_resources' => 'right',
-      'field_occupation_general_info' => 'right',
-      'field_occupation_social_sites' => 'right',
-      'group_links_media' => 'right',
-      'group_links_news' => 'right',
-      'group_listings' => 'right',
-      'field_occupation_rss' => 'right',
       'links' => 'right',
       'comments' => 'right',
+      'group_meta' => 'right',
+      'group_header' => 'right',
+      'group_occupation_description' => 'right',
+      'field_occupation_type' => 'right',
+      'field_occupation_dontate_info' => 'left',
+      'mapbox_static_map_full' => 'right',
+      'field_occupation_image' => 'left',
+      'field_occupation_donate_url' => 'left',
+      'field_occupation_website' => 'left',
+      'group_listings' => 'right',
+      'field_occupation_email_general' => 'left',
+      'field_occupation_meetup_url' => 'right',
+      'field_occupation_newspaper_url' => 'right',
+      'field_occupation_live_video' => 'right',
+      'field_occupation_phone_general' => 'left',
+      'field_occupation_youtube_chan' => 'right',
+      'field_occupation_other_websites' => 'right',
+      'field_occupation_twitter' => 'right',
+      'field_occupation_description' => 'right',
+      'field_occupation_twitter_hash' => 'right',
+      'field_occupation_physical' => 'right',
+      'field_occupation_facebook' => 'right',
+      'field_occupation_address' => 'left',
+      'group_links_social' => 'right',
+      'field_occupation_social_sites' => 'right',
+      'group_links_resources' => 'right',
+      'field_occupation_general_info' => 'right',
+      'group_links_media' => 'right',
+      'group_links_news' => 'right',
+      'field_occupation_rss' => 'right',
     ),
-    'classes' => array(
-      'layout_class' => array(
-        '' => '',
-      ),
-    ),
+    'classes' => array(),
     'wrappers' => array(
       'left' => 'div',
       'right' => 'div',

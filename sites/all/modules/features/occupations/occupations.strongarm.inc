@@ -132,9 +132,6 @@ function occupations_strongarm() {
         'path' => array(
           'weight' => '5',
         ),
-        'metatags' => array(
-          'weight' => '40',
-        ),
       ),
       'display' => array(),
     ),

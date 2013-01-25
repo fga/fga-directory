@@ -55,7 +55,7 @@ function occupations_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Main Content',
-    'weight' => '19',
+    'weight' => '25',
     'children' => array(),
     'format_type' => 'div',
     'format_settings' => array(
@@ -116,7 +116,7 @@ function occupations_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Header',
-    'weight' => '5',
+    'weight' => '6',
     'children' => array(
       0 => 'share_this_node_block',
       1 => 'title',
@@ -285,8 +285,8 @@ function occupations_field_group_info() {
       1 => 'field_occupation_social_sites',
       2 => 'field_occupation_facebook',
       3 => 'field_occupation_twitter_hash',
-      4 => 'twitter_user_link',
-      5 => 'twitter_hashtags_link',
+      4 => 'twitter_hashtags_link',
+      5 => 'twitter_user_link',
     ),
     'format_type' => 'div',
     'format_settings' => array(
@@ -315,7 +315,7 @@ function occupations_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Group Links',
-    'weight' => '20',
+    'weight' => '10',
     'children' => array(
       0 => 'group_links_media',
       1 => 'group_links_news',
@@ -541,7 +541,7 @@ function occupations_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Occupation Description',
-    'weight' => '10',
+    'weight' => '7',
     'children' => array(
       0 => 'field_occupation_description',
       1 => 'field_occupation_physical',
