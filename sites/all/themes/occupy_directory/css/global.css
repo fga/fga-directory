@@ -11,6 +11,9 @@ header .ajax-register-links li.last {
 
 #section-content{ clear: both; }
 
+/* hide title in webform */
+.context-get-involved .block-webform header { display: none; }
+
 
 /*
 -------------------------
@@ -610,14 +613,15 @@ SOLR Search Facets
   display: inline-block;
   border-radius: .25em;
   background: #121212;
-  padding: .125em .5em;
+  padding: .435em .675em .25em .675em;
   font-size: .875em;
-  margin: 0 0 .25em 0;
+  margin: 0 .25em .25em ;
 }
 
-.block-facetapi .item-list li+li{
-  margin: 0 0 .25em .25em;
+.block-facetapi .item-list li a {
+  text-decoration: none;
 }
+
 
 #facetapi-facet-search-apioccupations-index-block-field-occupation-addressadministrative-area li{
   text-transform: uppercase;
@@ -1025,23 +1029,31 @@ ul.tweets-pulled-listing  li {
 
 .icon>legend { margin: 0; padding: 0; }
 
-.icon>legend,
 .icon {
   display: inline-block;
   margin: 0 0 0 .5em;
+  vertical-align: top;
 }
 
-.icon>legend,
 a.icon,
-.icon>a {
+.icon>a,
+.icon h3{
+  margin: 0;
+  padding: 0;
   width: 24px;
   height: 24px;
+  cursor: pointer;
+}
+
+.icon h3,
+.icon>legend,
+.icon>a {
+  text-indent: -5000px;
 }
 
 .icon>legend,
 .icon>a {
   display: block;
-  text-indent: -5000px;
 }
 
 .icon:first-child {
@@ -1058,19 +1070,13 @@ a.icon.site {
   background: url( '../images/icon_site.png' ) no-repeat;
 }
 
-.icon.twitter>legend {
+.icon.twitter h3 {
   background: url( '../images/icon_twitter.png' ) no-repeat;
 }
 
-.icon.facebook a {
+.icon.facebook h3{
   background: url( '../images/icon_facebook.png' ) no-repeat;  
 }
-
-/*
-------------------------------------------------------------
- Flyout Menu
-------------------------------------------------------------
-*/
 
 
 /*
@@ -1081,36 +1087,40 @@ a.icon.site {
 */
 
 .flyoutmenu {
+  vertical-align: top;
   position: relative;
   z-index: 10;
 }
 
 
-.flyoutmenu .fieldset-wrapper,
-.search-result .ds-left .field-name-field-occupation-description {
+.flyoutmenu .field-name-field-occupation-description,
+.flyoutmenu .item-wrapper,
+.flyoutmenu .fieldset-wrapper {
   display: none;
   position: absolute;
-  left: -2em;
-  top: 1.5em;
+  left: -1.375em;
+  top: 2.125em;
   font-size: .875em;
   padding: .5em;
   background: #fff;
   box-shadow: 2px 2px 3px rgba( 0, 0, 0, .5 );
   text-indent: 0px;
-    width: 12em;
-
+  width: 16em;
 }
 
 .flyoutmenu:hover {
   z-index: 100;
+  cursor: pointer;
 }
 
 .flyoutmenu:hover .field-name-field-occupation-description,
+.flyoutmenu:hover .item-wrapper,
 .flyoutmenu:hover .fieldset-wrapper {
   display: block;
  }
 
 .flyoutmenu .field-name-field-occupation-description::before,
+.flyoutmenu .item-wrapper::before,
 .flyoutmenu .fieldset-wrapper::before {
   content: "\25B2";
   position: absolute;
@@ -1127,13 +1137,15 @@ a.icon.site {
 }
 
 .search-result .ds-left .field-name-field-occupation-description {
-  top: 3em;
+  top: 2.875em;
+  padding: 1em;
 }
 
 .flyoutmenu .field-name-field-occupation-description::before {
   left: 2em;
 }
 
+.flyoutmenu .item-wrapper a,
 .flyoutmenu .fieldset-wrapper a {
   display: inline-block;
   padding: .25em .5em .125em .5em;
@@ -1146,8 +1158,101 @@ a.icon.site {
   margin: 0 .125em .125em 0;
 }
 
+.flyoutmenu .item-wrapper a{
+  width: 14em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+}
+
+.flyoutmenu .item-wrapper a:hover,
 .flyoutmenu .fieldset-wrapper a:hover {
   background: #0af;
   color: #fff;
 }
 
+/**
+ * Markup free clearing.
+ *
+ * @see http://perishablepress.com/press/2009/12/06/new-clearfix-hack
+ */
+.clearfix:after {
+  content: ".";
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+}
+/* IE6 */
+* html .clearfix {
+  height: 1%;
+}
+/* IE7 */
+*:first-child + html .clearfix {
+  min-height: 1%;
+}
+
+
+/* -------------------------------------
+*
+* Forms
+*
+ ------------------------------------- */
+.form-actions input {
+  margin-right: 0.5em;
+}
+
+.form-actions input:hover {
+  background: #FFFFFF;
+}
+
+label {
+  font-weight: bold;
+}
+
+
+.form-textarea-wrapper textarea {
+  display: block;
+  margin: 0;
+  width: 100%;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.resizable-textarea .grippie {
+  background: #eee url(../../misc/grippie.png) no-repeat center 2px;
+  border: 1px solid #ddd;
+  border-top-width: 0;
+  cursor: s-resize;
+  height: 9px;
+  overflow: hidden;
+}
+
+.webform-component { 
+  margin-bottom: .5em;
+}
+
+.form-item {
+  margin-top: 1em;
+}
+
+.form-item label,
+.webform-component label{
+  display: inline-block;
+  padding: .5em .5em .25em .5em;
+  background:#dedede;
+  /* to put the glow of the focused input field, above the label */
+  position: relative;
+  z-index: 1;
+}
+
+.form-item input,
+.form-item textarea,
+.webform-component input,
+.webform-component textarea {
+  display: block;
+  /* to put the glow of the focused input field, above the label */
+  position: relative;
+  z-index: 2;
+}
