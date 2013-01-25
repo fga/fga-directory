@@ -503,49 +503,52 @@ $conf['allow_authorize_operations'] = FALSE;
 # $conf['pressflow_smart_start'] = TRUE;
 
 
-
-$conf['googleanalytics_account'] = 'UA-29075652-1';
-
-
-
-
-if (isset($_SERVER['PANTHEON_ENVIRONMENT']) && $_SERVER['PANTHEON_ENVIRONMENT'] === 'live') {
-  if ($_SERVER['HTTP_HOST'] == 'www.directory.occupy.net' ||
-      $_SERVER['HTTP_HOST'] == 'live.fga-directory.gotpantheon.com') {
-    header('HTTP/1.0 301 Moved Permanently');
-    header('Location: http://directory.occupy.net'. $_SERVER['REQUEST_URI']);
-    exit();
-  }
+if (isset($_SERVER['PANTHEON_ENVIRONMENT'])) {
+  $conf['googleanalytics_account'] = 'UA-29075652-1';
 }
-if (isset($_SERVER['PANTHEON_ENVIRONMENT']) && $_SERVER['PANTHEON_ENVIRONMENT'] === 'test') {
-  if ($_SERVER['HTTP_HOST'] == 'test.fga-directory.gotpantheon.com') {
-    header('HTTP/1.0 301 Moved Permanently');
-    header('Location: http://test.directory.occupy.net'. $_SERVER['REQUEST_URI']);
-    exit();
-  }
+else {
+  /**
+  * Kalabox local settings
+  */
+  $databases['default']['default'] = array(
+  'driver' => 'mysql',
+  'database' => 'fga_directory_kala',
+  'username' => 'root',
+  'password' => 'password',
+  'host' => 'kala',
+  'prefix' => '',
+  );
+
 }
-if (isset($_SERVER['PANTHEON_ENVIRONMENT']) && $_SERVER['PANTHEON_ENVIRONMENT'] === 'dev') {
-  if ($_SERVER['HTTP_HOST'] == 'dev.fga-directory.gotpantheon.com') {
-    header('HTTP/1.0 301 Moved Permanently');
-    header('Location: http://dev.directory.occupy.net'. $_SERVER['REQUEST_URI']);
-    exit();
+
+
+if (isset($_SERVER['PANTHEON_ENVIRONMENT'])) {
+
+  if($_SERVER['PANTHEON_ENVIRONMENT'] === 'live') {
+    if($_SERVER['HTTP_HOST'] == 'www.directory.occupy.net' ||
+        $_SERVER['HTTP_HOST'] == 'live.fga-directory.gotpantheon.com') {
+      header('HTTP/1.0 301 Moved Permanently');
+      header('Location: http://directory.occupy.net'. $_SERVER['REQUEST_URI']);
+      exit();
+    }
   }
+  if($_SERVER['PANTHEON_ENVIRONMENT'] === 'test') {
+    if($_SERVER['HTTP_HOST'] == 'test.fga-directory.gotpantheon.com') {
+      header('HTTP/1.0 301 Moved Permanently');
+      header('Location: http://test.directory.occupy.net'. $_SERVER['REQUEST_URI']);
+      exit();
+    }
+  }
+  if ($_SERVER['PANTHEON_ENVIRONMENT'] === 'dev') {
+    if($_SERVER['HTTP_HOST'] == 'dev.fga-directory.gotpantheon.com') {
+      header('HTTP/1.0 301 Moved Permanently');
+      header('Location: http://dev.directory.occupy.net'. $_SERVER['REQUEST_URI']);
+      exit();
+    }
+  }
+
 }
 
 if (isset($_SERVER['HTTP_X_SSL']) && $_SERVER['HTTP_X_SSL'] == 'ON') {
   $_SERVER['HTTPS'] = 'on';
 }
-
-
-/**
-* Kalabox local settings
-*/
-
-$databases['default']['default'] = array(
-'driver' => 'mysql',
-'database' => 'fga_directory_kala',
-'username' => 'root',
-'password' => 'password',
-'host' => 'kala',
-'prefix' => '',
-);
