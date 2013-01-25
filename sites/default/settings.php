@@ -503,30 +503,15 @@ $conf['allow_authorize_operations'] = FALSE;
 # $conf['pressflow_smart_start'] = TRUE;
 
 
+
+if (isset($_SERVER['HTTP_X_SSL']) && $_SERVER['HTTP_X_SSL'] == 'ON') {
+  $_SERVER['HTTPS'] = 'on';
+}
+
+
 if (isset($_SERVER['PANTHEON_ENVIRONMENT'])) {
+
   $conf['googleanalytics_account'] = 'UA-29075652-1';
-}
-else {
-  /**
-  * Kalabox local settings
-  */
-  $databases['default']['default'] = array(
-  'driver' => 'mysql',
-  'database' => 'fga_directory_kala',
-  'username' => 'root',
-  'password' => 'password',
-  'host' => 'kala',
-  'prefix' => '',
-  );
-
-  $conf['file_temporary_path'] = '/tmp';
-  // $conf['file_public_path'] = 'sites/default/files';
-  // $conf['file_private_path'] = 'sites/default/files/private';
-
-}
-
-
-if (isset($_SERVER['PANTHEON_ENVIRONMENT'])) {
 
   if($_SERVER['PANTHEON_ENVIRONMENT'] === 'live') {
     if($_SERVER['HTTP_HOST'] == 'www.directory.occupy.net' ||
@@ -552,7 +537,25 @@ if (isset($_SERVER['PANTHEON_ENVIRONMENT'])) {
   }
 
 }
+else {  /*****************************************
+         ** Kalabox local development settings **
+         *
+         */
 
-if (isset($_SERVER['HTTP_X_SSL']) && $_SERVER['HTTP_X_SSL'] == 'ON') {
-  $_SERVER['HTTPS'] = 'on';
+          $databases['default']['default'] = array(
+          'driver' => 'mysql',
+          'database' => 'fga_directory_kala',
+          'username' => 'root',
+          'password' => 'password',
+          'host' => 'kala',
+          'prefix' => '',
+          );
+
+
+  $conf['file_temporary_path'] = '/tmp';
+  $conf['file_public_path'] = 'sites/default/files';
+  $conf['file_private_path'] = 'sites/default/files/private';
+
 }
+
+
