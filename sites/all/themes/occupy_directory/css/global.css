@@ -388,82 +388,6 @@ Map
 }
 
 /*
-
-// i suspect this is vestigeous — tdb
-#map-embed{
-  height: 99%;
-}
-*/
-
-
-/*
-----------------------------------
-Occupation Node Detail Formatting
-----------------------------------
-*/
-
-/*
-
-.field-group-format.grouplinks a{
-  display: inline-block;
-  margin-bottom: .25em;
-  max-width: 90%;
-  overflow: hidden;
-  padding: .25em .75em;
-  text-decoration: none;
-  text-transform: lowercase;
-  border-radius: .25em;
-  -moz-border-radius: .25em;
-  -webkit-border-radius: .25em;
-}
-
-.field-group-format.grouplinks a:hover{
- background-color: #d0d0d0;
- text-decoration: none;
- color: black;
-}
-
-.field-name-field-occupation-website {
-  padding-bottom: 1em;
-}
-
-.field-name-field-occupation-image {
- float: right;
- padding-left: 1em;
- padding-bottom: 1em;
- padding-top: 1em;
-}
-
-.field-group-format.group_donate_info,
-.field-group-format .field-name-field-occupation-address {
- margin: 1em 0;
-}
-
-.field-group-format .field-name-field-occupation-general-info .field-label{
- font-weight: bold;
- font-style: italic;
-}
-
-.content a:link {
- text-decoration: none;
-}
-.content a:hover {
- text-decoration: underline;
-}
-
-
-.node-occupation .node-links {
-  margin-top: 1.5em;
-}
-.node-occupation .node-links li.last a {}
-
-
-.context-get-involved .block-webform h2.node-title {
-  display:none;
-}*/
-
-
-/*
 ----------------------------------
 Comments
 ----------------------------------
@@ -605,10 +529,10 @@ ul.pager li .ajax-progress .throbber{
 .pager-previous:after,
 .pager-next:after {
   font-size: 18px;
+  top: 0;
   display: block;
   position: absolute;
   text-indent: 0;
-  top: 0em;
   content: "\2192";
   z-index: -1;
 }
@@ -626,11 +550,15 @@ ul.pager li .ajax-progress .throbber{
 }
 
 .pager-first:after {
-  content: "\00AB";
+  content: "\21e4";
 }
 
 .pager-last:after {
-  content: "\00BB";
+  content: "\21e5";
+}
+
+.pager-first:after, .pager-last:after {
+    top: .125em;
 }
 
 .pager-current {
@@ -1132,6 +1060,10 @@ a.icon.site {
 
 .icon.twitter>legend {
   background: url( '../images/icon_twitter.png' ) no-repeat;
+}
+
+.icon.facebook a {
+  background: url( '../images/icon_facebook.png' ) no-repeat;  
 }
 
 /*
