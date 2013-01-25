@@ -1649,7 +1649,7 @@ function occupations_field_default_fields() {
           'label' => 'hidden',
           'module' => 'image',
           'settings' => array(
-            'image_link' => '',
+            'image_link' => 'content',
             'image_style' => 'occupation_thumb_sm',
           ),
           'type' => 'image',
