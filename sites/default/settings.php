@@ -519,6 +519,10 @@ else {
   'prefix' => '',
   );
 
+  $conf['file_temporary_path'] = '/tmp';
+  // $conf['file_public_path'] = 'sites/default/files';
+  // $conf['file_private_path'] = 'sites/default/files/private';
+
 }
 
 
