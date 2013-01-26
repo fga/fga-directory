@@ -27,7 +27,7 @@ Drupal.behaviors.occupy_directory = {
     if ( facetSidebar[0] ) {
 
       function resize_sidebar() {
-        var h = jQuery( results ).height() + jQuery( results ).offset().top;
+        var h = jQuery( results ).height();
         facetSidebar.css( { 'height': h} );
       }
 
