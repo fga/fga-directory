@@ -3,15 +3,19 @@
  * Display Suite search-result stylesheet.
  */
 
-
 .results-list>ul>li{
-  padding: 1em;
+  padding: 1em 2em .5em 1em;
   background: #eee;
   overflow: visible;
 }
 
 .results-list>ul>li:nth-child( even ) {
   background: #dedede;
+}
+
+.results-list .search-result {
+  margin: 0 24em 0 7em;
+  max-width: 800px;
 }
 
 .search-result .ds-left {
@@ -22,7 +26,6 @@
   cursor: pointer;
   vertical-align: top;
 }
-
 
 .search-result .ds-right {
   margin-left: 24em;
