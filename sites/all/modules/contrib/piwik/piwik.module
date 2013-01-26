@@ -47,7 +47,8 @@ function piwik_permission() {
     ),
     'use PHP for tracking visibility' => array(
       'title' => t('Use PHP for tracking visibility'),
-      'description' => t('Enter PHP code in the field for tracking visibility settings. %warning', array('%warning' => t('Warning: Give to trusted roles only; this permission has security implications.'))),
+      'description' => t('Enter PHP code in the field for tracking visibility settings.'),
+      'restrict access' => TRUE,
     ),
   );
 }
@@ -117,12 +118,6 @@ function piwik_page_alter(&$page) {
       }
     }
 
-    // Site search tracking support.
-    if (module_exists('search') && variable_get('piwik_site_search', FALSE) && arg(0) == 'search' && $keys = piwik_search_get_keys()) {
-      $set_custom_url = drupal_json_encode(url('search', array('query' => array('query' => $keys), 'absolute' => TRUE)));
-      $set_custom_data[] = '{SiteSearch_Results: (window.piwik_search_results) ? window.piwik_search_results : 0 }';
-    }
-
     // If this node is a translation of another node, pass the original
     // node instead.
     if (module_exists('translation') && variable_get('piwik_translation_set', 0)) {
@@ -158,19 +153,20 @@ function piwik_page_alter(&$page) {
         if (is_object($node)) {
           $types += array('node' => $node);
         }
+        $custom_var_name = token_replace($custom_var_name, $types, array('clear' => TRUE));
         $custom_var_value = token_replace($custom_var_value, $types, array('clear' => TRUE));
 
-        // Suppress empty custom variables.
-        if (!is_numeric($custom_var_value) && empty($custom_var_value)) {
+        // Suppress empty custom names and/or variables.
+        if (!drupal_strlen(trim($custom_var_name)) || !drupal_strlen(trim($custom_var_value))) {
           continue;
         }
 
-        // Custom variables names and values are limited to 100 characters in
-        // length each. It is recommended to store values that are as small as
+        // Custom variables names and values are limited to 200 characters in
+        // length. It is recommended to store values that are as small as
         // possible to ensure that the Piwik Tracking request URL doesn't go
         // over the URL limit for the webserver or browser.
-        $custom_var_name = rtrim(substr($custom_var_name, 0, 100));
-        $custom_var_value = rtrim(substr($custom_var_value, 0, 100));
+        $custom_var_name = rtrim(substr($custom_var_name, 0, 200));
+        $custom_var_value = rtrim(substr($custom_var_value, 0, 200));
 
         $custom_var_name = drupal_json_encode($custom_var_name);
         $custom_var_value = drupal_json_encode($custom_var_value);
@@ -234,7 +230,23 @@ function piwik_page_alter(&$page) {
       $script .= $codesnippet_before;
     }
 
-    $script .= '_paq.push(["trackPageView"]);';
+    // Site search tracking support.
+    // NOTE: It's recommended not to call trackPageView() on the Site Search Result page.
+    if (module_exists('search') && variable_get('piwik_site_search', FALSE) && arg(0) == 'search' && $keys = piwik_search_get_keys()) {
+      // Parameters:
+      // 1. Search keyword searched for. Example: "Banana"
+      // 2. Search category selected in your search engine. If you do not need
+      //    this, set to false. Example: "Organic Food"
+      // 3. Number of results on the Search results page. Zero indicates a
+      //    'No Result Search Keyword'. Set to false if you don't know.
+      //
+      // hook_preprocess_search_results() is not executed if search result is
+      // empty. Make sure the counter is set to 0 if there are no results.
+      $script .= '_paq.push(["trackSiteSearch", ' . drupal_json_encode($keys) . ', false, (window.piwik_search_results) ? window.piwik_search_results : 0]);';
+    }
+    else {
+      $script .= '_paq.push(["trackPageView"]);';
+    }
 
     // Add link tracking.
     if (variable_get('piwik_track', 1)) {
@@ -271,6 +283,19 @@ function piwik_page_alter(&$page) {
     // Add tracker code to scope.
     drupal_add_js($script, array('scope' => $scope, 'type' => 'inline'));
   }
+}
+
+/**
+ * Implements hook_field_extra_fields().
+ */
+function piwik_field_extra_fields() {
+  $extra['user']['user']['form']['piwik'] = array(
+    'label' => t('Piwik configuration'),
+    'description' => t('Piwik module form element.'),
+    'weight' => 3,
+  );
+
+  return $extra;
 }
 
 /**

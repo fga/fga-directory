@@ -139,6 +139,7 @@ function filefield_source_remote_value($element, &$item) {
     curl_setopt($ch, CURLOPT_URL, $url);
     curl_setopt($ch, CURLOPT_HEADER, TRUE);
     curl_setopt($ch, CURLOPT_NOBODY, TRUE);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
     curl_setopt($ch, CURLOPT_HEADERFUNCTION, '_filefield_source_remote_parse_header');
     // Causes a warning if PHP safe mode is on.
     @curl_setopt($ch, CURLOPT_FOLLOWLOCATION, TRUE);
@@ -146,7 +147,6 @@ function filefield_source_remote_value($element, &$item) {
     $info = curl_getinfo($ch);
     if ($info['http_code'] != 200) {
       curl_setopt($ch, CURLOPT_HTTPGET, TRUE);
-      curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
       $file_contents = curl_exec($ch);
       $info = curl_getinfo($ch);
     }

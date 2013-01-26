@@ -89,7 +89,10 @@ function securepages_form_alter(&$form, &$form_state, $form_id) {
       return;
     }
 
-    if ($page_match && !$is_https) {
+    if (isset($form['#https'])) {
+      // if the #https is set don't reset it as module that set it knows better.
+    }
+    elseif ($page_match && !$is_https) {
       $form['#https'] = TRUE;
     }
     elseif ($page_match === 0 && $is_https && variable_get('securepages_switch', FALSE)) {

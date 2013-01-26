@@ -3,12 +3,11 @@ description = Adds Piwik javascript tracking code to all your site's pages.
 core = 7.x
 package = Statistics
 configure = admin/config/system/piwik
-
 files[] = piwik.test
-
-; Information added by drupal.org packaging script on 2011-10-08
-version = "7.x-2.3"
+test_dependencies[] = token
+; Information added by drupal.org packaging script on 2012-11-24
+version = "7.x-2.4"
 core = "7.x"
 project = "piwik"
-datestamp = "1318077407"
+datestamp = "1353789816"
 

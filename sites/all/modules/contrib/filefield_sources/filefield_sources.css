@@ -11,12 +11,26 @@ div.filefield-source .form-item {
   white-space: normal;
 }
 
-div.filefield-source input.hint {
+div.filefield-source .hint {
   color: #999;
 }
 
 div.filefield-sources-list a.active {
   font-weight: bold;
+}
+
+/* Clipboard source. */
+div.filefield-source-clipboard-capture {
+  border: 1px solid #CCC;
+  width: 20em;
+  height: 1.4em;
+  padding: 2px;
+  display: inline-block;
+  vertical-align: top;
+  overflow: hidden;
+}
+div.filefield-source-clipboard-capture img {
+  display: none;
 }
 
 /* Reference source. */

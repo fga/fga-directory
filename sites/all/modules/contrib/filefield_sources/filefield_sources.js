@@ -31,6 +31,12 @@ Drupal.behaviors.fileFieldSources.attach = function(context, settings) {
       Drupal.fileFieldSources.updateHintText($fileFieldElement.get(0));
     });
 
+    // Clipboard support.
+    $fileFieldElement.find('.filefield-source-clipboard-capture')
+      .bind('paste', Drupal.fileFieldSources.pasteEvent)
+      .bind('focus', Drupal.fileFieldSources.pasteFocus)
+      .bind('blur', Drupal.fileFieldSources.pasteBlur);
+
     // Hide all the other upload mechanisms on page load.
     $fileFieldElement.find('div.filefield-source', this).css('display', 'none');
     $(this).find('a:first').addClass('active');
@@ -104,6 +110,136 @@ Drupal.fileFieldSources = {
    */
   removeHintText: function() {
     $('div.filefield-source input.hint').val('').removeClass('hint');
+  },
+
+  /**
+   * Clean up the default value on focus.
+   */
+  pasteFocus: function(e) {
+    // Set default text.
+    if (!this.defaultText) {
+      this.defaultText = this.innerHTML;
+      this.innerHTML = '';
+    }
+    // Remove non-text nodes.
+    $(this).children().remove();
+  },
+
+  /**
+   * Restore default value on blur.
+   */
+  pasteBlur: function(e) {
+    if (this.defaultText && !this.innerHTML) {
+      this.innerHTML = this.defaultText;
+    }
+  },
+
+  pasteEvent: function(e) {
+    var clipboardData = null;
+    var targetElement = this;
+
+    // Chrome.
+    if (window.event && window.event.clipboardData && window.event.clipboardData.items) {
+      clipboardData = window.event.clipboardData;
+    }
+    // All browsers in the future (hopefully).
+    else if (e.originalEvent && e.originalEvent.clipboardData && e.originalEvent.clipboardData.items) {
+      clipboardData = e.originalEvent.clipboardData;
+    }
+    // Firefox with content editable pastes as img tag with data href.
+    else if ($.browser.mozilla) {
+      Drupal.fileFieldSources.waitForPaste(targetElement);
+      return true;
+    }
+    else {
+      Drupal.fileFieldSources.pasteError(targetElement, Drupal.t('Paste from clipboard not supported in this browser.'));
+      return false;
+    }
+
+    var items = clipboardData.items;
+    var types = clipboardData.types;
+    var filename = targetElement.firstChild ? targetElement.firstChild.textContent : '';
+
+    // Handle files and image content directly in the clipboard.
+    var fileFound = false;
+    for (var n = 0; n < items.length; n++) {
+      if (items[n] && items[n].kind === 'file') {
+        var fileBlob = items[n].getAsFile();
+        var fileReader = new FileReader();
+        // Define events to fire after the file is read into memory.
+        fileReader.onload = function() {
+          Drupal.fileFieldSources.pasteSubmit(targetElement, filename, this.result);
+        };
+        fileReader.onerror = function() {
+          Drupal.fileFieldSources.pasteError(targetElement, Drupal.t('Error reading file from clipboard.'));
+        };
+        // Read in the file to fire the above events.
+        fileReader.readAsDataURL(fileBlob);
+        fileFound = true;
+        break;
+      }
+      // Handle files that a copy/pasted as a file reference.
+      //if (types[n] && types[n] === 'Files') {
+      //  TODO: Figure out how to capture copy/paste of entire files from desktop.
+      //}
+    }
+    if (!fileFound) {
+      Drupal.fileFieldSources.pasteError(targetElement, Drupal.t('No file in clipboard.'));
+    }
+    return false;
+  },
+
+  /**
+   * For browsers that don't support native clipboardData attributes.
+   */
+  waitForPaste: function(targetElement) {
+    if (targetElement.children && targetElement.children.length > 0) {
+      var filename = targetElement.firstChild ? targetElement.firstChild.textContent : '';
+      var tagFound = false;
+      $(targetElement).find('img[src^="data:image"]').each(function(n, element) {
+        Drupal.fileFieldSources.pasteSubmit(targetElement, filename, element.src);
+        tagFound = true;
+      });
+      $(targetElement).html(filename);
+      if (!tagFound) {
+        Drupal.fileFieldSources.pasteError(targetElement, Drupal.t('No file in clipboard.'));
+      }
+    }
+    else {
+      setTimeout(function() {
+        Drupal.fileFieldSources.waitForPaste(targetElement);
+      }, 200);
+    }
+  },
+
+  /**
+   * Set an error on the paste field temporarily then clear it.
+   */
+  pasteError: function(domElement, errorMessage) {
+    var $description = $(domElement).parents('.filefield-source-clipboard:first').find('.description');
+    if (!$description.data('originalDescription')) {
+      $description.data('originalDescription', $description.html())
+    }
+    $description.html(errorMessage);
+    var errorTimeout = setTimeout(function() {
+      $description.html($description.data('originalDescription'));
+      $(this).unbind('click.pasteError');
+    }, 3000);
+    $(domElement).bind('click.pasteError', function() {
+      clearTimeout(errorTimeout);
+      $description.html($description.data('originalDescription'));
+      $(this).unbind('click.pasteError');
+    });
+  },
+
+  /**
+   * After retreiving a clipboard, post the results to the server.
+   */
+  pasteSubmit: function(targetElement, filename, contents) {
+    var $wrapper = $(targetElement).parents('.filefield-source-clipboard');
+    $wrapper.find('.filefield-source-clipboard-filename').val(filename);
+    $wrapper.find('.filefield-source-clipboard-contents').val(contents);
+    $wrapper.find('input.form-submit').trigger('mousedown');
   }
 };
 

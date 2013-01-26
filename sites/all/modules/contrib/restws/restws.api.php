@@ -34,6 +34,8 @@
  *   - label: The label of the resource. Start capitalized.
  *   - class: The name of the controller class for the resource. The class has
  *     to implement the RestWSResourceControllerInterface. Required.
+ *   - menu_path: A relative path were the resource callback should lie. By
+ *     default the resource name will be used as menu path. Optional.
  *
  * @see MyModuleBookResourceController
  */
@@ -42,6 +44,7 @@ function hook_restws_resource_info() {
     'mymodule_book' => array(
       'label' => t('Book'),
       'class' => 'MyModuleBookResourceController',
+      'menu_path' => 'api/mybook',
     ),
     'mymodule_status' => array(
       'label' => t('Status'),
@@ -54,12 +57,15 @@ function hook_restws_resource_info() {
  * Alter available resource information.
  *
  * @param array $resource_info
- *   Resource information as defined in hook_restws_resource_info().
+ *   Resource information as defined in hook_restws_resource_info(). You can
+ *   move the path of a resouce by setting menu_info. In this example you'll
+ *   have to retrieve nodes from /mypath.json or /mypath/1.json.
  *
  * @see hook_restws_resource_info()
  */
 function hook_restws_resource_info_alter(&$resource_info) {
   $resource_info['node']['class'] = 'MySpecialNodeResourceController';
+  $resource_info['node']['menu_path'] = 'mypath';
 }
 
 /**
@@ -120,6 +126,24 @@ function hook_restws_format_info_alter(&$format_info) {
 function hook_restws_request_alter(array &$request) {
   if ($request['resource']->resource() == 'node') {
     $request['format'] = restws_format('json');
+  }
+}
+
+/**
+ * Alter the outgoing response.
+ *
+ * @param mixed $response
+ *   The response data being returned by the REST service (not yet serialized).
+ *
+ * @param string $function
+ *   The function being called on the REST service.
+ *
+ * @param string $format
+ *   The name of the format serializing the response.
+ */
+function hook_restws_response_alter(&$response, $function, $formatName) {
+  if ($function == 'viewResource' && $formatName == 'json') {
+    $response['site_name'] = variable_get('site_name', '');
   }
 }
 

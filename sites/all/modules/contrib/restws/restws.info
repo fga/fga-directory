@@ -6,9 +6,9 @@ files[] = restws.formats.inc
 files[] = restws.test
 dependencies[] = entity
 
-; Information added by drupal.org packaging script on 2012-08-11
-version = "7.x-1.0"
+; Information added by drupal.org packaging script on 2013-01-16
+version = "7.x-2.0-alpha4"
 core = "7.x"
 project = "restws"
-datestamp = "1344709382"
+datestamp = "1358347779"
 
