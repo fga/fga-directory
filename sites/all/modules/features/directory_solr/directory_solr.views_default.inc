@@ -38,6 +38,11 @@ function directory_solr_views_default_views() {
   $handler->display->display_options['style_options']['wrapper_class'] = 'results-list';
   $handler->display->display_options['row_plugin'] = 'entity';
   $handler->display->display_options['row_options']['view_mode'] = 'search';
+  /* Header: Global: Result summary */
+  $handler->display->display_options['header']['result']['id'] = 'result';
+  $handler->display->display_options['header']['result']['table'] = 'views';
+  $handler->display->display_options['header']['result']['field'] = 'result';
+  $handler->display->display_options['header']['result']['content'] = '<span class="occupation-count">Displaying <span class="occupation-count-span">@start - @end</span> of <span class="occupation-count-total">@total</span> Occupations</span>';
   /* No results behavior: Global: Text area */
   $handler->display->display_options['empty']['area']['id'] = 'area';
   $handler->display->display_options['empty']['area']['table'] = 'views';
