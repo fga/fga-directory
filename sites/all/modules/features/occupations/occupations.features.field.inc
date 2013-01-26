@@ -200,7 +200,7 @@ function occupations_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '11',
+          'weight' => '33',
         ),
         'occupation_search_result' => array(
           'label' => 'above',
@@ -298,7 +298,7 @@ function occupations_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '10',
+          'weight' => '32',
         ),
         'occupation_search_result' => array(
           'label' => 'above',
@@ -396,7 +396,7 @@ function occupations_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '8',
+          'weight' => '30',
         ),
         'occupation_search_result' => array(
           'label' => 'above',
@@ -494,7 +494,7 @@ function occupations_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '9',
+          'weight' => '31',
         ),
         'occupation_search_result' => array(
           'label' => 'above',
@@ -877,14 +877,14 @@ function occupations_field_default_fields() {
           'configurable_title' => 0,
           'rel' => '',
           'target' => '_blank',
-          'title' => 'Donate URL',
+          'title' => 'Donate to [node:title]',
         ),
         'display' => array(
           'url_cutoff' => '80',
         ),
         'enable_tokens' => 0,
         'rel_remove' => 'default',
-        'title' => 'none',
+        'title' => 'value',
         'title_maxlength' => '128',
         'title_value' => 'Donate to [node:title]',
         'url' => 0,
@@ -1038,7 +1038,7 @@ function occupations_field_default_fields() {
           'label' => 'hidden',
           'module' => 'email',
           'settings' => array(),
-          'type' => 'email_plain',
+          'type' => 'email_default',
           'weight' => '11',
         ),
         'occupation_search_result' => array(
@@ -1127,7 +1127,7 @@ function occupations_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '12',
+          'weight' => '34',
         ),
         'occupation_search_result' => array(
           'label' => 'above',
@@ -1231,7 +1231,7 @@ function occupations_field_default_fields() {
           'module' => 'link',
           'settings' => array(),
           'type' => 'link_default',
-          'weight' => '14',
+          'weight' => '17',
         ),
         'occupation_search_result' => array(
           'label' => 'hidden',
@@ -1349,7 +1349,7 @@ function occupations_field_default_fields() {
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
-          'weight' => '17',
+          'weight' => '18',
         ),
         'occupation_search_result' => array(
           'label' => 'above',
@@ -1477,7 +1477,7 @@ function occupations_field_default_fields() {
             'geofield_map_zoom' => '8',
           ),
           'type' => 'geofield_map_map',
-          'weight' => '18',
+          'weight' => '15',
         ),
         'occupation_search_result' => array(
           'label' => 'hidden',
@@ -2023,7 +2023,7 @@ function occupations_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '15',
+          'weight' => '37',
         ),
         'occupation_search_result' => array(
           'label' => 'above',
@@ -2242,7 +2242,7 @@ function occupations_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '14',
+          'weight' => '36',
         ),
         'occupation_search_result' => array(
           'label' => 'above',
@@ -2342,7 +2342,7 @@ function occupations_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '13',
+          'weight' => '35',
         ),
         'occupation_search_result' => array(
           'label' => 'above',
@@ -3726,7 +3726,7 @@ URL: http address of the page.',
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '0',
+          'weight' => '26',
         ),
         'occupation_search_result' => array(
           'label' => 'above',

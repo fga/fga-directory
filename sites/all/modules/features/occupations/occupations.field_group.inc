@@ -20,20 +20,24 @@ function occupations_field_group_info() {
   $field_group->mode = 'full';
   $field_group->parent_name = '';
   $field_group->data = array(
-    'label' => '',
-    'weight' => '1',
+    'label' => 'Contact Info',
+    'weight' => '0',
     'children' => array(
       0 => 'field_occupation_image',
       1 => 'field_occupation_website',
       2 => 'field_occupation_email_general',
       3 => 'field_occupation_phone_general',
     ),
-    'format_type' => 'fieldset',
+    'format_type' => 'div',
     'format_settings' => array(
-      'label' => '',
+      'label' => 'Contact Info',
       'instance_settings' => array(
-        'classes' => '',
+        'classes' => 'hcard',
         'description' => '',
+        'show_label' => '0',
+        'label_element' => 'h3',
+        'effect' => 'none',
+        'speed' => 'none',
       ),
       'formatter' => 'open',
     ),
@@ -51,7 +55,7 @@ function occupations_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Main Content',
-    'weight' => '0',
+    'weight' => '19',
     'children' => array(),
     'format_type' => 'div',
     'format_settings' => array(
@@ -80,7 +84,7 @@ function occupations_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Donation Info',
-    'weight' => '5',
+    'weight' => '2',
     'children' => array(
       0 => 'field_occupation_dontate_info',
       1 => 'field_occupation_donate_url',
@@ -91,7 +95,7 @@ function occupations_field_group_info() {
       'instance_settings' => array(
         'classes' => '',
         'description' => '',
-        'show_label' => '1',
+        'show_label' => '0',
         'label_element' => 'h3',
         'effect' => 'none',
         'speed' => 'fast',
@@ -111,19 +115,23 @@ function occupations_field_group_info() {
   $field_group->mode = 'full';
   $field_group->parent_name = '';
   $field_group->data = array(
-    'label' => '',
-    'weight' => '1',
+    'label' => 'Header',
+    'weight' => '5',
     'children' => array(
       0 => 'share_this_node_block',
       1 => 'title',
       2 => 'group_meta',
     ),
-    'format_type' => 'fieldset',
+    'format_type' => 'div',
     'format_settings' => array(
-      'label' => '',
+      'label' => 'Header',
       'instance_settings' => array(
         'classes' => '',
         'description' => '',
+        'show_label' => '0',
+        'label_element' => 'h3',
+        'effect' => 'none',
+        'speed' => 'none',
       ),
       'formatter' => 'open',
     ),
@@ -175,7 +183,7 @@ function occupations_field_group_info() {
   $field_group->parent_name = 'group_listings';
   $field_group->data = array(
     'label' => 'Video & Audio',
-    'weight' => '3',
+    'weight' => '19',
     'children' => array(
       0 => 'field_occupation_live_video',
       1 => 'field_occupation_youtube_chan',
@@ -207,7 +215,7 @@ function occupations_field_group_info() {
   $field_group->parent_name = 'group_listings';
   $field_group->data = array(
     'label' => 'News & Info',
-    'weight' => '4',
+    'weight' => '20',
     'children' => array(
       0 => 'field_occupation_other_websites',
       1 => 'field_occupation_newspaper_url',
@@ -240,7 +248,7 @@ function occupations_field_group_info() {
   $field_group->parent_name = 'group_listings';
   $field_group->data = array(
     'label' => 'Other Resources',
-    'weight' => '2',
+    'weight' => '18',
     'children' => array(
       0 => 'field_occupation_rss',
     ),
@@ -271,12 +279,14 @@ function occupations_field_group_info() {
   $field_group->parent_name = 'group_listings';
   $field_group->data = array(
     'label' => 'Social Media',
-    'weight' => '1',
+    'weight' => '17',
     'children' => array(
       0 => 'field_occupation_twitter',
       1 => 'field_occupation_social_sites',
       2 => 'field_occupation_facebook',
       3 => 'field_occupation_twitter_hash',
+      4 => 'twitter_user_link',
+      5 => 'twitter_hashtags_link',
     ),
     'format_type' => 'div',
     'format_settings' => array(
@@ -304,20 +314,24 @@ function occupations_field_group_info() {
   $field_group->mode = 'full';
   $field_group->parent_name = '';
   $field_group->data = array(
-    'label' => '',
-    'weight' => '10',
+    'label' => 'Group Links',
+    'weight' => '20',
     'children' => array(
       0 => 'group_links_media',
       1 => 'group_links_news',
       2 => 'group_links_resources',
       3 => 'group_links_social',
     ),
-    'format_type' => 'fieldset',
+    'format_type' => 'div',
     'format_settings' => array(
-      'label' => '',
+      'label' => 'Group Links',
       'instance_settings' => array(
         'classes' => '',
         'description' => '',
+        'show_label' => '0',
+        'label_element' => 'h3',
+        'effect' => 'none',
+        'speed' => 'none',
       ),
       'formatter' => 'open',
     ),
@@ -335,19 +349,22 @@ function occupations_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Location',
-    'weight' => '2',
+    'weight' => '1',
     'children' => array(
       0 => 'field_occupation_address',
-      1 => 'field_occupation_geo',
-      2 => 'address_city_state_country',
     ),
-    'format_type' => 'fieldset',
+    'format_type' => 'div',
     'format_settings' => array(
-      'formatter' => 'collapsible',
+      'label' => 'Location',
       'instance_settings' => array(
-        'description' => '',
         'classes' => '',
+        'description' => '',
+        'show_label' => '0',
+        'label_element' => 'h3',
+        'effect' => 'none',
+        'speed' => 'none',
       ),
+      'formatter' => 'open',
     ),
   );
   $export['group_location|node|occupation|full'] = $field_group;
@@ -363,17 +380,23 @@ function occupations_field_group_info() {
   $field_group->parent_name = 'group_header';
   $field_group->data = array(
     'label' => 'Meta',
-    'weight' => '2',
+    'weight' => '5',
     'children' => array(
       0 => 'field_occupation_type',
+      1 => 'address_city_state_country',
     ),
-    'format_type' => 'fieldset',
+    'format_type' => 'div',
     'format_settings' => array(
-      'formatter' => 'collapsible',
+      'label' => 'Meta',
       'instance_settings' => array(
-        'description' => '',
         'classes' => '',
+        'description' => '',
+        'show_label' => '0',
+        'label_element' => 'h3',
+        'effect' => 'none',
+        'speed' => 'fast',
       ),
+      'formatter' => 'open',
     ),
   );
   $export['group_meta|node|occupation|full'] = $field_group;
@@ -518,7 +541,7 @@ function occupations_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Occupation Description',
-    'weight' => '5',
+    'weight' => '10',
     'children' => array(
       0 => 'field_occupation_description',
       1 => 'field_occupation_physical',
