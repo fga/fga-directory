@@ -61,8 +61,8 @@ function occupations_image_default_styles() {
         'module' => 'image',
         'name' => 'image_scale_and_crop',
         'data' => array(
-          'width' => '92',
-          'height' => '92',
+          'width' => '180',
+          'height' => '180',
         ),
         'weight' => '1',
       ),

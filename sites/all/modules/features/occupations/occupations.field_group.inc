@@ -285,8 +285,8 @@ function occupations_field_group_info() {
       1 => 'field_occupation_social_sites',
       2 => 'field_occupation_facebook',
       3 => 'field_occupation_twitter_hash',
-      4 => 'twitter_hashtags_link',
-      5 => 'twitter_user_link',
+      4 => 'twitter_user_link',
+      5 => 'twitter_hashtags_link',
     ),
     'format_type' => 'div',
     'format_settings' => array(

@@ -1602,7 +1602,7 @@ function occupations_field_default_fields() {
           'module' => 'image',
           'settings' => array(
             'image_link' => '',
-            'image_style' => 'thumbnail',
+            'image_style' => 'occupation_thumb_med',
           ),
           'type' => 'image',
           'weight' => '9',
