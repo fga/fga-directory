@@ -1,7 +1,7 @@
 /*
-------------------------------------------------------------
+---------------------------------------------------------
 Override grid settings 
-------------------------------------------------------------
+---------------------------------------------------------
 */
 
 header .ajax-register-links li.last {
@@ -16,9 +16,9 @@ header .ajax-register-links li.last {
 
 
 /*
--------------------------
+---------------------------------------------------------
 Links
--------------------------
+---------------------------------------------------------
 */
 
 a:link, a:visited { color: #666; }
@@ -48,9 +48,9 @@ a:active {
 .element-invisible { display: none; }
 
 /*
--------------------------
+---------------------------------------------------------
 Header
--------------------------
+---------------------------------------------------------
 */
 
 #zone-header {
@@ -86,9 +86,9 @@ Header
 
 
 /*
--------------------------
+---------------------------------------------------------
 Ajax Login Form
--------------------------
+---------------------------------------------------------
 */
 
 #block-ajax-register-ajax-register-block a {
@@ -202,9 +202,9 @@ div.ctools-modal-content #modal-content {
 }
 
 /*
--------------------------
+---------------------------------------------------------
 Occupation Count Box
--------------------------
+---------------------------------------------------------
 */
 
 
@@ -216,9 +216,9 @@ Occupation Count Box
 
 
 /*
-------------
+---------------------------------------------------------
 Navigation
-------------
+---------------------------------------------------------
 */
 
 nav.navigation {
@@ -237,7 +237,7 @@ nav.navigation{
   border-left: 1px #000 solid;
 }
 
-nav.navigation li{
+nav.navigation li {
   display: block;
   float: left;
   margin: 0 0 0 0;
@@ -255,8 +255,11 @@ nav a.active { background: #000; color: #fc0; }
 nav a:hover { background-color: #000; color: #fc0; }
 
 
-
-/* Tabs */
+/*
+---------------------------------------------------------
+Tabs
+---------------------------------------------------------
+*/
 
 #region-content .tabs{
   width: 100%;
@@ -273,7 +276,7 @@ nav a:hover { background-color: #000; color: #fc0; }
   width: 100%;
 }
 
-.tabs ul li{
+.tabs ul li {
   display: inline-block;
   margin: 0 2px 0 0;
 }
@@ -293,7 +296,12 @@ nav a:hover { background-color: #000; color: #fc0; }
   color: #fc0;
 }
 
-/* Menus */
+
+/*
+---------------------------------------------------------
+Menus
+---------------------------------------------------------
+*/
 
 .block-user-menu ul li {
   list-style-type: none;
@@ -303,7 +311,7 @@ nav a:hover { background-color: #000; color: #fc0; }
   margin-left: 1em;
   float: right;
   border-radius: 0 0 .4em .4em;
-  -moz-border-radius: 0 0 .4em .4m;
+  -moz-border-radius: 0 0 .4em .4em;
   -webkit-border-radius: 0 0 .4em .4em;
 }
 
@@ -327,23 +335,46 @@ nav a:hover { background-color: #000; color: #fc0; }
 
 
 /*
---------
+---------------------------------------------------------
 Content
---------
+---------------------------------------------------------
 */
 
-#messages .error{
-  margin: 0;
-  padding: 1em .5em 1em 2.75em;
+#messages:before{
+  content: "Messages";
+  padding: .75em .5em .25em .5em;
+  width: 100%;
+  display: block;
+  text-align: center;
+  background: #000;
+  color: #dedede;
+  letter-spacing: .125em;
 }
 
 #messages {
+  border-top: 1px #000 solid;
+  position: fixed;
+  bottom: -489px;
+  z-index: 15000;
   margin: 0 auto;
+  max-height: 520px;
+  overflow: auto;
+  -webkit-transition: bottom 500ms cubic-bezier(0.250, 0.460, 0.450, 0.940);
+  -moz-transition: bottom 500ms cubic-bezier(0.250, 0.460, 0.450, 0.940);
+  -ms-transition: bottom 500ms cubic-bezier(0.250, 0.460, 0.450, 0.940);
+  -o-transition: bottom 500ms cubic-bezier(0.250, 0.460, 0.450, 0.940);
+  transition: bottom 500ms cubic-bezier(0.250, 0.460, 0.450, 0.940); 
 }
 
-div.messages {
+#messages:hover {
+  bottom: 0%;
+}
+
+
+#messages div.messages{
   margin: 0;
-  padding: 1em;
+  background: rgba( 255,255,255,.9);
+  padding: 1em .5em 1em 2.75em;
 }
 
 #messages div.section{
@@ -358,28 +389,25 @@ article a:hover, article a:active {
   color: #666;
 }
 
-.not-front #section-content{
-  padding-bottom: 8em;
-}
-
 .zone-preface-wrapper {
  background-color: #d0d0d0;
 }
 
 /*
-----------------------------------
+---------------------------------------------------------
 Pages
-----------------------------------
+---------------------------------------------------------
 */
 aside h3.block-title{
   margin-top: .75em;
   margin-bottom: 1.5em;
 }
 
+
 /*
-----------------------------------
+---------------------------------------------------------
 Map
-----------------------------------
+---------------------------------------------------------
 */
 
 .front h1.title {
@@ -390,10 +418,11 @@ Map
   background: #aaa;
 }
 
+
 /*
-----------------------------------
+---------------------------------------------------------
 Comments
-----------------------------------
+---------------------------------------------------------
 */
 
 .node-type-occupation .node-links&#comments { display: none }
@@ -452,18 +481,17 @@ article.comment nav.comment-links {
   display: none;
 }
 
-#comments .links.inline li{
+#comments .links.inline li {
   font-size: .75em;
   margin: 0 .5em 0 0;
   display: inline-block;
 }
 
 
-
 /*
-----------------------------------
+---------------------------------------------------------
 Pager
-----------------------------------
+---------------------------------------------------------
 */
 
 .block .view ul.pager {
@@ -488,7 +516,7 @@ ul.pager li a {
 
 ul.pager li.pager-item a:hover {
   background: #dedede;
-  border-radius: 13px;
+  border-radius: 12px;
 }
 
 ul.pager li+li {
@@ -498,7 +526,7 @@ ul.pager li+li {
 ul.pager li .ajax-progress {
   position: absolute;
   background-position: none;
-  border-radius: 13px;
+  border-radius: 12px;
   top: -.25em;
   left: -3px;
   width: 24px;
@@ -571,7 +599,7 @@ ul.pager li .ajax-progress .throbber{
   margin: 0;
   z-index: 1000;
   text-decoration: none;
-  border-radius: 12.5px;
+  border-radius: 12px;
   background: #000;
   color: #dedede;
   box-sizing: border-box;
@@ -579,11 +607,10 @@ ul.pager li .ajax-progress .throbber{
 
 
 /*
-----------------------------------
+---------------------------------------------------------
 SOLR Search Facets
-----------------------------------
+---------------------------------------------------------
 */
-
 
 .solr-search #region-sidebar-first{
   background-color: #222;
@@ -608,8 +635,7 @@ SOLR Search Facets
   padding-bottom: .5em;
 }
 
-
-.block-facetapi .item-list li{
+.block-facetapi .item-list li {
   display: inline-block;
   border-radius: .25em;
   background: #121212;
@@ -623,17 +649,16 @@ SOLR Search Facets
 }
 
 
-#facetapi-facet-search-apioccupations-index-block-field-occupation-addressadministrative-area li{
+#facetapi-facet-search-api .occupations-index-block-field-occupation-addressadministrative-area li {
   text-transform: uppercase;
 }
 
 
 /*
-------------------------------------
+---------------------------------------------------------
 Global Search bar
-------------------------------------
+---------------------------------------------------------
 */
-
 
 #zone-menu .region-search-inner {
   padding: 1em .5em 1em 1em;
@@ -643,9 +668,8 @@ input#edit-search {
   border-radius: 1em;
   line-height: .875;
   font-family: PTSans, sans-serif;
-  font-size: .875em;
   border: none;
-  padding: .125em .25em 0 1.5em;
+  padding: 0 .25em 0 1.75em;
   background: url( ../images/search.png ) .25em .25em no-repeat;
 }
 
@@ -702,11 +726,12 @@ input#edit-search:after {
   padding: 0;
 }
 
+
 /*
-----------------------------------------------
+---------------------------------------------------------
 SOLR Search Results
-----------------------------------------------
 See ds_layouts/search_result.php
+---------------------------------------------------------
 */
 
 .solr-search #page-title {
@@ -718,9 +743,9 @@ See ds_layouts/search_result.php
 
 
 /*
-----------------------------------------------
+---------------------------------------------------------
 Occupation Directory Views table listing page
-----------------------------------------------
+---------------------------------------------------------
 */
 
 .occupations-list h1.title {
@@ -759,9 +784,9 @@ div.view-display-id-occupations_list table img {
 
 
 /*
---------------
+---------------------------------------------------------
 Curator Views
---------------
+---------------------------------------------------------
 */
 
 .manage-occupations tbody,
@@ -815,9 +840,9 @@ Curator Views
 
 
 /*
-------------------
+---------------------------------------------------------
 Total Occupations
-------------------
+---------------------------------------------------------
 */
 
 .edit-link {
@@ -827,20 +852,20 @@ Total Occupations
 }
 
 
-.list-occupations table{
+.list-occupations table {
 }
 
-.list-occupations table thead th{
+.list-occupations table thead th {
   padding: .5em;
   text-align: left;
 }
 
-.list-occupations table.views-table tr{
+.list-occupations table.views-table tr {
   background: #dedede;
   border-bottom: none;
 }
 
-.list-occupations table.views-table tr.odd{
+.list-occupations table.views-table tr.odd {
   background: #cfcfcf;
 }
 
@@ -853,9 +878,11 @@ Total Occupations
   font-style:normal;
 }
 
-/* -----------------------------------------------------------
+/* 
+---------------------------------------------------------
 	page-occupations-cards
------------------------------------------------------------ */
+---------------------------------------------------------
+*/
 
 .page-occupations-cards .views-row {
 	float: left;
@@ -867,9 +894,9 @@ Total Occupations
 }
 
 /*
-------------------------------------------------------------
+---------------------------------------------------------
 Footer
-------------------------------------------------------------
+---------------------------------------------------------
 */
 
 footer#section-footer {
@@ -912,7 +939,7 @@ footer#section-footer #block-menu-menu-social-media-links h3.block-title{
   display: none;
 }
 
-footer#section-footer #block-menu-menu-social-media-links ul li{
+footer#section-footer #block-menu-menu-social-media-links ul li {
   display: inline-block;
   width: 24px;
   height: 24px;
@@ -934,7 +961,7 @@ footer#section-footer #block-menu-menu-social-media-links ul li.last.leaf{
 }
 
 
-footer#section-footer #block-menu-menu-feeds-and-exports ul li{
+footer#section-footer #block-menu-menu-feeds-and-exports ul li {
   border-bottom: 1px #666 solid;
 }
 
@@ -957,9 +984,9 @@ footer#section-footer #block-menu-menu-feeds-and-exports:hover{
 
 
 /*
-------------------------------------------------------------
+---------------------------------------------------------
 Overrides – bending displays to our will
-------------------------------------------------------------
+---------------------------------------------------------
 */
 
 /* twitter pull styles */
@@ -1018,12 +1045,10 @@ ul.tweets-pulled-listing  li {
   margin-right: 5px;
 }
 
-
-
 /*
-------------------------------------------------------------
+---------------------------------------------------------
  Icons
-------------------------------------------------------------
+---------------------------------------------------------
 */
 
 
@@ -1080,9 +1105,10 @@ a.icon.site {
 
 
 /*
-------------------------------------------------------------
+---------------------------------------------------------
  Flyout Menu
  Ref http://stackoverflow.com/questions/3032856/z-index-of-before-or-after-to-be-below-the-element-is-that-possible
+ Flyout Menu
 ------------------------------------------------------------
 */
 
@@ -1092,20 +1118,23 @@ a.icon.site {
   z-index: 10;
 }
 
-
 .flyoutmenu .field-name-field-occupation-description,
-.flyoutmenu .item-wrapper,
-.flyoutmenu .fieldset-wrapper {
+.flyoutmenu .item-wrapper {
   display: none;
   position: absolute;
   left: -1.375em;
   top: 2.125em;
-  font-size: .875em;
   padding: .5em;
   background: #fff;
   box-shadow: 2px 2px 3px rgba( 0, 0, 0, .5 );
   text-indent: 0px;
-  width: 16em;
+  width: 14em;
+}
+
+.flyoutmenu .item-wrapper ul {
+  font-size: .875em;
+    max-height: 300px;
+    overflow: auto;
 }
 
 .flyoutmenu:hover {
@@ -1114,14 +1143,13 @@ a.icon.site {
 }
 
 .flyoutmenu:hover .field-name-field-occupation-description,
-.flyoutmenu:hover .item-wrapper,
-.flyoutmenu:hover .fieldset-wrapper {
+.flyoutmenu:hover .item-wrapper {
   display: block;
+  cursor: default;
  }
 
 .flyoutmenu .field-name-field-occupation-description::before,
-.flyoutmenu .item-wrapper::before,
-.flyoutmenu .fieldset-wrapper::before {
+.flyoutmenu .item-wrapper::before{
   content: "\25B2";
   position: absolute;
   padding-top: .5em;
@@ -1129,7 +1157,7 @@ a.icon.site {
   z-index: 101;
   left: 1.25em;
   top: -1em;
-  clip: rect(0,auto,18px,0);
+  clip: rect(0,auto,21px,0);
   color: #fff;
   font-size: 1.5em;
   text-shadow: 1px 1px 2px rgba( 0, 0, 0, .75 );
@@ -1145,38 +1173,41 @@ a.icon.site {
   left: 2em;
 }
 
-.flyoutmenu .item-wrapper a,
-.flyoutmenu .fieldset-wrapper a {
+.node-type-occupation .ds-left a,
+.flyoutmenu .item-wrapper a {
   display: inline-block;
-  padding: .25em .5em .125em .5em;
+  padding: .5em .75em .25em .75em;
+  margin: 0 .125em .125em 0;
   line-height: 1.5;
   background: #000;
   color: #0af;
   text-decoration: none;
-  width: auto;
   border-radius: .25em;
-  margin: 0 .125em .125em 0;
-}
-
-.flyoutmenu .item-wrapper a{
-  width: 14em;
-  white-space: nowrap;
-  overflow: hidden;
+  width: 12em;
   text-overflow: ellipsis;
-
+  overflow: hidden;
+  white-space: nowrap;
+  position: relative;
+  z-index: 10000;
 }
 
-.flyoutmenu .item-wrapper a:hover,
-.flyoutmenu .fieldset-wrapper a:hover {
-  background: #0af;
-  color: #fff;
+.node-type-occupation .ds-left a:hover,
+.flyoutmenu .item-wrapper a:hover {
+  margin: 0 .125em .125em 0;
+  color: #fc0;
+  width: auto;
+  text-overflow: visible;
+  overflow: visible;
 }
 
-/**
- * Markup free clearing.
- *
- * @see http://perishablepress.com/press/2009/12/06/new-clearfix-hack
- */
+
+/*
+-------------------------------------
+  Markup free clearing.
+  @see http://perishablepress.com/press/2009/12/06/new-clearfix-hack
+-------------------------------------
+*/
+
 .clearfix:after {
   content: ".";
   display: block;
@@ -1194,11 +1225,12 @@ a.icon.site {
 }
 
 
-/* -------------------------------------
-*
-* Forms
-*
- ------------------------------------- */
+/* 
+-------------------------------------
+  Forms
+-------------------------------------
+*/
+
 .form-actions input {
   margin-right: 0.5em;
 }
