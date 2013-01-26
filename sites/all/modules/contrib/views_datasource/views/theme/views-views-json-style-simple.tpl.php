@@ -20,7 +20,11 @@ if ($view->override_path) {
   print "<code>$json</code>";
 }
 else {
-  $json = json_encode($rows);
+  $json = _views_json_json_encode($rows, $bitmask);
+  if ($options['remove_newlines']) {
+     $json = preg_replace(array('/\\\\n/'), '', $json);
+  }
+  
   if ($jsonp_prefix) $json = "$jsonp_prefix($json)";
   if ($options['using_views_api_mode']) {
     // We're in Views API mode.

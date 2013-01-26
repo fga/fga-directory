@@ -6,6 +6,13 @@
 
 function _mapbox_layers_info() {
   $info = array();
+  $info['mapbox_streets'] = array(
+    'name'=> t('MapBox Streets'),
+    'description' => t('MapBox Streets'),
+    'layername' => 'mapbox-streets',
+    'minzoom' => 0,
+    'maxzoom' => 16
+  );
   $info['mapbox_world_bright'] = array(
     'name' => t('MapBox World Bright'),
     'description' => t('MapBox World Bright'),

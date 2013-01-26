@@ -24,6 +24,37 @@ function views_json_views_api() {
 }
 
 /**
+ * Implements hook_views_pre_render().
+ */
+function views_json_views_pre_render(&$view) {
+  if(isset($view->plugin_name) && $view->plugin_name == 'views_json') {
+    // Support for Video field.
+    if(!empty($view->result)) {
+      // Process each View result.
+      foreach($view->result as $row => $result) {
+        // Only process the entity fields defined by the View.
+        foreach($view->field as $field_name => $field) {
+          if($field instanceof views_handler_field_field) {
+            if($field->field_info['type'] == 'video') {
+              
+              // Get the Video URL.
+              $video = $field->get_value($view->result[$row]);
+              $url = file_create_url($video[0]['uri']);
+              $render_array = array(
+                '#type' => 'markup',
+                '#markup' => filter_xss($url),
+              );
+              // Substitute embed code with URL. @todo Add support for escaped embed codes.
+              $view->result[$row]->{'field_'. $field_name}[0]['rendered'] = $render_array;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+/**
  * We almost duplicate the content_handler_field_multiple::render function
  * to get the multiple rendered field values in an array
  * @param $field
@@ -155,15 +186,22 @@ function _views_json_render_fields($view, $row) {
       }
     }
 
-    if (empty($field->options['exclude']) && ($field_output != "") && !empty($field_output)) {
-      $object = new stdClass();
-      $object->id = $id;
-      $object->content = $field_output;
-      $object->raw = $field_raw;
-      $object->class = drupal_clean_css_identifier(strtolower($id));//views_css_safe($id);
-      $object->label = check_plain($view->field[$id]->label());
-      $object->is_multiple = $field_is_multiple;
-      $rendered_fields[$id] = $object;
+    if(empty($field->options['exclude'])) {
+      if (empty($field->options['exclude']) && !($field->options['hide_empty'] && (empty($field_output)))) {
+        $object = new stdClass();
+        $object->id = $id;
+        // Respect the 'empty' value if empty and "No results text" is given.
+        if (empty($field_output) && $field->options['empty']) {
+          $object->content = $field->options['empty'];
+        } else {
+          $object->content = $field_output;
+        }
+        $object->raw = $field_raw;
+        $object->class = drupal_clean_css_identifier(strtolower($id));//views_css_safe($id);
+        $object->label = check_plain($view->field[$id]->label());
+        $object->is_multiple = $field_is_multiple;
+        $rendered_fields[$id] = $object;
+      }
     }
   }
   return $rendered_fields;
@@ -236,6 +274,10 @@ function views_json_get($name, $display_id = 'default', $args = array(), $raw = 
 
 /**
  * Encodes JSON in a pretty-printed fashion.
+ *
+ * @deprecated The $option parameter in PHP 5.4.0 json_encode() deprecates this function.
+ *
+ * @see _views_json_json_encode
  */
 function _views_json_encode_formatted($v, $depth = 0) {
   $base_indent  = '&nbsp;&nbsp;';
@@ -294,4 +336,31 @@ function _views_json_debug_stop($var, $location) {
   var_dump($var);
   module_Invoke_all('exit');
   exit;
+}
+
+/**
+ * Backwards-compatible JSON encoder.
+ *
+ * Provides backwars-compatible support for more JSON encoding formats.
+ * Uses PHP's native JSON encoding when PHP 5.3.0 or greater is detected.
+ * Fallbacks to manual encoding/escaping when PHP 5.2.x and below is detected.
+ *
+ * @param array $rows
+ *   Results from template_preprocess_views_views_json_style_simple().
+ * @param int $bitmask
+ *   Integer to use as the $bitmask parameter for json_encode().
+ */
+function _views_json_json_encode($rows, $bitmask = NULL) {
+  if(PHP_MAJOR_VERSION >= 5 && PHP_MINOR_VERSION >= 3) {
+    $json = json_encode($rows, $bitmask);
+    // Encoding features not supported before 5.4.x.
+    if(PHP_MINOR_VERSION <= 4) {
+       $json = str_replace(array('\/'), array('/'), $json);
+    }
+  } else {
+    $json = json_encode($rows);
+    // Fix for issue #1613344.
+    $json = str_replace(array('\/'), array('/'), $json);
+  }
+  return $json;
 }
