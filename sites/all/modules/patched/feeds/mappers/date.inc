@@ -51,7 +51,10 @@ function date_feeds_set_target($source, $entity, $target, $feed_element) {
     if (is_array($feed_element)) {
       $feed_element = $feed_element[0];
     }
-    if ($sub_field == 'end') {
+    if (empty($feed_element) || !is_numeric($feed_element) && !date_create($feed_element)) {
+      $feed_element = new FeedsDateTimeElement(NULL, NULL);
+    }
+    elseif ($sub_field == 'end') {
       $feed_element = new FeedsDateTimeElement(NULL, $feed_element);
     }
     else {
