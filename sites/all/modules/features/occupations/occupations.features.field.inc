@@ -137,7 +137,7 @@ function occupations_field_default_fields() {
       ),
       'entity_type' => 'comment',
       'field_name' => 'field_comment_state',
-      'label' => 'State',
+      'label' => 'Status',
       'required' => 1,
       'settings' => array(
         'user_register_form' => FALSE,
@@ -3792,7 +3792,7 @@ URL: http address of the page.',
   t('Point of contact email addresses');
   t('RSS feeds');
   t('Rejected comments count');
-  t('State');
+  t('Status');
   t('The date your Occupation was founded.');
   t('These are other websites your Occupation hosts, like a wiki, another brochure site, or forums, etc. Please put social media sites like tumblr in the next category.');
   t('This field is not publicly viewable.');
