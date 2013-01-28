@@ -186,7 +186,7 @@ function occupations_field_group_info() {
       0 => 'field_occupation_website',
       1 => 'field_occupation_email_general',
       2 => 'field_occupation_facebook',
-      3 => 'group_twitter_links',
+      3 => 'twitter_users_hashtags_linked',
     ),
     'format_type' => 'div',
     'format_settings' => array(
@@ -759,13 +759,11 @@ function occupations_field_group_info() {
   $field_group->entity_type = 'node';
   $field_group->bundle = 'occupation';
   $field_group->mode = 'search';
-  $field_group->parent_name = 'group_linklists';
+  $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Twitter Links',
     'weight' => '3',
-    'children' => array(
-      0 => 'group_twitter_links_wraper',
-    ),
+    'children' => array(),
     'format_type' => 'div',
     'format_settings' => array(
       'label' => 'Twitter Links',

@@ -1060,7 +1060,7 @@ function occupations_field_default_fields() {
           'module' => 'email',
           'settings' => array(),
           'type' => 'email_default',
-          'weight' => '1',
+          'weight' => '0',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -1252,7 +1252,7 @@ function occupations_field_default_fields() {
           'module' => 'link',
           'settings' => array(),
           'type' => 'link_default',
-          'weight' => '4',
+          'weight' => '30',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -2477,7 +2477,7 @@ function occupations_field_default_fields() {
             'multiple_to' => '',
           ),
           'type' => 'date_default',
-          'weight' => '5',
+          'weight' => '10',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -3484,7 +3484,7 @@ URL: http address of the page.',
           'module' => 'link',
           'settings' => array(),
           'type' => 'link_default',
-          'weight' => '2',
+          'weight' => '10',
         ),
         'teaser' => array(
           'label' => 'above',

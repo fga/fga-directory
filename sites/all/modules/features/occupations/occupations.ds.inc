@@ -181,25 +181,36 @@ function occupations_ds_field_settings_info() {
   $ds_fieldsetting->bundle = 'occupation';
   $ds_fieldsetting->view_mode = 'search';
   $ds_fieldsetting->settings = array(
-    'twitter_user_link' => array(
-      'weight' => '49',
-      'label' => 'hidden',
-      'format' => 'default',
-      'formatter_settings' => array(
-        'ft' => array(
-          'func' => 'theme_ds_field_minimal',
-        ),
-      ),
-    ),
     'address_city_state_country' => array(
       'weight' => '4',
       'label' => 'hidden',
       'format' => 'default',
     ),
-    'twitter_hashtags_link' => array(
-      'weight' => '50',
-      'label' => 'hidden',
+    'twitter_users_hashtags_linked' => array(
+      'weight' => '20',
+      'label' => 'above',
       'format' => 'default',
+      'formatter_settings' => array(
+        'ft' => array(
+          'func' => 'theme_ds_field_expert',
+          'lb' => 'Twitter Users and Hashes ',
+          'lb-el' => 'h3',
+          'lb-def-at' => TRUE,
+          'lb-col' => TRUE,
+          'ow' => TRUE,
+          'ow-el' => 'div',
+          'ow-cl' => 'flyoutmenu icon twitter',
+          'ow-def-cl' => TRUE,
+          'ow-at' => '',
+          'ow-def-at' => FALSE,
+          'fi' => TRUE,
+          'fi-el' => 'div',
+          'fi-cl' => 'item-wrapper',
+          'fi-at' => '',
+          'fi-def-at' => TRUE,
+          'fi-odd-even' => FALSE,
+        ),
+      ),
     ),
     'title' => array(
       'weight' => '3',
@@ -213,6 +224,11 @@ function occupations_ds_field_settings_info() {
           'func' => 'theme_ds_field_reset',
         ),
       ),
+    ),
+    'submitted_by' => array(
+      'weight' => '5',
+      'label' => 'hidden',
+      'format' => 'ds_time_ago',
     ),
     'field_occupation_origin_date' => array(
       'formatter_settings' => array(
@@ -559,8 +575,7 @@ return $ul_string;
   $ds_field->ui_limit = 'occupation|search';
   $ds_field->properties = array(
     'code' => array(
-      'value' => '
-<?php //dsm($entity); ?>
+      'value' => '<?php //dsm($entity); ?>
 
 <?php
 $hashtag_tids = field_get_items(\'node\', $entity, \'field_occupation_twitter_hash\');
@@ -781,40 +796,36 @@ function occupations_ds_layout_settings_info() {
   $ds_layout->layout = 'search_result';
   $ds_layout->settings = array(
     'regions' => array(
-      'left' => array(
-        0 => 'field_occupation_image',
-        2 => 'field_occupation_description',
-        4 => 'group_title_loc',
-        5 => 'title',
-        7 => 'address_city_state_country',
-      ),
       'right' => array(
-        1 => 'field_occupation_email_general',
-        3 => 'field_occupation_website',
-        6 => 'group_twitter_links',
-        8 => 'group_linklists',
-        9 => 'field_occupation_facebook',
-        10 => 'field_occupation_origin_date',
-        11 => 'group_twitter_links_wraper',
-        12 => 'twitter_user_link',
-        13 => 'twitter_hashtags_link',
+        0 => 'field_occupation_email_general',
+        6 => 'group_linklists',
+        7 => 'submitted_by',
+        8 => 'field_occupation_website',
+        9 => 'field_occupation_origin_date',
+        10 => 'twitter_users_hashtags_linked',
+        11 => 'field_occupation_facebook',
+      ),
+      'left' => array(
+        1 => 'field_occupation_image',
+        2 => 'field_occupation_description',
+        3 => 'group_title_loc',
+        4 => 'title',
+        5 => 'address_city_state_country',
       ),
     ),
     'fields' => array(
-      'field_occupation_image' => 'left',
       'field_occupation_email_general' => 'right',
+      'field_occupation_image' => 'left',
       'field_occupation_description' => 'left',
-      'field_occupation_website' => 'right',
       'group_title_loc' => 'left',
       'title' => 'left',
-      'group_twitter_links' => 'right',
       'address_city_state_country' => 'left',
       'group_linklists' => 'right',
-      'field_occupation_facebook' => 'right',
+      'submitted_by' => 'right',
+      'field_occupation_website' => 'right',
       'field_occupation_origin_date' => 'right',
-      'group_twitter_links_wraper' => 'right',
-      'twitter_user_link' => 'right',
-      'twitter_hashtags_link' => 'right',
+      'twitter_users_hashtags_linked' => 'right',
+      'field_occupation_facebook' => 'right',
     ),
     'classes' => array(
       'layout_class' => array(
