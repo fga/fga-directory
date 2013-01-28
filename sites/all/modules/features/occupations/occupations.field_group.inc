@@ -13,6 +13,38 @@ function occupations_field_group_info() {
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
+  $field_group->identifier = 'group_av_links|node|occupation|full';
+  $field_group->group_name = 'group_av_links';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'occupation';
+  $field_group->mode = 'full';
+  $field_group->parent_name = 'group_links_media';
+  $field_group->data = array(
+    'label' => 'AV Links',
+    'weight' => '40',
+    'children' => array(
+      0 => 'field_occupation_live_video',
+      1 => 'field_occupation_youtube_chan',
+    ),
+    'format_type' => 'div',
+    'format_settings' => array(
+      'label' => 'AV Links',
+      'instance_settings' => array(
+        'classes' => 'group-listings',
+        'description' => '',
+        'show_label' => '0',
+        'label_element' => 'h3',
+        'effect' => 'none',
+        'speed' => 'none',
+      ),
+      'formatter' => 'open',
+    ),
+  );
+  $export['group_av_links|node|occupation|full'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
   $field_group->identifier = 'group_contact|node|occupation|full';
   $field_group->group_name = 'group_contact';
   $field_group->entity_type = 'node';
@@ -84,7 +116,7 @@ function occupations_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Donation Info',
-    'weight' => '2',
+    'weight' => '15',
     'children' => array(
       0 => 'field_occupation_dontate_info',
       1 => 'field_occupation_donate_url',
@@ -185,8 +217,7 @@ function occupations_field_group_info() {
     'label' => 'Video & Audio',
     'weight' => '19',
     'children' => array(
-      0 => 'field_occupation_live_video',
-      1 => 'field_occupation_youtube_chan',
+      0 => 'group_av_links',
     ),
     'format_type' => 'div',
     'format_settings' => array(
@@ -225,7 +256,7 @@ function occupations_field_group_info() {
     'format_settings' => array(
       'label' => 'News & Info',
       'instance_settings' => array(
-        'classes' => 'grouplinks',
+        'classes' => 'grouplinks group-listing',
         'description' => '',
         'show_label' => '1',
         'label_element' => 'h3',
@@ -245,13 +276,11 @@ function occupations_field_group_info() {
   $field_group->entity_type = 'node';
   $field_group->bundle = 'occupation';
   $field_group->mode = 'full';
-  $field_group->parent_name = 'group_listings';
+  $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Other Resources',
-    'weight' => '18',
-    'children' => array(
-      0 => 'field_occupation_rss',
-    ),
+    'weight' => '25',
+    'children' => array(),
     'format_type' => 'div',
     'format_settings' => array(
       'label' => 'Other Resources',
@@ -276,18 +305,11 @@ function occupations_field_group_info() {
   $field_group->entity_type = 'node';
   $field_group->bundle = 'occupation';
   $field_group->mode = 'full';
-  $field_group->parent_name = 'group_listings';
+  $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Social Media',
     'weight' => '17',
-    'children' => array(
-      0 => 'field_occupation_twitter',
-      1 => 'field_occupation_social_sites',
-      2 => 'field_occupation_facebook',
-      3 => 'field_occupation_twitter_hash',
-      4 => 'twitter_user_link',
-      5 => 'twitter_hashtags_link',
-    ),
+    'children' => array(),
     'format_type' => 'div',
     'format_settings' => array(
       'label' => 'Social Media',
@@ -317,10 +339,13 @@ function occupations_field_group_info() {
     'label' => 'Group Links',
     'weight' => '10',
     'children' => array(
-      0 => 'group_links_media',
-      1 => 'group_links_news',
-      2 => 'group_links_resources',
-      3 => 'group_links_social',
+      0 => 'field_occupation_social_sites',
+      1 => 'field_occupation_rss',
+      2 => 'field_occupation_facebook',
+      3 => 'twitter_user_link',
+      4 => 'twitter_hashtags_link',
+      5 => 'group_links_media',
+      6 => 'group_links_news',
     ),
     'format_type' => 'div',
     'format_settings' => array(
@@ -349,7 +374,7 @@ function occupations_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Location',
-    'weight' => '1',
+    'weight' => '5',
     'children' => array(
       0 => 'field_occupation_address',
     ),

@@ -1227,7 +1227,7 @@ function occupations_field_default_fields() {
           'weight' => '14',
         ),
         'full' => array(
-          'label' => 'hidden',
+          'label' => 'above',
           'module' => 'link',
           'settings' => array(),
           'type' => 'link_default',
@@ -2438,7 +2438,7 @@ function occupations_field_default_fields() {
             'multiple_to' => '',
           ),
           'type' => 'date_default',
-          'weight' => '3',
+          'weight' => '10',
         ),
         'occupation_search_result' => array(
           'label' => 'hidden',
@@ -3017,7 +3017,7 @@ URL: http address of the page.',
           'weight' => '16',
         ),
         'full' => array(
-          'label' => 'hidden',
+          'label' => 'above',
           'module' => 'link',
           'settings' => array(),
           'type' => 'link_default',
@@ -3136,9 +3136,8 @@ URL: http address of the page.',
         ),
         'full' => array(
           'label' => 'hidden',
-          'module' => 'text',
           'settings' => array(),
-          'type' => 'text_plain',
+          'type' => 'hidden',
           'weight' => '15',
         ),
         'occupation_search_result' => array(
@@ -3247,9 +3246,8 @@ URL: http address of the page.',
         ),
         'full' => array(
           'label' => 'hidden',
-          'module' => 'taxonomy',
           'settings' => array(),
-          'type' => 'taxonomy_term_reference_link',
+          'type' => 'hidden',
           'weight' => '16',
         ),
         'occupation_search_result' => array(
