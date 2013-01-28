@@ -536,6 +536,53 @@ return $ul_string;
   );
   $export['twitter_user_link'] = $ds_field;
 
+  $ds_field = new stdClass();
+  $ds_field->api_version = 1;
+  $ds_field->field = 'twitter_users_hashtags_linked';
+  $ds_field->label = 'Twitter users + hashtags linked';
+  $ds_field->field_type = 5;
+  $ds_field->entities = array(
+    'node' => 'node',
+  );
+  $ds_field->ui_limit = 'occupation|search';
+  $ds_field->properties = array(
+    'code' => array(
+      'value' => '
+<?php //dsm($entity); ?>
+
+<?php
+$hashtag_tids = field_get_items(\'node\', $entity, \'field_occupation_twitter_hash\');
+
+foreach ($hashtag_tids as $term) {
+ if( !empty($term[\'tid\']) ) {
+
+  $term = taxonomy_term_load($term[\'tid\']);
+  $hashtag = trim($term->name);
+
+  if (strpos($hashtag, \'#\') === 0) {
+    $tag = trim($hashtag, \'#\');
+  }
+
+   $hashtags[] = \'<li>\' . l( $hashtag, \'https://twitter.com/search?q=%23\' . $tag ) . \'</li>\';
+ }
+}
+
+$tweeters = array();
+foreach (field_get_items(\'node\', $entity, \'field_occupation_twitter\') as $tweeter) {
+  if( !empty($tweeter[\'safe_value\']) ) {
+    $tweeters[]  = \'<li>\' . l( $tweeter[\'safe_value\'] , \'https://twitter.com/\' . trim($tweeter[\'safe_value\']) ) . \'</li>\';
+  }
+}
+
+return \'<ul>\' .  implode($hashtags, \'\') . implode($tweeters, \'\') . \'</ul>\';
+
+?>',
+      'format' => 'ds_code',
+    ),
+    'use_token' => 0,
+  );
+  $export['twitter_users_hashtags_linked'] = $ds_field;
+
   return $export;
 }
 
