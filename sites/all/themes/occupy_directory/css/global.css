@@ -398,9 +398,11 @@ article a:hover, article a:active {
 Pages
 ---------------------------------------------------------
 */
+
 aside h3.block-title{
   margin-top: .75em;
   margin-bottom: 1.5em;
+  border-bottom: 1px #000 solid;
 }
 
 
@@ -425,11 +427,8 @@ Comments
 ---------------------------------------------------------
 */
 
-.node-type-occupation .node-links&#comments { display: none }
-
-.form-item form-type-select form-item-field-comment-state-und,
-#edit-comment-body-und-0-format {
-  display: none;
+.group-comments {
+  border-top: 1px #000 solid;
 }
 
 form.comment-form {
@@ -443,9 +442,12 @@ form.comment-form {
 form.comment-form .form-item {
     margin:0;
 }
+
 form.comment-form .form-actions {
     margin-top: 1em;
 }
+
+#comments { display: none }
 
 .comment-instructions {
   background: #fe3;
@@ -633,7 +635,6 @@ SOLR Search Facets
 .block-facetapi{
   background-color: #222;
   padding: 1em;
-  border-bottom: 1px #000 solid;
 }
 
 .block-facetapi h3.block-title{
@@ -649,21 +650,19 @@ SOLR Search Facets
   padding-bottom: .5em;
 }
 
-.block-facetapi .item-list li {
-  display: inline-block;
-  border-radius: .25em;
-  background: #121212;
-  padding: .435em .675em .25em .675em;
-  font-size: .875em;
-  margin: 0 .25em .25em ;
-}
+
+
 
 .block-facetapi .item-list li a {
   text-decoration: none;
 }
 
+.block-facetapi .item-list li a.facetapi-active {
+  color: #fff;
+}
 
-#facetapi-facet-search-api .occupations-index-block-field-occupation-addressadministrative-area li {
+
+#block-facetapi-pm5e0jb3duu7bhnhqvsxmxqfuomn3ymq li {
   text-transform: uppercase;
 }
 
@@ -749,8 +748,9 @@ See ds_layouts/search_result.php
 */
 
 .solr-search #page-title {
-  display: none;
-}
+  margin: .5em .5em .5em 3.25em;
+/*  display: none;
+*/}
 
 .view-directory-global-search {
 }
@@ -1132,12 +1132,15 @@ a.icon.site {
   z-index: 10;
 }
 
+.region-name { display: none !important; }
+
 .flyoutmenu .field-name-field-occupation-description,
 .flyoutmenu .item-wrapper {
-  display: none;
   position: absolute;
-  left: -1.375em;
-  top: 2.125em;
+  top: -8000px;
+  left: -8000px;
+  font-size: .875em;
+  opacity: 0;
   padding: .5em;
   background: #fff;
   box-shadow: 2px 2px 3px rgba( 0, 0, 0, .5 );
@@ -1146,7 +1149,6 @@ a.icon.site {
 }
 
 .flyoutmenu .item-wrapper ul {
-  font-size: .875em;
     max-height: 300px;
     overflow: auto;
 }
@@ -1158,7 +1160,14 @@ a.icon.site {
 
 .flyoutmenu:hover .field-name-field-occupation-description,
 .flyoutmenu:hover .item-wrapper {
-  display: block;
+  -webkit-transition: opacity 375ms cubic-bezier(0.250, 0.460, 0.450, 0.940);
+  -moz-transition: opacity 375ms cubic-bezier(0.250, 0.460, 0.450, 0.940);
+  -ms-transition: opacity 375ms cubic-bezier(0.250, 0.460, 0.450, 0.940);
+  -o-transition: opacity 375ms cubic-bezier(0.250, 0.460, 0.450, 0.940);
+  transition: opacity 375ms cubic-bezier(0.250, 0.460, 0.450, 0.940); 
+  opacity: 1;
+  left: -1.375em;
+  top: 2.125em;
   cursor: default;
  }
 
@@ -1187,32 +1196,66 @@ a.icon.site {
   left: 2em;
 }
 
+.node-type-occupation .group-listings>.field,
+.node-type-occupation .grouplinks {
+  font-size: .875em;
+  background: #eee;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.ds-right .group-listings>.field a,
+.block-facetapi .item-list li,
 .node-type-occupation .ds-left a,
 .flyoutmenu .item-wrapper a {
   display: inline-block;
+  vertical-align: top;
   padding: .5em .75em .25em .75em;
-  margin: 0 .125em .125em 0;
+  margin: 0 .125em 2px 0;
   line-height: 1.5;
   background: #000;
   color: #0af;
   text-decoration: none;
   border-radius: .25em;
-  width: 12em;
+  width: 14em;
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
   position: relative;
-  z-index: 10000;
+  z-index: 490;
 }
 
+.ds-right .group-listings>.field a,
+.ds-right .item-wrapper a,
+.node-type-occupation .ds-left a {
+  width: 12em;
+}
+
+.ds-right .items-wrapper ul li a {
+  border: 1px #fff solid;
+}
+
+.block-facetapi .item-list li {
+  width: auto;
+}
+
+
+.ds-right .group-listings a:hover,
 .node-type-occupation .ds-left a:hover,
-.flyoutmenu .item-wrapper a:hover {
-  margin: 0 .125em .125em 0;
+.flyoutmenu .item-wrapper a:hover,
+.node-type-occupation .ds-left .group-donate-info a:hover {
   color: #fc0;
   width: auto;
+  margin-bottom:2px;
   text-overflow: visible;
   overflow: visible;
 }
+
+.field-name-field-occupation-field-name-field-occupation-origin-date, 
+.field-name-field-occupation-phone-general, 
+.field-type-addressfield { margin-bottom: 1em;}
+
+.field-name-field-occupation-phone-general { margin-top: 1em; }
 
 
 /*
@@ -1257,7 +1300,6 @@ label {
   font-weight: bold;
 }
 
-
 .form-textarea-wrapper textarea {
   display: block;
   margin: 0;
@@ -1266,6 +1308,7 @@ label {
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
+
 .resizable-textarea .grippie {
   background: #eee url(../../misc/grippie.png) no-repeat center 2px;
   border: 1px solid #ddd;

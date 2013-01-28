@@ -95,6 +95,12 @@ h1 {
 #modal-title,
 h2 { font-size: 2em; }
 
+
+.node-type-occupation .field-name-title h2 {
+  text-transform: uppercase;
+  margin-top: .275em;
+}
+
 h3 { font-size: 1.5em; }
 
 h4{
@@ -123,6 +129,18 @@ header h3.block-title {
   margin-top:1em;
 }
 
+.ds-right .grouplinks h3,
+.ds-right .group-listings .field>.field-label{
+  font-family: Dosis, helvetica, arial, sans-serif; font-style: normal; font-weight: 300;
+  font-size: 1.5em;
+  font-weight: 300;
+  margin: 1em 0 1em 0;
+  white-space: nowrap;
+  width: 8em;
+  padding-left: .5em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 
 h1.title {
   margin: 0 0 .75em;
