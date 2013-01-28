@@ -10,6 +10,7 @@ function ds_occupation() {
     'label' => t('occupation'),
     'regions' => array(
       'left' => t('left'),
+      'content' => t('content'),
       'right' => t('right'),
     ),
     // Uncomment if you want to include a CSS file for this layout (occupation.css)
