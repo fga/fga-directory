@@ -103,3 +103,48 @@ function computed_field_field_comments_done_compute(&$entity_field, $entity_type
     ->fieldCondition('field_comment_state', 'value', 'done');
   $entity_field[0]['value'] = $query->count()->execute();
 }
+
+
+function occupations_page_alter(&$vars) {
+  //dpm($page);
+}
+
+/**
+ * Implementation of hook_menu_alter()
+ */
+function tabname_tweaker_menu_alter(&$items) {
+  // $items['node/%node/view']['title callback'] = 'tabname_tweaker_title_callback';
+  // $items['node/%node/view']['title arguments'] = array(1);
+
+  $items['node/%node/edit']['title'] = t('HJKHKJHKJHKJH');
+}
+
+
+
+
+
+
+//function occupations_entity_view_alter(&$build, $type) {}
+function occupations_node_view_alter(&$build) {
+  dsm($node);
+  //
+}
+function occupations_form_alter(&$form, &$form_state, $form_id) {
+  //dsm($form_id);  // print form ID to messages
+  //dsm($form);     // pretty print array using Krumo to messages
+
+  // switch ($form_id)  {
+  //   case 'occupations_node_form':
+  //     // auto_nodetitle has problems with special characters, so we hide the title on create,
+  //     // but open it up on edit with some help text.
+  //     if(empty($form['title']['#default_value'])) {
+  //       $form['title']['#type'] = 'hidden';
+  //     }
+  //     if(!empty($form['title']['#default_value'])) {
+  //       $form['title']['#description'] = t('The title is constructed automagically. You can <em>override</em> the result here if need be.');
+  //     }
+  //     break;
+  // }
+
+}
+

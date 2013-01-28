@@ -486,7 +486,7 @@ article.comment nav.comment-links {
 }
 
 .field-name-field-comment-state{
-  padding: .25em .5em;
+  padding: .25em 0 .5em .5em;
   float: right;
 }
 
