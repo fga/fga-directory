@@ -486,7 +486,7 @@ article.comment nav.comment-links {
 }
 
 .field-name-field-comment-state{
-  padding: .25em .5em;
+  padding: .25em 0 .5em .5em;
   float: right;
 }
 
@@ -894,17 +894,17 @@ Total Occupations
 
 /*
 ---------------------------------------------------------
-	page-occupations-cards
+  page-occupations-cards
 ---------------------------------------------------------
 */
 
 .page-occupations-cards .views-row {
-	float: left;
-	width: 220px;
-	margin: 10px;
-	display: inline-block;
-	background: #eee;
-	min-height: 400px;
+  float: left;
+  width: 220px;
+  margin: 10px;
+  display: inline-block;
+  background: #eee;
+  min-height: 400px;
 }
 
 /*
