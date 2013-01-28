@@ -866,24 +866,24 @@ Total Occupations
 }
 
 
-.list-occupations table {
+.table-view table {
 }
 
-.list-occupations table thead th {
+.table-view table thead th {
   padding: .5em;
   text-align: left;
 }
 
-.list-occupations table.views-table tr {
+.table-view table.views-table tr {
   background: #dedede;
   border-bottom: none;
 }
 
-.list-occupations table.views-table tr.odd {
+.table-view table.views-table tr.odd {
   background: #cfcfcf;
 }
 
-.list-occupations table.views-table tr td {
+.table-view table.views-table tr td {
   padding: .5em;
 }
 
