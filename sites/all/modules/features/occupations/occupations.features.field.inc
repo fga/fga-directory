@@ -1887,7 +1887,7 @@ function occupations_field_default_fields() {
           'module' => 'link',
           'settings' => array(),
           'type' => 'link_default',
-          'weight' => '11',
+          'weight' => '43',
         ),
         'occupation_search_result' => array(
           'label' => 'inline',
@@ -2107,7 +2107,7 @@ function occupations_field_default_fields() {
           'module' => 'link',
           'settings' => array(),
           'type' => 'link_default',
-          'weight' => '12',
+          'weight' => '41',
         ),
         'occupation_search_result' => array(
           'label' => 'above',
@@ -2578,7 +2578,7 @@ function occupations_field_default_fields() {
           'module' => 'link',
           'settings' => array(),
           'type' => 'link_default',
-          'weight' => '13',
+          'weight' => '42',
         ),
         'occupation_search_result' => array(
           'label' => 'above',
@@ -2897,7 +2897,7 @@ function occupations_field_default_fields() {
           'weight' => '19',
         ),
         'full' => array(
-          'label' => 'hidden',
+          'label' => 'above',
           'module' => 'link',
           'settings' => array(),
           'type' => 'link_default',

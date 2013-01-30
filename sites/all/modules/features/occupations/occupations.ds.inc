@@ -32,23 +32,28 @@ function occupations_ds_field_settings_info() {
       'label' => 'hidden',
       'format' => 'default',
     ),
-    'twitter_user_link' => array(
-      'weight' => '0',
-      'label' => 'above',
-      'format' => 'default',
-      'formatter_settings' => array(
-        'ft' => array(
-          'lb' => 'Twitter @sers',
-        ),
-      ),
-    ),
     'twitter_hashtags_link' => array(
       'weight' => '0',
       'label' => 'above',
       'format' => 'default',
       'formatter_settings' => array(
         'ft' => array(
+          'func' => 'theme_ds_field_minimal',
+          'classes' => 'link-group',
           'lb' => 'Twitter Hashtags',
+        ),
+      ),
+    ),
+    'twitter_user_link' => array(
+      'weight' => '0',
+      'label' => 'above',
+      'format' => 'default',
+      'formatter_settings' => array(
+        'ft' => array(
+          'func' => 'theme_ds_field_minimal',
+          'classes' => 'link-group',
+          'lb' => 'Twitter Users',
+          'lb-col' => TRUE,
         ),
       ),
     ),
@@ -67,10 +72,108 @@ function occupations_ds_field_settings_info() {
       'label' => 'hidden',
       'format' => 'default',
     ),
+    'submitted_by' => array(
+      'weight' => '0',
+      'label' => 'hidden',
+      'format' => 'ds_time_ago',
+    ),
     'field_occupation_social_sites' => array(
       'formatter_settings' => array(
         'ft' => array(
+          'func' => 'theme_ds_field_expert',
           'lb' => 'Additional Social Media Sites',
+          'lb-el' => 'h3',
+          'lb-def-at' => TRUE,
+          'lb-col' => TRUE,
+          'ow' => TRUE,
+          'ow-el' => 'div',
+          'ow-cl' => 'link-group',
+          'ow-def-cl' => TRUE,
+          'ow-at' => '',
+          'ow-def-at' => TRUE,
+          'fis' => TRUE,
+          'fis-el' => 'div',
+          'fis-cl' => 'link-listing',
+          'fis-at' => '',
+          'fis-def-at' => TRUE,
+        ),
+      ),
+    ),
+    'field_occupation_live_video' => array(
+      'formatter_settings' => array(
+        'ft' => array(
+          'func' => 'theme_ds_field_minimal',
+        ),
+      ),
+    ),
+    'field_occupation_other_websites' => array(
+      'formatter_settings' => array(
+        'ft' => array(
+          'func' => 'theme_ds_field_minimal',
+        ),
+      ),
+    ),
+    'field_occupation_rss' => array(
+      'formatter_settings' => array(
+        'ft' => array(
+          'func' => 'theme_ds_field_expert',
+          'lb' => 'RSS Feeds',
+          'lb-el' => 'h3',
+          'lb-def-at' => TRUE,
+          'lb-col' => TRUE,
+          'ow' => TRUE,
+          'ow-el' => 'div',
+          'ow-cl' => 'link-group',
+          'ow-def-cl' => TRUE,
+          'ow-at' => '',
+          'ow-def-at' => TRUE,
+          'fis' => TRUE,
+          'fis-el' => 'div',
+          'fis-cl' => 'link-listing',
+          'fis-at' => '',
+          'fis-def-at' => TRUE,
+        ),
+      ),
+    ),
+    'field_occupation_newspaper_url' => array(
+      'formatter_settings' => array(
+        'ft' => array(
+          'func' => 'theme_ds_field_minimal',
+        ),
+      ),
+    ),
+    'field_occupation_meetup_url' => array(
+      'formatter_settings' => array(
+        'ft' => array(
+          'func' => 'theme_ds_field_minimal',
+        ),
+      ),
+    ),
+    'field_occupation_facebook' => array(
+      'formatter_settings' => array(
+        'ft' => array(
+          'func' => 'theme_ds_field_expert',
+          'lb' => 'Facebook Page(s)',
+          'lb-el' => 'h3',
+          'lb-def-at' => TRUE,
+          'ow' => TRUE,
+          'ow-el' => 'div',
+          'ow-cl' => 'link-group',
+          'ow-def-cl' => TRUE,
+          'ow-at' => '',
+          'ow-def-at' => TRUE,
+          'fis' => TRUE,
+          'fis-el' => 'div',
+          'fis-cl' => 'link-listing',
+          'fis-at' => '',
+          'fis-def-at' => TRUE,
+        ),
+      ),
+    ),
+    'field_occupation_youtube_chan' => array(
+      'formatter_settings' => array(
+        'ft' => array(
+          'func' => 'theme_ds_field_minimal',
         ),
       ),
     ),
@@ -493,7 +596,7 @@ function occupations_ds_custom_fields_info() {
   $ds_field = new stdClass();
   $ds_field->api_version = 1;
   $ds_field->field = 'twitter_hashtags_link';
-  $ds_field->label = 'twitter hashtags linked';
+  $ds_field->label = 'Twitter Hashtags Linked';
   $ds_field->field_type = 5;
   $ds_field->entities = array(
     'node' => 'node',
@@ -501,25 +604,28 @@ function occupations_ds_custom_fields_info() {
   $ds_field->ui_limit = 'occupation|*';
   $ds_field->properties = array(
     'code' => array(
-      'value' => '<?php //dsm($entity); ?>
+      'value' => '<?php
 
-<?php
 $hashtag_tids = field_get_items(\'node\', $entity, \'field_occupation_twitter_hash\');
-
-foreach ($hashtag_tids as $term) {
- if( !empty($term[\'tid\']) ) {
-   
-  $term = taxonomy_term_load($term[\'tid\']);
-  $hashtag = trim($term->name);
-  
-  if (strpos($hashtag, \'#\') === 0) {
-    $tag = trim($hashtag, \'#\');
+$ul_string = "";
+if( count( $hashtag_tids ) ){
+  $ul_string = \'<ul class="twitter_hashes">\';
+  foreach ($hashtag_tids as $term) {
+   if( !empty($term[\'tid\']) ) {
+     
+    $term = taxonomy_term_load($term[\'tid\']);
+    $hashtag = trim($term->name);
+    
+    if (strpos($hashtag, \'#\') === 0) {
+      $tag = trim($hashtag, \'#\');
+    }
+    
+     $ul_string .= "<li>" . l( $hashtag, \'https://twitter.com/search?q=%23\' . $tag ) . "</li>";
+   }
   }
-  
-   $hashtags[] = l( $hashtag, \'https://twitter.com/search?q=%23\' . $tag );
- }
+  $ul_string .= "</ul>";
 }
-return implode($hashtags, \', \');
+return $ul_string;
 ?>  ',
       'format' => 'ds_code',
     ),
@@ -530,7 +636,7 @@ return implode($hashtags, \', \');
   $ds_field = new stdClass();
   $ds_field->api_version = 1;
   $ds_field->field = 'twitter_user_link';
-  $ds_field->label = 'twitter users linked';
+  $ds_field->label = 'Twitter Users Linked';
   $ds_field->field_type = 5;
   $ds_field->entities = array(
     'node' => 'node',
@@ -538,26 +644,22 @@ return implode($hashtags, \', \');
   $ds_field->ui_limit = 'occupation|*';
   $ds_field->properties = array(
     'code' => array(
-      'value' => '<?php //dsm($entity); ?>
-<?php
-$tweeters = array();
-/*
-  @Review
-  Thiago made this modification, kept existing code intact.
-  Assumption being that DS code field is for displaying the frontend content, and that any need to get the \'raw stuff\' would be using field_get_items in a preprocess function.
-*/
+      'value' => '<?php
+$fieldItems = field_get_items(\'node\', $entity, \'field_occupation_twitter\');
+$ul_string = "";
+if( count( $fieldItems ) ){
 $ul_string = \'<ul class="tweeters">\';
-foreach (field_get_items(\'node\', $entity, \'field_occupation_twitter\') as $tweeter) {
-  if( !empty($tweeter[\'safe_value\']) ) {
-    $val = l( $tweeter[\'safe_value\'] , \'https://twitter.com/\' . trim($tweeter[\'safe_value\']) );
-    $tweeters[] = $val;
-    $ul_string .= "<li>" . $val . "</li>";
+  foreach ( $fieldItems as $tweeter) {
+    if( !empty($tweeter[\'safe_value\']) ) {
+      $val = l( $tweeter[\'safe_value\'] , \'https://twitter.com/\' . trim($tweeter[\'safe_value\']) );
+      $ul_string .= "<li>" . $val . "</li>";
+    }
   }
+  $ul_string .= "</ul>";
 }
-$ul_string .= "</ul>";
-//return implode($tweeters, \',\');
 return $ul_string;
-?>',
+?>
+',
       'format' => 'ds_code',
     ),
     'use_token' => 0,
@@ -589,8 +691,9 @@ foreach ($hashtag_tids as $term) {
   if (strpos($hashtag, \'#\') === 0) {
     $tag = trim($hashtag, \'#\');
   }
-
+if( $hashtag ){
    $hashtags[] = \'<li>\' . l( $hashtag, \'https://twitter.com/search?q=%23\' . $tag ) . \'</li>\';
+}
  }
 }
 
@@ -630,55 +733,58 @@ function occupations_ds_layout_settings_info() {
     'regions' => array(
       'right' => array(
         0 => 'title',
-        1 => 'twitter_user_link',
-        2 => 'twitter_hashtags_link',
+        1 => 'twitter_hashtags_link',
+        2 => 'twitter_user_link',
         3 => 'share_this_node_block',
         4 => 'address_city_state_country',
-        6 => 'links',
-        7 => 'comments',
-        8 => 'group_meta',
-        10 => 'group_header',
-        11 => 'group_occupation_description',
-        12 => 'field_occupation_type',
-        13 => 'mapbox_static_map_full',
-        18 => 'group_listings',
-        21 => 'field_occupation_meetup_url',
-        22 => 'field_occupation_newspaper_url',
+        6 => 'submitted_by',
+        7 => 'links',
+        8 => 'comments',
+        9 => 'group_meta',
+        11 => 'group_header',
+        12 => 'group_occupation_description',
+        13 => 'field_occupation_type',
+        14 => 'mapbox_static_map_full',
+        20 => 'group_listings',
         23 => 'field_occupation_live_video',
+        24 => 'group_av_links',
         25 => 'field_occupation_youtube_chan',
-        26 => 'field_occupation_other_websites',
         27 => 'field_occupation_description',
-        29 => 'field_occupation_physical',
-        30 => 'field_occupation_facebook',
+        28 => 'field_occupation_physical',
+        29 => 'field_occupation_facebook',
+        31 => 'field_occupation_general_info',
         32 => 'field_occupation_social_sites',
-        33 => 'field_occupation_general_info',
-        34 => 'group_links_media',
-        35 => 'group_links_news',
-        36 => 'field_occupation_rss',
-        37 => 'group_comments',
-        38 => 'group_av_links',
+        33 => 'group_links_media',
+        34 => 'group_links_news',
+        35 => 'field_occupation_rss',
+        36 => 'group_comments',
+        37 => 'group_news_and_info_linkgroup',
+        38 => 'field_occupation_newspaper_url',
+        39 => 'field_occupation_other_websites',
+        40 => 'field_occupation_meetup_url',
       ),
       'left' => array(
         5 => 'group_contact',
-        9 => 'group_location',
-        14 => 'field_occupation_dontate_info',
-        15 => 'field_occupation_donate_url',
+        10 => 'group_location',
+        15 => 'field_occupation_dontate_info',
         16 => 'field_occupation_image',
-        17 => 'field_occupation_origin_date',
+        17 => 'field_occupation_donate_url',
+        18 => 'field_occupation_origin_date',
         19 => 'field_occupation_website',
-        20 => 'field_occupation_email_general',
-        24 => 'field_occupation_phone_general',
-        28 => 'group_donate_info',
-        31 => 'field_occupation_address',
+        21 => 'field_occupation_email_general',
+        22 => 'field_occupation_phone_general',
+        26 => 'group_donate_info',
+        30 => 'field_occupation_address',
       ),
     ),
     'fields' => array(
       'title' => 'right',
-      'twitter_user_link' => 'right',
       'twitter_hashtags_link' => 'right',
+      'twitter_user_link' => 'right',
       'share_this_node_block' => 'right',
       'address_city_state_country' => 'right',
       'group_contact' => 'left',
+      'submitted_by' => 'right',
       'links' => 'right',
       'comments' => 'right',
       'group_meta' => 'right',
@@ -688,30 +794,31 @@ function occupations_ds_layout_settings_info() {
       'field_occupation_type' => 'right',
       'mapbox_static_map_full' => 'right',
       'field_occupation_dontate_info' => 'left',
-      'field_occupation_donate_url' => 'left',
       'field_occupation_image' => 'left',
+      'field_occupation_donate_url' => 'left',
       'field_occupation_origin_date' => 'left',
-      'group_listings' => 'right',
       'field_occupation_website' => 'left',
+      'group_listings' => 'right',
       'field_occupation_email_general' => 'left',
-      'field_occupation_meetup_url' => 'right',
-      'field_occupation_newspaper_url' => 'right',
-      'field_occupation_live_video' => 'right',
       'field_occupation_phone_general' => 'left',
+      'field_occupation_live_video' => 'right',
+      'group_av_links' => 'right',
       'field_occupation_youtube_chan' => 'right',
-      'field_occupation_other_websites' => 'right',
-      'field_occupation_description' => 'right',
       'group_donate_info' => 'left',
+      'field_occupation_description' => 'right',
       'field_occupation_physical' => 'right',
       'field_occupation_facebook' => 'right',
       'field_occupation_address' => 'left',
-      'field_occupation_social_sites' => 'right',
       'field_occupation_general_info' => 'right',
+      'field_occupation_social_sites' => 'right',
       'group_links_media' => 'right',
       'group_links_news' => 'right',
       'field_occupation_rss' => 'right',
       'group_comments' => 'right',
-      'group_av_links' => 'right',
+      'group_news_and_info_linkgroup' => 'right',
+      'field_occupation_newspaper_url' => 'right',
+      'field_occupation_other_websites' => 'right',
+      'field_occupation_meetup_url' => 'right',
     ),
     'classes' => array(
       'layout_class' => array(

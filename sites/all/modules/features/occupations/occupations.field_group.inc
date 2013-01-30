@@ -20,17 +20,17 @@ function occupations_field_group_info() {
   $field_group->mode = 'full';
   $field_group->parent_name = 'group_links_media';
   $field_group->data = array(
-    'label' => 'AV Links',
-    'weight' => '40',
+    'label' => 'Link Listing',
+    'weight' => '13',
     'children' => array(
       0 => 'field_occupation_live_video',
       1 => 'field_occupation_youtube_chan',
     ),
     'format_type' => 'div',
     'format_settings' => array(
-      'label' => 'AV Links',
+      'label' => 'Link Listing',
       'instance_settings' => array(
-        'classes' => 'group-listings',
+        'classes' => 'link-listing',
         'description' => '',
         'show_label' => '0',
         'label_element' => 'h3',
@@ -223,7 +223,7 @@ function occupations_field_group_info() {
     'format_settings' => array(
       'label' => 'Video & Audio',
       'instance_settings' => array(
-        'classes' => 'grouplinks',
+        'classes' => 'link-group',
         'description' => '',
         'show_label' => '1',
         'label_element' => 'h3',
@@ -248,20 +248,18 @@ function occupations_field_group_info() {
     'label' => 'News & Info',
     'weight' => '20',
     'children' => array(
-      0 => 'field_occupation_other_websites',
-      1 => 'field_occupation_newspaper_url',
-      2 => 'field_occupation_meetup_url',
+      0 => 'group_news_and_info_linkgroup',
     ),
     'format_type' => 'div',
     'format_settings' => array(
       'label' => 'News & Info',
       'instance_settings' => array(
-        'classes' => 'grouplinks group-listing',
+        'classes' => 'link-group',
         'description' => '',
         'show_label' => '1',
         'label_element' => 'h3',
         'effect' => 'none',
-        'speed' => 'fast',
+        'speed' => 'none',
       ),
       'formatter' => 'open',
     ),
@@ -342,8 +340,8 @@ function occupations_field_group_info() {
       0 => 'field_occupation_social_sites',
       1 => 'field_occupation_rss',
       2 => 'field_occupation_facebook',
-      3 => 'twitter_user_link',
-      4 => 'twitter_hashtags_link',
+      3 => 'twitter_hashtags_link',
+      4 => 'twitter_user_link',
       5 => 'group_links_media',
       6 => 'group_links_news',
     ),
@@ -425,6 +423,39 @@ function occupations_field_group_info() {
     ),
   );
   $export['group_meta|node|occupation|full'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_news_and_info_linkgroup|node|occupation|full';
+  $field_group->group_name = 'group_news_and_info_linkgroup';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'occupation';
+  $field_group->mode = 'full';
+  $field_group->parent_name = 'group_links_news';
+  $field_group->data = array(
+    'label' => 'Link Listing',
+    'weight' => '40',
+    'children' => array(
+      0 => 'field_occupation_other_websites',
+      1 => 'field_occupation_newspaper_url',
+      2 => 'field_occupation_meetup_url',
+    ),
+    'format_type' => 'div',
+    'format_settings' => array(
+      'label' => 'Link Listing',
+      'instance_settings' => array(
+        'classes' => 'link-listing',
+        'description' => '',
+        'show_label' => '0',
+        'label_element' => 'h3',
+        'effect' => 'none',
+        'speed' => 'fast',
+      ),
+      'formatter' => 'open',
+    ),
+  );
+  $export['group_news_and_info_linkgroup|node|occupation|full'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
