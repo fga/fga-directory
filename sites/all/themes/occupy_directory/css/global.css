@@ -460,6 +460,7 @@ form.comment-form .form-actions {
 article.comment {
   margin-bottom: 1.5em;
 }
+
 article.comment header h3 {
   margin: 0;  padding: 0;
 }
@@ -469,11 +470,13 @@ article.comment footer { /* author + date */
   margin-bottom:1.25em;
   color: #666;
 }
+
 article.comment .field-name-field-comment-state {
   background-color: #d6ff7d;
   padding: 5px 10px;
   display:inline-block;
 }
+
 article.comment nav.comment-links {
   margin-top: 1em;
 }
@@ -1145,13 +1148,8 @@ a.icon.site {
   background: #fff;
   box-shadow: 2px 2px 3px rgba( 0, 0, 0, .5 );
   text-indent: 0px;
-  width: 14em;
-}
-
-.flyoutmenu .item-wrapper ul {
-    max-height: 300px;
-    overflow: auto;
-}
+/*  width: 14em;
+*/}
 
 .flyoutmenu:hover {
   z-index: 100;
@@ -1196,18 +1194,35 @@ a.icon.site {
   left: 2em;
 }
 
-.node-type-occupation .group-listings>.field,
-.node-type-occupation .grouplinks {
+.link-group {
+  width: 16.75em;
+  margin: 0 1em 1em 0;
+  padding: 0;
   font-size: .875em;
   background: #eee;
   display: inline-block;
   vertical-align: top;
+  height: 19em;
 }
 
-.ds-right .group-listings>.field a,
+.link-group:nth-child( 3n+3 ){
+  margin-right: 0;
+}
+
+.link-group ul,
+.link-group .link-listing {
+  border-bottom: 1px #000 solid;
+  padding-left: 1em;
+  height: 14.5em;
+  overflow: auto;
+  overflow-y: auto;
+  overflow-x: visible;
+}
+
+.link-group a,
 .block-facetapi .item-list li,
 .node-type-occupation .ds-left a,
-.flyoutmenu .item-wrapper a {
+.item-wrapper a {
   display: inline-block;
   vertical-align: top;
   padding: .5em .75em .25em .75em;
@@ -1225,22 +1240,20 @@ a.icon.site {
   z-index: 490;
 }
 
-.ds-right .group-listings>.field a,
+.link-group a,
 .ds-right .item-wrapper a,
 .node-type-occupation .ds-left a {
+  display: block;
   width: 12em;
-}
-
-.ds-right .items-wrapper ul li a {
-  border: 1px #fff solid;
+  clear: both;
 }
 
 .block-facetapi .item-list li {
   width: auto;
+  clear: none;
 }
 
-
-.ds-right .group-listings a:hover,
+.link-group a:hover,
 .node-type-occupation .ds-left a:hover,
 .flyoutmenu .item-wrapper a:hover,
 .node-type-occupation .ds-left .group-donate-info a:hover {

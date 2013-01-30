@@ -14,8 +14,7 @@
 }
 
 .results-list .search-result {
-  margin: 0 24em 0 7em;
-  max-width: 800px;
+  margin: 0 12em 0 7em;
 }
 
 .search-result .ds-left {
@@ -51,8 +50,6 @@
 
 .search-result h3.title {
   margin: 0;
-/*  font-family: PTSans;
-*/
   font-weight: bold;
   font-size: 1.2em;
   line-height: 1.375;
@@ -72,6 +69,7 @@
 
 .search-result .field-group-div {
   display: inline-block;
+  vertical-align: top;
 }
 
 .search-result .label-above {
@@ -85,10 +83,6 @@
   line-height: 2;
 }
 
-.search-result .field-name-field-occupation-origin-date {
-  float: right;
-}
-
 .field-name-submitted-by,
 .search-result .field-name-field-occupation-origin-date {
   width: 10em;
@@ -96,6 +90,11 @@
   display: inline-block;
 }
 
+.search-result .field-name-field-occupation-origin-date {
+  width: 7em;
+  float: right;
+}
+
 .group-linklists {
-  width: 18em;
+  width: 25em;
 }

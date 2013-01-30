@@ -93,12 +93,15 @@ h1 {
 }
 
 #modal-title,
-h2 { font-size: 2em; }
+h2 { 
+  font-size: 2em;
+}
 
 
 .node-type-occupation .field-name-title h2 {
   text-transform: uppercase;
-  margin-top: .275em;
+  line-height: 1.2;
+  margin-top: 0;
 }
 
 h3 { font-size: 1.5em; }
@@ -129,15 +132,16 @@ header h3.block-title {
   margin-top:1em;
 }
 
-.ds-right .grouplinks h3,
-.ds-right .group-listings .field>.field-label{
+.ds-right .link-group h3,
+.ds-right .link-group .label-above {
   font-family: Dosis, helvetica, arial, sans-serif; font-style: normal; font-weight: 300;
   font-size: 1.5em;
+  line-height: 1.2;
   font-weight: 300;
   margin: 1em 0 1em 0;
   white-space: nowrap;
   width: 8em;
-  padding-left: .5em;
+  padding-left: .75em;
   overflow: hidden;
   text-overflow: ellipsis;
 }

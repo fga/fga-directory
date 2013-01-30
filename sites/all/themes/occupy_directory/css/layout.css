@@ -316,11 +316,11 @@ Overrides
 .occupation .field-name-title {
   float: left;
   margin-right: 1em;
-  max-width: 32em;
+  max-width: 36em;
 }
 
 .block-owstech-share {
-  margin-top: .5em;
+  margin-top: .25em;
   float: right;
 }
 
