@@ -42,7 +42,7 @@
           <?php print $share_cta_reddit;?>
         </a>
       </li>
-      <?endif;?>
+      <?php endif;?>
 
     </ul>
 
