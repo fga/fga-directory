@@ -43,12 +43,6 @@
   <?php endif; ?>
 
 
-  <?php if ($header): ?>
-    <<?php print $header_wrapper; ?> class="ds-header <?php print $header_classes; ?>">
-      <?php print $header; ?>
-    </<?php print $header_wrapper; ?>>
-  <?php endif; ?>
-
   <?php if ($left && $right): ?>
     <div class="equal-height-container clearfix">
   <?php endif; ?>
@@ -69,12 +63,6 @@
     </div>
   <?php endif; ?>
 
-
-  <?php if ($footer): ?>
-    <<?php print $footer_wrapper; ?> class="ds-footer <?php print $footer_classes; ?>">
-      <?php print $footer; ?>
-    </<?php print $footer_wrapper; ?>>
-  <?php endif; ?>
 
 
 </<?php print $layout_wrapper ?>>
