@@ -1,6 +1,14 @@
 <section class="owstech-share">
-  <h4 class='actuator'><a title="Share"><?php print $owstech_share_actuator_text;?></a></h4>
+
+  <h4 class='actuator'>
+    <a title="Share">
+      <?php print $owstech_share_actuator_text;?>
+      <!-- comment -->
+    </a>
+  </h4>
+
   <div class="drawer">
+
     <ul>
 
       <!-- @todo, these li's could possibly be turned into a forloop based on the checkbox values from the menu forms -->
@@ -37,5 +45,8 @@
       <?endif;?>
 
     </ul>
+
   </div>
+
 <section>
+
