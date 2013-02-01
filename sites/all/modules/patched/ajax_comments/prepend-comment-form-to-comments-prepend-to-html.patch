@@ -34,7 +34,7 @@ index e384f45..ffddd32 100644
    }
    else {
 -    $commands[] = ajax_command_append('#comment-wrapper-nid-' . $node->nid, $form);
-+    $commands[] = ajax_command_html('#comment-wrapper-nid-' . $node->nid, $form);
++    $commands[] = ajax_command_prepend('#comment-wrapper-nid-' . $node->nid, $form);
    }
  
    return array('#type' => 'ajax', '#commands' => $commands);

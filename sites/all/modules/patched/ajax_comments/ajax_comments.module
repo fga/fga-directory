@@ -476,7 +476,7 @@ function ajax_comments_reply($node, $pid = NULL) {
     $commands[] = ajax_command_after('#comment-wrapper-' . $pid . '>.comment', $form);
   }
   else {
-    $commands[] = ajax_command_html('#comment-wrapper-nid-' . $node->nid, $form);
+    $commands[] = ajax_command_prepend('#comment-wrapper-nid-' . $node->nid, $form);
   }
 
   return array('#type' => 'ajax', '#commands' => $commands);
