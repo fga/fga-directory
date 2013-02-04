@@ -3,6 +3,16 @@
  * Display Suite search-result stylesheet.
  */
 
+.solr-search h1#page-title { display: none; }
+
+.solr-search ul.pager { margin-left: 8.25em; }
+
+.search .occupation-count {
+  margin-left: 8.25em;
+  padding: 1em 0;
+  display: inline-block;
+}
+
 .results-list>ul>li{
   padding: 1em 2em .5em 1em;
   background: #eee;

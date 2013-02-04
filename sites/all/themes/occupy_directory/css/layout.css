@@ -225,7 +225,8 @@ footer #block-menu-menu-feeds-and-exports:hover {
 .node-type-occupation #region-content,
 .node-type-occupation #region-content .region-content-inner{
   width: 100%;
-  margin: 0 1em;
+/*  margin: 0 1em;
+*/
   padding: 0 0 0 0;
   max-width: none;
 }
@@ -246,34 +247,26 @@ footer #block-menu-menu-feeds-and-exports:hover {
 
 @media all and ( min-width: 960px ) {
 
-  .node-type-occupation .occupation .ds-left {
+  .node-type-occupation .ds-left {
+    display: inline-block;
     float: left;
     width: 14em;
+    margin-left: 3em;
     margin-right: 3em;
   }
 
-  .node-type-occupation .occupation .ds-right {
-    padding-right: 1em;
+  .node-type-occupation .ds-middle {
+    width: 46em;
+    display: inline-block;
+    float: left;
+    position: relative;
   }
 
-/*  .node-type-occupation .group-listings>.field,*/
-  .node-type-occupation .grouplinks {
+  .node-type-occupation .ds-right {
     width: 14em;
-    padding: 0;
-    margin: 0 1em 1em 0;
-    height: 18em;
+    position: absolute;
+    left: 68em;
   }
-
-  .node-type-occupation .grouplinks ul {
-    margin: 0;
-    border-bottom: 1px #aaa solid;
-    width: 12em;
-    padding: 0 1em;
-    height: 13.5em;
-    overflow: auto;
-  }
-
-
 }
 
 
@@ -313,31 +306,18 @@ Overrides
   padding-bottom: 2em;
 }
 
-.occupation .field-name-title {
-  float: left;
-  margin-right: 1em;
-  max-width: 36em;
-}
-
 .block-owstech-share {
-  margin-top: .25em;
-  float: right;
+  margin-bottom: .25em;
 }
 
 .node-type-occupation .group_meta {
-  clear: both;
   font-size: .875em;
   color: #666;
   margin-bottom: 2em;
 }
 
-.group-occupation-description,
-.field-name-field-occupation-description {
-  margin-bottom: 1em;
-}
-
 .node-type-occupation .field-name-title h1 {
-  margin:0 0 0 0;
+  margin: 0;
   line-height: 1.125em;
 }
 
@@ -355,29 +335,17 @@ Overrides
   display: block;
 }
 
-.node-type-occupation .field-name-field-occupation-address {
-  margin-top: 1em;
-}
-
 .occupation .node-type-occupation h1.page-title{
   float: left;
 }
 
-#node_occupation_full_group_listings {
-  width: 100%;
-  padding: 0;
-}
 
-.node-type-occupation .ds-left {
-  font-size: .875em;
-}
-
-.node-type-occupation .ds-left .field-name-field-occupation-origin-date {
-  margin-bottom: 1em;
-}
 
 .node-type-occupation #region-content .region-content-inner {
   margin: 0 auto;
   padding-top: 3em;
   padding-left: 6em;
+  box-sizing: border-box;
+  -moz-box-sizing:border-box; /* Firefox */
+  -webkit-box-sizing:border-box; /* Safari */
 }

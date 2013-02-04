@@ -75,12 +75,21 @@ b, strong{
 }
 
 #modal-title,
+.ds-right .links.inline a,
 h1, h2, h3, h4, h5, h6 {
 	font-family: Dosis, helvetica, arial, sans-serif; font-style: normal; font-weight: 300;
 	color: #222;
 	margin-top: 1em;
 	margin-bottom: .5em;
 	font-weight: 300;
+}
+
+.ds-right .links.inline a {
+  font-size: 1.2857em;
+}
+
+.search-result h3.title {
+  font-family: PTSans, helvetica, arial, sans-serif;
 }
 
 nav, footer .menu{
@@ -104,10 +113,14 @@ h2 {
   margin-top: 0;
 }
 
+.node-type-occupation .ds-left {
+  font-size: .875em;
+}
+
 h3 { font-size: 1.5em; }
 
 h4{
-  font-size: 1.25em;
+  font-size: 1.28625em;
 }
 
 h5{
