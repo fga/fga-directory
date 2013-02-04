@@ -1,7 +1,7 @@
 Drupal.behaviors.owstech_share = {
 
 	attach: function(context, settings){
-    if ( console && console.log ) console.log( 'Drupal.behaviors.owstech_share', context, settings );
+//    if ( console && console.log ) console.log( 'Drupal.behaviors.owstech_share', context, settings );
     jQuery( '.drawer ul li a' ).click( function( e ){
       var href, className, win_title, w, h;
       href = jQuery( this ).attr('href');
