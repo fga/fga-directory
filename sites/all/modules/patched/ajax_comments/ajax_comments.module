@@ -86,7 +86,6 @@ function ajax_comments_preprocess_node(&$variables) {
   }
 
   drupal_add_library('system', 'drupal.ajax');
-
   $variables['content']['links']['comment']['#links']['comment-add']['attributes']['class'] = 'use-ajax';
   $variables['content']['links']['comment']['#links']['comment-add']['href'] = 'ajax_comments/reply/' . $node->nid;
   $variables['content']['links']['comment']['#links']['comment-add']['fragment'] = NULL;
@@ -173,11 +172,11 @@ function ajax_comments_preview_js($form, &$form_state) {
     $commands[] = ajax_command_replace('[action="/ajax_comments/reply/' . $comment->nid . '/' . $comment->pid . '"]', $new_form_output);
     // TODO: fix this. Needed because action changes after multiple previews.
     $commands[] = ajax_command_replace('[action="/system/ajax"]', $new_form_output);
-    $commands[] = ajax_command_prepend('#comment-wrapper-' . $comment->pid . ' .comment-form', $notify_text . $comment_output);
+    $commands[] = ajax_command_html('#comment-wrapper-' . $comment->pid . ' .comment-form', $notify_text . $comment_output);
   }
   // Or is this a brand new comment.
   else {
-    $commands[] = ajax_command_prepend('#comment-wrapper', $notify_text . $comment_output);
+    $commands[] = ajax_command_html('#comment-wrapper', $notify_text . $comment_output);
     $new_form_state = array();
     $new_form_state['build_info']['args'][] = (object) array('nid' => $node->nid);
     $new_form_state['input'] = $form_state['input'];
