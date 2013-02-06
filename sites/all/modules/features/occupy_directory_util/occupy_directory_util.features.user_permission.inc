@@ -75,6 +75,15 @@ function occupy_directory_util_user_default_permissions() {
     'module' => 'boxes',
   );
 
+  // Exported permission: administer contexts.
+  $permissions['administer contexts'] = array(
+    'name' => 'administer contexts',
+    'roles' => array(
+      0 => 'site developer',
+    ),
+    'module' => 'context_ui',
+  );
+
   // Exported permission: administer delta.
   $permissions['administer delta'] = array(
     'name' => 'administer delta',
