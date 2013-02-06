@@ -103,7 +103,7 @@ footer #block-menu-menu-feeds-and-exports:hover {
   }
 
   .block-facetapi+.block-facetapi{
-    margin-left: 1%;
+    margin-left: .125em;
   }
 
 }

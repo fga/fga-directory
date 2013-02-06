@@ -182,7 +182,7 @@ div.ctools-modal-content .form-actions input {
 div.ctools-modal-content .form-actions input:hover {
   background: #333;
   color: #dedede;
-  border-bottom: #333;
+  border-bottom: 1px #333 solid;
 }
 
 .form-actions input+input {
@@ -429,14 +429,13 @@ Comments
 
 .node-type-occupation .comment-add a {
   display: inline-block;
-  padding: .25em .25em .25em .5em;
   background: #000;
   color: #fff;
   text-decoration: none;
 }
 
 .node-type-occupation .comment-add a:hover {
-  background: #fafafa;
+  background: #dedede;
   color: #000;
 }
 
@@ -1246,6 +1245,10 @@ a.icon.site {
   white-space: nowrap;
   position: relative;
   z-index: 490;
+}
+
+.block-facetapi .item-list li{
+  overflow: visible;
 }
 
 .link-group a,

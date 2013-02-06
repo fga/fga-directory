@@ -75,7 +75,6 @@ b, strong{
 }
 
 #modal-title,
-.ds-right .links.inline a,
 h1, h2, h3, h4, h5, h6 {
 	font-family: Dosis, helvetica, arial, sans-serif; font-style: normal; font-weight: 300;
 	color: #222;
@@ -86,6 +85,9 @@ h1, h2, h3, h4, h5, h6 {
 
 .ds-right .links.inline a {
   font-size: 1.2857em;
+  padding: .25em .375em;
+  color: #fafafa;
+  font-family: Dosis, helvetica, arial, sans-serif; font-style: normal; font-weight: 300;
 }
 
 .search-result h3.title {
@@ -145,8 +147,8 @@ header h3.block-title {
   margin-top:1em;
 }
 
-.ds-right .link-group h3,
-.ds-right .link-group .label-above {
+.ds-middle .link-group h3,
+.ds-middle .link-group .label-above {
   font-family: Dosis, helvetica, arial, sans-serif; font-style: normal; font-weight: 300;
   font-size: 1.5em;
   line-height: 1.2;
