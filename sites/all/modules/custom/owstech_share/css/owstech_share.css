@@ -21,13 +21,13 @@
 .owstech-share:hover .actuator a{
 	cursor: pointer;
 	text-decoration: none;
-	background: #fff;
+	background: #dedede;
 	color: #000;
 }
 
 .owstech-share div.drawer {
 	display: inline-block;
-	padding: .125em .125em 0 .125em;
+	padding: .125em .25em 0 .25em;
 	z-index: 1;
 	white-space: nowrap;
 	opacity: 0;
@@ -41,7 +41,14 @@
 .owstech-share:hover div.drawer{
 	opacity: 1;
 	left: 0;
-	box-shadow: 0px 1px 1px #aaa;
+	box-shadow: 0px 0px 3px rgba( 0, 0, 0, .3 );;
+	-webkit-box-shadow: 0px 0px 3px rgba( 0, 0, 0, .3 );;
+	-mox-box-shadow: 0px 0px 3px rgba( 0, 0, 0, .3 );
+	-webkit-transition: all 450ms cubic-bezier(0.250, 0.460, 0.450, 0.940);
+	-moz-transition: all 450ms cubic-bezier(0.250, 0.460, 0.450, 0.940);
+	-ms-transition: all 450ms cubic-bezier(0.250, 0.460, 0.450, 0.940);
+	-o-transition: all 450ms cubic-bezier(0.250, 0.460, 0.450, 0.940);
+	transition: all 450ms cubic-bezier(0.250, 0.460, 0.450, 0.940); /* easeOutQuad */	
 }
 
 .owstech-share ul,
@@ -70,7 +77,7 @@
 }
 
 .owstech-share a.icon {
-	opacity: .6;
+	opacity: .9;
 }
 
 .owstech-share a.icon:hover{
