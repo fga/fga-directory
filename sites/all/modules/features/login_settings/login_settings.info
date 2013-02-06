@@ -1,0 +1,9 @@
+name = Login Settings
+description = Ajax Register, login tobbogan, and other user login specifics
+core = 7.x
+package = Directory
+version = 7.x-1.01
+project = login_settings
+dependencies[] = ajax_register
+dependencies[] = logintoboggan
+features[features_api][] = api:1
