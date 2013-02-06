@@ -1155,8 +1155,7 @@ a.icon.site {
   background: #fff;
   box-shadow: 2px 2px 3px rgba( 0, 0, 0, .5 );
   text-indent: 0px;
-/*  width: 14em;
-*/}
+}
 
 .flyoutmenu:hover {
   z-index: 100;
@@ -1195,6 +1194,7 @@ a.icon.site {
 .search-result .ds-left .field-name-field-occupation-description {
   top: 2.875em;
   padding: 1em;
+  width: 14em;
 }
 
 .flyoutmenu .field-name-field-occupation-description::before {
