@@ -17,6 +17,10 @@ function occupations_ctools_plugin_api() {
     return array("version" => "2");
   }
   list($module, $api) = func_get_args();
+  if ($module == "delta" && $api == "delta") {
+    return array("version" => "3");
+  }
+  list($module, $api) = func_get_args();
   if ($module == "ds" && $api == "ds") {
     return array("version" => "1");
   }

@@ -13,6 +13,30 @@ function occupations_field_group_info() {
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
+  $field_group->identifier = 'group_additional_links|node|occupation|search';
+  $field_group->group_name = 'group_additional_links';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'occupation';
+  $field_group->mode = 'search';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'Additional Links',
+    'weight' => '45',
+    'children' => array(),
+    'format_type' => 'fieldset',
+    'format_settings' => array(
+      'formatter' => 'collapsible',
+      'instance_settings' => array(
+        'description' => '',
+        'classes' => '',
+      ),
+    ),
+  );
+  $export['group_additional_links|node|occupation|search'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
   $field_group->identifier = 'group_av_links|node|occupation|full';
   $field_group->group_name = 'group_av_links';
   $field_group->entity_type = 'node';
@@ -41,6 +65,35 @@ function occupations_field_group_info() {
     ),
   );
   $export['group_av_links|node|occupation|full'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_comments|node|occupation|full';
+  $field_group->group_name = 'group_comments';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'occupation';
+  $field_group->mode = 'full';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'Comments',
+    'weight' => '11',
+    'children' => array(),
+    'format_type' => 'div',
+    'format_settings' => array(
+      'label' => 'Comments',
+      'instance_settings' => array(
+        'classes' => '',
+        'description' => '',
+        'show_label' => '0',
+        'label_element' => 'h3',
+        'effect' => 'none',
+        'speed' => 'fast',
+      ),
+      'formatter' => 'open',
+    ),
+  );
+  $export['group_comments|node|occupation|full'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -87,7 +140,7 @@ function occupations_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Main Content',
-    'weight' => '25',
+    'weight' => '28',
     'children' => array(),
     'format_type' => 'div',
     'format_settings' => array(
@@ -116,7 +169,7 @@ function occupations_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Donation Info',
-    'weight' => '15',
+    'weight' => '3',
     'children' => array(
       0 => 'field_occupation_dontate_info',
       1 => 'field_occupation_donate_url',
@@ -148,11 +201,10 @@ function occupations_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Header',
-    'weight' => '6',
+    'weight' => '5',
     'children' => array(
-      0 => 'share_this_node_block',
-      1 => 'title',
-      2 => 'group_meta',
+      0 => 'title',
+      1 => 'group_meta',
     ),
     'format_type' => 'div',
     'format_settings' => array(
@@ -169,6 +221,37 @@ function occupations_field_group_info() {
     ),
   );
   $export['group_header|node|occupation|full'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_header|node|occupation|occupation_search_result';
+  $field_group->group_name = 'group_header';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'occupation';
+  $field_group->mode = 'occupation_search_result';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'Header',
+    'weight' => '0',
+    'children' => array(
+      0 => 'share_this_node_block',
+      1 => 'title',
+    ),
+    'format_type' => 'div',
+    'format_settings' => array(
+      'formatter' => 'collapsible',
+      'instance_settings' => array(
+        'description' => '',
+        'show_label' => 1,
+        'label_element' => 'h3',
+        'effect' => 'none',
+        'speed' => 'fast',
+        'classes' => '',
+      ),
+    ),
+  );
+  $export['group_header|node|occupation|occupation_search_result'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -277,7 +360,7 @@ function occupations_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Other Resources',
-    'weight' => '25',
+    'weight' => '29',
     'children' => array(),
     'format_type' => 'div',
     'format_settings' => array(
@@ -335,7 +418,7 @@ function occupations_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Group Links',
-    'weight' => '10',
+    'weight' => '8',
     'children' => array(
       0 => 'field_occupation_social_sites',
       1 => 'field_occupation_rss',
@@ -372,7 +455,7 @@ function occupations_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Location',
-    'weight' => '5',
+    'weight' => '1',
     'children' => array(
       0 => 'field_occupation_address',
     ),
@@ -403,7 +486,7 @@ function occupations_field_group_info() {
   $field_group->parent_name = 'group_header';
   $field_group->data = array(
     'label' => 'Meta',
-    'weight' => '5',
+    'weight' => '10',
     'children' => array(
       0 => 'field_occupation_type',
       1 => 'address_city_state_country',
@@ -597,11 +680,12 @@ function occupations_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Occupation Description',
-    'weight' => '7',
+    'weight' => '6',
     'children' => array(
       0 => 'field_occupation_description',
       1 => 'field_occupation_physical',
       2 => 'field_occupation_general_info',
+      3 => 'mapbox_static_map_full',
     ),
     'format_type' => 'div',
     'format_settings' => array(
@@ -781,6 +865,100 @@ function occupations_field_group_info() {
     ),
   );
   $export['group_occupation_teaser|node|occupation|occupation_search_result'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_title_loc|node|occupation|search';
+  $field_group->group_name = 'group_title_loc';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'occupation';
+  $field_group->mode = 'search';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'Title, location',
+    'weight' => '2',
+    'children' => array(
+      0 => 'address_city_state_country',
+      1 => 'title',
+    ),
+    'format_type' => 'div',
+    'format_settings' => array(
+      'label' => 'Title, location',
+      'instance_settings' => array(
+        'classes' => 'clearfix',
+        'description' => '',
+        'show_label' => '0',
+        'label_element' => 'h3',
+        'effect' => 'none',
+        'speed' => 'fast',
+      ),
+      'formatter' => 'open',
+    ),
+  );
+  $export['group_title_loc|node|occupation|search'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_twitter_links_wraper|node|occupation|search';
+  $field_group->group_name = 'group_twitter_links_wraper';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'occupation';
+  $field_group->mode = 'search';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'twitter-links-wrapper',
+    'weight' => '48',
+    'children' => array(
+      0 => 'twitter_user_link',
+      1 => 'twitter_hashtags_link',
+    ),
+    'format_type' => 'div',
+    'format_settings' => array(
+      'label' => 'twitter-links-wrapper',
+      'instance_settings' => array(
+        'classes' => 'item-wrapper',
+        'description' => '',
+        'show_label' => '0',
+        'label_element' => 'h3',
+        'effect' => 'none',
+        'speed' => 'none',
+      ),
+      'formatter' => 'open',
+    ),
+  );
+  $export['group_twitter_links_wraper|node|occupation|search'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_twitter_links_wrapper|node|occupation|form';
+  $field_group->group_name = 'group_twitter_links_wrapper';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'occupation';
+  $field_group->mode = 'form';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'Twitter Links Wrapper',
+    'weight' => '43',
+    'children' => array(),
+    'format_type' => 'div',
+    'format_settings' => array(
+      'label' => 'Twitter Links Wrapper',
+      'instance_settings' => array(
+        'required_fields' => 0,
+        'classes' => '',
+        'description' => '',
+        'show_label' => '0',
+        'label_element' => 'h3',
+        'effect' => 'none',
+        'speed' => 'none',
+      ),
+      'formatter' => 'open',
+    ),
+  );
+  $export['group_twitter_links_wrapper|node|occupation|form'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
