@@ -10,6 +10,24 @@
 function occupation_directory_structure_menu_default_menu_links() {
   $menu_links = array();
 
+  // Exported menu link: main-menu:user/logout
+  $menu_links['main-menu:user/logout'] = array(
+    'menu_name' => 'main-menu',
+    'link_path' => 'user/logout',
+    'router_path' => 'user/logout',
+    'link_title' => 'Log Out',
+    'options' => array(
+      'attributes' => array(
+        'title' => '',
+      ),
+    ),
+    'module' => 'menu',
+    'hidden' => '0',
+    'external' => '0',
+    'has_children' => '0',
+    'expanded' => '0',
+    'weight' => '43',
+  );
   // Exported menu link: menu-add-your-occupation:node/add/occupation
   $menu_links['menu-add-your-occupation:node/add/occupation'] = array(
     'menu_name' => 'menu-add-your-occupation',
@@ -198,6 +216,7 @@ function occupation_directory_structure_menu_default_menu_links() {
   t('CSV');
   t('CSV (now)');
   t('Facebook');
+  t('Log Out');
   t('RSS (new)');
   t('RSS (updated)');
   t('Twitter');
