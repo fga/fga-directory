@@ -3,9 +3,9 @@ description = Helps sites that are deployed directly from a Git repositories.
 core = 7.x
 files[] = git_deploy.module
 
-; Information added by drupal.org packaging script on 2011-10-20
-version = "7.x-1.x-dev"
+; Information added by drupal.org packaging script on 2012-07-01
+version = "7.x-2.2+3-dev"
 core = "7.x"
 project = "git_deploy"
-datestamp = "1319069806"
+datestamp = "1341145914"
 

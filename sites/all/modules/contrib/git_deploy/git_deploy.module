@@ -3,219 +3,85 @@
 /**
  * @file
  *
- * This module provides metadata about modules installed via git for
- * Drupal's updates listing. As it is intended to provide the same
- * functionality as cvs_deploy but for git modules, this module is modeled
- * after cvs_deploy which is written by Derek Wright ("dww")
- * http://drupal.org/user/46549.
- *
- * The intention of this module is to support the commit tagging
- * styles displayed at http://git.drupalcode.org/, which is a picture
- * of what drupal modules will look like after conversion to git. This
- * tagging convention is incompatible with the CVS tagging convention.
+ * This module add versioning information to projects checked out of git.
  */
 
 /**
- * Implement hook_system_info_alter() to provide metadata to drupal
- *   from git.
+ * Implement hook_system_info_alter() to provide metadata to drupal from git.
  *
- * We support populating $info['version'] and $info['project'], as
- * cvs_deploy does.
+ * We support populating $info['version'] and $info['project'].
  *
  * @param $info
  *   The module/theme info array we're altering.
  * @param $file
  *   An object describing the filesystem location of the module/theme.
  * @param $type
- *   Ignored. D7 has this, D6 doesn't. Is set to either 'module' or 'theme'.
+ *   Can be module or theme.
  */
 function git_deploy_system_info_alter(&$info, $file, $type = NULL) {
-  $module_dir = dirname($file->filename);
-  $git_dir = $module_dir . DIRECTORY_SEPARATOR . '.git';
-
-  // Skip this item if version and project are already set.
-  if (!empty($info['version'])
-    && !empty($info['project'])) {
-    return;
-  }
-
-  // Skip this item if it has no .git directory or no Glip library installed.
-  if (!file_exists($git_dir) || !_git_deploy_include_glip()) {
-    return;
-  }
-
-  // Get the project name
-  if (empty($info['project'])) {
-    $info['project'] = git_deploy_get_project_name($git_dir);
-  }
-
-  // Get the correct version for this project
   if (empty($info['version'])) {
-    $info['version'] = '';
-  }
-  _git_deploy_version_alter($info['version'], $git_dir, $file);
-
-  // Find the timestamp for the current commit.
-  $timestamp = git_deploy_get_project_timestamp($git_dir);
-
-  // Only fill this in if the .info file does not define a 'datestamp'.
-  if (empty($info['datestamp'])) {
-    $info['datestamp'] = $timestamp;
-  }
-
-  // However, the '_info_file_ctime' should always get the latest value.
-  if (empty($info['_info_file_ctime'])) {
-    $info['_info_file_ctime'] = $timestamp;
-  }
-  else {
-    $info['_info_file_ctime'] = max($info['_info_file_ctime'], $timestamp);
-  }
-}
-
-/**
- * Return the timestamp for the project's current commit.
- *
- * @param $git_dir
- *   The location of the .git directory.
- * @return
- *   Timestamp.
- */
-function git_deploy_get_project_timestamp($git_dir) {
-  _git_deploy_include_glip();
-  $repo = new Git($git_dir);
-  $git_object = $repo->getObject($repo->revParse());
-
-  return $git_object->committer->time;
-}
-
-/**
- * Private helper to alter the version of a module based on what we can figure
- * out about the Git tag.
- *
- * @param  $version
- *   The version to be altered, passed by reference
- * @param  $git_dir
- *   The location if the .git directory.
- */
-function _git_deploy_version_alter(&$version, $git_dir, $file) {
-  static $available;
-  _git_deploy_include_glip();
-
-  $repo = new Git($git_dir);
-  $githash = $repo->revParse();
-  $git_refs = $repo->getrefs();
-  $head_contents = file_get_contents($git_dir . DIRECTORY_SEPARATOR . 'HEAD');
-  if (strpos($head_contents, ':') == 3) {
-      foreach ($git_refs as $branch => $ref) {
-      if ($githash === $ref) {
-        $branch_name = explode('/', $branch);
-        if ($branch_name[2] === "origin") {
-          $git_tag = $branch_name[3];
-          break;
-        }
-        elseif ($branch_name[1] === "heads") {
-          $git_tag = $branch_name[2];
-          break;
-        }
-        else {
-          break;
-        }
+    $directory = dirname($file->uri);
+    // Check whether this belongs to core. Speed optimization.
+    if (substr($directory, 0, strlen($type)) != $type) {
+      while ($directory && !file_exists("$directory/.git")) {
+        $directory = substr($directory, 0,  strrpos($directory, '/'));
       }
-    }
-  }
-  else {
-    foreach ($git_refs as $tag => $ref) {
-      if ($githash === $ref) {
-        $tag_name = explode('/', $tag);
-        if ($tag_name[0] === "HEAD") {
-          continue;
+      $git_dir = "$directory/.git";
+      // Theoretically /.git could exist.
+      if ($directory && file_exists($git_dir)) {
+        $git = "git --git-dir $git_dir";
+        // Find first the project name based on fetch URL.
+        // Eat error messages. >& is valid on Windows, too. Also, $output does
+        // not need initialization because it's taken by reference.
+        exec("$git remote show -n origin 2>&1", $output);
+        if ($fetch_url = preg_grep('/^\s*Fetch URL:/', $output)) {
+          $fetch_url = current($fetch_url);
+          $project_name = substr($fetch_url, strrpos($fetch_url, '/') + 1);
+          if (substr($project_name, -4) == '.git') {
+            $project_name = substr($project_name, 0, -4);
+          }
+          $info['project'] = $project_name;
         }
-        else {
-          if ($tag_name[1] == "tags") {
-            $git_tag = $tag_name[2];
+        // Try to fill in branch and tag.
+        exec("$git rev-parse --abbrev-ref HEAD 2>&1", $branch);
+        $tag_found = FALSE;
+        if ($branch) {
+          $branch = $branch[0];
+          // Any Drupal-formatted branch.
+          $branch_preg =  '\d+\.x-\d+\.';
+          if (preg_match('/^' . $branch_preg . 'x$/', $branch)) {
+            $info['version'] = $branch . '-dev';
+            // Nail down the core and the major version now that we know
+            // what they are.
+            $branch_preg = preg_quote(substr($branch, 0, -1));
+          }
+          // Now try to find a tag.
+          exec("$git rev-list --topo-order --max-count=1 HEAD 2>&1", $last_tag_hash);
+          if ($last_tag_hash) {
+            exec("$git describe  --tags $last_tag_hash[0] 2>&1", $last_tag);
+            if ($last_tag) {
+              $last_tag = $last_tag[0];
+              // Make sure the tag starts as Drupal formatted (for eg.
+              // 7.x-1.0-alpha1) and if we are on a proper branch (ie. not
+              // master) then it's on that branch.
+              if (preg_match('/^(' . $branch_preg . '\d+(?:-[^-]+)?)(-(\d+-)g[0-9a-f]{7})?$/', $last_tag, $matches)) {
+                $tag_found = TRUE;
+                $info['version'] = isset($matches[2]) ? $matches[1] . '.' . $matches[3] . 'dev' : $last_tag;
+              }
+            }
           }
         }
-      }
-    }
-  }
-
-  if (!empty($git_tag)) {
-    $version = $git_tag;
-    if (preg_match('/-[1-9][0-9]*\.x/', $version, $match)) {
-      $version .= '-dev';
-    }
-  }
-
-  if (module_exists('update') && $version == 'master') {
-    module_load_include('inc', 'update', 'update.compare');
-    // If there's available update_status data, we can use the version string
-    // the release node pointing to HEAD really has. However, we can only
-    // safely grab this data directly from the cache, since if we call
-    // update_get_available() here, we'd enter infinite recursion when that
-    // function invokes update_get_projects(), which in turn needs to process
-    // the .info files, which invokes the hook that leads here.
-    if (empty($available)) {
-      $available = _update_get_cached_available_releases();
-    }
-    $project = update_get_project_name($file);
-    if (isset($available[$project]['releases'])) {
-      foreach ($available[$project]['releases'] as $release) {
-        if (isset($release['tag']) && $release['tag'] == 'HEAD') {
-          $version = $release['version'];
-          break;
+        if (!$tag_found) {
+          $last_tag = '';
+        }
+        // The git log -1 command always succeeds and if we are not on a
+        // tag this will happen to return the time of the last commit which
+        // is exactly what we wanted.
+        exec("$git log -1 --pretty=format:%at $last_tag 2>&1", $datestamp);
+        if ($datestamp && is_numeric($datestamp[0])) {
+          $info['datestamp'] = $datestamp[0];
         }
       }
     }
-  }
-}
-
-/**
- * Helper function to get the project associated with a Git directory.
- *
- * @param  $git_dir
- *   The location if the .git directory.
- * @return
- *   The name of the project.
- */
-function git_deploy_get_project_name($git_dir) {
-  $git_config_file = $git_dir . DIRECTORY_SEPARATOR . 'config';
-
-  if (file_exists($git_config_file)) {
-    $git_config = file_get_contents($git_config_file);
-    if (preg_match(';^\s*url\s*=\s*.*?([^/.]+?)(\.git)?\s*$;m', $git_config, $matches)) {
-      $project = $matches[1];
-    }
-  }
-  if (!empty($project)) {
-    return $project;
-  }
-  else {
-    return '';
-  }
-}
-
-/**
- * Helper function to include the Glip library.
- *
- * Uses the Libraries module for discovery if it's enabled, falls back to
- * looking in git_deploy if it isn't.
- *
- * @return boolean $glip
- *   The path to the already included library file, or FALSE if not found.
- */
-function _git_deploy_include_glip() {
-  if (module_exists('libraries')) {
-    $glip_path = libraries_get_path('glip');
-  }
-  else {
-    $glip_path = drupal_get_path('module', 'git_deploy') . '/glip';
-  }
-  $glip = $glip_path . '/lib/glip.php';
-  if (file_exists($glip)) {
-    require_once $glip;
-    return $glip;
-  }
-  else {
-    return FALSE;
   }
 }
