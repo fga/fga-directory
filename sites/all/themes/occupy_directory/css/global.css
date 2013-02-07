@@ -1142,8 +1142,6 @@ a.icon.site {
   z-index: 10;
 }
 
-.region-name { display: none !important; }
-
 .flyoutmenu .field-name-field-occupation-description,
 .flyoutmenu .item-wrapper {
   position: absolute;
@@ -1168,7 +1166,7 @@ a.icon.site {
   -moz-transition: opacity 375ms cubic-bezier(0.250, 0.460, 0.450, 0.940);
   -ms-transition: opacity 375ms cubic-bezier(0.250, 0.460, 0.450, 0.940);
   -o-transition: opacity 375ms cubic-bezier(0.250, 0.460, 0.450, 0.940);
-  transition: opacity 375ms cubic-bezier(0.250, 0.460, 0.450, 0.940); 
+  transition: opacity 375ms cubic-bezier(0.250, 0.460, 0.450, 0.940);
   opacity: 1;
   left: -1.375em;
   top: 2.125em;
@@ -1275,8 +1273,8 @@ a.icon.site {
   overflow: visible;
 }
 
-.field-name-field-occupation-field-name-field-occupation-origin-date, 
-.field-name-field-occupation-phone-general, 
+.field-name-field-occupation-field-name-field-occupation-origin-date,
+.field-name-field-occupation-phone-general,
 .field-type-addressfield { margin-bottom: 1em;}
 
 .field-name-field-occupation-phone-general { margin-top: 1em; }
@@ -1376,3 +1374,16 @@ label {
   background: #eee;
   margin: 1em 0 0 0;
 }
+
+
+
+/*
+-------------------------------------
+  Hacks
+-------------------------------------
+*/
+
+/* context beta-5 and beta-6 expose unwanted UI elements re: https://drupal.org/node/1905502 */
+.context-block-region .region-name { display: none !important; }
+.context-block-region a.context-ui-add-link { display: none !important; }
+
