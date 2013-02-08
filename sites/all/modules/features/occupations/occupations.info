@@ -26,6 +26,7 @@ dependencies[] = image
 dependencies[] = link
 dependencies[] = list
 dependencies[] = menu
+dependencies[] = occupations_solr_state_fix
 dependencies[] = openlayers
 dependencies[] = options
 dependencies[] = pathauto
