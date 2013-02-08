@@ -1,0 +1,11 @@
+name = Occupations Solr State Fix
+description = This fixes an issue with solr not being able to index the full names of states when using addessfield
+core = 7.x
+package = FGA
+version = 7.x-1.18
+project = occupations_solr_state_fix
+dependencies[] = features
+dependencies[] = field_sql_storage
+dependencies[] = text
+features[features_api][] = api:1
+features[field][] = node-occupation-field_state_name
