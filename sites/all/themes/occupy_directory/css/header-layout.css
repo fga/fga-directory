@@ -49,7 +49,7 @@ Zen here I come!
 }
 
 #zone-menu {
-  height: 4.25em;
+  height: 3.5em;
   margin: 0 0 0 0;
   padding: 0;
   background: #aaa;
@@ -115,7 +115,7 @@ Zen here I come!
 
 /* General width */
 @media all and ( min-width: 845px ){
-  
+
   /*
   -----------------------------------
     Content
