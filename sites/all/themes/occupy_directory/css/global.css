@@ -1048,20 +1048,6 @@ ul.tweets-pulled-listing  li {
   margin: .5em 0 .5em 0;
 }
 
-/* HACKS */
-
-#admin-menu { margin:0 !important; }
-
-/* Country is renedered outside the wrapper div, so clearing gives us a big
-   space when there's an image*/
-.addressfield-container-inline:after {
-  clear:none;
-}
-
-.label-inline {
-  display: inline-block;
-  margin-right: 5px;
-}
 
 /*
 ---------------------------------------------------------
@@ -1341,6 +1327,19 @@ label {
   Hacks
 -------------------------------------
 */
+
+#admin-menu { margin:0 !important; }
+
+/* Country is renedered outside the wrapper div, so clearing gives us a big
+   space when there's an image*/
+.addressfield-container-inline:after {
+  clear:none;
+}
+
+.label-inline {
+  display: inline-block;
+  margin-right: 5px;
+}
 
 /* context beta-5 and beta-6 expose unwanted UI elements re: https://drupal.org/node/1905502 */
 .context-block-region .region-name { display: none !important; }
