@@ -1605,7 +1605,7 @@ function occupations_field_default_fields() {
             'image_style' => 'occupation_thumb_med',
           ),
           'type' => 'image',
-          'weight' => '9',
+          'weight' => '0',
         ),
         'occupation_search_result' => array(
           'label' => 'hidden',
@@ -2438,7 +2438,7 @@ function occupations_field_default_fields() {
             'multiple_to' => '',
           ),
           'type' => 'date_default',
-          'weight' => '2',
+          'weight' => '40',
         ),
         'occupation_search_result' => array(
           'label' => 'hidden',

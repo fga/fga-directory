@@ -106,12 +106,15 @@ function occupations_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Contact Info',
-    'weight' => '0',
+    'weight' => '5',
     'children' => array(
-      0 => 'field_occupation_image',
+      0 => 'field_occupation_origin_date',
       1 => 'field_occupation_website',
       2 => 'field_occupation_email_general',
       3 => 'field_occupation_phone_general',
+      4 => 'submitted_by',
+      5 => 'group_donate_info',
+      6 => 'group_location',
     ),
     'format_type' => 'div',
     'format_settings' => array(
@@ -166,10 +169,10 @@ function occupations_field_group_info() {
   $field_group->entity_type = 'node';
   $field_group->bundle = 'occupation';
   $field_group->mode = 'full';
-  $field_group->parent_name = '';
+  $field_group->parent_name = 'group_contact';
   $field_group->data = array(
     'label' => 'Donation Info',
-    'weight' => '3',
+    'weight' => '30',
     'children' => array(
       0 => 'field_occupation_dontate_info',
       1 => 'field_occupation_donate_url',
@@ -180,7 +183,7 @@ function occupations_field_group_info() {
       'instance_settings' => array(
         'classes' => '',
         'description' => '',
-        'show_label' => '0',
+        'show_label' => '1',
         'label_element' => 'h3',
         'effect' => 'none',
         'speed' => 'fast',
@@ -452,10 +455,10 @@ function occupations_field_group_info() {
   $field_group->entity_type = 'node';
   $field_group->bundle = 'occupation';
   $field_group->mode = 'full';
-  $field_group->parent_name = '';
+  $field_group->parent_name = 'group_contact';
   $field_group->data = array(
     'label' => 'Location',
-    'weight' => '1',
+    'weight' => '20',
     'children' => array(
       0 => 'field_occupation_address',
     ),
