@@ -56,7 +56,9 @@ function directory_solr_default_search_api_index() {
       "index_directly" : 1,
       "cron_limit" : "50",
       "fields" : {
-        "title" : { "type" : "text", "boost" : "21.0" },
+        "title" : { "type" : "text", "boost" : "8.0" },
+        "status" : { "type" : "boolean" },
+        "author" : { "type" : "integer", "entity_type" : "user" },
         "field_tags" : { "type" : "list\\u003Cinteger\\u003E", "entity_type" : "taxonomy_term" },
         "field_occupation_origin_date" : { "type" : "date" },
         "field_occupation_twitter" : { "type" : "list\\u003Ctext\\u003E", "boost" : "5.0" },
@@ -65,21 +67,20 @@ function directory_solr_default_search_api_index() {
         "field_occupation_twitter_hash" : { "type" : "list\\u003Cinteger\\u003E", "entity_type" : "taxonomy_term" },
         "field_occupation_type" : { "type" : "integer", "entity_type" : "taxonomy_term" },
         "field_term_geographic_area" : { "type" : "integer", "entity_type" : "taxonomy_term" },
+        "field_state_name" : { "type" : "text", "boost" : "21.0" },
         "search_api_language" : { "type" : "string" },
+        "search_api_access_node" : { "type" : "list\\u003Cstring\\u003E" },
         "field_occupation_address:country" : { "type" : "string" },
         "field_occupation_address:name_line" : { "type" : "text" },
-        "field_occupation_address:administrative_area" : { "type" : "text", "boost" : "3.0" },
+        "field_occupation_address:administrative_area" : { "type" : "text", "boost" : "21.0" },
         "field_occupation_address:sub_administrative_area" : { "type" : "text", "boost" : "2.0" },
-        "field_occupation_address:locality" : { "type" : "text", "boost" : "8.0" },
+        "field_occupation_address:locality" : { "type" : "text", "boost" : "13.0" },
         "field_occupation_address:dependent_locality" : { "type" : "text" },
         "field_occupation_address:postal_code" : { "type" : "text" },
         "field_occupation_address:thoroughfare" : { "type" : "text", "boost" : "2.0" },
         "field_occupation_description:value" : { "type" : "text", "boost" : "3.0" },
         "field_occupation_general_info:value" : { "type" : "text", "boost" : "2.0" },
-        "field_occupation_twitter_hash:name" : { "type" : "list\\u003Ctext\\u003E", "boost" : "8.0" },
-        "status" : { "type" : "boolean" },
-        "author" : { "type" : "integer", "entity_type" : "user" },
-        "search_api_access_node" : { "type" : "list\\u003Cstring\\u003E" }
+        "field_occupation_twitter_hash:name" : { "type" : "list\\u003Ctext\\u003E", "boost" : "8.0" }
       },
       "data_alter_callbacks" : {
         "search_api_alter_bundle_filter" : {
