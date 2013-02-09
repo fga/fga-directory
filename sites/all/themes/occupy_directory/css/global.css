@@ -263,6 +263,8 @@ Tabs
 .front #region-content .tabs{
   position: absolute;
   top: 0;
+  left: 56px;
+  width: 300px;
 }
 
 .tabs.primary{
@@ -688,7 +690,7 @@ Global Search bar
 */
 
 #zone-menu .region-search-inner {
-  padding: 1em .5em 1em 1em;
+  padding: .475em .5em .8em 1em;
 }
 
 input#edit-search {
@@ -979,14 +981,17 @@ footer#section-footer #block-menu-menu-social-media-links ul li a{
   display: block;
   text-indent: -2000px;
 }
+footer#section-footer #block-menu-menu-social-media-links ul li a:hover {
+  background: transparent;
+}
 
 footer#section-footer #block-menu-menu-social-media-links ul li.first.leaf{
-  background-image: url( "/sites/all/themes/occupy_directory/images/facebook.png" );
-  background-repeat: no-repeat;
+  background: url( "../images/icon_facebook.png") no-repeat 0 0;
+  background-size: 80%;
 }
 
 footer#section-footer #block-menu-menu-social-media-links ul li.last.leaf{
-  background: url( "/sites/all/themes/occupy_directory/images/twitter.png" ) no-repeat;
+  background-image: url( "../images/twitter.png");
   background-repeat: no-repeat;
 }
 
@@ -1365,6 +1370,23 @@ label {
   Hacks
 -------------------------------------
 */
+
+#admin-menu {
+  margin:0 !important;
+  padding: 0 !important;
+}
+
+
+/* Country is renedered outside the wrapper div, so clearing gives us a big
+   space when there's an image*/
+.addressfield-container-inline:after {
+  clear:none;
+}
+
+.label-inline {
+  display: inline-block;
+  margin-right: 5px;
+}
 
 /* context beta-5 and beta-6 expose unwanted UI elements re: https://drupal.org/node/1905502 */
 .context-block-region .region-name { display: none !important; }
