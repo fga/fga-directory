@@ -148,7 +148,10 @@ div.ctools-modal-content a.close img {
 }
 
 div.ctools-modal-content .login-forgot {
-  margin: 0 1em;
+  margin: 1em;
+  font-weight: bold;
+  font-size: 1.2em;
+  text-align: right;
 }
 
 div.ctools-modal-content .edit-submit {
@@ -1345,3 +1348,13 @@ label {
 .context-block-region .region-name { display: none !important; }
 .context-block-region a.context-ui-add-link { display: none !important; }
 
+#overlay-container, .overlay-modal-background, .overlay-element {
+  z-index: 6000;
+}
+.overlay-element {
+  z-index: 6001;
+}
+
+div.ctools-modal-content .modal-content #user-login {
+  overflow: hidden;
+}
