@@ -1,3 +1,4 @@
+directory = {};
 
 Drupal.behaviors.occupy_directory = {
 
@@ -9,16 +10,16 @@ Drupal.behaviors.occupy_directory = {
       @Todo, see about handling 'mouseout' if 'touchend' outside target.
     */
     // Defaults
-    Drupal.behaviors.occupy_directory.settings = {
+    directory.settings = {
       click_string: 'click',
       hover_string: 'mouseover',
       device: 'mouse'
     }
     // If device supports  touch we set our event strings to be touch events
     if ("ontouchstart" in document.documentElement) {
-      Drupal.behaviors.occupy_directory.settings.click_string = 'touchend';
-      Drupal.behaviors.occupy_directory.settings.hover_string = 'touchstart';
-      Drupal.behaviors.occupy_directory.settings.device = 'touch';
+      directory.settings.click_string = 'touchend';
+      directory.settings.hover_string = 'touchstart';
+      directory.settings.device = 'touch';
     }
 
     var facetSidebar = jQuery( '.solr-search #region-sidebar-first' );
@@ -28,13 +29,26 @@ Drupal.behaviors.occupy_directory = {
 
       function resize_sidebar() {
         var h = jQuery( results ).height();
-        facetSidebar.css( { 'height': h} );
+        facetSidebar.css( { 'height': h } );
       }
 
       resize_sidebar();
 
       jQuery(window).resize( function() {
         resize_sidebar();
+      });
+
+    }
+
+    if( jQuery('.flyoutmenu') && directory.settings.device ){
+  
+      jQuery( '.flyoutmenu' ).each( function() {
+        this.bind( 'touchstart', function( e ){
+          jQuery( this ).addClass('active');
+        });        
+        this.bind( 'touchstart', function( e ){
+          jQuery( this ).addClass('active');
+        });        
       });
 
     }
