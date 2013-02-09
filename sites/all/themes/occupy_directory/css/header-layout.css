@@ -80,9 +80,9 @@ Zen here I come!
 }
 
 #zone-menu .region-search-inner{
-  display: inline-block;
+/*  display: inline-block;
   width: 21.82em;
-  text-align: left;
+*/  text-align: left;
 }
 
 #block-boxes-occupation-count {
@@ -95,7 +95,32 @@ Zen here I come!
   white-space: nowrap;
 }
 
-@media all and ( max-width: 844px ){
+#zone-menu .region-search-inner {
+  text-align: left;
+  right: 1em;
+}
+
+#region-search #edit-search {
+  width: 100%;
+}
+
+#region-search #edit-search {
+  margin: 1.5em 0 0 8.25em;
+
+}
+
+@media all and ( max-width: 580px ){
+  #block-boxes-occupation-count { display: none; }
+}
+
+/* General width */
+@media all and ( min-width: 845px ){
+  
+  /*
+  -----------------------------------
+    Content
+  -----------------------------------
+  */
 
 /*  #zone-header:before {
     position: fixed;
@@ -108,16 +133,41 @@ Zen here I come!
     width: 100%;
     background: rgba( 255, 0, 0, .875 );
     padding: .5em;
-    content: "Less than 844 wide.";
+    content: "Greater than 845";
   }*/
 
-  #zone-header,
-  #region-search,
+  #zone-header {
+    height: 54px;
+    box-shadow: none;
+  }
+
   #region-menu{
-    clear:both;
-    width: 100%;
-    padding: 0;
+    float: right;
+    width: auto;
     margin: 0;
+  }
+
+ #zone-menu .region-search-inner {
+    text-align: left;
+    float: right;
+    position: absolute;
+    right: .5em;
+  }
+
+  #region-search #edit-search {
+    width: 21em;
+    margin: .5em 0 0 0;
+  }
+
+  #block-ajax-register-ajax-register-block{
+    padding: 1.25em 1em .875em 1em;
+    background: #f9b018;
+    line-height: 1.45;
+    font-size: .875em;
+  }
+
+  #block-ajax-register-ajax-register-block ul li{
+    margin-left: 0;
   }
 
   #zone-header {
@@ -127,30 +177,9 @@ Zen here I come!
     background: #000;
   }
 
-  #zone-menu { height: 0; position: relative; z-index: 1001; }
-  
-  #zone-menu .region-search-inner {
-    text-align: left;
-    width: 35%;
-    float: right;
-    position: absolute;
-    top: -3.5em;
-    right: 0;
-  }
-
-  #region-search #edit-search {
-    width: 100%;
-  }
-
-  #zone-header {
-    height: 116px;
-  }
-
   #region-menu{
     clear: both;
     position: static;
-    border-top: 1px #000 solid;
-    margin-top: 1em;
   }
 
   #block-ajax-register-ajax-register-block{
@@ -186,78 +215,5 @@ Zen here I come!
   #block-ajax-register-ajax-register-block li:hover {
     background: #000;
   }
-
 }
 
-@media all and ( max-width: 580px ){
-  #block-boxes-occupation-count { display: none; }
-}
-
-/* General width */
-@media all and ( min-width: 845px ){
-  
-  /*
-  -----------------------------------
-    Content
-  -----------------------------------
-  */
-
-/*  #zone-header:before {
-    position: fixed;
-    height: 1em;
-    text-align: center;
-    color: #fff;
-    z-index: 5005;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    background: rgba( 255, 0, 0, .875 );
-    padding: .5em;
-    content: "Greater than 845";
-  }*/
-
-  #zone-header {
-    height: 56px;
-    box-shadow: none;
-  }
-
-  #region-menu{
-    float: right;
-    width: auto;
-    margin: 0;
-  }
-
-  #region-search #edit-search {
-    width: 23em;
-  }
-
-  #block-ajax-register-ajax-register-block{
-    padding: 1.25em 1em .875em 1em;
-    background: #f9b018;
-    line-height: 1.45;
-    font-size: .875em;
-  }
-
-  #block-ajax-register-ajax-register-block ul li{
-    margin-left: 0;
-  }
-
-}
-
-@media all and ( min-width: 960px ) {
-
-/*  #zone-header:before {
-    position: fixed;
-    height: 1em;
-    text-align: center;
-    color: #fff;
-    z-index: 5005;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    background: rgba( 255, 0, 0, .875 );
-    padding: .5em;
-    content: "Greater than 960px";
-  }*/
-
-}
