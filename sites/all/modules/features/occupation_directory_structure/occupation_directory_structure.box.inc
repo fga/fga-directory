@@ -19,7 +19,13 @@ function occupation_directory_structure_default_box() {
   $box->description = 'Occupation Count';
   $box->options = array(
     'body' => array(
-      'value' => '<h4 id="occupation-count">1493 Occupations</h4>',
+      'value' => '<?php
+// Return the total number of published occupations
+// todo: cache results!
+
+$result = db_query("SELECT COUNT(*) FROM {node} WHERE type = \'occupation\' AND status = 1")->fetchField();
+print \'<h4 id="occupation-count">\' . $result . \'</span>&nbsp;<span class="count-label">Occupations</h4>\';
+?>',
       'format' => 'php_code',
     ),
     'additional_classes' => '',
