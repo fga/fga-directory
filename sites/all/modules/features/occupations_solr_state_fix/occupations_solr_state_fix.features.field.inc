@@ -50,10 +50,9 @@ function occupations_solr_state_fix_field_default_fields() {
       'display' => array(
         'default' => array(
           'label' => 'above',
-          'module' => 'text',
           'settings' => array(),
-          'type' => 'text_default',
-          'weight' => 33,
+          'type' => 'hidden',
+          'weight' => '33',
         ),
         'full' => array(
           'label' => 'above',
