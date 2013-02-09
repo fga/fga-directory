@@ -721,50 +721,51 @@ Do you have the information? <strong><a href="/node/add/occupation">Add an Occup
   $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['force_single'] = 0;
   $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['entity_load_capacity'] = '25';
   $handler->display->display_options['fields']['views_bulk_operations']['vbo_operations'] = array(
-    'action::node_assign_owner_action' => array(
+    'rules_component::rules_batch_update_state_names' => array(
       'selected' => 1,
+      'postpone_processing' => 0,
       'skip_confirmation' => 0,
       'override_label' => 0,
       'label' => '',
+    ),
+    'action::node_assign_owner_action' => array(
+      'selected' => 1,
       'postpone_processing' => 0,
+      'skip_confirmation' => 0,
+      'override_label' => 0,
+      'label' => '',
     ),
     'action::views_bulk_operations_delete_item' => array(
       'selected' => 1,
-      'skip_confirmation' => 0,
-      'override_label' => 0,
-      'label' => '',
       'postpone_processing' => 1,
-    ),
-    'action::system_message_action' => array(
-      'selected' => 0,
       'skip_confirmation' => 0,
       'override_label' => 0,
       'label' => '',
-      'postpone_processing' => 0,
     ),
     'action::views_bulk_operations_script_action' => array(
       'selected' => 0,
+      'postpone_processing' => 0,
       'skip_confirmation' => 0,
       'override_label' => 0,
       'label' => '',
-      'postpone_processing' => 0,
     ),
     'action::node_make_sticky_action' => array(
       'selected' => 0,
+      'postpone_processing' => 0,
       'skip_confirmation' => 0,
       'override_label' => 0,
       'label' => '',
-      'postpone_processing' => 0,
     ),
     'action::node_make_unsticky_action' => array(
       'selected' => 0,
+      'postpone_processing' => 0,
       'skip_confirmation' => 0,
       'override_label' => 0,
       'label' => '',
-      'postpone_processing' => 0,
     ),
     'action::views_bulk_operations_modify_action' => array(
       'selected' => 0,
+      'postpone_processing' => 0,
       'skip_confirmation' => 0,
       'override_label' => 0,
       'label' => '',
@@ -774,7 +775,6 @@ Do you have the information? <strong><a href="/node/add/occupation">Add an Occup
           '_all_' => '_all_',
         ),
       ),
-      'postpone_processing' => 0,
     ),
     'action::views_bulk_operations_argument_selector_action' => array(
       'selected' => 0,
@@ -787,66 +787,59 @@ Do you have the information? <strong><a href="/node/add/occupation">Add an Occup
     ),
     'action::node_promote_action' => array(
       'selected' => 0,
+      'postpone_processing' => 0,
       'skip_confirmation' => 0,
       'override_label' => 0,
       'label' => '',
-      'postpone_processing' => 0,
     ),
     'action::node_publish_action' => array(
       'selected' => 1,
+      'postpone_processing' => 0,
       'skip_confirmation' => 0,
       'override_label' => 0,
       'label' => '',
-      'postpone_processing' => 0,
-    ),
-    'action::system_goto_action' => array(
-      'selected' => 0,
-      'skip_confirmation' => 0,
-      'override_label' => 0,
-      'label' => '',
-      'postpone_processing' => 0,
     ),
     'action::node_unpromote_action' => array(
       'selected' => 0,
+      'postpone_processing' => 0,
       'skip_confirmation' => 0,
       'override_label' => 0,
       'label' => '',
-      'postpone_processing' => 0,
     ),
     'action::node_save_action' => array(
       'selected' => 1,
+      'postpone_processing' => 1,
       'skip_confirmation' => 0,
       'override_label' => 0,
       'label' => '',
-      'postpone_processing' => 1,
     ),
     'action::system_send_email_action' => array(
       'selected' => 0,
+      'postpone_processing' => 0,
       'skip_confirmation' => 0,
       'override_label' => 0,
       'label' => '',
-      'postpone_processing' => 0,
     ),
     'action::node_unpublish_action' => array(
       'selected' => 1,
+      'postpone_processing' => 0,
       'skip_confirmation' => 0,
       'override_label' => 0,
       'label' => '',
-      'postpone_processing' => 0,
     ),
     'action::node_unpublish_by_keyword_action' => array(
       'selected' => 1,
+      'postpone_processing' => 0,
       'skip_confirmation' => 0,
       'override_label' => 0,
       'label' => '',
-      'postpone_processing' => 0,
     ),
     'action::pathauto_node_update_action' => array(
       'selected' => 0,
+      'postpone_processing' => 0,
       'skip_confirmation' => 0,
       'override_label' => 0,
       'label' => '',
-      'postpone_processing' => 0,
     ),
   );
   /* Field: Content: Title */
@@ -972,15 +965,6 @@ Do you have the information? <strong><a href="/node/add/occupation">Add an Occup
   $handler->display->display_options['filters']['field_occupation_address_country']['expose']['operator'] = 'field_occupation_address_country_op';
   $handler->display->display_options['filters']['field_occupation_address_country']['expose']['identifier'] = 'country';
   $handler->display->display_options['filters']['field_occupation_address_country']['expose']['remember'] = TRUE;
-  /* Filter criterion: Broken/missing handler */
-  $handler->display->display_options['filters']['keys']['id'] = 'keys';
-  $handler->display->display_options['filters']['keys']['table'] = 'search_index';
-  $handler->display->display_options['filters']['keys']['field'] = 'keys';
-  $handler->display->display_options['filters']['keys']['exposed'] = TRUE;
-  $handler->display->display_options['filters']['keys']['expose']['operator_id'] = 'keys_op';
-  $handler->display->display_options['filters']['keys']['expose']['label'] = 'Search Terms';
-  $handler->display->display_options['filters']['keys']['expose']['operator'] = 'keys_op';
-  $handler->display->display_options['filters']['keys']['expose']['identifier'] = 'search';
   $handler->display->display_options['path'] = 'occupations/manage';
   $handler->display->display_options['menu']['type'] = 'tab';
   $handler->display->display_options['menu']['title'] = 'Manage Occupations';
