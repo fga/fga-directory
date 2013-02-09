@@ -10,19 +10,19 @@
 function fga_users_user_default_roles() {
   $roles = array();
 
-  // Exported role: site administrator
+  // Exported role: site administrator.
   $roles['site administrator'] = array(
     'name' => 'site administrator',
     'weight' => '3',
   );
 
-  // Exported role: site developer
+  // Exported role: site developer.
   $roles['site developer'] = array(
     'name' => 'site developer',
     'weight' => '2',
   );
 
-  // Exported role: unconfirmed
+  // Exported role: unconfirmed.
   $roles['unconfirmed'] = array(
     'name' => 'unconfirmed',
     'weight' => '6',
