@@ -1,6 +1,7 @@
 .owstech-share {
 	width: auto;
 	display: inline-block;
+	line-height:1;
 }
 
 .owstech-share .actuator {
@@ -8,13 +9,13 @@
 	float: left;
 	position: relative;
 	z-index: 2;
-	background: #000;
+	background: #222;
 }
 
 .owstech-share .actuator a{
 	display: block;
 	padding: .25em .375em;
-	color: #fff;
+	color: #eee;
 	text-decoration: none;
 }
 
