@@ -12,6 +12,11 @@
   padding: 1em 0;
   display: inline-block;
 }
+.search .occupation-count .occupation-count-span,
+.search .occupation-count .occupation-count-total {
+  font-size: 16px;
+  font-weight: bold;
+}
 
 .results-list>ul>li{
   padding: 1em 2em .5em 1em;
@@ -93,11 +98,15 @@
   line-height: 2;
 }
 
-.field-name-submitted-by,
+.search-result .field-name-submitted-by,
 .search-result .field-name-field-occupation-origin-date {
   width: 10em;
   margin-right: 1em;
   display: inline-block;
+}
+.search-result .field-name-submitted-by {
+  font-size: 12px;
+  line-height: 14px;
 }
 
 .search-result .field-name-field-occupation-origin-date {

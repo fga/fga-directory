@@ -520,15 +520,19 @@ Pager
 */
 
 .block .view ul.pager {
-  margin-top:.5em;
+  margin-top: 1.5em;
+  margin-bottom: 4em;
+  text-align: left;
 }
 
 /* new views pager renders "previous" instead of "prev" */
-ul.pager li {
+.item-list ul.pager li {
   display: inline-block;
   position: relative;
-  margin-left: .5em;
+  margin: 0 0 0 .5em;
   text-align: center;
+  padding: 0;
+  line-height: 26px;
 }
 
 ul.pager li a {
@@ -577,7 +581,7 @@ ul.pager li .ajax-progress .throbber{
   width: 24px;
   height: 24px;
   word-wrap: nowrap;
-  text-indent: -1000px;
+  text-indent: -10000px;
 }
 
 .pager-first:after,
@@ -622,7 +626,7 @@ ul.pager li .ajax-progress .throbber{
   width: 24px;
   height: 24px;
   margin: 0;
-  z-index: 1000;
+  /*z-index: 1000;*/
   text-decoration: none;
   border-radius: 12px;
   background: #000;
