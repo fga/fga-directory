@@ -447,11 +447,15 @@ Comments
 
 form.comment-form {
   padding: 1em;
-  margin: 1em;
-  border: 1px solid #eee;
-  border: 1px solid rgba(170, 170, 170, 0.57);
+  margin: 0 0 1em 0;
+  width: 42em;
   background: #dedede;
+  box-shadow: 1px 1px 3px #666;
+  box-shadow: 1px 1px 3px rgba( 0,0,0,.3);
+  -moz-box-shadow: 1px 1px 3px rgba( 0,0,0,.3);
+  -webkit-box-shadow: 1px 1px 3px rgba( 0,0,0,.3);
 }
+
 
 form.comment-form .form-item {
     margin:0;
@@ -461,7 +465,7 @@ form.comment-form .form-actions {
     margin-top: 1em;
 }
 
-
+.form-item-field-comment-state-und,
 #comments { display: none }
 
 
@@ -487,18 +491,18 @@ form.comment-form .form-actions {
   float: right;
 }
 
-#comments .links.inline li {
+#comment-body-add-more-wrapper .links.inline li {
   margin: 0 .5em 0 0;
   display: inline-block;
 }
 
-#comments .filter-wrapper { display: none;}
+#comment-body-add-more-wrapper .filter-wrapper { display: none;}
 
-#comments .comment-log {
+#comment-body-add-more-wrapper .comment-log {
   display: none;
 }
 
-#comments .comment-form {
+#comment-body-add-more-wrapper .comment-form {
   position: absolute;
   top: 0;
   left: 0;
