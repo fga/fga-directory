@@ -241,9 +241,101 @@ footer #block-menu-menu-feeds-and-exports:hover {
 @media all and ( min-width: 845px ) {}
 
 /* General width */
-@media all and ( min-width: 845px ) and ( max-width: 959px ){
+@media all and ( max-width: 959px ){
+
+  .node-type-occupation .ds-middle .group_header {
+    position: absolute;
+    top: 5em;
+    left: 21em;
+  }
+
+  .node-type-occupation .ds-left .field-name-field-occupation-image{
+    float: left;
+    margin-right
+  }
+
+  .node-type-occupation .ds-middle .group-occupation-description {
+    margin-top: 1em;
+  }
+
+  .node-type-occupation .ds-left {
+    position: relative;
+    top: 0;
+    display: inline-block;
+    width: 100%;
+    margin-left: 0;
+    margin-right: 3em;
+  }
+
+  .node-type-occupation .ds-left .group-contact {
+    margin-left: 17.25em;
+    margin-top: 6em;
+  }
+
+  .node-type-occupation .ds-middle {
+    width: 46em;
+  } 
+
+  .node-type-occupation .ds-right {
+    width: 14em;
+    position: absolute;
+    top: 20em;
+/*    left: 68em;
+*/  }
+
+  .ds-middle {
+    clear: both;
+    position: static;
+  }
+
+  .ds-right {
+    clear: both;
+    position: static;
+    display: block;
+  }
+
+
+
+  .link-group {
+    margin: 0 1em .125em 0;
+    padding: 1em;
+    font-size: .875em;
+    background: #eee;
+  }
+
+  .link-group ul,
+  .link-group .link-listing {
+    padding: 0;
+  }
+
+  .node-type-occupation .ds-left a,
+  .item-wrapper a,
+  .link-group li a,
+  .link-group li {
+    display: inline-block;
+    width: auto;
+  }
+
+  .ds-middle .link-group h3,
+  .ds-middle .link-group .label-above {
+    padding: 0em;
+    margin-top: 0;
+  }
+
+  .link-group a,
+  .node-type-occupation .ds-left a,
+  .flyoutmenu .item-wrapper a,
+  .node-type-occupation .ds-left .group-donate-info a,
+  .link-group a:hover,
+  .node-type-occupation .ds-left a:hover,
+  .flyoutmenu .item-wrapper a:hover,
+  .node-type-occupation .ds-left .group-donate-info a:hover {
+    width: auto !important;
+  }
+
 
 }
+
 
 @media all and ( min-width: 960px ) {
 
@@ -259,7 +351,6 @@ footer #block-menu-menu-feeds-and-exports:hover {
     width: 46em;
     display: inline-block;
     float: left;
-    position: relative;
   }
 
   .node-type-occupation .ds-right {
@@ -267,6 +358,56 @@ footer #block-menu-menu-feeds-and-exports:hover {
     position: absolute;
     left: 68em;
   }
+
+  .link-group {
+    width: 16.75em;
+    margin: 0 1em 1em 0;
+    padding: 0;
+    font-size: .875em;
+    background: #eee;
+    display: inline-block;
+    vertical-align: top;
+    height: 19em;
+  }
+
+  .link-group a,
+  .ds-middle .item-wrapper a,
+  .node-type-occupation .ds-left a {
+    display: block;
+    width: 12em;
+    clear: both;
+  }
+
+  .link-group:nth-child( 3n+3 ){
+    margin-right: 0;
+  }
+
+  .link-group ul,
+  .link-group .link-listing {
+    border-bottom: 1px #000 solid;
+    padding-left: 1em;
+    height: 14.5em;
+    overflow: auto;
+    overflow-y: auto;
+    overflow-x: visible;
+  }
+
+  .link-group a:hover,
+  .node-type-occupation .ds-left a:hover,
+  .flyoutmenu .item-wrapper a:hover,
+  .node-type-occupation .ds-left .group-donate-info a:hover {
+    color: #fc0;
+    width: auto;
+    margin-bottom:2px;
+    text-overflow: visible;
+    overflow: visible;
+  }
+
+  .ds-middle .link-group h3,
+  .ds-middle .link-group .label-above {
+    padding-left: .75em;
+  }
+
 }
 
 
@@ -306,14 +447,11 @@ Overrides
   padding-bottom: 2em;
 }
 
-.block-owstech-share {
-  margin-bottom: .25em;
-}
-
 .node-type-occupation .group_meta {
   font-size: .875em;
   color: #666;
-  margin-bottom: 2em;
+  line-height: 1.2;
+  margin-bottom: 1em;
 }
 
 .node-type-occupation .field-name-title h1 {
@@ -322,16 +460,15 @@ Overrides
 }
 
 .node-type-occupation .field-name-field-occupation-image {
-  width: 12.571428em;
-  height: 12.571428em;
+  width: 14.75em;
+  height: 14.75em;
+  margin-left: -.25em;
   border: .5em #fafafa solid;
   box-shadow: 1px 1px 1px rgba( 0,0,0, .3 );
   margin-bottom: 1em;
 }
 
 .node-type-occupation .field-name-field-occupation-image img {
-  width: 12.571428em;
-  height: 12.571428em;
   display: block;
 }
 

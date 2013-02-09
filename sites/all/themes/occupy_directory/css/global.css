@@ -422,11 +422,6 @@ Comments
 ---------------------------------------------------------
 */
 
-/*.group-comments {
-  border-top: 1px #000 solid;
-}
-*/
-
 .node-type-occupation .comment-add a {
   display: inline-block;
   background: #000;
@@ -491,11 +486,6 @@ form.comment-form .form-actions {
   padding: .25em 0 .5em .5em;
   float: right;
 }
-
-/*
-#comments h2.title {
-  display: none;
-}*/
 
 #comments .links.inline li {
   margin: 0 .5em 0 0;
@@ -1199,31 +1189,6 @@ a.icon.site {
   left: 2em;
 }
 
-.link-group {
-  width: 16.75em;
-  margin: 0 1em 1em 0;
-  padding: 0;
-  font-size: .875em;
-  background: #eee;
-  display: inline-block;
-  vertical-align: top;
-  height: 19em;
-}
-
-.link-group:nth-child( 3n+3 ){
-  margin-right: 0;
-}
-
-.link-group ul,
-.link-group .link-listing {
-  border-bottom: 1px #000 solid;
-  padding-left: 1em;
-  height: 14.5em;
-  overflow: auto;
-  overflow-y: auto;
-  overflow-x: visible;
-}
-
 .link-group a,
 .block-facetapi .item-list li,
 .node-type-occupation .ds-left a,
@@ -1245,16 +1210,16 @@ a.icon.site {
   z-index: 490;
 }
 
-.block-facetapi .item-list li{
-  overflow: visible;
+.node-type-occupation .ds-left .field-name-submitted-by a {
+  width: auto;
+  background: none;
+  display: inline;
+  padding: 0;
+  text-decoration: underline;
 }
 
-.link-group a,
-.ds-middle .item-wrapper a,
-.node-type-occupation .ds-left a {
-  display: block;
-  width: 12em;
-  clear: both;
+.block-facetapi .item-list li{
+  overflow: visible;
 }
 
 .block-facetapi .item-list li {
@@ -1262,16 +1227,6 @@ a.icon.site {
   clear: none;
 }
 
-.link-group a:hover,
-.node-type-occupation .ds-left a:hover,
-.flyoutmenu .item-wrapper a:hover,
-.node-type-occupation .ds-left .group-donate-info a:hover {
-  color: #fc0;
-  width: auto;
-  margin-bottom:2px;
-  text-overflow: visible;
-  overflow: visible;
-}
 
 .field-name-field-occupation-field-name-field-occupation-origin-date,
 .field-name-field-occupation-phone-general,

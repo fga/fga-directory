@@ -108,15 +108,16 @@ h2 {
   font-size: 2em;
 }
 
-
 .node-type-occupation .field-name-title h2 {
   text-transform: uppercase;
   line-height: 1.2;
   margin-top: 0;
+  margin-bottom: .25em;
 }
 
 .node-type-occupation .ds-left {
   font-size: .875em;
+  line-height: 1.25em;
 }
 
 h3 { font-size: 1.5em; }
@@ -156,10 +157,10 @@ header h3.block-title {
   margin: 1em 0 1em 0;
   white-space: nowrap;
   width: 8em;
-  padding-left: .75em;
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
 
 h1.title {
   margin: 0 0 .75em;
