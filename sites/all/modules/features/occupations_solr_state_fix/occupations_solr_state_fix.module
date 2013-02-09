@@ -1,5 +1,36 @@
 <?php
 /**
  * @file
- * Drupal needs this blank file.
  */
+
+/**
+ * Implements hook_node_validate
+ * 
+ * Takes state abbreviation in address field and puts full name into field_state_name
+ * This field is not exposed to the end user and exists for solr indexing only.
+ * 
+ * @param unknown $node
+ * @param unknown $form
+ * @param unknown $form_state
+ */
+function occupations_solr_state_fix_node_validate($node, $form, &$form_state) {
+  // Get the full state name based on the state the user has chosen
+  $abbrev = $form_state['values']['field_occupation_address']['und'][0]['administrative_area'];
+  $label = $form['field_occupation_address']['und'][0]['locality_block']['administrative_area']['#options'][$abbrev];
+  
+  // Put the state full name into field_state_name
+  $form_state['values']['field_state_name']['und'][0]['value'] = $label; 
+}
+
+/**
+ * Implements hook_form_id_alter
+ * 
+ * Hide field_state_name on the node_edit form
+ * 
+ * @param unknown $form
+ * @param unknown $form_state
+ */
+function occupations_solr_state_fix_form_occupation_node_form_alter(&$form, &$form_state) {
+  $form['field_state_name']['#access'] = false;
+}
+
