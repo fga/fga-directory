@@ -84,10 +84,15 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .ds-right .links.inline a {
-  font-size: 1.2857em;
+  font-size: 1em;
+  letter-spacing: .125em;
   padding: .25em .375em;
   color: #fafafa;
   font-family: Dosis, helvetica, arial, sans-serif; font-style: normal; font-weight: 300;
+}
+
+.owstech-share h4.actuator {
+  font-size: 1.0875em;
 }
 
 .search-result h3.title {
@@ -108,14 +113,14 @@ h2 {
   font-size: 2em;
 }
 
-.node-type-occupation .field-name-title h2 {
+.occupation .field-name-title h2 {
   text-transform: uppercase;
   line-height: 1.2;
   margin-top: 0;
   margin-bottom: .25em;
 }
 
-.node-type-occupation .ds-left {
+.occupation .ds-left {
   font-size: .875em;
   line-height: 1.25em;
 }

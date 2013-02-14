@@ -9,7 +9,8 @@
 	float: left;
 	position: relative;
 	z-index: 2;
-	background: #222;
+	background: #000;
+	letter-spacing: .125em;
 }
 
 .owstech-share .actuator a{
@@ -28,7 +29,9 @@
 
 .owstech-share div.drawer {
 	display: inline-block;
-	padding: .125em .25em 0 .25em;
+	background: #fff;
+	padding: 0 .125em .125em .35em;
+	position: relative;
 	z-index: 1;
 	white-space: nowrap;
 	opacity: 0;
@@ -61,7 +64,7 @@
 .owstech-share ul li {
 	display: inline-block;
 	margin-right: 1px;
-	padding: .325em 0;
+	padding: .25em 0 .125em 0;
 }
 
 .owstech-share ul li a {
