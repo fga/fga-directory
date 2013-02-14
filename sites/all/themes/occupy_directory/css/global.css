@@ -42,6 +42,7 @@ a:active {
 
 .element-invisible { display: none; }
 
+
 /*
 ---------------------------------------------------------
 Header
@@ -62,7 +63,7 @@ Header
 }
 
 .logo-img{
-  z-index: 901;
+  z-index: 500;
   position: absolute;
   top: 0px;
   padding: 0;
@@ -77,7 +78,6 @@ Header
   position: absolute;
   top: -1000px;
 }
-
 
 
 /*
@@ -107,7 +107,7 @@ div.ctools-modal-content a.close {
   height: 24px;
   margin: 0;
   position: relative;
-  z-index: 1000;
+  z-index: 900;
   top: -.25em;
   text-decoration: none;
   border-radius: 12px;
@@ -115,7 +115,6 @@ div.ctools-modal-content a.close {
   color: #000;
   box-sizing: border-box;
 }
-
 
 div.ctools-modal-content a.close:after {
   position: relative;
@@ -148,10 +147,7 @@ div.ctools-modal-content a.close img {
 }
 
 div.ctools-modal-content .login-forgot {
-  margin: 1em;
-  font-weight: bold;
-  font-size: 1.2em;
-  text-align: right;
+  margin: 0 1em;
 }
 
 div.ctools-modal-content .edit-submit {
@@ -199,13 +195,12 @@ div.ctools-modal-content #modal-content {
   margin: 0;
 }
 
+
 /*
 ---------------------------------------------------------
 Occupation Count Box
 ---------------------------------------------------------
 */
-
-
 
 #block-boxes-occupation-count h4{
   color: #fc0;
@@ -262,14 +257,12 @@ Tabs
 #region-content .tabs{
   width: 100%;
   top: 1em;
-  z-index: 898;
+  z-index: 890;
 }
 
 .front #region-content .tabs{
   position: absolute;
   top: 0;
-  left: 56px;
-  width: 300px;
 }
 
 .tabs.primary{
@@ -355,7 +348,7 @@ Content
   border-top: 1px #000 solid;
   position: fixed;
   bottom: -489px;
-  z-index: 15000;
+  z-index: 950;
   margin: 0 auto;
   max-height: 520px;
   overflow: auto;
@@ -393,6 +386,7 @@ article a:hover, article a:active {
  background-color: #d0d0d0;
 }
 
+
 /*
 ---------------------------------------------------------
 Pages
@@ -427,20 +421,21 @@ Comments
 ---------------------------------------------------------
 */
 
-.node-type-occupation .comment-add a {
+.occupation .comment-add a {
   display: inline-block;
   background: #000;
   color: #fff;
   text-decoration: none;
 }
 
-.node-type-occupation .comment-add a:hover {
+.occupation .comment-add a:hover {
   background: #dedede;
   color: #000;
 }
 
-.node-type-occupation .ds-left .field-name-field-occupation-phone-general,
-.node-type-occupation .ds-left .field-name-field-occupation-origin-date,
+.occupation .ds-left .field-name-field-occupation-email-general,
+.occupation .ds-left .field-name-field-occupation-phone-general,
+.occupation .ds-left .field-name-field-occupation-origin-date,
 .group-occupation-description,
 .field-name-field-occupation-description {
   margin-bottom: 1em;
@@ -470,8 +465,8 @@ form.comment-form .form-actions {
     margin-top: 1em;
 }
 
-.form-item-field-comment-state-und,
-#comments { display: none }
+#suggested-edit-log,
+form.comment-form .filter-wrapper{ display: none }
 
 
 .comment-instructions {
@@ -494,6 +489,7 @@ form.comment-form .form-actions {
 .field-name-field-comment-state{
   padding: .25em 0 .5em .5em;
   float: right;
+  display: none;
 }
 
 #comment-body-add-more-wrapper .links.inline li {
@@ -501,17 +497,16 @@ form.comment-form .form-actions {
   display: inline-block;
 }
 
-#comment-body-add-more-wrapper .filter-wrapper { display: none;}
-
 #comment-body-add-more-wrapper .comment-log {
-  display: none;
-}
+/*  display: none;
+*/}
 
 #comment-body-add-more-wrapper .comment-form {
-  position: absolute;
+/*  position: absolute;
   top: 0;
   left: 0;
-}
+*/}
+
 
 /*
 ---------------------------------------------------------
@@ -520,19 +515,15 @@ Pager
 */
 
 .block .view ul.pager {
-  margin-top: 1.5em;
-  margin-bottom: 4em;
-  text-align: left;
+  margin-top:.5em;
 }
 
 /* new views pager renders "previous" instead of "prev" */
-.item-list ul.pager li {
+ul.pager li {
   display: inline-block;
   position: relative;
-  margin: 0 0 0 .5em;
+  margin-left: .5em;
   text-align: center;
-  padding: 0;
-  line-height: 26px;
 }
 
 ul.pager li a {
@@ -581,7 +572,7 @@ ul.pager li .ajax-progress .throbber{
   width: 24px;
   height: 24px;
   word-wrap: nowrap;
-  text-indent: -10000px;
+  text-indent: -1000px;
 }
 
 .pager-first:after,
@@ -626,7 +617,7 @@ ul.pager li .ajax-progress .throbber{
   width: 24px;
   height: 24px;
   margin: 0;
-  /*z-index: 1000;*/
+  z-index: 990;
   text-decoration: none;
   border-radius: 12px;
   background: #000;
@@ -663,21 +654,22 @@ SOLR Search Facets
   padding-bottom: .5em;
 }
 
+  .block-facetapi .item-list li {
+    min-width: 3.5em;
+  }
+
+  .block-facetapi .item-list li a {
+    text-decoration: none;
+  }
+
+  .block-facetapi .item-list li a.facetapi-active {
+    color: #fff;
+  }
 
 
-
-.block-facetapi .item-list li a {
-  text-decoration: none;
-}
-
-.block-facetapi .item-list li a.facetapi-active {
-  color: #fff;
-}
-
-
-#block-facetapi-pm5e0jb3duu7bhnhqvsxmxqfuomn3ymq li {
-  text-transform: uppercase;
-}
+  #block-facetapi-pm5e0jb3duu7bhnhqvsxmxqfuomn3ymq li {
+    text-transform: uppercase;
+  }
 
 
 /*
@@ -687,7 +679,7 @@ Global Search bar
 */
 
 #zone-menu .region-search-inner {
-  padding: .475em .5em .8em 1em;
+  padding: 1em .5em 1em 1em;
 }
 
 input#edit-search {
@@ -732,10 +724,12 @@ input#edit-search:after {
  margin: 0;
  display: inline;
 }
+
 #region-search input,
 #region-search select {
   background-color: #efefef;
 }
+
 #region-search select {
  max-width: 200px;
 }
@@ -762,8 +756,7 @@ See ds_layouts/search_result.php
 
 .solr-search #page-title {
   margin: .5em .5em .5em 3.25em;
-/*  display: none;
-*/}
+}
 
 .view-directory-global-search {
 }
@@ -879,8 +872,7 @@ Total Occupations
 }
 
 
-.table-view table {
-}
+.table-view table {}
 
 .table-view table thead th {
   padding: .5em;
@@ -904,6 +896,7 @@ Total Occupations
   margin-bottom: .33em;
   font-style:normal;
 }
+
 
 /*
 ---------------------------------------------------------
@@ -976,17 +969,14 @@ footer#section-footer #block-menu-menu-social-media-links ul li a{
   display: block;
   text-indent: -2000px;
 }
-footer#section-footer #block-menu-menu-social-media-links ul li a:hover {
-  background: transparent;
-}
 
 footer#section-footer #block-menu-menu-social-media-links ul li.first.leaf{
-  background: url( "../images/icon_facebook.png") no-repeat 0 0;
-  background-size: 80%;
+  background-image: url( "/sites/all/themes/occupy_directory/images/facebook.png" );
+  background-repeat: no-repeat;
 }
 
 footer#section-footer #block-menu-menu-social-media-links ul li.last.leaf{
-  background-image: url( "../images/twitter.png");
+  background: url( "/sites/all/themes/occupy_directory/images/twitter.png" ) no-repeat;
   background-repeat: no-repeat;
 }
 
@@ -1010,7 +1000,6 @@ footer#section-footer #block-menu-menu-feeds-and-exports:hover{
   -o-transform: translate(0,-170px); /* Opera */
   -moz-transform: translate(0,-170px); /* Firefox */
 };
-
 
 
 /*
@@ -1060,13 +1049,27 @@ ul.tweets-pulled-listing  li {
   margin: .5em 0 .5em 0;
 }
 
+/* HACKS */
+
+#admin-menu { margin:0 !important; }
+
+/* Country is renedered outside the wrapper div, so clearing gives us a big
+   space when there's an image*/
+.addressfield-container-inline:after {
+  clear:none;
+}
+
+.label-inline {
+  display: inline-block;
+  margin-right: 5px;
+}
+
 
 /*
 ---------------------------------------------------------
  Icons
 ---------------------------------------------------------
 */
-
 
 .icon>legend { margin: 0; padding: 0; }
 
@@ -1115,8 +1118,24 @@ a.icon.site {
   background: url( '../images/icon_twitter.png' ) no-repeat;
 }
 
-.icon.facebook h3{
+.icon.facebook h3 {
   background: url( '../images/icon_facebook.png' ) no-repeat;
+}
+
+a.icon.toggle-comments {
+  opacity: .5;
+  width: 16px;
+  height: 16px;
+  text-indent: -5000px;
+  background: url( '../images/icon_commentstoggle.png') no-repeat;
+}
+
+a.icon.toggle-comments:hover {
+  opacity: 1;
+}
+
+a.icon.toggle-comments.open {
+  background: url( '../images/icon_commentstoggle.png') top right no-repeat;  
 }
 
 
@@ -1131,7 +1150,7 @@ a.icon.site {
 .flyoutmenu {
   vertical-align: top;
   position: relative;
-  z-index: 10;
+  z-index: 100;
 }
 
 .flyoutmenu .field-name-field-occupation-description,
@@ -1148,7 +1167,7 @@ a.icon.site {
 }
 
 .flyoutmenu:hover {
-  z-index: 100;
+  z-index: 550;
   cursor: pointer;
 }
 
@@ -1193,7 +1212,7 @@ a.icon.site {
 
 .link-group a,
 .block-facetapi .item-list li,
-.node-type-occupation .ds-left a,
+.occupation .ds-left a,
 .item-wrapper a {
   display: inline-block;
   vertical-align: top;
@@ -1212,7 +1231,7 @@ a.icon.site {
   z-index: 490;
 }
 
-.node-type-occupation .ds-left .field-name-submitted-by a {
+.occupation .ds-left .field-name-submitted-by a {
   width: auto;
   background: none;
   display: inline;
@@ -1229,11 +1248,9 @@ a.icon.site {
   clear: none;
 }
 
-
 .field-name-field-occupation-field-name-field-occupation-origin-date,
 .field-name-field-occupation-phone-general,
 .field-type-addressfield { margin-bottom: 1em;}
-
 .field-name-field-occupation-phone-general { margin-top: 1em; }
 
 
@@ -1333,41 +1350,13 @@ label {
 }
 
 
-
 /*
 -------------------------------------
   Hacks
 -------------------------------------
 */
 
-#admin-menu {
-  margin:0 !important;
-  padding: 0 !important;
-}
-
-
-/* Country is renedered outside the wrapper div, so clearing gives us a big
-   space when there's an image*/
-.addressfield-container-inline:after {
-  clear:none;
-}
-
-.label-inline {
-  display: inline-block;
-  margin-right: 5px;
-}
-
 /* context beta-5 and beta-6 expose unwanted UI elements re: https://drupal.org/node/1905502 */
 .context-block-region .region-name { display: none !important; }
 .context-block-region a.context-ui-add-link { display: none !important; }
 
-#overlay-container, .overlay-modal-background, .overlay-element {
-  z-index: 6000;
-}
-.overlay-element {
-  z-index: 6001;
-}
-
-div.ctools-modal-content .modal-content #user-login {
-  overflow: hidden;
-}

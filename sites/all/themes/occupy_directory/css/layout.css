@@ -128,10 +128,9 @@ footer #block-menu-menu-feeds-and-exports:hover {
 @media all and ( min-width: 651px ) and ( max-width: 844px ){
 
   .not-front #region-content .region-content-inner {
-    margin: 0 14em 2em 2em;
+    margin: 0 14em 2em 0;
     padding-right: 2em;
     padding-top: 2em;
-    max-width: 480px;
   }
 
   .not-front #region-sidebar-first{
@@ -222,8 +221,8 @@ footer #block-menu-menu-feeds-and-exports:hover {
 -----------------------------------
 */
 
-.node-type-occupation #region-content,
-.node-type-occupation #region-content .region-content-inner{
+.occupation #region-content,
+.occupation #region-content .region-content-inner{
   width: 100%;
 /*  margin: 0 1em;
 */
@@ -243,22 +242,22 @@ footer #block-menu-menu-feeds-and-exports:hover {
 /* General width */
 @media all and ( max-width: 959px ){
 
-  .node-type-occupation .ds-middle .group_header {
+  .occupation .ds-middle .group_header {
     position: absolute;
-    top: 5em;
-    left: 21em;
+    top: 6em;
+    left: 23em;
   }
 
-  .node-type-occupation .ds-left .field-name-field-occupation-image{
+  .occupation .ds-left .field-name-field-occupation-image{
     float: left;
     margin-right
   }
 
-  .node-type-occupation .ds-middle .group-occupation-description {
+  .occupation .ds-middle .group-occupation-description {
     margin-top: 1em;
   }
 
-  .node-type-occupation .ds-left {
+  .occupation .ds-left {
     position: relative;
     top: 0;
     display: inline-block;
@@ -267,34 +266,27 @@ footer #block-menu-menu-feeds-and-exports:hover {
     margin-right: 3em;
   }
 
-  .node-type-occupation .ds-left .group-contact {
+  .occupation .ds-left .group-contact {
     margin-left: 17.25em;
     margin-top: 6em;
   }
 
-  .node-type-occupation .ds-middle {
+  .occupation .ds-middle {
     width: 46em;
   }
 
-  .node-type-occupation .ds-right {
-    width: 14em;
-    position: absolute;
-    top: 20em;
-/*    left: 68em;
-*/  }
 
   .ds-middle {
     clear: both;
     position: static;
   }
 
-  .ds-right {
-    clear: both;
-    position: static;
-    display: block;
+  .occupation .ds-right {
+    position: absolute;
+    z-index: 2000;
+    top: 15em;
+    left: 7.5em;
   }
-
-
 
   .link-group {
     margin: 0 1em .125em 0;
@@ -308,7 +300,7 @@ footer #block-menu-menu-feeds-and-exports:hover {
     padding: 0;
   }
 
-  .node-type-occupation .ds-left a,
+  .occupation .ds-left a,
   .item-wrapper a,
   .link-group li a,
   .link-group li {
@@ -323,13 +315,13 @@ footer #block-menu-menu-feeds-and-exports:hover {
   }
 
   .link-group a,
-  .node-type-occupation .ds-left a,
+  .occupation .ds-left a,
   .flyoutmenu .item-wrapper a,
-  .node-type-occupation .ds-left .group-donate-info a,
+  .occupation .ds-left .group-donate-info a,
   .link-group a:hover,
-  .node-type-occupation .ds-left a:hover,
+  .occupation .ds-left a:hover,
   .flyoutmenu .item-wrapper a:hover,
-  .node-type-occupation .ds-left .group-donate-info a:hover {
+  .occupation .ds-left .group-donate-info a:hover {
     width: auto !important;
   }
 
@@ -339,24 +331,24 @@ footer #block-menu-menu-feeds-and-exports:hover {
 
 @media all and ( min-width: 960px ) {
 
-  .node-type-occupation .ds-left {
+  .occupation .ds-left {
     display: inline-block;
     float: left;
     width: 14em;
-    margin-left: 3em;
+    margin-left: .5em;
     margin-right: 3em;
   }
 
-  .node-type-occupation .ds-middle {
+  .occupation .ds-middle {
     width: 46em;
-    display: inline-block;
-    float: left;
+    margin-left: 17em;
   }
 
-  .node-type-occupation .ds-right {
-    width: 14em;
+  .occupation .ds-right {
     position: absolute;
-    left: 68em;
+    top: 12.75em;
+    left: 70.75em;
+    width: 14em;
   }
 
   .link-group {
@@ -372,7 +364,7 @@ footer #block-menu-menu-feeds-and-exports:hover {
 
   .link-group a,
   .ds-middle .item-wrapper a,
-  .node-type-occupation .ds-left a {
+  .occupation .ds-left a {
     display: block;
     width: 12em;
     clear: both;
@@ -393,9 +385,9 @@ footer #block-menu-menu-feeds-and-exports:hover {
   }
 
   .link-group a:hover,
-  .node-type-occupation .ds-left a:hover,
+  .occupation .ds-left a:hover,
   .flyoutmenu .item-wrapper a:hover,
-  .node-type-occupation .ds-left .group-donate-info a:hover {
+  .occupation .ds-left .group-donate-info a:hover {
     color: #fc0;
     width: auto;
     margin-bottom:2px;
@@ -439,7 +431,7 @@ Overrides
   padding-bottom: 0;
 }
 
-.not-front #section-content{
+.not-front #section-content {
   padding-bottom: 8em;
 }
 
@@ -447,19 +439,19 @@ Overrides
   padding-bottom: 0;
 }
 
-.node-type-occupation .group_meta {
+.occupation .group_meta {
   font-size: .875em;
   color: #666;
   line-height: 1.2;
   margin-bottom: 1em;
 }
 
-.node-type-occupation .field-name-title h1 {
+.occupation .field-name-title h1 {
   margin: 0;
   line-height: 1.125em;
 }
 
-.node-type-occupation .field-name-field-occupation-image {
+.occupation .field-name-field-occupation-image {
   width: 14.75em;
   height: 14.75em;
   margin-left: -.25em;
@@ -468,17 +460,11 @@ Overrides
   margin-bottom: 1em;
 }
 
-.node-type-occupation .field-name-field-occupation-image img {
+.occupation .field-name-field-occupation-image img {
   display: block;
 }
 
-.occupation .node-type-occupation h1.page-title{
-  float: left;
-}
-
-
-
-.node-type-occupation #region-content .region-content-inner {
+.occupation #region-content .region-content-inner {
   margin: 0 auto;
   padding-top: 3em;
   padding-left: 6em;
