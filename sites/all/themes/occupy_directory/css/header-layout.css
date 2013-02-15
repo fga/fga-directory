@@ -243,9 +243,9 @@ nav a:hover { background-color: #000; color: #fc0; }
   }
 
   #block-ajax-register-ajax-register-block{
-    padding: 1.13em 1em .5em 1em;
+    padding: .75em 1em .125em 1em;
     background: #f9b018;
-    line-height: 1.45;
+    line-height: 1.375;
     font-size: .875em;
   }
 
