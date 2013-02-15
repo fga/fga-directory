@@ -3,8 +3,7 @@ directory = {};
 Drupal.behaviors.occupy_directory = {
 
 	attach: function (context, settings) {
-
-
+    console.log( context, settings );
     /* 
       Let's detect whether device relies on touches or clicks, then sets event strings accordingly 
       @Todo, see about handling 'mouseout' if 'touchend' outside target.
@@ -44,13 +43,34 @@ Drupal.behaviors.occupy_directory = {
   
       jQuery( '.flyoutmenu' ).each( function() {
         this.bind( 'touchstart', function( e ){
+          if( e ) e.preventDefault();
           jQuery( this ).addClass('active');
         });        
         this.bind( 'touchstart', function( e ){
+          if( e ) e.preventDefault();
           jQuery( this ).addClass('active');
         });        
       });
 
+    }
+
+    if( context == "")
+      jQuery( jQuery( '.comment-add a' )[0] ).bind( directory.settings.click_string, function( e ){
+        console.log( "---------" );
+        jQuery('#comments').css('display','block');
+        jQuery('#comments').css('border','1px #f00 solid');
+      }); 
+
+    if( context[0] && context[0]['id'] == "comment-form" ){
+      console.log( 'context0');
+      var suggestedEditToggle = jQuery('#suggested-edit-log-toggle');
+      // console.log( "--------- #suggested-edit-log-toggle", suggestedEditToggle );
+      // if( suggestedEditToggle ){
+      //   suggestedEditToggle.bind( directory.settings.click_string, function( e ){
+      //     if( e ) e.preventDefault();
+      //     var suggestedEditsLog = jQuery('#suggested-edit-log').toggle( 350 );
+      //   });
+      // }
     }
 
     /* A quick hack that replaces # with %23 in twitter hash URLS */

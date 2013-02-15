@@ -106,11 +106,12 @@ Zen here I come!
 
 #region-search #edit-search {
   margin: 1.5em 0 0 8.25em;
-
 }
 
 @media all and ( max-width: 580px ){
-  #block-boxes-occupation-count { display: none; }
+  #block-boxes-occupation-count {
+    display: none;
+  }
 }
 
 /* General width */
@@ -215,5 +216,6 @@ Zen here I come!
   #block-ajax-register-ajax-register-block li:hover {
     background: #000;
   }
+
 }
 

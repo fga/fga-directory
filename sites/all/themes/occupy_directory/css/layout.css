@@ -221,14 +221,14 @@ footer #block-menu-menu-feeds-and-exports:hover {
 -----------------------------------
 */
 
-.occupation #region-content,
-.occupation #region-content .region-content-inner{
+.not-front .occupation #region-content,
+.not-front .occupation #region-content .region-content-inner{
   width: 100%;
-/*  margin: 0 1em;
-*/
+  border: 1px #f00 solid;
   padding: 0 0 0 0;
   max-width: none;
 }
+
 
 @media all and ( max-width: 580px ){
 
@@ -250,11 +250,19 @@ footer #block-menu-menu-feeds-and-exports:hover {
 
   .occupation .ds-left .field-name-field-occupation-image{
     float: left;
-    margin-right
+  }
+
+  .occupation .ds-left .field-name-field-occupation-website {
+    float: left;
   }
 
   .occupation .ds-middle .group-occupation-description {
     margin-top: 1em;
+  }
+
+  .occupation .ds-left .group-contact {
+    margin-left: 17.25em;
+    margin-top: 6em;
   }
 
   .occupation .ds-left {
@@ -266,10 +274,6 @@ footer #block-menu-menu-feeds-and-exports:hover {
     margin-right: 3em;
   }
 
-  .occupation .ds-left .group-contact {
-    margin-left: 17.25em;
-    margin-top: 6em;
-  }
 
   .occupation .ds-middle {
     width: 46em;
@@ -346,9 +350,9 @@ footer #block-menu-menu-feeds-and-exports:hover {
 
   .occupation .ds-right {
     position: absolute;
-    top: 12.75em;
     left: 70.75em;
     width: 14em;
+    margin-top: 1.875em;
   }
 
   .link-group {

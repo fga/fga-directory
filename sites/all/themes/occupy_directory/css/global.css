@@ -329,6 +329,27 @@ Menus
 
 /*
 ---------------------------------------------------------
+Occupation Node
+---------------------------------------------------------
+*/
+
+.owstech-share { margin-bottom: .25em; }
+
+.occupation .ds-left .field-name-field-occupation-email-general,
+.occupation .ds-left .field-name-field-occupation-phone-general,
+.occupation .ds-left .field-name-field-occupation-origin-date,
+.group-occupation-description,
+.field-name-field-occupation-description {
+  margin-bottom: 1em;
+}
+
+.group-occupation-description {
+  width: 44em;
+}
+
+
+/*
+---------------------------------------------------------
 Content
 ---------------------------------------------------------
 */
@@ -431,18 +452,6 @@ Comments
 .occupation .comment-add a:hover {
   background: #dedede;
   color: #000;
-}
-
-.occupation .ds-left .field-name-field-occupation-email-general,
-.occupation .ds-left .field-name-field-occupation-phone-general,
-.occupation .ds-left .field-name-field-occupation-origin-date,
-.group-occupation-description,
-.field-name-field-occupation-description {
-  margin-bottom: 1em;
-}
-
-.group-occupation-description {
-  width: 44em;
 }
 
 form.comment-form {
@@ -768,6 +777,7 @@ Occupation Directory Views table listing page
 ---------------------------------------------------------
 */
 
+.page-comment h1.title,
 .occupations-list h1.title {
   display: none;
 }
