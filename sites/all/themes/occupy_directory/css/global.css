@@ -208,45 +208,6 @@ Occupation Count Box
 }
 
 
-/*
----------------------------------------------------------
-Navigation
----------------------------------------------------------
-*/
-
-nav.navigation {
-  float: left;
-  height: 100%;
-}
-
-nav.navigation ul,
-nav.navigation li {
-  height: 100%;
-  margin-left: 0;
-  padding-left: 0;
-}
-
-nav.navigation{
-  border-left: 1px #000 solid;
-}
-
-nav.navigation li {
-  display: block;
-  float: left;
-  margin: 0 0 0 0;
-  border-right: 1px #000 solid;
-}
-
-nav.navigation li a{
-  color: #fc0;
-  display: block;
-  padding: 1em .75em .7125em .75em;
-  text-decoration: none;
-}
-
-nav a.active { background: #000; color: #fc0; }
-nav a:hover { background-color: #000; color: #fc0; }
-
 
 /*
 ---------------------------------------------------------
@@ -733,13 +694,13 @@ input#edit-search:after {
  color: #ccc;
 }
 
-#region-search input,
+/*#region-search input,
 #region-search select,
 #region-search div {
  margin: 0;
  display: inline;
 }
-
+*/
 #region-search input,
 #region-search select {
   background-color: #efefef;
