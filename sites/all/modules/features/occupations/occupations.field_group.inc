@@ -108,13 +108,10 @@ function occupations_field_group_info() {
     'label' => 'Contact Info',
     'weight' => '5',
     'children' => array(
-      0 => 'field_occupation_origin_date',
-      1 => 'field_occupation_website',
-      2 => 'field_occupation_email_general',
-      3 => 'field_occupation_phone_general',
-      4 => 'submitted_by',
-      5 => 'group_donate_info',
-      6 => 'group_location',
+      0 => 'field_occupation_website',
+      1 => 'field_occupation_email_general',
+      2 => 'field_occupation_phone_general',
+      3 => 'group_location',
     ),
     'format_type' => 'div',
     'format_settings' => array(
@@ -122,7 +119,7 @@ function occupations_field_group_info() {
       'instance_settings' => array(
         'classes' => 'hcard',
         'description' => '',
-        'show_label' => '0',
+        'show_label' => '1',
         'label_element' => 'h3',
         'effect' => 'none',
         'speed' => 'none',
@@ -169,7 +166,7 @@ function occupations_field_group_info() {
   $field_group->entity_type = 'node';
   $field_group->bundle = 'occupation';
   $field_group->mode = 'full';
-  $field_group->parent_name = 'group_contact';
+  $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Donation Info',
     'weight' => '30',
@@ -255,6 +252,38 @@ function occupations_field_group_info() {
     ),
   );
   $export['group_header|node|occupation|occupation_search_result'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_info_misc|node|occupation|full';
+  $field_group->group_name = 'group_info_misc';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'occupation';
+  $field_group->mode = 'full';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'Misc Info',
+    'weight' => '46',
+    'children' => array(
+      0 => 'field_occupation_origin_date',
+      1 => 'submitted_by',
+    ),
+    'format_type' => 'div',
+    'format_settings' => array(
+      'label' => 'Misc Info',
+      'instance_settings' => array(
+        'classes' => '',
+        'description' => '',
+        'show_label' => '0',
+        'label_element' => 'h3',
+        'effect' => 'none',
+        'speed' => 'none',
+      ),
+      'formatter' => 'open',
+    ),
+  );
+  $export['group_info_misc|node|occupation|full'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
