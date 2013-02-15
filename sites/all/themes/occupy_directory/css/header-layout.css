@@ -137,7 +137,7 @@ nav.navigation li a{
 nav a.active { background: #000; color: #fc0; }
 nav a:hover { background-color: #000; color: #fc0; }
 
-@media all and ( max-width: 649px ) {
+@media all and ( max-width: 750px ) {
   
 
   #region-menu{
@@ -205,52 +205,6 @@ nav a:hover { background-color: #000; color: #fc0; }
 
 }
 
-@media all and ( min-width: 650px ) and ( max-width: 889px ){
-
-
-
-  #zone-header {
-    box-shadow: 0px 1px 3px rgba( 0, 0, 0, .3 );
-    position: relative;
-    z-index: 910;
-    background: #000;
-  }
-
-  #zone-menu {
-    height: 3.5em;
-  }
-
-  #region-menu{
-    float: right;
-    margin-right: 0;
-  }
-
-  #block-ajax-register-ajax-register-block{
-    font-size: .875em;
-    position: absolute;
-    top: 4em;
-    right: .5em;
-    background: none;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    margin: 1.5em .5em 0 0;
-    line-height: 1.2;
-  }
-
-
-  #block-ajax-register-ajax-register-block li:hover {
-    background: #000;
-  }
-
-  #region-search #edit-search {
-    width: 100%;
-    margin: .5em 0 0 7em;
-  }
-
-
-
-
-}
 
 /* General width */
 @media all and ( min-width: 890px ){
