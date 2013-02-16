@@ -218,7 +218,7 @@ Tabs
 #region-content .tabs{
   width: 100%;
   top: 1em;
-  z-index: 890;
+  z-index: 475;
 }
 
 .front #region-content .tabs{
