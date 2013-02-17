@@ -2,107 +2,94 @@ directory = {};
 
 Drupal.behaviors.occupy_directory = {
 
+  closeActiveFacetListing: function(){
+    if( Drupal.behaviors.occupy_directory.activeFacetDrawer ){
+      Drupal.behaviors.occupy_directory.activeFacetDrawer.removeClass('active');
+      Drupal.behaviors.occupy_directory.activeFacetDrawer = null;
+    }
+  },
+
 	attach: function (context, settings) {
-    console.log( context, settings );
     /* 
       Let's detect whether device relies on touches or clicks, then sets event strings accordingly 
       @Todo, see about handling 'mouseout' if 'touchend' outside target.
     */
     // Defaults
-    directory.settings = {
+    Drupal.behaviors.occupy_directory.settings = {
       click_string: 'click',
       hover_string: 'mouseover',
       device: 'mouse'
     }
+
     // If device supports  touch we set our event strings to be touch events
     if ("ontouchstart" in document.documentElement) {
-      directory.settings.click_string = 'touchend';
-      directory.settings.hover_string = 'touchstart';
-      directory.settings.device = 'touch';
+      Drupal.behaviors.occupy_directory.settings.click_string = 'touchend';
+      Drupal.behaviors.occupy_directory.settings.hover_string = 'touchstart';
+      Drupal.behaviors.occupy_directory.settings.device = 'touch';
     }
 
-    var facetSidebar = jQuery( '.solr-search #region-sidebar-first' );
-    var results = jQuery( '#region-content' );
-
-    if ( facetSidebar[0] ) {
-
-      function resize_sidebar() {
-        var h = jQuery( results ).height();
-        facetSidebar.css( { 'height': h } );
-      }
-
-      resize_sidebar();
-
-      jQuery(window).resize( function() {
-        resize_sidebar();
-      });
-
-    }
-
-    if( jQuery('.flyoutmenu') && directory.settings.device ){
+    if( jQuery('.flyoutmenu') && Drupal.behaviors.occupy_directory.settings.device == 'touch'){
   
       jQuery( '.flyoutmenu' ).each( function() {
-        this.bind( 'touchstart', function( e ){
+        jQuery( this ).bind( 'touchstart', function( e ){
           if( e ) e.preventDefault();
           jQuery( this ).addClass('active');
-        });        
-        this.bind( 'touchstart', function( e ){
-          if( e ) e.preventDefault();
-          jQuery( this ).addClass('active');
-        });        
+        });
       });
 
     }
 
-    if( context == "")
-      jQuery( jQuery( '.comment-add a' )[0] ).bind( directory.settings.click_string, function( e ){
-        console.log( "---------" );
-        jQuery('#comments').css('display','block');
-        jQuery('#comments').css('border','1px #f00 solid');
-      }); 
+    console.log( ">>>>>>", context );
 
-    if( context[0] && context[0]['id'] == "comment-form" ){
-      console.log( 'context0');
-      var suggestedEditToggle = jQuery('#suggested-edit-log-toggle');
-      // console.log( "--------- #suggested-edit-log-toggle", suggestedEditToggle );
-      // if( suggestedEditToggle ){
-      //   suggestedEditToggle.bind( directory.settings.click_string, function( e ){
-      //     if( e ) e.preventDefault();
-      //     var suggestedEditsLog = jQuery('#suggested-edit-log').toggle( 350 );
-      //   });
-      // }
+    if( context.location.pathname == "/search" ){
+
+      // store a reference to the current active drawer
+      var activeDrawer = Drupal.behaviors.occupy_directory.activeFacetDrawer;
+
+      // if you click outside the facet drawer it closes the current active facet drawer
+      if( activeDrawer ){
+        jQuery( 'body' ).click( function( e ){
+          Drupal.gehaviors.occupy_directory.closeActiveFacetListing();
+        });
+      }
+
+
+      // Loop through each facet block
+      jQuery( '.block-facetapi' ).each( function() { 
+
+        var currentBlock = jQuery( this );
+
+        // Add a close link if none exists and append it to the drawer
+        if( !currentBlock.find( '.content a.close' ).length > 0 ){
+          // create anchor tag
+          var closeLink = jQuery( '<a>', {
+            href: '#',
+            title: 'Dismiss this search filter',
+            text: 'Close'
+          }).appendTo( currentBlock.find('.content') );
+          // add the click event to close it
+          closeLink.bind( Drupal.behaviors.occupy_directory.settings.click_string, function( e ){
+            e.stopPropagation();
+            Drupal.behaviors.occupy_directory.closeActiveFacetListing();
+          });
+        }
+
+        // Add events so that when you click on a facet header we hide any active ones and show the new one
+        jQuery( this ).bind( Drupal.behaviors.occupy_directory.settings.click_string , function( e ){
+          // prevent click from registering
+          // this prevents the click attached to body (mean to close the drawer on close outside) from being fired
+          e.stopPropagation();
+          // close the active listing (we've made this method part of Drupal.behaviors.occupy_directory so that other classes can also call it)
+          Drupal.behaviors.occupy_directory.closeActiveFacetListing();
+          // now we show the clicked drawer
+          jQuery( this ).addClass('active');
+          // and we set activeDrawer to the new reference.
+          Drupal.behaviors.occupy_directory.activeFacetDrawer = jQuery( this );
+        });
+      });
+
     }
 
-    /* A quick hack that replaces # with %23 in twitter hash URLS */
-    jQuery( 'a.twitterhash_js_hook' ).each( function() {
-      var href = jQuery( this ).attr( 'href' ).replace( 'search/#', 'search/%23' );
-      jQuery(this).attr('href', href );
-    });
-
-    /* Setting up search result title to also trigger the .ds-left hover that shows the description if present */
-    jQuery( '.search-result' ).each( function() {
-      var el, title, hover_string, click_string;
-      hover_string = Drupal.behaviors.occupy_directory.settings.hover_string;
-      click_string = Drupal.behaviors.occupy_directory.settings.click_string;
-      el = jQuery( this );
-      title = jQuery( el.find( 'h3.org.title' ));
-      console.log( 'el', el );
-      console.log( 'title', title );
-      // Hover
-      el.bind( hover_string , function(e) {
-        var left_el = jQuery( this ).find( '.ds-left' );
-        console.log( left_el );
-        left_el.hover();
-        left_el = null;
-      });
-      // el.bind( click_string, function(e) {
-      //   console.log("::::", document.elementFromPoint(e.pageX, e.pageY));
-      //   left_el.addClass('active');
-      //   e.preventDefault();
-      // });
-      // clean up so we don't inadvertently spill memory.
-      el = title = null;
-    });
 
     /*
     Overriding Drupal.CTools.Modal.show, to bind esc to 'dismiss' on show and unbind the keydown on hide
