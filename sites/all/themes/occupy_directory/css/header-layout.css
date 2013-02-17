@@ -78,10 +78,6 @@ Zen here I come!
   margin-left: 50%;
 }
 
-#zone-menu .region-search-inner{
-  text-align: left;
-}
-
 #block-boxes-occupation-count {
   display: inline-block;
   background: #000;
@@ -97,9 +93,6 @@ Zen here I come!
   right: 1em;
 }
 
-#region-search #edit-search {
-  width: 100%;
-}
 
 /*
 ---------------------------------------------------------
@@ -136,6 +129,42 @@ nav.navigation li a{
 
 nav a.active { background: #000; color: #fc0; }
 nav a:hover { background-color: #000; color: #fc0; }
+
+@media all and ( max-width: 751px ) {
+}
+
+@media all and ( max-width: 520px ) {
+  
+  #region-search { width: 100%; }
+
+  #region-search #edit-search {
+    width: 30em;
+    margin: .5em 0 0 18px;
+  }
+}
+
+
+@media all and ( min-width: 520px ) and ( max-width: 750px ) {
+   #region-search #edit-search {
+    width: 30em;
+    width: 100%;
+    margin: .5em 0 0 7em;
+  }
+}
+
+
+@media all and ( max-width: 751px ) and ( min-width: 949px ){
+  #region-search #edit-search {
+    width: 30em;
+  }
+}
+
+@media all and ( min-width: 950px ) {
+  #region-search #edit-search {
+    width: 28em;
+  }
+}
+
 
 @media all and ( max-width: 750px ) {
   
@@ -174,40 +203,11 @@ nav a:hover { background-color: #000; color: #fc0; }
     color: #fc0;
   }
 
-   #region-search #edit-search {
-    width: 100%;
-    margin: .5em 0 0 7em;
-  }
 
 }
-
-@media all and ( max-width: 889px ){
-  #block-boxes-occupation-count {
-    display: none;
-  }
-
- #block-ajax-register-ajax-register-block li {
-    display: inline-block;
-    padding: .25em;
-    background: #222;
-  }
-  
-  #block-ajax-register-ajax-register-block li+li {
-    margin-left: .5em;
-  }
-
-  #block-ajax-register-ajax-register-block li a,
-  nav.navigation li a{
-    font-size: .925em;
-    color: #fc0;
-    text-decoration: none;
-  }
-
-}
-
 
 /* General width */
-@media all and ( min-width: 890px ){
+@media all and ( min-width: 751px ){
 
   /*
   -----------------------------------
@@ -235,11 +235,6 @@ nav a:hover { background-color: #000; color: #fc0; }
     float: right;
     position: absolute;
     right: .5em;
-  }
-
-  #region-search #edit-search {
-    width: 28em;
-    margin: .5em 0 0 0;
   }
 
   #block-ajax-register-ajax-register-block{

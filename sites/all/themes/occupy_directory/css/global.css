@@ -301,12 +301,11 @@ Occupation Node
 .occupation .ds-left .field-name-field-occupation-email-general,
 .occupation .ds-left .field-name-field-occupation-phone-general,
 .occupation .ds-left .field-name-field-occupation-origin-date,
-.group-occupation-description,
-.field-name-field-occupation-description {
+.occupation .ds-middle .field-name-field-occupation-description {
   margin-bottom: 1em;
 }
 
-.group-occupation-description {
+.occpation .group-occupation-description {
   width: 44em;
 }
 
@@ -320,7 +319,7 @@ Content
 #messages:before{
   content: "Messages";
   padding: .75em .5em .25em .5em;
-  width: 100%;
+  width: 14em;
   display: block;
   text-align: center;
   background: #000;
@@ -329,7 +328,6 @@ Content
 }
 
 #messages {
-  border-top: 1px #000 solid;
   position: fixed;
   bottom: -489px;
   z-index: 950;
@@ -362,6 +360,7 @@ Content
 article a:link, article a:visited {
   color: #0af;
 }
+
 article a:hover, article a:active {
   color: #666;
 }
@@ -377,7 +376,7 @@ Pages
 ---------------------------------------------------------
 */
 
-aside h3.block-title{
+.content h3.block-title {
   margin-top: .75em;
   margin-bottom: 1.5em;
   border-bottom: 1px #000 solid;
@@ -593,7 +592,7 @@ ul.pager li .ajax-progress .throbber{
   width: 24px;
   height: 24px;
   margin: 0;
-  z-index: 990;
+  z-index: 220;
   text-decoration: none;
   border-radius: 12px;
   background: #000;
@@ -601,51 +600,6 @@ ul.pager li .ajax-progress .throbber{
   box-sizing: border-box;
 }
 
-
-/*
----------------------------------------------------------
-SOLR Search Facets
----------------------------------------------------------
-*/
-
-.solr-search #region-sidebar-first{
-  background-color: #222;
-}
-
-.block-facetapi{
-  background-color: #222;
-  padding: 1em;
-}
-
-.block-facetapi h3.block-title{
-  font-family: PTSans;
-  font-size: 14px;
-  margin: 0 0 .5em 0;
-  padding: 0;
-  color: #dedede;
-}
-
-.block-facetapi ul{
-  margin: 0;
-  padding-bottom: .5em;
-}
-
-  .block-facetapi .item-list li {
-    min-width: 3.5em;
-  }
-
-  .block-facetapi .item-list li a {
-    text-decoration: none;
-  }
-
-  .block-facetapi .item-list li a.facetapi-active {
-    color: #fff;
-  }
-
-
-  #block-facetapi-pm5e0jb3duu7bhnhqvsxmxqfuomn3ymq li {
-    text-transform: uppercase;
-  }
 
 
 /*
@@ -735,7 +689,9 @@ See ds_layouts/search_result.php
 }
 
 .view-directory-global-search {
+  position: relative;
 }
+
 
 
 /*
@@ -1134,7 +1090,8 @@ a.icon.toggle-comments.open {
 }
 
 .flyoutmenu .field-name-field-occupation-description,
-.flyoutmenu .item-wrapper {
+.flyoutmenu .item-wrapper,
+.block-facetapi .content  {
   position: absolute;
   top: -8000px;
   left: -8000px;
@@ -1142,15 +1099,34 @@ a.icon.toggle-comments.open {
   opacity: 0;
   padding: .5em;
   background: #fff;
-  box-shadow: 2px 2px 3px rgba( 0, 0, 0, .5 );
   text-indent: 0px;
 }
 
+.flyoutmenu .field-name-field-occupation-description,
+.flyoutmenu .item-wrapper {
+  box-shadow: 2px 2px 3px rgba( 0, 0, 0, .5 );
+}
+
+.flyoutmenu .field-name-field-occupation-description{
+  height: auto;
+  overflow: hidden;
+  width: 20em;
+}
+
+.block-facetapi {
+  display: inline-block;
+  margin: 0 .5em 0 0;
+  padding: 0;
+  position: static;
+}
+
+.block-facetapi:hover,
 .flyoutmenu:hover {
   z-index: 550;
   cursor: pointer;
 }
 
+.block-facetapi.active .content,
 .flyoutmenu:hover .field-name-field-occupation-description,
 .flyoutmenu:hover .item-wrapper {
   -webkit-transition: opacity 375ms cubic-bezier(0.250, 0.460, 0.450, 0.940);
@@ -1159,10 +1135,25 @@ a.icon.toggle-comments.open {
   -o-transition: opacity 375ms cubic-bezier(0.250, 0.460, 0.450, 0.940);
   transition: opacity 375ms cubic-bezier(0.250, 0.460, 0.450, 0.940);
   opacity: 1;
+  z-index: 50;
   left: -1.375em;
   top: 2.125em;
   cursor: default;
  }
+
+.block-facetapi.active .content {
+
+  border-top: 1px #555 solid  ;
+  top: 3.5em;
+  left: 0;
+  z-index: 55;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  width: 100%;
+  padding: 1em 0 .5em 9em;
+  box-shadow: 0px 8px 8px rgba( 0,0,0,.5);
+}
 
 .flyoutmenu .field-name-field-occupation-description::before,
 .flyoutmenu .item-wrapper::before{
@@ -1180,29 +1171,37 @@ a.icon.toggle-comments.open {
   rotation: 360deg;
 }
 
-.search-result .ds-left .field-name-field-occupation-description {
-  top: 2.875em;
-  padding: 1em;
-  width: 14em;
-}
-
-.flyoutmenu .field-name-field-occupation-description::before {
+.flyoutmenu .id .field-name-field-occupation-description::before {
   left: 2em;
 }
 
 .link-group a,
-.block-facetapi .item-list li,
+#region-sidebar-first .block-facetapi .item-list li,
 .occupation .ds-left a,
 .item-wrapper a {
   display: inline-block;
   vertical-align: top;
   padding: .5em .75em .25em .75em;
-  margin: 0 .125em 2px 0;
+  margin: 0 .25em .25em 0;
   line-height: 1.5;
   background: #000;
-  color: #0af;
+  color: #fff;
   text-decoration: none;
   border-radius: .25em;
+}
+
+#region-sidebar-first .block-facetapi .item-list li a {
+  color: #fff;
+}
+
+#region-sidebar-first .block-facetapi .item-list li:hover,
+#region-sidebar-first .block-facetapi .item-list li.active {
+  background: #0af;
+  color: #000;
+}
+
+.occupation .ds-left a,
+.item-wrapper a {
   width: 14em;
   text-overflow: ellipsis;
   overflow: hidden;
@@ -1221,17 +1220,21 @@ a.icon.toggle-comments.open {
 
 .block-facetapi .item-list li{
   overflow: visible;
-}
-
-.block-facetapi .item-list li {
   width: auto;
   clear: none;
+  background: #dedede;
+  padding: .5em .75em;
 }
 
-.field-name-field-occupation-field-name-field-occupation-origin-date,
-.field-name-field-occupation-phone-general,
-.field-type-addressfield { margin-bottom: 1em;}
-.field-name-field-occupation-phone-general { margin-top: 1em; }
+.block-facetapi .item-list li a {
+  color: #000;
+}
+
+.occupation .ds-left .field-name-field-occupation-field-name-field-occupation-origin-date,
+.occupation .ds-left .field-name-field-occupation-phone-general,
+.occupation .ds-left .field-type-addressfield { margin-bottom: 1em;}
+
+.occupation .ds-left  .field-name-field-occupation-phone-general { margin-top: 1em; }
 
 
 /*
@@ -1356,4 +1359,5 @@ label {
 /* context beta-5 and beta-6 expose unwanted UI elements re: https://drupal.org/node/1905502 */
 .context-block-region .region-name { display: none !important; }
 .context-block-region a.context-ui-add-link { display: none !important; }
+
 
