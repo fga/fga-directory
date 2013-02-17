@@ -46,6 +46,7 @@ Zen here I come!
 #region-branding{
   width: auto;
   float: left;
+  margin-left: .625em;
 }
 
 #zone-menu {
@@ -130,44 +131,46 @@ nav.navigation li a{
 nav a.active { background: #000; color: #fc0; }
 nav a:hover { background-color: #000; color: #fc0; }
 
-@media all and ( max-width: 751px ) {
+#region-search #edit-search {
+  position: relative;
+  z-index: 300;
+  margin: .5em 0 0 18px;
 }
 
-@media all and ( max-width: 520px ) {
+ #region-search #edit-search {
+  width: 32em;
+}
+
+@media all and ( max-width: 519px ) {
   
   #region-search { width: 100%; }
 
   #region-search #edit-search {
-    width: 30em;
-    margin: .5em 0 0 18px;
+    margin-left: 0;
   }
 }
 
 
-@media all and ( min-width: 520px ) and ( max-width: 750px ) {
+@media all and ( min-width: 520px ) and ( max-width: 749px ) {
    #region-search #edit-search {
-    width: 30em;
-    width: 100%;
-    margin: .5em 0 0 7em;
+    margin: 1em 0 0 7em;
   }
 }
 
 
-@media all and ( max-width: 751px ) and ( min-width: 949px ){
-  #region-search #edit-search {
-    width: 30em;
-  }
-}
-
-@media all and ( min-width: 950px ) {
+  @media all and ( max-width: 749px ) and ( min-width: 949px ){
   #region-search #edit-search {
     width: 28em;
+    border: 1px #0af solid;
+    margin: 1em 0 0 7em;
   }
 }
 
+@media all and ( max-width: 749px ) {
 
-@media all and ( max-width: 750px ) {
-  
+  #region-search #edit-search {
+    border: 1px #f00 solid;
+  }
 
   #region-menu{
     width: 100%;
@@ -196,6 +199,10 @@ nav a:hover { background-color: #000; color: #fc0; }
     padding-top: 1.875em;
     font-size: 1em;
   }
+  
+  #block-ajax-register-ajax-register-block li {
+    display: inline-block ;
+  }
 
   #block-ajax-register-ajax-register-block li a {
     text-decoration: none;
@@ -206,14 +213,27 @@ nav a:hover { background-color: #000; color: #fc0; }
 
 }
 
+@media all and ( min-width: 750px ) and ( max-width: 879px ){
+  #region-search #edit-search {
+    width: 20em;
+  }
+}
+
+@media all and ( min-width: 880px ){
+  #region-search #edit-search {
+    width: 28em;
+  }
+}
+
 /* General width */
-@media all and ( min-width: 751px ){
+@media all and ( min-width: 750px ){
 
   /*
   -----------------------------------
     Content
   -----------------------------------
   */
+
 
   #region-menu{
     float: right;
