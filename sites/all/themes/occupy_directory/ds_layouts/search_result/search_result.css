@@ -5,17 +5,25 @@
 
 .solr-search h1#page-title { display: none; }
 
-.solr-search ul.pager { margin-left: 8.25em; }
+.solr-search ul.pager { margin-left: 8em; }
 
 .search .occupation-count {
-  margin-left: 8.25em;
+  margin-left: 7.675em;
   padding: 1em 0;
   display: inline-block;
 }
+
+
 .search .occupation-count .occupation-count-span,
 .search .occupation-count .occupation-count-total {
   font-size: 16px;
   font-weight: bold;
+}
+
+.results-list {
+  margin-top: 0;
+  position: relative;
+  z-index: 10;
 }
 
 .results-list>ul>li{
@@ -28,25 +36,46 @@
   background: #dedede;
 }
 
-.results-list .search-result {
-  margin: 0 12em 0 7em;
+.search-result {
+  margin: 0 2em 0 6.875em;
 }
 
-.search-result .ds-left {
-  width: 22em;
-  clear: left;
-  float: left;
-  position: relative;
+.search-result .field-name-field-occupation-image {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.search-result .field-name-submitted-by,
+.search-result .field-name-field-occupation-origin-date {
+  display: inline-block;
+  margin-right: .25em;
+}
+
+.search-result .id {
   cursor: pointer;
-  vertical-align: top;
+  width: 22em;
+  float: left;
+  margin-bottom: .5em;
 }
 
-.search-result .ds-right {
-  margin-left: 24em;
+.search-result .contact {
   vertical-align: top;
+  margin: 0 1em .5em 24em;
+  width: 9em;
+  min-height: 4.5em;
+
 }
 
-.search-result .ds-left img {
+.search-result .misc {
+  width: 100%;
+  clear:both;
+  vertical-align: top;
+  margin-bottom: .5em;
+}
+
+
+.search-result .field-name-field-occupation-image {
+  float: left;
   display: inline-block;
   border: .25em #eee solid;
   position: relative;
@@ -54,6 +83,8 @@
   box-shadow: 1px 1px 2px rgba( 0,0,0,.3);
   margin-right: 1em;
 }
+
+.search-result .field-name-field-occupation-image img { display: block; }
 
 .search-result .group_title_loc {
   display: inline-block;
@@ -80,15 +111,9 @@
   text-decoration: underline;
 }
 
-.search-result .field-group-div {
-  display: inline-block;
-  vertical-align: top;
-}
-
 .search-result .label-above {
-  color: #aaa;
+  color: #333;
   font-weight: normal;
-  font-size: .875em;
 }
 
 .search-result .field-name-address-city-state-country {
@@ -96,22 +121,123 @@
   line-height: 2;
 }
 
-.search-result .field-name-submitted-by,
-.search-result .field-name-field-occupation-origin-date {
-  width: 10em;
-  margin-right: 1em;
+/*
+---------------------------------------------------------
+SOLR Search Facets
+---------------------------------------------------------
+*/
+
+
+.block-facetapi h3.block-title {
+  color: #aaa;
+  position: relative;
+  left: -.5em;
+  padding: .25em .5em 0 .5em;
+  border-bottom: none;
+  font-family: PTSans;
+  font-size: 13px;
+  margin: .75em 1.5em .5em -.5em;
+  color: #333;
+}
+
+.block-facetapi.active h3.block-title {
+  color: #fff;
+  background: #222;
+}
+
+.not-front.solr-search #region-sidebar-first{
+  position: static;
+  z-index: 495;
+  width: 100%;
+  padding-top: 0em;
+}
+
+.not-front.solr-search #region-sidebar-first .region-inner{
+  margin-left: 8.125em;
+}
+
+.block-facetapi{
+  padding: 1em;
   display: inline-block;
-}
-.search-result .field-name-submitted-by {
-  font-size: 12px;
-  line-height: 14px;
+  float: left;
 }
 
-.search-result .field-name-field-occupation-origin-date {
-  width: 7em;
-  float: right;
+.block-facetapi ul{
+  margin: 0;
+  padding-bottom: .5em;
 }
 
-.group-linklists {
-  width: 25em;
+.block-facetapi .item-list li {
+  min-width: 3.5em;
+}
+
+.block-facetapi .item-list li a {
+  text-decoration: none;
+}
+
+.block-facetapi .item-list li a.facetapi-active {
+  color: #fff;
+}
+
+
+#block-facetapi-pm5e0jb3duu7bhnhqvsxmxqfuomn3ymq li {
+  text-transform: capitalize;
+}
+
+
+@media all and ( min-width: 750px ) {
+
+  .search-result .id,
+  .search-result .contact,
+  .earch-result .misc {
+    display: inline-block;
+    float: left;
+  }
+
+  .search-result .id {
+    width: 22em;
+  }
+
+  .search-result .contact {
+    margin-left: 0;
+  }
+
+  .search-result .misc {
+    clear: none;
+  }
+
+  .not-front.solr-search #region-sidebar-first{
+    position: absolute;
+    top: -3.25em;
+  }
+ 
+}
+
+@media all and ( max-width: 520px ) {
+  .solr-search ul.pager,
+  .not-front.solr-search #region-sidebar-first .region-inner{
+    margin-left: 32px;
+  }
+  .search .occupation-count{
+    margin-left: 26px;
+  }
+  .search-result {
+    margin-left: 32px;
+  }
+
+  .search-result .id {
+    width: 18em;
+  }
+
+  .search-result .id .title {
+    width: 8em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .search-result .contact {
+    margin: 0 1em .5em 19em;
+  }
+
 }

@@ -9,8 +9,9 @@ function ds_search_result() {
   return array(
     'label' => t('search-result'),
     'regions' => array(
-      'left' => t('left'),
-      'right' => t('right'),
+      'id' => t('id'),
+      'contact' => t('contact'),
+      'misc' => t('misc'),
     ),
     'css' => TRUE,
     'image' => TRUE,

@@ -23,8 +23,9 @@
  */
 
   $classes = 'search-result clearfix';
-  $left_classes = 'flyoutmenu';
-  $right_classes  = '';
+  $id_classes = 'id flyoutmenu';
+  $contact_classes  = 'contact';
+  $misc_classes  = 'misc';
 
 
 ?>
@@ -35,14 +36,19 @@
     <?php print render($title_suffix['contextual_links']); ?>
   <?php endif; ?>
 
-    <<?php print $left_wrapper; ?> class="ds-left <?php print $left_classes; ?>">
-      <?php print $left; ?>
-    </<?php print $left_wrapper; ?>>
+    <<?php print $id_wrapper; ?> class="<?php print $id_classes; ?>">
+      <?php print $id; ?>
+    </<?php print $id_wrapper; ?>>
 
 
-    <<?php print $right_wrapper; ?> class="ds-right <?php print $right_classes; ?>">
-      <?php print $right; ?>
-    </<?php print $right_wrapper; ?>>
+    <<?php print $contact_wrapper; ?> class="<?php print $contact_classes; ?>">
+      <?php print $contact; ?>
+    </<?php print $contact_wrapper; ?>>
+
+    <<?php print $misc_wrapper; ?> class="<?php print $misc_classes; ?>">
+      <?php print $misc; ?>
+    </<?php print $misc_wrapper; ?>>
+
 
 </<?php print $layout_wrapper ?>>
 
