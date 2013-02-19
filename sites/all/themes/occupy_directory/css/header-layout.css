@@ -131,7 +131,7 @@ nav a:hover { background-color: #000; color: #fc0; }
 
 #region-search #edit-search {
   position: relative;
-  z-index: 550;
+  z-index: 499;
   margin: .5em 0 0 18px;
 }
 
