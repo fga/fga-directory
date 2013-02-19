@@ -347,11 +347,16 @@ function occupations_ds_field_settings_info() {
       'weight' => '5',
       'label' => 'hidden',
       'format' => 'ds_time_ago',
+      'formatter_settings' => array(
+        'ft' => array(
+          'func' => 'theme_ds_field_expert',
+        ),
+      ),
     ),
     'field_occupation_origin_date' => array(
       'formatter_settings' => array(
         'ft' => array(
-          'func' => 'theme_ds_field_minimal',
+          'func' => 'theme_ds_field_expert',
           'lb' => 'Founded',
           'lb-col' => TRUE,
         ),
@@ -360,7 +365,7 @@ function occupations_ds_field_settings_info() {
     'field_occupation_image' => array(
       'formatter_settings' => array(
         'ft' => array(
-          'func' => 'theme_ds_field_expert',
+          'func' => 'theme_ds_field_minimal',
         ),
       ),
     ),
@@ -922,48 +927,48 @@ function occupations_ds_layout_settings_info() {
   $ds_layout->layout = 'search_result';
   $ds_layout->settings = array(
     'regions' => array(
-      'right' => array(
-        0 => 'field_occupation_email_general',
-        6 => 'group_linklists',
-        7 => 'submitted_by',
-        8 => 'field_occupation_website',
-        9 => 'field_occupation_origin_date',
+      'id' => array(
+        0 => 'field_occupation_image',
+        2 => 'group_title_loc',
+        3 => 'field_occupation_description',
+        4 => 'title',
+        6 => 'address_city_state_country',
+      ),
+      'contact' => array(
+        1 => 'field_occupation_email_general',
+        5 => 'group_linklists',
+        9 => 'field_occupation_website',
         10 => 'twitter_users_hashtags_linked',
         11 => 'field_occupation_facebook',
       ),
-      'left' => array(
-        1 => 'field_occupation_image',
-        2 => 'field_occupation_description',
-        3 => 'group_title_loc',
-        4 => 'title',
-        5 => 'address_city_state_country',
+      'misc' => array(
+        7 => 'field_occupation_origin_date',
+        8 => 'submitted_by',
       ),
     ),
     'fields' => array(
-      'field_occupation_email_general' => 'right',
-      'field_occupation_image' => 'left',
-      'field_occupation_description' => 'left',
-      'group_title_loc' => 'left',
-      'title' => 'left',
-      'address_city_state_country' => 'left',
-      'group_linklists' => 'right',
-      'submitted_by' => 'right',
-      'field_occupation_website' => 'right',
-      'field_occupation_origin_date' => 'right',
-      'twitter_users_hashtags_linked' => 'right',
-      'field_occupation_facebook' => 'right',
+      'field_occupation_image' => 'id',
+      'field_occupation_email_general' => 'contact',
+      'group_title_loc' => 'id',
+      'field_occupation_description' => 'id',
+      'title' => 'id',
+      'group_linklists' => 'contact',
+      'address_city_state_country' => 'id',
+      'field_occupation_origin_date' => 'misc',
+      'submitted_by' => 'misc',
+      'field_occupation_website' => 'contact',
+      'twitter_users_hashtags_linked' => 'contact',
+      'field_occupation_facebook' => 'contact',
     ),
     'classes' => array(
       'layout_class' => array(
         '' => '',
       ),
-      'left' => array(
-        'flyoutmenu' => 'flyoutmenu',
-      ),
     ),
     'wrappers' => array(
-      'left' => 'section',
-      'right' => 'section',
+      'id' => 'div',
+      'contact' => 'div',
+      'misc' => 'div',
     ),
     'layout_wrapper' => 'div',
     'layout_attributes' => '',

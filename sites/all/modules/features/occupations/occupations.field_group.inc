@@ -296,7 +296,7 @@ function occupations_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Links',
-    'weight' => '4',
+    'weight' => '3',
     'children' => array(
       0 => 'field_occupation_website',
       1 => 'field_occupation_email_general',
@@ -909,7 +909,7 @@ function occupations_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Title, location',
-    'weight' => '2',
+    'weight' => '1',
     'children' => array(
       0 => 'address_city_state_country',
       1 => 'title',
