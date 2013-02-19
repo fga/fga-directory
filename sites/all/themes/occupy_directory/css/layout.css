@@ -26,6 +26,18 @@ body,
   width: auto;
 }
 
+/* so the dropshadow on the menu bar are above stuff we need to position it and give it a z-index */
+#zone-menu {
+  position: relative;
+  z-index: 498;
+}
+/* facets need to be at a z-index below the search bar, but for the search bar to not obscure the facets, 
+we need to position #region-menu statically, and give a relative pos and z-ndex to #edit-search (in responsive block well below)
+*/
+.not-front.solr-search #zone-menu {
+  position: static;
+}
+
 .not-front #region-sidebar-first .region-inner,
 .not-front #region-sidebar-first .region-content-inner {
   margin-top: 3.125em;
@@ -188,11 +200,14 @@ footer #block-menu-menu-feeds-and-exports:hover {
 @media all and ( max-width: 1019px ){
   .occupation .ds-right {
     position: absolute;
-    z-index: 550;
+    z-index: 450;
     top: 11em;
     left: 1.25em;
   }
 }
+
+  article.occupation { margin-top: 2em; }
+
 
 @media all and ( max-width: 974px ){
 
@@ -203,6 +218,8 @@ footer #block-menu-menu-feeds-and-exports:hover {
     border: 1px #f00 solid;
   }
 */
+
+
   .occupation .ds-middle .group_header {
     position: absolute;
     top: 4em;
@@ -237,6 +254,10 @@ footer #block-menu-menu-feeds-and-exports:hover {
   .occupation .ds-left .group-donate-info {
     margin-top: 5em;
     width: 14em;
+  }
+
+  .occupation .ds-left .group-contact {
+    margin-right: 2em;
   }
 
   .occupation .ds-left .group_info_misc {
@@ -330,7 +351,7 @@ footer #block-menu-menu-feeds-and-exports:hover {
 
   .occupation .ds-right {
     position: absolute;
-    left: 65.75em;
+    left: 67em;
     width: 12em;
     margin-top: 1.875em;
   }
@@ -342,7 +363,6 @@ footer #block-menu-menu-feeds-and-exports:hover {
     background: #eee;
     display: inline-block;
     vertical-align: top;
-    height: 12em;
   }
 
   .link-group:nth-child(2n+2){
@@ -353,11 +373,13 @@ footer #block-menu-menu-feeds-and-exports:hover {
   .link-group .link-listing {
     padding-left: 1em;
     height: 7em;
+    min-height: 7em;
     overflow: auto;
     overflow-y: visible;
     overflow-x: hidden;
   }
 
+.link-listing:hover,
   .link-group:hover,
   .link-group:hover ul {
     height: auto;
@@ -372,7 +394,7 @@ footer #block-menu-menu-feeds-and-exports:hover {
 
   .link-group a:hover,
   .occupation .ds-left a:hover,
-  .flyoutmenu .item-wrapper a:hover,
+  .occupation .flyoutmenu .item-wrapper a:hover,
   .occupation .ds-left .group-donate-info a:hover {
     color: #fc0;
     width: auto;

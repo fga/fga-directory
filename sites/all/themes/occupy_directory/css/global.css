@@ -220,10 +220,10 @@ Tabs
 ---------------------------------------------------------
 */
 
-#region-content .tabs{
+#region-content>.tabs{
   width: 100%;
   top: 1em;
-  z-index: 475;
+  z-index: 450;
 }
 
 .front #region-content .tabs{
@@ -473,15 +473,43 @@ form.comment-form .filter-wrapper{ display: none }
   display: inline-block;
 }
 
+.comment{ 
+  padding: 1em 1em 2em 1em;
+  margin-bottom: .25em;
+  background: #fafafa;
+  border-bottom: 1px #dedede solid;
+  height: 10em;
+  overflow: hidden;
+  -webkit-transition: height 375ms cubic-bezier(0.250, 0.460, 0.450, 0.940);
+  -moz-transition: height 375ms cubic-bezier(0.250, 0.460, 0.450, 0.940);
+  -ms-transition: height 375ms cubic-bezier(0.250, 0.460, 0.450, 0.940);
+  -o-transition: height 375ms cubic-bezier(0.250, 0.460, 0.450, 0.940);
+  transition: height 375ms cubic-bezier(0.250, 0.460, 0.450, 0.940);
+}
+
+.comment:hover {
+  height: auto;
+}
+
+.comment ul.links.inline li{
+  display: inline-block;
+  margin-right: 1em;
+}
+
+/*
+
 #comment-body-add-more-wrapper .comment-log {
-/*  display: none;
-*/}
+  border: 1px #f00 solid;
+  width: 100%;
+}
 
 #comment-body-add-more-wrapper .comment-form {
-/*  position: absolute;
+  position: absolute;
   top: 0;
   left: 0;
-*/}
+}
+
+*/
 
 
 /*
@@ -1064,6 +1092,10 @@ a.icon.site {
 }
 
 a.icon.toggle-comments {
+  position: absolute;
+  top: 11em;
+  right: -1.6em;
+  z-index: 1000;
   opacity: .5;
   width: 16px;
   height: 16px;
@@ -1076,6 +1108,7 @@ a.icon.toggle-comments:hover {
 }
 
 a.icon.toggle-comments.open {
+  opacity: 1;
   background: url( '../images/icon_commentstoggle.png') top right no-repeat;  
 }
 
@@ -1193,14 +1226,15 @@ a.icon.toggle-comments.open {
   border-radius: .25em;
 }
 
+.item-wrapper a,
 #region-sidebar-first .block-facetapi .item-list li a {
   color: #fff;
 }
 
+.item-wrapper a:hover,
 #region-sidebar-first .block-facetapi .item-list li:hover,
 #region-sidebar-first .block-facetapi .item-list li.active {
   background: #0af;
-  color: #000;
 }
 
 .occupation .ds-left a,
