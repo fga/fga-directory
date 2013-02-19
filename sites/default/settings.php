@@ -527,6 +527,7 @@ if (isset($_SERVER['PANTHEON_ENVIRONMENT'])) {
       header('Location: http://test.directory.occupy.net'. $_SERVER['REQUEST_URI']);
       exit();
     }
+    $conf['reroute_email_enable'] = 1;
   }
   if ($_SERVER['PANTHEON_ENVIRONMENT'] === 'dev') {
     if($_SERVER['HTTP_HOST'] == 'dev.fga-directory.gotpantheon.com') {
@@ -534,6 +535,7 @@ if (isset($_SERVER['PANTHEON_ENVIRONMENT'])) {
       header('Location: http://dev.directory.occupy.net'. $_SERVER['REQUEST_URI']);
       exit();
     }
+    $conf['reroute_email_enable'] = 1;
   }
 
 }
@@ -555,6 +557,7 @@ else {  /*****************************************
   $conf['file_temporary_path'] = '/tmp';
   $conf['file_public_path'] = 'sites/default/files';
   $conf['file_private_path'] = 'sites/default/files/private';
+  $conf['reroute_email_enable'] = 1;
 
 }
 
