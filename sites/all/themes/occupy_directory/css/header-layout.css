@@ -53,8 +53,6 @@ Zen here I come!
   margin: 0 0 0 0;
   padding: 0;
   background: #aaa;
-  position: relative;
-  z-index: 490;
   box-shadow: 0px 3px 12px rgba( 0, 0, 0, .95 );
 }
 
@@ -133,7 +131,7 @@ nav a:hover { background-color: #000; color: #fc0; }
 
 #region-search #edit-search {
   position: relative;
-  z-index: 300;
+  z-index: 550;
   margin: .5em 0 0 18px;
 }
 
@@ -153,7 +151,7 @@ nav a:hover { background-color: #000; color: #fc0; }
 
 @media all and ( min-width: 520px ) and ( max-width: 749px ) {
    #region-search #edit-search {
-    margin: 1em 0 0 7em;
+    margin: .5em 0 0 7em;
   }
 }
 
@@ -161,16 +159,11 @@ nav a:hover { background-color: #000; color: #fc0; }
   @media all and ( max-width: 749px ) and ( min-width: 949px ){
   #region-search #edit-search {
     width: 28em;
-    border: 1px #0af solid;
-    margin: 1em 0 0 7em;
+    margin: .5em 0 0 7em;
   }
 }
 
 @media all and ( max-width: 749px ) {
-
-  #region-search #edit-search {
-    border: 1px #f00 solid;
-  }
 
   #region-menu{
     width: 100%;
@@ -233,7 +226,10 @@ nav a:hover { background-color: #000; color: #fc0; }
     Content
   -----------------------------------
   */
-
+  #region-search {
+    position: relative;
+    z-index: 1000;
+  }
 
   #region-menu{
     float: right;

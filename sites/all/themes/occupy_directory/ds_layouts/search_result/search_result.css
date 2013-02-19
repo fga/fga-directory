@@ -118,7 +118,7 @@
 
 .search-result .field-name-address-city-state-country {
   color: #666;
-  line-height: 2;
+  line-height: 1.125;
 }
 
 /*
@@ -149,6 +149,8 @@ SOLR Search Facets
   position: static;
   z-index: 495;
   width: 100%;
+  left: 0;
+  right: none;
   padding-top: 0em;
 }
 
@@ -204,6 +206,8 @@ SOLR Search Facets
 
   .search-result .misc {
     clear: none;
+    vertical-align: baseline;
+    padding-top: .25em;
   }
 
   .not-front.solr-search #region-sidebar-first{
