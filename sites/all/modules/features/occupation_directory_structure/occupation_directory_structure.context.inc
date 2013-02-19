@@ -186,12 +186,6 @@ function occupation_directory_structure_context_default_contexts() {
   $context->reactions = array(
     'block' => array(
       'blocks' => array(
-        'ajax_register-ajax_register_block' => array(
-          'module' => 'ajax_register',
-          'delta' => 'ajax_register_block',
-          'region' => 'menu',
-          'weight' => '9',
-        ),
         'menu-menu-social-media-links' => array(
           'module' => 'menu',
           'delta' => 'menu-social-media-links',
