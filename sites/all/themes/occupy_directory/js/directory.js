@@ -31,7 +31,7 @@ Drupal.behaviors.occupy_directory = {
     if( jQuery('.flyoutmenu') && Drupal.behaviors.occupy_directory.settings.device == 'touch'){
   
       jQuery( '.flyoutmenu' ).each( function() {
-        jQuery( this ).bind( 'touchstart', function( e ){
+        jQuery( this ).bind( Drupal.behaviors.occupy_directory.settings.click_string, function( e ){
           if( e ) e.preventDefault();
           jQuery( this ).addClass('active');
         });
@@ -39,7 +39,16 @@ Drupal.behaviors.occupy_directory = {
 
     }
 
-    console.log( ">>>>>>", context );
+    if( context.location.pathname == ''){}
+      console.log( ">>>>>>", context );
+
+    var suggestedEditToggle = jQuery( '#suggested-edit-log-toggle' );
+    if( suggestedEditToggle ){
+      suggestedEditToggle.bind( Drupal.behaviors.occupy_directory.settings.click_string, function( e ){
+        jQuery( this ).toggleClass('open');
+        jQuery( '#suggested-edit-log').toggle( 350 );
+      })
+    }
 
     if( context.location.pathname == "/search" ){
 
@@ -90,7 +99,7 @@ Drupal.behaviors.occupy_directory = {
 
 
     /*
-    Overriding Drupal.CTools.Modal.show, to bind esc to 'dismiss' on show and unbind the keydown on hide
+      Overriding Drupal.CTools.Modal.show, to bind esc to 'dismiss' on show and unbind the keydown on hide
     */
     if( Drupal.CTools && Drupal.CTools.Modal ){
       jQuery.extend(
