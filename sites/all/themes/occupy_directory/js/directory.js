@@ -47,11 +47,9 @@ Drupal.behaviors.occupy_directory = {
       var activeDrawer = Drupal.behaviors.occupy_directory.activeFacetDrawer;
 
       // if you click outside the facet drawer it closes the current active facet drawer
-      if( activeDrawer ){
-        jQuery( 'body' ).click( function( e ){
-          Drupal.gehaviors.occupy_directory.closeActiveFacetListing();
-        });
-      }
+      jQuery( 'body' ).click( function( e ){
+        Drupal.behaviors.occupy_directory.closeActiveFacetListing();
+      });
 
 
       // Loop through each facet block
