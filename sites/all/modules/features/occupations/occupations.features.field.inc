@@ -50,7 +50,7 @@ function occupations_field_default_fields() {
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
-          'weight' => '1',
+          'weight' => '3',
         ),
         'full' => array(
           'label' => 'hidden',
@@ -125,7 +125,7 @@ function occupations_field_default_fields() {
           'module' => 'list',
           'settings' => array(),
           'type' => 'list_default',
-          'weight' => '2',
+          'weight' => '4',
         ),
         'full' => array(
           'label' => 'inline',
@@ -719,7 +719,7 @@ function occupations_field_default_fields() {
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
-          'weight' => '15',
+          'weight' => '2',
         ),
         'occupation_search_result' => array(
           'label' => 'hidden',
@@ -1347,7 +1347,7 @@ function occupations_field_default_fields() {
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
-          'weight' => '18',
+          'weight' => '4',
         ),
         'occupation_search_result' => array(
           'label' => 'above',
@@ -2796,7 +2796,7 @@ function occupations_field_default_fields() {
           'module' => 'list',
           'settings' => array(),
           'type' => 'list_default',
-          'weight' => '16',
+          'weight' => '3',
         ),
         'occupation_search_result' => array(
           'label' => 'inline',

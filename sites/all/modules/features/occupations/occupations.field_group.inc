@@ -77,7 +77,7 @@ function occupations_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Comments',
-    'weight' => '11',
+    'weight' => '8',
     'children' => array(),
     'format_type' => 'div',
     'format_settings' => array(
@@ -106,7 +106,7 @@ function occupations_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Contact Info',
-    'weight' => '5',
+    'weight' => '1',
     'children' => array(
       0 => 'field_occupation_website',
       1 => 'field_occupation_email_general',
@@ -169,7 +169,7 @@ function occupations_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Donation Info',
-    'weight' => '30',
+    'weight' => '2',
     'children' => array(
       0 => 'field_occupation_dontate_info',
       1 => 'field_occupation_donate_url',
@@ -201,7 +201,7 @@ function occupations_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Header',
-    'weight' => '5',
+    'weight' => '4',
     'children' => array(
       0 => 'title',
       1 => 'group_meta',
@@ -264,7 +264,7 @@ function occupations_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Misc Info',
-    'weight' => '46',
+    'weight' => '3',
     'children' => array(
       0 => 'field_occupation_origin_date',
       1 => 'submitted_by',
@@ -450,7 +450,7 @@ function occupations_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Group Links',
-    'weight' => '8',
+    'weight' => '7',
     'children' => array(
       0 => 'field_occupation_social_sites',
       1 => 'field_occupation_rss',
@@ -718,6 +718,7 @@ function occupations_field_group_info() {
       1 => 'field_occupation_physical',
       2 => 'field_occupation_general_info',
       3 => 'mapbox_static_map_full',
+      4 => 'comments',
     ),
     'format_type' => 'div',
     'format_settings' => array(
