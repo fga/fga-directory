@@ -482,9 +482,7 @@ form.comment-form .filter-wrapper{ display: none }
 }
 
 .field-name-field-comment-state{
-  padding: .25em 0 .5em .5em;
-  float: right;
-  display: none;
+  margin: .5em 0 0 0;
 }
 
 #comment-body-add-more-wrapper .links.inline li {
@@ -492,43 +490,36 @@ form.comment-form .filter-wrapper{ display: none }
   display: inline-block;
 }
 
-#suggested-edit-log>.comment{ 
-  padding: 1em 1em 2em 1em;
+#suggested-edit-log .comment {
+  padding: 1em 1em 1em 1em;
   margin-bottom: .25em;
   background: #fafafa;
   border-bottom: 1px #dedede solid;
-  height: 10em;
-  overflow: hidden;
-  -webkit-transition: height 375ms cubic-bezier(0.250, 0.460, 0.450, 0.940);
-  -moz-transition: height 375ms cubic-bezier(0.250, 0.460, 0.450, 0.940);
-  -ms-transition: height 375ms cubic-bezier(0.250, 0.460, 0.450, 0.940);
-  -o-transition: height 375ms cubic-bezier(0.250, 0.460, 0.450, 0.940);
-  transition: height 375ms cubic-bezier(0.250, 0.460, 0.450, 0.940);
 }
 
-#suggested-edit-log>.comment:hover {
-  height: auto;
+#suggested-edit-log .comment .field-name-comment-body{ 
+  max-height: 7em;
+  overflow: hidden;
 }
+
+#suggested-edit-log .comment:hover .field-name-comment-body {
+  max-height: none;
+}
+
+.comment ul.links.inline { margin-top: 1em;}
 
 .comment ul.links.inline li{
   display: inline-block;
-  margin-right: 1em;
+  margin-right: .5em;
 }
 
-/*
-
-#comment-body-add-more-wrapper .comment-log {
-  border: 1px #f00 solid;
-  width: 100%;
+.comment ul.links.inline li a{
+  display: block;
+  padding: .125em .5em;
+  background: #666;
+  color:#dedede;
+  text-decoration: none;
 }
-
-#comment-body-add-more-wrapper .comment-form {
-  position: absolute;
-  top: 0;
-  left: 0;
-}
-
-*/
 
 
 /*
@@ -603,14 +594,18 @@ ul.pager li .ajax-progress .throbber{
   text-indent: -10000px;
 }
 
+#comments h3.title.comment-form {
+  margin-top: .25em;
+}
+
 #comments a.icon.close {
   display: block;
   position: absolute;
-  top: 1.5em;
+  top:-.5em;
   left: -.5em;
   width: 16px;
   height: 16px;
-  background: #000;
+  background: #666;
   word-wrap: nowrap;
   text-indent: -1000px;
   border-radius: 8px;
@@ -1172,6 +1167,10 @@ a.icon.toggle-comments.open {
   vertical-align: top;
   position: relative;
   z-index: 100;
+}
+
+.block-facetapi:first-child:before {
+  content: 'Filter by:';
 }
 
 .flyoutmenu .field-name-field-occupation-description,
