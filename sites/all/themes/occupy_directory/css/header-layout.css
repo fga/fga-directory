@@ -228,7 +228,7 @@ nav a:hover { background-color: #000; color: #fc0; }
   */
   #region-search {
     position: relative;
-    z-index: 450;
+    z-index: 496;
   }
 
   #region-menu{
