@@ -135,9 +135,14 @@ nav a:hover { background-color: #000; color: #fc0; }
   margin: .5em 0 0 18px;
 }
 
- #region-search #edit-search {
-  width: 32em;
+.logged-in #region-search #edit-search {
+  width: 30.5em;
 }
+
+.not-logged-in #region-search #edit-search {
+  width: 28em;
+}
+
 
 @media all and ( max-width: 519px ) {
   
