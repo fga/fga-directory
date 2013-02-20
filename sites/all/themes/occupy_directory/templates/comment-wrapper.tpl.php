@@ -52,7 +52,7 @@
     <?php endif; ?>
   </div>
 
-  <a title="See previously suggested comments…" id="suggested-edit-log-toggle" class="icon toggle-comments" href="#"><?php print t( 'Toggle previous suggestions' );?></a>
+  <a title="See previously suggested comments…" id="suggested-edit-log-toggle" class="icon toggle-comments" href="#"><?php print t( 'Show previous suggestions' );?></a>
   <div id="suggested-edit-log">
     <?php print render($title_prefix); ?>
     <h3 class="title"><?php print t('Previously Suggested Edit(s)'); ?></h3>

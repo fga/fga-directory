@@ -311,7 +311,6 @@ Occupation Node
 }
 
 .occpation .group-occupation-description {
-  width: 44em;
 }
 
 
@@ -409,6 +408,25 @@ Comments
 ---------------------------------------------------------
 */
 
+
+#comments {
+  background: #eee;
+  display: none;
+  padding: 1em;
+  height: 0;  
+}
+
+#comments.visible {
+  height: auto;
+  display: block;
+  opacity: 1;
+  -webkit-transition: all 375ms cubic-bezier(0.250, 0.460, 0.450, 0.940);
+  -moz-transition: all 375ms cubic-bezier(0.250, 0.460, 0.450, 0.940);
+  -ms-transition: all 375ms cubic-bezier(0.250, 0.460, 0.450, 0.940);
+  -o-transition: all 375ms cubic-bezier(0.250, 0.460, 0.450, 0.940);
+  transition: all 375ms cubic-bezier(0.250, 0.460, 0.450, 0.940);
+}
+
 .occupation .comment-add a {
   display: inline-block;
   background: #000;
@@ -421,10 +439,10 @@ Comments
   color: #000;
 }
 
+
 form.comment-form {
   padding: 1em;
   margin: 0 0 1em 0;
-  width: 42em;
   background: #dedede;
   box-shadow: 1px 1px 3px #666;
   box-shadow: 1px 1px 3px rgba( 0,0,0,.3);
@@ -1093,14 +1111,15 @@ a.icon.site {
 }
 
 a.icon.toggle-comments {
-  position: absolute;
+/*  position: absolute;
   top: 11em;
   right: -1.6em;
   z-index: 400;
+*/
   opacity: .5;
-  width: 16px;
+  width: auto;
   height: 16px;
-  text-indent: -5000px;
+  padding-left: 24px;
   background: url( '../images/icon_commentstoggle.png') no-repeat;
 }
 
@@ -1110,7 +1129,7 @@ a.icon.toggle-comments:hover {
 
 a.icon.toggle-comments.open {
   opacity: 1;
-  background: url( '../images/icon_commentstoggle.png') top right no-repeat;  
+  background: url( '../images/icon_commentstoggle.png') bottom left no-repeat;  
 }
 
 

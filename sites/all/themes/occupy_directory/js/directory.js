@@ -10,6 +10,9 @@ Drupal.behaviors.occupy_directory = {
   },
 
 	attach: function (context, settings) {
+
+    // console.log( 'context', context );
+    // console.log( 'settings', settings );
     /* 
       Let's detect whether device relies on touches or clicks, then sets event strings accordingly 
       @Todo, see about handling 'mouseout' if 'touchend' outside target.
@@ -39,13 +42,35 @@ Drupal.behaviors.occupy_directory = {
 
     }
 
+    var comments = jQuery("#comments");
+  
+    if( comments ){
+      console.log( "comments", comments );
+      var suggestAndEditButton = jQuery('.ds-right .links.inline .comment-add a');
+      suggestAndEditButton.bind( Drupal.behaviors.occupy_directory.settings.click_string, function( e ) {
+        e.preventDefault();
+        comments.addClass('visible');
+      }); 
 
-    var suggestedEditToggle = jQuery( '#suggested-edit-log-toggle' );
-    if( suggestedEditToggle ){
-      suggestedEditToggle.bind( Drupal.behaviors.occupy_directory.settings.click_string, function( e ){
-        jQuery( this ).toggleClass('open');
-        jQuery( '#suggested-edit-log').toggle( 350 );
-      })
+      console.log( "suggestAndEditButton", suggestAndEditButton );
+
+      var suggestedEditLogToggle = jQuery( '#suggested-edit-log-toggle' );
+
+      if( suggestedEditLogToggle ){
+
+        suggestedEditLogToggle.bind( Drupal.behaviors.occupy_directory.settings.click_string, function( e ) {
+          e.preventDefault();
+          if( jQuery( this ).html().indexOf( 'Show') > -1 ){
+            jQuery( this ).html('Hide previous suggestions');
+          }else{
+            jQuery( this ).html('Show previous suggestions');
+          }
+          jQuery( this ).toggleClass('open');
+          jQuery( '#suggested-edit-log').toggle( 350 );
+        });
+
+      }
+
     }
 
     if( context.location && context.location.pathname && context.location.pathname == "/search" ){
