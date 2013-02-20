@@ -52,7 +52,11 @@ Drupal.behaviors.occupy_directory = {
         comments.addClass('visible');
       }); 
 
-      console.log( "suggestAndEditButton", suggestAndEditButton );
+      var closeCommentsButton = jQuery('#comments .icon.close');
+      closeCommentsButton.bind( Drupal.behaviors.occupy_directory.settings.click_string, function( e ) {
+        e.preventDefault();
+        comments.removeClass('visible');
+      }); 
 
       var suggestedEditLogToggle = jQuery( '#suggested-edit-log-toggle' );
 

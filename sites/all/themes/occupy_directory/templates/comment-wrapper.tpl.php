@@ -46,8 +46,9 @@
   </div>
   <?php endif;*/?>
   <div class="comment-form-container">
+    <a class="icon close" href="#" title="close comments">Close Comments</a>
     <?php if ($content['comment_form']): ?>
-      <h2 class="title comment-form"><?php print t('Suggest an Edit'); ?></h2>
+      <h3 class="title comment-form"><?php print t('Suggest an Edit'); ?></h3>
       <?php print render($content['comment_form']); ?>
     <?php endif; ?>
   </div>

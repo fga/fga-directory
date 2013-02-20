@@ -412,8 +412,9 @@ Comments
 #comments {
   background: #eee;
   display: none;
-  padding: 1em;
-  height: 0;  
+  padding: .125em 1em 1em 1em;
+  height: 0;
+  position: relative;
 }
 
 #comments.visible {
@@ -600,6 +601,32 @@ ul.pager li .ajax-progress .throbber{
   height: 24px;
   word-wrap: nowrap;
   text-indent: -10000px;
+}
+
+#comments a.icon.close {
+  display: block;
+  position: absolute;
+  top: 1.5em;
+  left: -.5em;
+  width: 16px;
+  height: 16px;
+  background: #000;
+  word-wrap: nowrap;
+  text-indent: -1000px;
+  border-radius: 8px;
+  text-decoration: none;
+  color: #dedede;
+}
+#comments a.icon.close:after{
+  font-size: 18px;
+  line-height: 8px;
+  display: block;
+  top: -.6525em;
+  left: 0.1875em;
+  position: relative;
+  text-indent: 0;
+  content: "\00D7";
+  z-index: 1;  
 }
 
 .pager-first:after,
