@@ -492,7 +492,7 @@ form.comment-form .filter-wrapper{ display: none }
   display: inline-block;
 }
 
-.suggested-edit-log>.comment{ 
+#suggested-edit-log>.comment{ 
   padding: 1em 1em 2em 1em;
   margin-bottom: .25em;
   background: #fafafa;
@@ -506,7 +506,7 @@ form.comment-form .filter-wrapper{ display: none }
   transition: height 375ms cubic-bezier(0.250, 0.460, 0.450, 0.940);
 }
 
-.suggested-edit-log>.comment:hover {
+#suggested-edit-log>.comment:hover {
   height: auto;
 }
 
