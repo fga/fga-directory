@@ -125,7 +125,7 @@ function occupations_field_default_fields() {
           'module' => 'list',
           'settings' => array(),
           'type' => 'list_default',
-          'weight' => '4',
+          'weight' => '2',
         ),
         'full' => array(
           'label' => 'inline',

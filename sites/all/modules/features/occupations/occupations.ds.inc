@@ -18,18 +18,18 @@ function occupations_ds_field_settings_info() {
   $ds_fieldsetting->view_mode = 'default';
   $ds_fieldsetting->settings = array(
     'links' => array(
-      'weight' => '0',
+      'weight' => '4',
       'label' => 'hidden',
       'format' => 'default',
     ),
     'post_date' => array(
-      'weight' => '1',
+      'weight' => '0',
       'label' => 'hidden',
       'format' => 'ds_post_date_long',
     ),
     'author' => array(
-      'weight' => '2',
-      'label' => 'hidden',
+      'weight' => '1',
+      'label' => 'inline',
       'format' => 'default',
     ),
   );
