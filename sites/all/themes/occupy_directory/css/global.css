@@ -1095,7 +1095,7 @@ a.icon.toggle-comments {
   position: absolute;
   top: 11em;
   right: -1.6em;
-  z-index: 1000;
+  z-index: 400;
   opacity: .5;
   width: 16px;
   height: 16px;
