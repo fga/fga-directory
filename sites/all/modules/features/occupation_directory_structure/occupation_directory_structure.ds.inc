@@ -20,19 +20,19 @@ function occupation_directory_structure_ds_layout_settings_info() {
   $ds_layout->settings = array(
     'regions' => array(
       'ds_content' => array(
-        0 => 'links',
-        1 => 'post_date',
-        2 => 'author',
+        0 => 'post_date',
+        1 => 'author',
+        2 => 'field_comment_state',
         3 => 'comment_body',
-        4 => 'field_comment_state',
+        4 => 'links',
       ),
     ),
     'fields' => array(
-      'links' => 'ds_content',
       'post_date' => 'ds_content',
       'author' => 'ds_content',
-      'comment_body' => 'ds_content',
       'field_comment_state' => 'ds_content',
+      'comment_body' => 'ds_content',
+      'links' => 'ds_content',
     ),
     'classes' => array(
       'layout_class' => array(
