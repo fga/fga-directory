@@ -39,8 +39,6 @@ Drupal.behaviors.occupy_directory = {
 
     }
 
-    if( context.location.pathname == ''){}
-      console.log( ">>>>>>", context );
 
     var suggestedEditToggle = jQuery( '#suggested-edit-log-toggle' );
     if( suggestedEditToggle ){
@@ -50,7 +48,7 @@ Drupal.behaviors.occupy_directory = {
       })
     }
 
-    if( context.location.pathname == "/search" ){
+    if( context.location && context.location.pathname && context.location.pathname == "/search" ){
 
       // store a reference to the current active drawer
       var activeDrawer = Drupal.behaviors.occupy_directory.activeFacetDrawer;
