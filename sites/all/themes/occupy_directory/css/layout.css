@@ -339,9 +339,8 @@ footer#section-footer #block-menu-menu-feeds-and-exports:hover {
   .occupation .ds-left {
     display: inline-block;
     float: left;
-    width: 14em;
+    width: 16em;
     margin-left: .5em;
-    margin-right: 3em;
   }
 
   .occupation .ds-middle {
