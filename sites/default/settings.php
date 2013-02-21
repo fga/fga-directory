@@ -506,6 +506,7 @@ $conf['allow_authorize_operations'] = FALSE;
 
 if (isset($_SERVER['HTTP_X_SSL']) && $_SERVER['HTTP_X_SSL'] == 'ON') {
   $_SERVER['HTTPS'] = 'on';
+  exit();
 }
 
 
@@ -553,12 +554,8 @@ else {  /*****************************************
           'prefix' => '',
           );
 
-
-  $conf['file_temporary_path'] = '/tmp';
-  $conf['file_public_path'] = 'sites/default/files';
-  $conf['file_private_path'] = 'sites/default/files/private';
-  $conf['reroute_email_enable'] = 1;
-
+          $conf['file_temporary_path'] = '/tmp';
+          $conf['file_public_path'] = 'sites/default/files';
+          $conf['file_private_path'] = 'sites/default/files/private';
+          $conf['reroute_email_enable'] = 1;
 }
-
-
