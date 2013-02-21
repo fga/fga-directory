@@ -1,7 +1,0 @@
-<?php
-/**
- * @file
- * Code for the Occupation Directory Structure feature.
- */
-
-include_once('occupation_directory_structure.features.inc');
