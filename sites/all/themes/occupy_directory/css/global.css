@@ -497,7 +497,7 @@ form.comment-form .filter-wrapper{ display: none }
   border-bottom: 1px #dedede solid;
 }
 
-#suggested-edit-log .comment .field-name-comment-body{ 
+#suggested-edit-log .comment .field-name-comment-body{
   max-height: 7em;
   overflow: hidden;
 }
@@ -621,7 +621,7 @@ ul.pager li .ajax-progress .throbber{
   position: relative;
   text-indent: 0;
   content: "\00D7";
-  z-index: 1;  
+  z-index: 1;
 }
 
 .pager-first:after,
@@ -767,6 +767,15 @@ See ds_layouts/search_result.php
 }
 
 
+.view-header .occupation-count {
+  padding-bottom: 15px;
+  display: inline-block;
+}
+.occupation-count .occupation-count-span,
+.occupation-count .occupation-count-total {
+  font-size: 16px;
+  font-weight: bold;
+}
 
 /*
 ---------------------------------------------------------
@@ -787,22 +796,10 @@ div.view-display-id-occupations_list table img {
   vertical-align: middle;
 }
 
-.list-occupations .view-header,
-.manage-comments .view-header {
-  margin: 0 0 1em;
-  font-style: italic;
-}
 
-.list-occupations .view-header .occupation-count .occupation-count-span,
-.list-occupations .view-header .occupation-count .occupation-count-total {
+.view-header .occupation-count .occupation-count-span,
+.view-header .occupation-count .occupation-count-total {
   padding:0 0.2em;
-}
-
-.list-occupations .view-header .curator-utility-links {
-  margin-bottom: 0.5em;
-  float: right;
-  background: #000;
-  padding: 0 5px;
 }
 
 #edit-items-per-page:after {
@@ -815,6 +812,37 @@ div.view-display-id-occupations_list table img {
 Curator Views
 ---------------------------------------------------------
 */
+
+
+/* temporarily we still use views filters */
+#views-exposed-form-occupation-directory-occupations-manage .views-widget {
+  display: inline-block;
+}
+#views-exposed-form-occupation-directory-occupations-manage label {
+  background: transparent;
+  color: #353838;
+}
+.page-moderate #zone-menu .region-search-inner {
+  left:5em;
+  padding-top: .775em;
+}
+
+
+.manage-occupations .curator-utility-links a:link {
+  color: #fc0;
+  display: block;
+  margin-bottom: 0.5em;
+  float: right;
+  background: #353838;
+  padding: 10px;
+  text-decoration: none;
+}
+.manage-occupations .curator-utility-links a:visited {
+  color: #fc0;
+}
+.manage-occupations .curator-utility-links a:hover {
+  background:#000;
+}
 
 .manage-occupations tbody,
 .manage-comments tbody {}
@@ -841,29 +869,26 @@ Curator Views
   display: none;
 }
 
-.manage-occupations thead,
-.manage-comments thead {
+.curate thead {
   border: 1px solid #000;
   border-bottom: 4px solid #333;
 }
-
-.manage-occupations thead th,
-.manage-comments thead th {
+.curate thead th {
   background: #000;
   color:#fff;
 }
-
+.curate thead a:link {
+  color: #fff;
+}
+.page-moderate #region-content .region-content-inner {
+  max-width: 100%;
+}
 .manage-occupations th.active,
 .manage-comments th.active {
   border-left: 1px solid #333;
   border-right: 1px solid #333;
 }
 
-.manage-occupations td,
-.manage-comments td {
-  padding-top: 8px;
-  padding-bottom: 8px;
-}
 
 
 /*
@@ -904,6 +929,10 @@ Total Occupations
   font-style:normal;
 }
 
+td.active {
+  background-color: #bbb;
+  background-color: rgba(100,100,100,.25);
+}
 
 /*
 ---------------------------------------------------------
@@ -1151,7 +1180,7 @@ a.icon.toggle-comments:hover {
 
 a.icon.toggle-comments.open {
   opacity: 1;
-  background: url( '../images/icon_commentstoggle.png') bottom left no-repeat;  
+  background: url( '../images/icon_commentstoggle.png') bottom left no-repeat;
 }
 
 

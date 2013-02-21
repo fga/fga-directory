@@ -13,13 +13,6 @@
   display: inline-block;
 }
 
-
-.search .occupation-count .occupation-count-span,
-.search .occupation-count .occupation-count-total {
-  font-size: 16px;
-  font-weight: bold;
-}
-
 .results-list {
   margin-top: 0;
   position: relative;
@@ -214,7 +207,7 @@ SOLR Search Facets
     position: absolute;
     top: -3.25em;
   }
- 
+
 }
 
 @media all and ( max-width: 520px ) {
