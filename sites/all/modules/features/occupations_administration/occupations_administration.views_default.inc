@@ -22,8 +22,8 @@ function occupations_administration_views_default_views() {
 
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
-  $handler->display->display_options['title'] = 'Manage Comments';
-  $handler->display->display_options['css_class'] = 'node-list manage-comments table-view';
+  $handler->display->display_options['title'] = 'Moderate Comments';
+  $handler->display->display_options['css_class'] = 'node-list manage-comments table-view curate';
   $handler->display->display_options['use_ajax'] = TRUE;
   $handler->display->display_options['use_more_always'] = FALSE;
   $handler->display->display_options['access']['type'] = 'perm';
@@ -125,7 +125,7 @@ function occupations_administration_views_default_views() {
   $handler->display->display_options['header']['result']['id'] = 'result';
   $handler->display->display_options['header']['result']['table'] = 'views';
   $handler->display->display_options['header']['result']['field'] = 'result';
-  $handler->display->display_options['header']['result']['content'] = 'Displaying @start - @end of @total Comments';
+  $handler->display->display_options['header']['result']['content'] = '<span class="occupation-count">Displaying <span class="occupation-count-span">@start - @end</span> of <span class="occupation-count-total">@total</span> Comments</span>';
   /* Relationship: Comment: Content */
   $handler->display->display_options['relationships']['nid']['id'] = 'nid';
   $handler->display->display_options['relationships']['nid']['table'] = 'comment';
@@ -284,18 +284,24 @@ function occupations_administration_views_default_views() {
   $handler->display->display_options['fields']['changed']['label'] = 'Updated';
   $handler->display->display_options['fields']['changed']['date_format'] = 'raw time ago';
   $handler->display->display_options['fields']['changed']['custom_date_format'] = '1';
+  /* Field: Comment: Status */
+  $handler->display->display_options['fields']['field_comment_state']['id'] = 'field_comment_state';
+  $handler->display->display_options['fields']['field_comment_state']['table'] = 'field_data_field_comment_state';
+  $handler->display->display_options['fields']['field_comment_state']['field'] = 'field_comment_state';
+  $handler->display->display_options['fields']['field_comment_state']['element_default_classes'] = FALSE;
+  $handler->display->display_options['fields']['field_comment_state']['hide_empty'] = TRUE;
   /* Sort criterion: Comment: Post date */
   $handler->display->display_options['sorts']['created']['id'] = 'created';
   $handler->display->display_options['sorts']['created']['table'] = 'comment';
   $handler->display->display_options['sorts']['created']['field'] = 'created';
   $handler->display->display_options['sorts']['created']['order'] = 'DESC';
 
-  /* Display: Manage Comments */
-  $handler = $view->new_display('page', 'Manage Comments', 'occupations_manage_comments');
+  /* Display: Moderate Comments */
+  $handler = $view->new_display('page', 'Moderate Comments', 'occupations_manage_comments');
   $handler->display->display_options['defaults']['hide_admin_links'] = FALSE;
-  $handler->display->display_options['path'] = 'occupations/manage-comments';
+  $handler->display->display_options['path'] = 'moderate/comments';
   $handler->display->display_options['menu']['type'] = 'tab';
-  $handler->display->display_options['menu']['title'] = 'Manage Comments';
+  $handler->display->display_options['menu']['title'] = 'Moderate Comments';
   $handler->display->display_options['menu']['weight'] = '35';
   $handler->display->display_options['menu']['name'] = 'management';
   $handler->display->display_options['menu']['context'] = 0;
