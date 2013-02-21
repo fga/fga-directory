@@ -16,7 +16,7 @@ function occupations_delta_default_templates() {
   $delta->machine_name = 'occupation_directory_default';
   $delta->name = 'default';
   $delta->description = 'default delta template';
-  $delta->theme = 'ows';
+  $delta->theme = 'occupy_directory';
   $delta->mode = 'preserve';
   $delta->parent = '';
   $delta->settings = array();

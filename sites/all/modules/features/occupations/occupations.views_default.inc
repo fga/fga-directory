@@ -169,8 +169,8 @@ function occupations_views_default_views() {
     'occupation' => 'occupation',
   );
 
-  /* Display: Directory landing page */
-  $handler = $view->new_display('page', 'Directory landing page', 'occupations_list');
+  /* Display: Directory List */
+  $handler = $view->new_display('page', 'Directory List', 'occupations_list');
   $handler->display->display_options['display_description'] = 'A table showing all Occupations, sorted by ___, paginated x 10';
   $handler->display->display_options['defaults']['hide_admin_links'] = FALSE;
   $handler->display->display_options['defaults']['cache'] = FALSE;
@@ -418,12 +418,11 @@ Do you have the information? <strong><a href="/node/add/occupation">Add an Occup
   $handler->display->display_options['filters']['field_occupation_address_country']['expose']['remember'] = TRUE;
   $handler->display->display_options['path'] = 'occupations/list';
   $handler->display->display_options['menu']['type'] = 'default tab';
-  $handler->display->display_options['menu']['title'] = 'Directory';
+  $handler->display->display_options['menu']['title'] = 'Directory List';
   $handler->display->display_options['menu']['weight'] = '0';
   $handler->display->display_options['menu']['name'] = 'main-menu';
   $handler->display->display_options['menu']['context'] = 0;
-  $handler->display->display_options['tab_options']['type'] = 'normal';
-  $handler->display->display_options['tab_options']['title'] = 'Directory';
+  $handler->display->display_options['tab_options']['title'] = 'List';
   $handler->display->display_options['tab_options']['weight'] = '0';
   $handler->display->display_options['tab_options']['name'] = 'main-menu';
 
@@ -578,13 +577,13 @@ Do you have the information? <strong><a href="/node/add/occupation">Add an Occup
   $handler->display->display_options['menu']['name'] = 'main-menu';
   $handler->display->display_options['menu']['context'] = 0;
 
-  /* Display: Directory Management */
-  $handler = $view->new_display('page', 'Directory Management', 'occupations_manage');
+  /* Display: Directory Moderation */
+  $handler = $view->new_display('page', 'Directory Moderation', 'occupations_manage');
   $handler->display->display_options['defaults']['title'] = FALSE;
-  $handler->display->display_options['title'] = 'Manage Occupations';
+  $handler->display->display_options['title'] = 'Moderate Occupations';
   $handler->display->display_options['display_comment'] = 'we expose a different filter block on the manage occupations page';
   $handler->display->display_options['defaults']['css_class'] = FALSE;
-  $handler->display->display_options['css_class'] = 'list-occupations node-list manage-occupations table-view';
+  $handler->display->display_options['css_class'] = 'list-occupations node-list manage-occupations table-view curate';
   $handler->display->display_options['display_description'] = 'Curators use this page to manage geograhic-area specific Occupation content via Views Bulk Operations';
   $handler->display->display_options['defaults']['hide_admin_links'] = FALSE;
   $handler->display->display_options['defaults']['access'] = FALSE;
@@ -965,12 +964,16 @@ Do you have the information? <strong><a href="/node/add/occupation">Add an Occup
   $handler->display->display_options['filters']['field_occupation_address_country']['expose']['operator'] = 'field_occupation_address_country_op';
   $handler->display->display_options['filters']['field_occupation_address_country']['expose']['identifier'] = 'country';
   $handler->display->display_options['filters']['field_occupation_address_country']['expose']['remember'] = TRUE;
-  $handler->display->display_options['path'] = 'occupations/manage';
-  $handler->display->display_options['menu']['type'] = 'tab';
-  $handler->display->display_options['menu']['title'] = 'Manage Occupations';
+  $handler->display->display_options['path'] = 'moderate/occupations';
+  $handler->display->display_options['menu']['type'] = 'default tab';
+  $handler->display->display_options['menu']['title'] = 'Moderate Occupations';
   $handler->display->display_options['menu']['weight'] = '33';
   $handler->display->display_options['menu']['name'] = 'management';
   $handler->display->display_options['menu']['context'] = 0;
+  $handler->display->display_options['tab_options']['type'] = 'normal';
+  $handler->display->display_options['tab_options']['title'] = 'Moderate';
+  $handler->display->display_options['tab_options']['weight'] = '0';
+  $handler->display->display_options['tab_options']['name'] = 'main-menu';
 
   /* Display: Block */
   $handler = $view->new_display('block', 'Block', 'block_1');
