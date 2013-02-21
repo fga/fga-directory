@@ -559,3 +559,14 @@ else {  /*****************************************
           $conf['file_private_path'] = 'sites/default/files/private';
           $conf['reroute_email_enable'] = 1;
 }
+
+
+
+/* perform 301 redirects */
+
+// print_r($_SERVER);
+if($_SERVER['REQUEST_URI'] == '/occupations') {
+  header('HTTP/1.0 301 Moved Permanently');
+  header('Location: /search');
+  exit();
+}
