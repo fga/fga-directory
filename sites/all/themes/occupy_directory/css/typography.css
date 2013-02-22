@@ -68,7 +68,7 @@ i, em{
   font-family: PTSans, helvetica, arial, sans-serif;
   font-style: italic;
 }
-  
+
 b, strong{
   font-family: PTSans, helvetica, arial, sans-serif;
   font-weight: 700;
@@ -109,7 +109,7 @@ h1 {
 }
 
 #modal-title,
-h2 { 
+h2 {
   font-size: 2em;
 }
 
@@ -197,3 +197,26 @@ article p { /* affect all node types */
   font-size: .925em;
 }
 
+sup {
+  vertical-align: super;
+  font-size: 66%;
+}
+sup a {
+  text-decoration: none;
+}
+
+hr {
+  height: 0;
+  border-color: #aaa;
+}
+
+.footnotes {
+  font-size: 9px;
+  padding-top: 1em;
+}
+.footnotes ol {
+  padding-top: 2em;
+}
+a[rev="footnote"] {
+  text-decoration: none;
+}
