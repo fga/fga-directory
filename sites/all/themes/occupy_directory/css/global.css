@@ -1070,7 +1070,6 @@ ul.tweets-pulled-listing div.tweet-authorphoto {
 }
 
 ul.tweets-pulled-listing div.tweet-authorphoto{
-  display: none;
   height: 40px;
   width: 40px;
 }
