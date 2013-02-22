@@ -1067,11 +1067,9 @@ ul.tweets-pulled-listing div.tweet-authorphoto {
   margin: 0 .5em 0 0;
   float: left;
   box-shadow: 1px 1px 3px rgba( 0, 0, 0, .3 );
-}
-
-ul.tweets-pulled-listing div.tweet-authorphoto{
   height: 40px;
   width: 40px;
+  border: 2px #dedede solid;
 }
 
 ul.tweets-pulled-listing div.tweet-authorphoto img {
