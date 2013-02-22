@@ -255,10 +255,11 @@ function occupy_directory_util_user_default_permissions() {
   $permissions['show format tips'] = array(
     'name' => 'show format tips',
     'roles' => array(
-      0 => 'anonymous user',
-      1 => 'authenticated user',
-      2 => 'site developer',
-      3 => 'unconfirmed',
+      0 => 'occupation curator',
+      1 => 'occupation registrant',
+      2 => 'site administrator',
+      3 => 'site developer',
+      4 => 'unconfirmed',
     ),
     'module' => 'better_formats',
   );

@@ -460,8 +460,7 @@ form.comment-form .form-actions {
     margin-top: 1em;
 }
 
-#suggested-edit-log,
-form.comment-form .filter-wrapper{ display: none }
+#suggested-edit-log { display: none }
 
 
 .comment-instructions {
