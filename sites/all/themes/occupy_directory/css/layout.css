@@ -31,7 +31,7 @@ body,
   position: relative;
   z-index: 498;
 }
-/* facets need to be at a z-index below the search bar, but for the search bar to not obscure the facets, 
+/* facets need to be at a z-index below the search bar, but for the search bar to not obscure the facets,
 we need to position #region-menu statically, and give a relative pos and z-ndex to #edit-search (in responsive block well below)
 */
 .not-front.solr-search #zone-menu {
@@ -397,7 +397,7 @@ footer#section-footer #block-menu-menu-feeds-and-exports:hover {
   .occupation .ds-left .group-donate-info a:hover {
     color: #fc0;
     width: auto;
-    margin-bottom:2px;
+    /*margin-bottom:2px;*/
     text-overflow: visible;
     overflow: visible;
   }

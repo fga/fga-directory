@@ -1,7 +1,5 @@
 /*
-.filter-wrapper .filter-guidelines {
-  display: none;
-}
+.filter-wrapper .filter-guidelines {}
 
 .admin-menu ul.menu li {
   list-style: none;
