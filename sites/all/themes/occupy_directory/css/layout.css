@@ -123,6 +123,17 @@ footer#section-footer #block-menu-menu-feeds-and-exports:hover {
   }
 
 
+ .not-front #region-sidebar-first:before {
+    position: relative;
+    float: left;
+    top: .925em;
+    left: 2.75em;
+    color: #dedede;
+    font-size: .875em;
+    content: 'Filter by:';
+  }
+
+
 
 }
 
@@ -143,7 +154,7 @@ footer#section-footer #block-menu-menu-feeds-and-exports:hover {
 
   .not-front #region-content .region-content-inner {
     padding-right: 2em;
-    margin: 0 18em 2em 8em;
+    margin: 0 18em 2em 16em;
     padding-top: 4em;
     max-width: 600px;
   }
@@ -151,6 +162,17 @@ footer#section-footer #block-menu-menu-feeds-and-exports:hover {
   .not-front #region-sidebar-first{
     min-width: 16em;
     padding-top: 4em;
+  }
+
+
+ .not-front #region-sidebar-first:before {
+    position: relative;
+    float: left;
+    top: .925em;
+    left: 9em;
+    color: #dedede;
+    font-size: .875em;
+    content: 'Filter by:';
   }
 
 }
@@ -162,6 +184,7 @@ footer#section-footer #block-menu-menu-feeds-and-exports:hover {
     margin: 0 28em 2em 8em;
     padding-top: 4em;
   }
+
 
   .not-front #region-sidebar-first{
     min-width: 22em;
@@ -206,7 +229,7 @@ footer#section-footer #block-menu-menu-feeds-and-exports:hover {
   }
 }
 
-  article.occupation { margin-top: 2em; }
+article.occupation { margin-top: 2em; }
 
 
 @media all and ( max-width: 974px ){

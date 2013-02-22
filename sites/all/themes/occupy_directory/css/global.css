@@ -1197,9 +1197,6 @@ a.icon.toggle-comments.open {
   z-index: 100;
 }
 
-.block-facetapi:first-child:before {
-  content: 'Filter by:';
-}
 
 .flyoutmenu .field-name-field-occupation-description,
 .flyoutmenu .item-wrapper,
