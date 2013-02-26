@@ -268,7 +268,7 @@ function occupations_administration_views_default_views() {
   $handler->display->display_options['fields']['subject_1']['ui_name'] = 'Rewritten';
   $handler->display->display_options['fields']['subject_1']['label'] = 'Comment Title';
   $handler->display->display_options['fields']['subject_1']['alter']['alter_text'] = TRUE;
-  $handler->display->display_options['fields']['subject_1']['alter']['text'] = '[subject]  | [edit_comment] ';
+  $handler->display->display_options['fields']['subject_1']['alter']['text'] = '[subject]  [edit_comment] ';
   $handler->display->display_options['fields']['subject_1']['link_to_comment'] = FALSE;
   /* Field: Comment: Post date */
   $handler->display->display_options['fields']['created']['id'] = 'created';

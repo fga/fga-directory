@@ -876,18 +876,22 @@ Do you have the information? <strong><a href="/node/add/occupation">Add an Occup
   $handler->display->display_options['fields']['field_comments_new']['id'] = 'field_comments_new';
   $handler->display->display_options['fields']['field_comments_new']['table'] = 'field_data_field_comments_new';
   $handler->display->display_options['fields']['field_comments_new']['field'] = 'field_comments_new';
+  $handler->display->display_options['fields']['field_comments_new']['label'] = 'New';
   /* Field: Content: Will Do comments count */
   $handler->display->display_options['fields']['field_comments_willdo']['id'] = 'field_comments_willdo';
   $handler->display->display_options['fields']['field_comments_willdo']['table'] = 'field_data_field_comments_willdo';
   $handler->display->display_options['fields']['field_comments_willdo']['field'] = 'field_comments_willdo';
+  $handler->display->display_options['fields']['field_comments_willdo']['label'] = 'Will Do';
   /* Field: Content: Rejected comments count */
   $handler->display->display_options['fields']['field_comments_rejected']['id'] = 'field_comments_rejected';
   $handler->display->display_options['fields']['field_comments_rejected']['table'] = 'field_data_field_comments_rejected';
   $handler->display->display_options['fields']['field_comments_rejected']['field'] = 'field_comments_rejected';
+  $handler->display->display_options['fields']['field_comments_rejected']['label'] = 'Rejected';
   /* Field: Content: Done comments count */
   $handler->display->display_options['fields']['field_comments_done']['id'] = 'field_comments_done';
   $handler->display->display_options['fields']['field_comments_done']['table'] = 'field_data_field_comments_done';
   $handler->display->display_options['fields']['field_comments_done']['field'] = 'field_comments_done';
+  $handler->display->display_options['fields']['field_comments_done']['label'] = 'Done';
   /* Field: Content: Updated/commented date */
   $handler->display->display_options['fields']['last_updated']['id'] = 'last_updated';
   $handler->display->display_options['fields']['last_updated']['table'] = 'node_comment_statistics';

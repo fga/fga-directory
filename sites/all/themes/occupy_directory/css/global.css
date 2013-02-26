@@ -826,6 +826,15 @@ Curator Views
   padding-top: .775em;
 }
 
+.page-moderate .tabs ul li a {
+  font-size: 1.1em;
+  line-height: 1.8em;
+  padding-top: 10px;
+}
+
+.page-moderate #region-content .region-content-inner {
+  padding-top: 2em;
+}
 
 .manage-occupations .curator-utility-links a:link {
   color: #fc0;
@@ -881,6 +890,7 @@ Curator Views
 }
 .page-moderate #region-content .region-content-inner {
   max-width: 100%;
+  width: 930px;
 }
 .manage-occupations th.active,
 .manage-comments th.active {
@@ -903,7 +913,9 @@ Total Occupations
 }
 
 
-.table-view table {}
+.table-view table {
+  width: 100%;
+}
 
 .table-view table thead th {
   padding: .5em;
