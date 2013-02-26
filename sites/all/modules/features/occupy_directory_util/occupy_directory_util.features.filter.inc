@@ -25,6 +25,11 @@ function occupy_directory_util_filter_default_formats() {
           'filter_url_length' => '72',
         ),
       ),
+      'filter_markdown' => array(
+        'weight' => '0',
+        'status' => '1',
+        'settings' => array(),
+      ),
       'filter_html' => array(
         'weight' => '1',
         'status' => '1',
@@ -55,12 +60,10 @@ function occupy_directory_util_filter_default_formats() {
     'status' => '1',
     'weight' => '1',
     'filters' => array(
-      'filter_url' => array(
+      'filter_markdown' => array(
         'weight' => '0',
         'status' => '1',
-        'settings' => array(
-          'filter_url_length' => 72,
-        ),
+        'settings' => array(),
       ),
       'filter_autop' => array(
         'weight' => '1',
