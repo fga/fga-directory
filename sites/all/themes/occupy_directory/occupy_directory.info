@@ -4,7 +4,7 @@ core = '7.x'
 engine = 'phptemplate'
 screenshot = 'screenshot.png'
 base theme = 'omega'
-version = '1.5'
+version = '2.0'
 
 ;
 ; ----------------------------------
