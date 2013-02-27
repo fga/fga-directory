@@ -320,7 +320,7 @@ Content
 ---------------------------------------------------------
 */
 
-#messages:before{
+/*#messages:before{
   content: "Messages";
   padding: .75em .5em .25em .5em;
   width: 14em;
@@ -330,8 +330,8 @@ Content
   color: #dedede;
   letter-spacing: .125em;
 }
-
-#messages {
+*/
+/*#messages {
   position: fixed;
   bottom: -489px;
   z-index: 950;
@@ -349,18 +349,18 @@ Content
   bottom: 0%;
 }
 
-
-#messages div.messages{
+*/
+/*#messages div.messages{
   margin: 0;
   background-color: rgba( 255,255,255,.9);
   padding: 1em .5em 1em 2.75em;
 }
-
-#messages div.section{
+*/
+/*#messages div.section{
   max-width: 1000px;
   margin: 0 auto;
 }
-
+*/
 article a:link, article a:visited {
   color: #0af;
 }
