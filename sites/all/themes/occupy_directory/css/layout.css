@@ -38,6 +38,15 @@ we need to position #region-menu statically, and give a relative pos and z-ndex 
   position: static;
 }
 
+#region-sidebar-first{
+  position: absolute;
+  z-index: 220;
+  top: 0;
+  right: 0;
+  margin: 0;
+}
+
+
 .not-front #region-sidebar-first .region-inner,
 .not-front #region-sidebar-first .region-content-inner {
   margin-top: 3.125em;
@@ -105,7 +114,6 @@ footer#section-footer #block-menu-menu-feeds-and-exports:hover {
     margin-top: 0;
   }
 
-
 }
 
 
@@ -134,7 +142,6 @@ footer#section-footer #block-menu-menu-feeds-and-exports:hover {
   }
 
 
-
 }
 
 /* General width */
@@ -154,7 +161,7 @@ footer#section-footer #block-menu-menu-feeds-and-exports:hover {
 
   .not-front #region-content .region-content-inner {
     padding-right: 2em;
-    margin: 0 18em 2em 16em;
+    margin: 0 18em 2em 7em;
     padding-top: 4em;
     max-width: 600px;
   }
@@ -217,10 +224,9 @@ footer#section-footer #block-menu-menu-feeds-and-exports:hover {
 @media all and ( min-width: 650px ) and ( max-width: 844px ){
 }
 
-@media all and ( min-width: 845px ) {}
-
 /* General width */
 @media all and ( max-width: 1019px ){
+
   .occupation .ds-right {
     position: absolute;
     z-index: 450;
@@ -229,19 +235,7 @@ footer#section-footer #block-menu-menu-feeds-and-exports:hover {
   }
 }
 
-article.occupation { margin-top: 2em; }
-
-
 @media all and ( max-width: 974px ){
-
-/*  .search-result .group_info_misc {
-    width: 100%;
-    clear: both;
-    display: block;
-    border: 1px #f00 solid;
-  }
-*/
-
 
   .occupation .ds-middle .group_header {
     position: absolute;
@@ -351,13 +345,12 @@ article.occupation { margin-top: 2em; }
   }
 }
 
-
 @media all and ( min-width: 975px ) {
 
-.link-listing .field {
-  display: inline-block;
-  float: left;
-}
+  .link-listing .field {
+    display: inline-block;
+    float: left;
+  }
 
   .occupation .ds-left {
     display: inline-block;
@@ -401,7 +394,7 @@ article.occupation { margin-top: 2em; }
     overflow-x: hidden;
   }
 
-.link-listing:hover,
+  .link-listing:hover,
   .link-group:hover,
   .link-group:hover ul {
     height: auto;
@@ -449,12 +442,6 @@ Overrides
 ------------------------------------------------------------
 */
 
-#region-sidebar-first{
-  position: absolute;
-  top: 0;
-  right: 0;
-  margin: 0;
-}
 
 .field-name-mapbox-static-map-full {
   overflow: hidden;
@@ -506,6 +493,9 @@ Overrides
 .occupation .field-name-field-occupation-image{
   float: left;
 }
+
+article.occupation { margin-top: 2em; }
+
 
 .occupation #region-content .region-content-inner {
   margin: 0 auto;
