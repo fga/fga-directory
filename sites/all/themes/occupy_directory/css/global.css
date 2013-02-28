@@ -355,7 +355,6 @@ Content
 
 #messages div.messages{
   margin: 0;
-  background-color: rgba( 255,255,255,.9);
   padding: 1em .5em 1em 2.75em;
 }
 
@@ -766,6 +765,16 @@ See ds_layouts/search_result.php
 
 .view-directory-global-search {
   position: relative;
+}
+
+.view-directory-global-search>p {
+  margin-left: 8.125em;
+  background: #fafafa;
+  padding: .125em .25em;
+  width: auto;
+  max-width: 800px;
+/*  display: inline-block;
+*/  
 }
 
 
