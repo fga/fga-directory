@@ -144,31 +144,45 @@ nav.navigation a:hover { background-color: #fc0; color: #000; }
 }
 
 
-@media all and ( max-width: 519px ) {
-  
-  #region-search { width: 100%; }
+  @media all and ( max-width: 650px ) {
+    #region-menu{
+      font-size: .75em;
+    }
 
-  #region-search #edit-search {
-    margin-left: 0;
+    #region-search { width: 100%; }
+
+    #region-search #edit-search {
+      margin-left: 0;
+    }
+
+    #region-menu{
+      font-size: .75em;
+    }
+
   }
-}
 
 
-@media all and ( min-width: 520px ) and ( max-width: 749px ) {
-   #region-search #edit-search {
-    margin: .5em 0 0 7em;
+  @media all and ( min-width: 520px ) and ( max-width: 749px ) {
+     #region-search #edit-search {
+      margin: .5em 0 0 7em;
+    }
   }
-}
 
 
-  @media all and ( max-width: 749px ) and ( min-width: 949px ){
+  @media all and ( min-width: 749px ) and ( max-width: 949px ){
   #region-search #edit-search {
     width: 28em;
     margin: .5em 0 0 7em;
   }
+  #region-menu{
+    font-size: .875em;
+  }
 }
 
-@media all and ( max-width: 749px ) {
+@media all and ( max-width: 949px ) {
+  header {
+    border-bottom: 2px #000 solid;
+  }
 
   nav.navigation li a{
     line-height: .25;
@@ -177,7 +191,6 @@ nav.navigation a:hover { background-color: #fc0; color: #000; }
 
   #region-menu{
     width: 100%;
-    font-size: .875em;
     margin: .5em 0 .25em 0;
     padding: 0;
     background: #222;
@@ -216,20 +229,12 @@ nav.navigation a:hover { background-color: #fc0; color: #000; }
 
 }
 
-@media all and ( min-width: 750px ) and ( max-width: 879px ){
-  #region-search #edit-search {
-    width: 20em;
-  }
-}
 
-@media all and ( min-width: 880px ){
+/* General width */
+@media all and ( min-width: 949px ){
   #region-search #edit-search {
     width: 28em;
   }
-}
-
-/* General width */
-@media all and ( min-width: 750px ){
 
   /*
   -----------------------------------
@@ -276,4 +281,16 @@ nav.navigation a:hover { background-color: #fc0; color: #000; }
 
 
 }
+/*
+@media all and ( min-width: 750px ) and ( max-width: 900px ){
+  #region-search #edit-search {
+    width: 20em;
+  }
+}*/
 
+@media all and ( max-width: 1120px ){
+    #block-boxes-occupation-count {
+    display: none;
+  }
+
+}
