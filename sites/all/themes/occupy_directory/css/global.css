@@ -692,8 +692,7 @@ input#edit-search {
   line-height: .875;
   font-family: PTSans, sans-serif;
   border: none;
-  padding: 0 .25em 0 1.75em;
-  background: url( ../images/search.png ) .25em .25em no-repeat;
+  background: url( ../images/search.png ) right .25em no-repeat;
 }
 
 input#edit-search:after {
