@@ -689,7 +689,6 @@ Global Search bar
 
 input#edit-search {
   border-radius: 1em;
-  line-height: .875;
   font-family: PTSans, sans-serif;
   border: none;
   background: url( ../images/search.png ) right .25em no-repeat;
