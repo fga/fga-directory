@@ -211,10 +211,14 @@ SOLR Search Facets
 }
 
 @media all and ( max-width: 520px ) {
-  .solr-search ul.pager,
-  .not-front.solr-search #region-sidebar-first .region-inner{
+  .solr-search ul.pager {
     margin-left: 32px;
   }
+
+  .not-front.solr-search #region-sidebar-first .region-inner{
+    margin-left: 7em;
+  }
+
   .search .occupation-count{
     margin-left: 26px;
   }
@@ -236,5 +240,7 @@ SOLR Search Facets
   .search-result .contact {
     margin: 0 1em .5em 19em;
   }
+
+
 
 }

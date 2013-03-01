@@ -46,7 +46,6 @@ we need to position #region-menu statically, and give a relative pos and z-ndex 
   margin: 0;
 }
 
-
 .not-front #region-sidebar-first .region-inner,
 .not-front #region-sidebar-first .region-content-inner {
   margin-top: 3.125em;
@@ -94,30 +93,7 @@ footer#section-footer #block-menu-menu-feeds-and-exports:hover {
 }
 
 
-@media all and ( max-width: 650px ){
-
-  .not-front #region-content {
-    width: 100%;
-    padding: 0;
-  }
-
-  .not-front #region-content .region-content-inner {
-    margin: 0 2em 2em 2em;
-    padding: 0 0 0 0;
-  }
-
-  #region-sidebar-first {
-    position: static;
-    width: 100%;
-    clear: both;
-    padding: 0;
-    margin-top: 0;
-  }
-
-}
-
-
-@media all and ( min-width: 650px ) and ( max-width: 844px ){
+@media all and ( min-width: 650px ) and ( max-width: 949px ){
 
   .not-front #region-content .region-content-inner {
     margin: 0 14em 2em 0;
@@ -130,23 +106,10 @@ footer#section-footer #block-menu-menu-feeds-and-exports:hover {
     padding-top: 2em;
   }
 
-
- .not-front.solr-search #region-sidebar-first:before {
-    position: relative;
-    float: left;
-    top: .925em;
-    left: 2.75em;
-    color: #dedede;
-    font-size: .875em;
-    content: 'Filter by:';
-  }
-
-
 }
 
 /* General width */
-@media all and ( min-width: 845px ){
-
+@media all and ( min-width: 950px ){
 
   .not-front #zone-content {
     padding: 0;
@@ -184,7 +147,7 @@ footer#section-footer #block-menu-menu-feeds-and-exports:hover {
 
 }
 
-@media all and ( min-width: 975px ) {
+@media all and ( min-width: 950px ) {
 
   .not-front #region-content .region-content-inner{
     max-width: 800px;
@@ -211,6 +174,45 @@ footer#section-footer #block-menu-menu-feeds-and-exports:hover {
 
 }
 
+@media all and ( max-width: 949px ) {
+
+   .not-front.solr-search #region-sidebar-first, 
+   #region-sidebar-first {
+    position: static;
+    width: 100%;
+    clear: both;
+    padding: 0;
+    margin-top: .5em;
+  }
+
+  .not-front.solr-search #region-sidebar-first:before {
+    position: relative;
+    float: left;
+    top: 1em;
+    left: 9em;
+    color: #aaa;
+    font-size: .875em;
+    content: 'Filter by:';
+  }
+
+}
+
+@media all and ( max-width: 520px ) {
+  .not-front.solr-search #region-sidebar-first:before {
+    position: relative;
+    float: left;
+    top: 1em;
+    left: 2.25em;
+    color: #aaa;
+    font-size: .875em;
+    content: 'Filter by:';
+  }
+
+}
+
+
+
+
 
 /*
 -----------------------------------
@@ -218,11 +220,6 @@ footer#section-footer #block-menu-menu-feeds-and-exports:hover {
 -----------------------------------
 */
 
-
-
-
-@media all and ( min-width: 650px ) and ( max-width: 844px ){
-}
 
 /* General width */
 @media all and ( max-width: 1019px ){
@@ -235,7 +232,7 @@ footer#section-footer #block-menu-menu-feeds-and-exports:hover {
   }
 }
 
-@media all and ( max-width: 974px ){
+@media all and ( max-width: 949px ){
 
   .occupation .ds-middle .group_header {
     position: absolute;

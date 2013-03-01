@@ -144,56 +144,63 @@ nav.navigation a:hover { background-color: #fc0; color: #000; }
 }
 
 
-  @media all and ( max-width: 650px ) {
-    #region-menu{
-      font-size: .75em;
-    }
+@media all and ( max-width: 650px ) {
 
-    #region-search { width: 100%; }
-
-    #region-search #edit-search {
-      margin-left: 0;
-    }
-
-    #region-menu{
-      font-size: .75em;
-    }
-
+  #region-menu{
+    font-size: .75em;
   }
 
-
-  @media all and ( min-width: 520px ) and ( max-width: 749px ) {
-     #region-search #edit-search {
-      margin: .5em 0 0 7em;
-    }
+  #region-search {
+    width: 100%;
   }
 
+  #region-search #edit-search {
+    margin-left: 0;
+  }
 
-  @media all and ( min-width: 749px ) and ( max-width: 949px ){
+}
+
+
+@media all and ( min-width: 520px ) and ( max-width: 749px ) {
+  
+  #region-search #edit-search {
+    margin: .5em 0 0 7em;
+  }
+
+  #region-menu{
+    font-size: .875em;
+  }
+
+}
+
+
+@media all and ( min-width: 749px ) and ( max-width: 949px ){
+
   #region-search #edit-search {
     width: 28em;
     margin: .5em 0 0 7em;
   }
+
   #region-menu{
     font-size: .875em;
   }
+
 }
 
 @media all and ( max-width: 949px ) {
-  header {
-    border-bottom: 2px #000 solid;
-  }
 
   nav.navigation li a{
-    line-height: .25;
+    line-height: 0;
     padding-bottom: 1.125em;
   }
 
   #region-menu{
     width: 100%;
+    min-width: 600px;
     margin: .5em 0 .25em 0;
     padding: 0;
     background: #222;
+    white-space: nowrap;
   }
 
   nav.navigation {
@@ -232,6 +239,7 @@ nav.navigation a:hover { background-color: #fc0; color: #000; }
 
 /* General width */
 @media all and ( min-width: 949px ){
+
   #region-search #edit-search {
     width: 28em;
   }
@@ -281,6 +289,7 @@ nav.navigation a:hover { background-color: #fc0; color: #000; }
 
 
 }
+
 /*
 @media all and ( min-width: 750px ) and ( max-width: 900px ){
   #region-search #edit-search {
