@@ -610,6 +610,26 @@ function occupations_ds_custom_fields_info() {
 
   $ds_field = new stdClass();
   $ds_field->api_version = 1;
+  $ds_field->field = 'suggest_an_edit';
+  $ds_field->label = 'Suggest an Edit';
+  $ds_field->field_type = 5;
+  $ds_field->entities = array(
+    'node' => 'node',
+  );
+  $ds_field->ui_limit = '';
+  $ds_field->properties = array(
+    'code' => array(
+      'value' => '<ul class="links inline"><li class="comment-add first last active">
+  <a href="#comment-form" title="Share your thoughts and opinions related to this posting." class="active">Suggest an Edit</a>
+</li></ul>',
+      'format' => 'ds_code',
+    ),
+    'use_token' => 0,
+  );
+  $export['suggest_an_edit'] = $ds_field;
+
+  $ds_field = new stdClass();
+  $ds_field->api_version = 1;
   $ds_field->field = 'twitter_hashes_taxonomyterms';
   $ds_field->label = 'Twitter Hashes';
   $ds_field->field_type = 5;
