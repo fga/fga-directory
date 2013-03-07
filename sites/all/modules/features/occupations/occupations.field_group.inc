@@ -944,8 +944,8 @@ function occupations_field_group_info() {
     'label' => 'twitter-links-wrapper',
     'weight' => '48',
     'children' => array(
-      0 => 'twitter_user_link',
-      1 => 'twitter_hashtags_link',
+      0 => 'twitter_hashtags_link',
+      1 => 'twitter_user_link',
     ),
     'format_type' => 'div',
     'format_settings' => array(

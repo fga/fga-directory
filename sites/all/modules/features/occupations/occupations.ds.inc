@@ -358,16 +358,6 @@ function occupations_ds_field_settings_info() {
         ),
       ),
     ),
-    'submitted_by' => array(
-      'weight' => '5',
-      'label' => 'hidden',
-      'format' => 'ds_time_ago',
-      'formatter_settings' => array(
-        'ft' => array(
-          'func' => 'theme_ds_field_expert',
-        ),
-      ),
-    ),
     'field_occupation_origin_date' => array(
       'formatter_settings' => array(
         'ft' => array(
@@ -968,13 +958,12 @@ function occupations_ds_layout_settings_info() {
       'contact' => array(
         1 => 'field_occupation_email_general',
         5 => 'group_linklists',
-        9 => 'field_occupation_website',
-        10 => 'twitter_users_hashtags_linked',
-        11 => 'field_occupation_facebook',
+        8 => 'field_occupation_website',
+        9 => 'twitter_users_hashtags_linked',
+        10 => 'field_occupation_facebook',
       ),
       'misc' => array(
         7 => 'field_occupation_origin_date',
-        8 => 'submitted_by',
       ),
     ),
     'fields' => array(
@@ -986,16 +975,11 @@ function occupations_ds_layout_settings_info() {
       'group_linklists' => 'contact',
       'address_city_state_country' => 'id',
       'field_occupation_origin_date' => 'misc',
-      'submitted_by' => 'misc',
       'field_occupation_website' => 'contact',
       'twitter_users_hashtags_linked' => 'contact',
       'field_occupation_facebook' => 'contact',
     ),
-    'classes' => array(
-      'layout_class' => array(
-        '' => '',
-      ),
-    ),
+    'classes' => array(),
     'wrappers' => array(
       'id' => 'div',
       'contact' => 'div',
