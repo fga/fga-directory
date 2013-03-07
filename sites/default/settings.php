@@ -512,6 +512,11 @@ if (isset($_SERVER['HTTP_X_SSL']) && $_SERVER['HTTP_X_SSL'] == 'ON') {
 
 if (isset($_SERVER['PANTHEON_ENVIRONMENT'])) {
 
+  // temporary hack via http://drupal.stackexchange.com/questions/63226/drupal-7-20-image-styles-return-a-url-with-access-denied
+  // // until we figure out image tokens
+  $conf['image_allow_insecure_derivatives'] = TRUE;
+
+
   $conf['googleanalytics_account'] = 'UA-29075652-1';
 
   if($_SERVER['PANTHEON_ENVIRONMENT'] === 'live') {
